@@ -14,6 +14,12 @@
     --bg: #faf8f8;
     --white: #ffffff;
     --border: #ede6e6;
+    --green: #6ba07a;
+    --green-light: #eef5f0;
+    --blue: #7a9bb0;
+    --blue-light: #edf3f7;
+    --orange: #c4956a;
+    --orange-light: #faf3ec;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -24,10 +30,11 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* ── 헤더 ── */
   .index-header {
     background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
     color: white;
-    padding: 56px 24px;
+    padding: 48px 24px 40px;
     text-align: center;
   }
   .index-header .brand {
@@ -35,87 +42,278 @@
     letter-spacing: 4px;
     text-transform: uppercase;
     opacity: 0.8;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   .index-header h1 {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 700;
     letter-spacing: -0.5px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
   .index-header .subtitle {
-    font-size: 15px;
-    opacity: 0.85;
+    font-size: 14px;
+    opacity: 0.8;
   }
 
-  .report-list {
-    max-width: 700px;
-    margin: 40px auto 60px;
+  /* ── 공통 컨테이너 ── */
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
     padding: 0 20px;
   }
+
+  /* ── 탭 네비게이션 ── */
+  .tab-nav {
+    display: flex;
+    gap: 4px;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 4px;
+    margin: -22px auto 24px;
+    max-width: 480px;
+    box-shadow: 0 4px 16px rgba(180,140,140,0.1);
+    position: relative;
+    z-index: 2;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    background: transparent;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn.active {
+    background: var(--pink);
+    color: white;
+  }
+  .tab-btn:hover:not(.active) {
+    background: var(--pink-light);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── 대시보드: 브랜드 타임라인 ── */
+  .dash-section {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(180,140,140,0.05);
+  }
+  .dash-section h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-sub);
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .brand-grid {
+    display: grid;
+    grid-template-columns: 100px repeat(var(--weeks), 1fr);
+    gap: 2px;
+    font-size: 12px;
+  }
+  .brand-grid .header {
+    font-weight: 700;
+    color: var(--text-sub);
+    padding: 6px 8px;
+    text-align: center;
+    font-size: 11px;
+  }
+  .brand-grid .brand-name {
+    padding: 6px 8px;
+    font-weight: 600;
+    color: var(--text);
+    font-size: 12.5px;
+    display: flex;
+    align-items: center;
+  }
+  .brand-grid .cell {
+    padding: 6px;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .brand-grid .cell.mentioned {
+    background: var(--pink-light);
+    cursor: pointer;
+  }
+  .brand-grid .cell.mentioned:hover {
+    background: var(--pink);
+    color: white;
+  }
+  .brand-grid .cell.empty {
+    background: #f5f3f3;
+  }
+  .brand-tag {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 600;
+    margin-left: 6px;
+  }
+  .tag-직접경쟁 { background: #fce4e4; color: #c47070; }
+  .tag-프리미엄 { background: #f0e4fc; color: #8a5cb8; }
+  .tag-북유럽 { background: var(--blue-light); color: var(--blue); }
+  .tag-수공예 { background: var(--orange-light); color: var(--orange); }
+
+  /* ── 대시보드: 액션 트래커 ── */
+  .action-list {
+    list-style: none;
+  }
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .action-item:last-child {
+    border-bottom: none;
+  }
+  .action-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: var(--white);
+  }
+  .action-check.done {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+  .action-check.done::after {
+    content: "\2713";
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .action-text {
+    flex: 1;
+  }
+  .action-text.done {
+    text-decoration: line-through;
+    color: var(--text-sub);
+    opacity: 0.6;
+  }
+  .action-meta {
+    font-size: 11px;
+    color: var(--text-sub);
+    margin-top: 2px;
+  }
+  .action-meta a {
+    color: var(--pink-dark);
+    text-decoration: none;
+  }
+  .action-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+  }
+  .action-stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .stat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .stat-dot.pending { background: var(--pink); }
+  .stat-dot.complete { background: var(--green); }
+
+  /* ── 리포트 목록 ── */
   .year-label {
     font-size: 13px;
     font-weight: 700;
     color: var(--pink-dark);
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin: 32px 0 12px;
+    margin: 24px 0 12px;
   }
-  .year-label:first-child {
-    margin-top: 0;
-  }
+  .year-label:first-child { margin-top: 0; }
 
   .report-card {
     display: block;
     background: var(--white);
     border-radius: 14px;
-    padding: 24px 28px;
-    margin-bottom: 12px;
+    padding: 22px 24px;
+    margin-bottom: 10px;
     text-decoration: none;
     color: var(--text);
-    box-shadow: 0 1px 6px rgba(180, 140, 140, 0.06);
+    box-shadow: 0 1px 6px rgba(180,140,140,0.05);
     transition: all 0.25s ease;
     border: 1px solid transparent;
   }
   .report-card:hover {
-    box-shadow: 0 4px 20px rgba(180, 140, 140, 0.14);
+    box-shadow: 0 4px 16px rgba(180,140,140,0.12);
     border-color: var(--pink-light);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
   .report-card .card-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   .report-card .week {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
-    color: var(--text);
   }
   .report-card .date {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-sub);
     background: var(--pink-light);
-    padding: 3px 10px;
+    padding: 2px 10px;
     border-radius: 6px;
   }
   .report-card .headline {
-    font-size: 14.5px;
+    font-size: 14px;
     color: var(--text-sub);
-    line-height: 1.65;
+    line-height: 1.6;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .report-card .brand-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .brand-pill {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--pink-light);
+    color: var(--pink-dark);
+    font-weight: 500;
   }
 
   .empty-state {
     text-align: center;
-    padding: 80px 20px;
+    padding: 60px 20px;
     color: var(--text-sub);
   }
-
   .index-footer {
     text-align: center;
     padding: 32px 20px;
@@ -124,10 +322,14 @@
   }
 
   @media (max-width: 640px) {
-    .index-header { padding: 40px 16px; }
-    .index-header h1 { font-size: 24px; }
-    .report-list { padding: 0 12px; }
-    .report-card { padding: 20px; }
+    .index-header { padding: 36px 16px 32px; }
+    .index-header h1 { font-size: 23px; }
+    .tab-nav { margin: -18px 12px 20px; }
+    .container { padding: 0 12px; }
+    .dash-section { padding: 20px; }
+    .report-card { padding: 18px; }
+    .brand-grid { font-size: 11px; overflow-x: auto; }
+    .brand-grid .brand-name { font-size: 11px; min-width: 70px; }
   }
 </style>
 </head>
@@ -138,14 +340,136 @@
     <div class="subtitle">Brand & Market Insights Archive</div>
   </header>
 
-  <div class="report-list">
-    <div class="year-label">2026</div>
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('dashboard')">Dashboard</button>
+    <button class="tab-btn" onclick="showTab('actions')">Actions</button>
+    <button class="tab-btn" onclick="showTab('reports')">Reports</button>
+  </div>
+
+  <div class="container">
+
+    <!-- 대시보드 탭 -->
+    <div id="tab-dashboard" class="tab-panel active">
+      <div class="dash-section">
+        <h3>Brand Timeline</h3>
+        <div class="brand-grid" style="--weeks:2;">
+<div class="header"></div><div class="header">3/18</div>
+<div class="header">3/24</div>
+<div class="brand-name">몽베베<span class="brand-tag tag-직접경쟁">직접경쟁</span></div>
+<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
+<div class="cell empty"></div>
+<div class="brand-name">아오스타<span class="brand-tag tag-직접경쟁">직접경쟁</span></div>
+<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
+<div class="cell empty"></div>
+<div class="brand-name">이키<span class="brand-tag tag-직접경쟁">직접경쟁</span></div>
+<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
+<div class="cell empty"></div>
+<div class="brand-name">베네베네<span class="brand-tag tag-프리미엄">프리미엄</span></div>
+<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
+<a href="2026-03-24.html" class="cell mentioned" title="3월 4주차">&bull;</a>
+<div class="brand-name">아림클로젯<span class="brand-tag tag-프리미엄">프리미엄</span></div>
+<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
+<a href="2026-03-24.html" class="cell mentioned" title="3월 4주차">&bull;</a>
+<div class="brand-name">미니로디니<span class="brand-tag tag-북유럽">북유럽</span></div>
+<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
+<div class="cell empty"></div>
+<div class="brand-name">보보쇼즈<span class="brand-tag tag-북유럽">북유럽</span></div>
+<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
+<a href="2026-03-24.html" class="cell mentioned" title="3월 4주차">&bull;</a>
+<div class="brand-name">미샤앤퍼프<span class="brand-tag tag-수공예">수공예</span></div>
+<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
+<a href="2026-03-24.html" class="cell mentioned" title="3월 4주차">&bull;</a>
+</div>
+      </div>
+      <div class="dash-section">
+        <h3>Latest Report</h3>
+        <a href="2026-03-24.html" class="report-card" style="margin:0;">
+  <div class="card-top"><span class="week">3월 4주차</span><span class="date">2026-03-24</span></div>
+  <div class="headline">베네베네가 스킨케어 브랜드 '본보우(BonBou)'를 공식 론칭하며 의류·케어·홈 3축의 라이프스타일 브랜드 전환을 완성했습니다. "가족의 일상을 디자인하는" 피카부에게도 같은 전략적 질문이 주어졌습니다.</div>
+  <div class="brand-pills"><span class="brand-pill">베네베네</span> <span class="brand-pill">아림클로젯</span> <span class="brand-pill">보보쇼즈</span> <span class="brand-pill">미샤앤퍼프</span></div>
+</a>
+      </div>
+    </div>
+
+    <!-- 액션 트래커 탭 -->
+    <div id="tab-actions" class="tab-panel">
+      <div class="dash-section">
+        <h3>Action Tracker</h3>
+        <div class="action-stats">
+          <div class="action-stat"><div class="stat-dot pending"></div><span id="pending-count">0</span> pending</div>
+          <div class="action-stat"><div class="stat-dot complete"></div><span id="complete-count">0</span> done</div>
+        </div>
+        <ul class="action-list" id="action-list">
+          <li class="action-item">
+  <div class="action-check" data-id="2026-03-24-0"></div>
+  <div class="action-text">
+    피카부의 슬로건 "가족의 일상을 디자인하는"은 이미 라이프스타일 브랜드의 언어입니다. 그러나 현재 상품은 아동복에 한정되어 있습니다. 베네베네가 먼저 이 공간을 채우기 시작했습니다.
+    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
+  </div>
+</li>
+<li class="action-item">
+  <div class="action-check" data-id="2026-03-24-1"></div>
+  <div class="action-text">
+    소재 인증(오가닉 코튼 여부, 원단 출처 등)을 브랜드 스토리로 연결하면 "비슷한데 왜 더 비싸지?"가 아닌 "이유 있는 피카부"로 포지셔닝할 수 있습니다.
+    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
+  </div>
+</li>
+<li class="action-item">
+  <div class="action-check" data-id="2026-03-24-2"></div>
+  <div class="action-text">
+    당장 따라 하기 어렵지만, 시즌 한정 컬렉션을 사전예약 방식으로 운영하는 것은 피카부 규모에서도 시도 가능한 전술입니다. 프리미엄 포지셔닝에 도움이 됩니다.
+    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
+  </div>
+</li>
+<li class="action-item">
+  <div class="action-check" data-id="2026-03-24-3"></div>
+  <div class="action-text">
+    "태열 아기를 위한 오가닉 머슬린" 시리즈로 배냇세트·배냇가운·쫄바지·속싸개를 구성. 제품 설명에 소재 원산지와 오가닉 인증을 명시합니다.
+    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
+  </div>
+</li>
+<li class="action-item">
+  <div class="action-check" data-id="2026-03-24-4"></div>
+  <div class="action-text">
+    현재 뉴트럴 팔레트를 유지하면서, 26 SS 컬렉션에 파우더리 라일락과 소프트 세이지 그린을 포인트 컬러로 추가합니다. 기존 아이템과 자연스럽게 코디되도록 기획하면 '코디 구매'를 유도할 수 있습니다.
+    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
+  </div>
+</li>
+<li class="action-item">
+  <div class="action-check" data-id="2026-03-24-5"></div>
+  <div class="action-text">
+    배냇 세트에서 나아가 "상의 + 하의 + 가디건/아우터" 3-piece 봄 코디 큐레이션을 제품 단위로 기획합니다. 인스타그램에서 코디컷을 전면에 내세우면 자연스러운 세트 구매 유도가 됩니다.
+    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
+  </div>
+</li>
+<li class="action-item">
+  <div class="action-check" data-id="2026-03-24-6"></div>
+  <div class="action-text">
+    키즈 라인 중심으로 워싱 린넨 소재 셋업(상하 세트) 또는 원피스를 26 SS에 추가합니다. "세탁할수록 더 자연스러워지는" 소재 특성을 피카부 브랜드 철학("변화하되, 변함없는")과 연결하면 스토리가 됩니다.
+    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
+  </div>
+</li>
+<li class="action-item">
+  <div class="action-check" data-id="2026-03-24-7"></div>
+  <div class="action-text">
+    신생아 케어 소품(오가닉 베이비워시 또는 바디오일) 1~2종을 소싱하거나 OEM으로 **'피카부 케어' 첫 제품**을 소프트 론칭하는 것을 검토합니다. 스킨케어는 재구매율이 높고, 브랜드 로열티를 강화하는 카테고리입니다. 베네베네의 본보우와 직접 충돌하기보다, 피카부만의 일상적이고 미니멀한 케어 루틴 제안으로 차별화합니다. 인스타그램을 통한 소규모 론칭부터 시작할 수 있습니다.
+    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
+  </div>
+</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 리포트 목록 탭 -->
+    <div id="tab-reports" class="tab-panel">
+      <div class="year-label">2026</div>
 <a href="2026-03-24.html" class="report-card">
   <div class="card-top">
     <span class="week">3월 4주차</span>
     <span class="date">2026-03-24</span>
   </div>
   <div class="headline">베네베네가 스킨케어 브랜드 '본보우(BonBou)'를 공식 론칭하며 의류·케어·홈 3축의 라이프스타일 브랜드 전환을 완성했습니다. "가족의 일상을 디자인하는" 피카부에게도 같은 전략적 질문이 주어졌습니다.</div>
+  <div class="brand-pills"><span class="brand-pill">베네베네</span> <span class="brand-pill">아림클로젯</span> <span class="brand-pill">보보쇼즈</span> <span class="brand-pill">미샤앤퍼프</span></div>
 </a>
 <a href="2026-03-18.html" class="report-card">
   <div class="card-top">
@@ -153,11 +477,55 @@
     <span class="date">2026-03-18</span>
   </div>
   <div class="headline">아동복 업계 트렌드 외 5개 섹션 분석</div>
+  <div class="brand-pills"><span class="brand-pill">몽베베</span> <span class="brand-pill">아오스타</span> <span class="brand-pill">이키</span> <span class="brand-pill">베네베네</span> <span class="brand-pill">아림클로젯</span> <span class="brand-pill">미니로디니</span> <span class="brand-pill">보보쇼즈</span> <span class="brand-pill">미샤앤퍼프</span></div>
 </a>
+    </div>
+
   </div>
 
   <div class="index-footer">
     <p>Peekaboo Weekly Intelligence &middot; Auto-generated every Monday</p>
   </div>
+
+  <script>
+  function showTab(name) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // 액션 아이템 체크 상태 (localStorage)
+  function initActions() {
+    const stored = JSON.parse(localStorage.getItem('pkb-actions') || '{}');
+    document.querySelectorAll('.action-check').forEach(el => {
+      const id = el.dataset.id;
+      if (stored[id]) {
+        el.classList.add('done');
+        el.nextElementSibling.classList.add('done');
+      }
+      el.addEventListener('click', () => {
+        el.classList.toggle('done');
+        el.nextElementSibling.classList.toggle('done');
+        const s = JSON.parse(localStorage.getItem('pkb-actions') || '{}');
+        if (el.classList.contains('done')) {
+          s[id] = true;
+        } else {
+          delete s[id];
+        }
+        localStorage.setItem('pkb-actions', JSON.stringify(s));
+        updateCounts();
+      });
+    });
+    updateCounts();
+  }
+  function updateCounts() {
+    const total = document.querySelectorAll('.action-check').length;
+    const done = document.querySelectorAll('.action-check.done').length;
+    document.getElementById('pending-count').textContent = total - done;
+    document.getElementById('complete-count').textContent = done;
+  }
+  initActions();
+  </script>
 </body>
 </html>
