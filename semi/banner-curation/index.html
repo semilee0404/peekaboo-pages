@@ -3,86 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>배너 큐레이션 재기획안 | Peekaboo</title>
+<title>배너 큐레이션 기획안 | Peekaboo</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif; background:#FAFAF8; color:#3D3428; line-height:1.6; }
   .container { max-width:860px; margin:0 auto; padding:40px 20px 80px; }
-
-  /* Header */
   .header { text-align:center; margin-bottom:48px; padding-bottom:32px; border-bottom:1px solid #E8DDD1; }
   .header .badge { display:inline-block; background:#3D3428; color:#FDF8F3; padding:4px 16px; border-radius:20px; font-size:12px; letter-spacing:1px; margin-bottom:16px; }
   .header h1 { font-size:28px; font-weight:700; margin-bottom:8px; }
   .header .subtitle { font-size:15px; color:#9B8E7F; }
   .header .meta { margin-top:16px; font-size:13px; color:#9B8E7F; }
   .header .meta strong { color:#6B5D4F; }
-
-  /* Section */
   .section { margin-bottom:40px; }
   .section-title { font-size:13px; font-weight:500; color:#9B8E7F; letter-spacing:1px; margin-bottom:8px; }
-
-  /* Problem box */
-  .problem-box { background:#FDF8F3; border:1px solid #E8DDD1; border-radius:12px; padding:24px; margin-bottom:40px; }
-  .problem-box h2 { font-size:18px; color:#D4604A; margin-bottom:12px; }
-  .problem-box ul { padding-left:20px; font-size:14px; color:#6B5D4F; }
-  .problem-box li { margin-bottom:6px; }
-
-  /* Pair */
-  .pair { margin-bottom:36px; }
-  .pair-header { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
-  .pair-badge { padding:5px 16px; border-radius:20px; font-size:12px; font-weight:700; color:white; }
-  .pair-badge.p1 { background:#E8836B; }
-  .pair-badge.p2 { background:#6B8F71; }
-  .pair-badge.p3 { background:#C4A882; }
-  .pair-desc { font-size:14px; color:#6B5D4F; }
-  .pair-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-  @media(max-width:640px){ .pair-grid { grid-template-columns:1fr; } }
-  @media(max-width:640px){ .kpi-grid { grid-template-columns:repeat(2,1fr) !important; } }
-
-  /* Card */
-  .card { border:1px solid #E8DDD1; border-radius:12px; padding:20px; background:white; }
-  .card.new { border-style:dashed; border-color:#C4A882; }
-  .card .before { font-size:11px; color:#9B8E7F; margin-bottom:4px; }
-  .card .before.new-label { color:#D4604A; font-weight:700; }
-  .card h3 { font-size:19px; font-weight:700; margin-bottom:10px; }
-  .card .copy-box { background:#F8F6F3; padding:12px; border-radius:8px; margin-bottom:12px; }
-  .card .copy-label { font-size:13px; font-weight:700; margin-bottom:4px; }
-  .card .copy-main { font-size:14px; color:#3D3428; }
-  .card .copy-sub { font-size:12px; color:#9B8E7F; margin-top:4px; }
-  .card .detail { font-size:12px; color:#6B5D4F; line-height:1.8; }
-  .card .detail strong { color:#3D3428; }
-  .card .warn { color:#D4604A; font-weight:700; }
-
-  /* Tone guide */
-  .tone-guide { margin-top:10px; padding:8px 14px; border-radius:8px; font-size:12px; }
-  .tone-guide.p1 { background:#FEF0EC; color:#D4604A; }
-  .tone-guide.p2 { background:#E8F0E8; color:#3D6B3D; }
-  .tone-guide.p3 { background:#F5EDDF; color:#8B7355; }
-
-  /* New banner candidates */
-  .candidate { padding:12px; background:#F8F6F3; border:1px solid #E8DDD1; border-radius:8px; margin-bottom:10px; }
-  .candidate:last-child { margin-bottom:0; }
-  .candidate .c-title { font-size:14px; font-weight:700; margin-bottom:2px; }
-  .candidate .c-title.a { color:#E8836B; }
-  .candidate .c-title.b { color:#6B8F71; }
-  .candidate .c-title.c { color:#C4A882; }
-  .candidate .c-desc { font-size:12px; color:#6B5D4F; }
-  .candidate .c-note { font-size:11px; color:#9B8E7F; margin-top:2px; }
-
-  /* Brief */
-  .brief { background:#3D3428; border-radius:12px; padding:24px; color:#E8DDD1; margin-top:40px; }
+  .banner-card { background:white; border:1px solid #E8DDD1; border-radius:12px; padding:24px; margin-bottom:16px; }
+  .banner-num { display:inline-block; width:28px; height:28px; border-radius:50%; color:white; text-align:center; line-height:28px; font-size:13px; font-weight:700; margin-right:8px; }
+  .copy-block { background:#F8F6F3; border-radius:8px; padding:16px; margin:12px 0; }
+  .copy-main { font-size:17px; font-weight:700; color:#3D3428; margin-bottom:4px; }
+  .copy-sub { font-size:13px; color:#6B5D4F; }
+  .copy-btn { display:inline-block; font-size:12px; color:#9B8E7F; border:1px solid #E8DDD1; border-radius:16px; padding:2px 12px; margin-top:6px; }
+  .product-list { font-size:13px; color:#6B5D4F; line-height:1.8; margin-top:12px; }
+  .product-list strong { color:#3D3428; }
+  .tag { display:inline-block; font-size:11px; padding:2px 8px; border-radius:4px; margin-right:4px; }
+  .tag-push { background:#FEF0EC; color:#D4604A; }
+  .tag-stock { background:#E8F0E8; color:#3D6B3D; }
+  .tag-end { background:#F5EDE4; color:#8B7355; }
+  .brief { background:#3D3428; border-radius:12px; padding:24px; color:#E8DDD1; }
   .brief h3 { color:white; margin-bottom:16px; font-size:17px; }
   .brief-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:13px; }
-  @media(max-width:640px){ .brief-grid { grid-template-columns:1fr; } }
   .brief-grid strong { color:#E8836B; display:block; margin-bottom:6px; }
+  .brief-grid .right strong { color:#A8B89C; }
   .brief-grid ul { padding-left:16px; margin:0; }
   .brief-grid li { margin-bottom:4px; }
-  .brief-grid .right strong { color:#A8B89C; }
-
-  /* Footer */
   .footer { text-align:center; margin-top:48px; padding-top:24px; border-top:1px solid #E8DDD1; font-size:12px; color:#9B8E7F; }
   .footer .name { font-size:14px; color:#6B5D4F; font-weight:500; margin-bottom:4px; }
+  @media(max-width:640px) { .brief-grid { grid-template-columns:1fr; } .pair-grid { grid-template-columns:1fr !important; } .kpi-grid { grid-template-columns:repeat(2,1fr) !important; } }
 </style>
 </head>
 <body>
@@ -90,25 +46,23 @@
 
   <div class="header">
     <div class="badge">PEEKABOO BANNER CURATION</div>
-    <h1>배너 큐레이션 재기획안</h1>
-    <p class="subtitle">6장 = 3페어 x 2장 | 페어별 고객 의도 + 시각 톤 차별화</p>
-    <p class="meta">기획: <strong>Semi Lee</strong> | 2026.03.25</p>
+    <h1>배너 큐레이션 기획안</h1>
+    <p class="subtitle">자사몰 메인 캐러셀 6장 | 10일 1사이클 로테이션</p>
+    <p class="meta">기획: <strong>Semi Lee</strong> | 2026.03.25 | v4 최종</p>
   </div>
 
-  <!-- 배너 큐레이션 W1 성과 데이터 -->
+  <!-- 성과 데이터 -->
   <div class="section">
-    <div class="section-title">DATA INSIGHT</div>
-    <h2 style="font-size:20px; margin-bottom:16px;">배너 큐레이션 첫 번째 성과 <span style="font-size:13px; color:#9B8E7F; font-weight:400;">(2026.03.16 ~ 03.22)</span></h2>
-
-    <!-- KPI 카드 -->
-    <div class="kpi-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px;">
+    <div class="section-title">현재 성과</div>
+    <h2 style="font-size:20px; margin-bottom:16px;">배너 큐레이션 첫 번째 분석 <span style="font-size:13px; color:#9B8E7F; font-weight:400;">(3/16~3/22)</span></h2>
+    <div class="kpi-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px;">
       <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:16px; text-align:center;">
         <div style="font-size:12px; color:#9B8E7F;">방문자 수</div>
-        <div style="font-size:24px; font-weight:700; color:#3D3428;">1,953<span style="font-size:14px; font-weight:400;">명</span></div>
+        <div style="font-size:24px; font-weight:700;">1,953<span style="font-size:14px; font-weight:400;">명</span></div>
       </div>
       <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:16px; text-align:center;">
         <div style="font-size:12px; color:#9B8E7F;">페이지 조회</div>
-        <div style="font-size:24px; font-weight:700; color:#3D3428;">3,530<span style="font-size:14px; font-weight:400;">회</span></div>
+        <div style="font-size:24px; font-weight:700;">3,530<span style="font-size:14px; font-weight:400;">회</span></div>
       </div>
       <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:16px; text-align:center;">
         <div style="font-size:12px; color:#9B8E7F;">구매 건수</div>
@@ -119,104 +73,10 @@
         <div style="font-size:24px; font-weight:700; color:#D4604A;">₩244,200</div>
       </div>
     </div>
-
-    <!-- 테마별 성과 -->
-    <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; margin-bottom:16px;">
-      <h3 style="font-size:15px; margin-bottom:12px;">테마별 성과 비교</h3>
-      <table style="width:100%; font-size:13px; border-collapse:collapse;">
-        <tr style="border-bottom:2px solid #E8DDD1;">
-          <th style="padding:8px; text-align:left; color:#9B8E7F; font-weight:500;">테마</th>
-          <th style="padding:8px; text-align:right; color:#9B8E7F; font-weight:500;">방문자</th>
-          <th style="padding:8px; text-align:right; color:#9B8E7F; font-weight:500;">조회수</th>
-          <th style="padding:8px; text-align:right; color:#9B8E7F; font-weight:500;">1인당 탐색</th>
-          <th style="padding:8px; text-align:right; color:#9B8E7F; font-weight:500;">구매</th>
-          <th style="padding:8px; text-align:right; color:#9B8E7F; font-weight:500;">구매율</th>
-          <th style="padding:8px; text-align:right; color:#9B8E7F; font-weight:500;">매출</th>
-        </tr>
-        <tr style="border-bottom:1px solid #F5EDE4; background:#F0F5F0;">
-          <td style="padding:8px; font-weight:700;">Pick카부</td>
-          <td style="padding:8px; text-align:right; font-weight:700;">645명</td>
-          <td style="padding:8px; text-align:right;">1,147회</td>
-          <td style="padding:8px; text-align:right;">1.78</td>
-          <td style="padding:8px; text-align:right;">2건</td>
-          <td style="padding:8px; text-align:right;">0.31%</td>
-          <td style="padding:8px; text-align:right; font-weight:700;">₩102,000</td>
-        </tr>
-        <tr style="border-bottom:1px solid #F5EDE4;">
-          <td style="padding:8px; font-weight:700;">우리 아기 마실룩</td>
-          <td style="padding:8px; text-align:right;">620명</td>
-          <td style="padding:8px; text-align:right;">1,060회</td>
-          <td style="padding:8px; text-align:right;">1.71</td>
-          <td style="padding:8px; text-align:right;">2건</td>
-          <td style="padding:8px; text-align:right;">0.32%</td>
-          <td style="padding:8px; text-align:right;">₩52,700</td>
-        </tr>
-        <tr style="border-bottom:1px solid #F5EDE4;">
-          <td style="padding:8px;">온가족 패밀리룩</td>
-          <td style="padding:8px; text-align:right;">343명</td>
-          <td style="padding:8px; text-align:right;">695회</td>
-          <td style="padding:8px; text-align:right;">2.03</td>
-          <td style="padding:8px; text-align:right;">2건</td>
-          <td style="padding:8px; text-align:right;">0.58%</td>
-          <td style="padding:8px; text-align:right;">₩89,500</td>
-        </tr>
-        <tr style="border-bottom:1px solid #F5EDE4;">
-          <td style="padding:8px; color:#D4604A;">첫 출산준비</td>
-          <td style="padding:8px; text-align:right;">345명</td>
-          <td style="padding:8px; text-align:right;">628회</td>
-          <td style="padding:8px; text-align:right;">1.82</td>
-          <td style="padding:8px; text-align:right; color:#D4604A; font-weight:700;">0건</td>
-          <td style="padding:8px; text-align:right; color:#D4604A;">0%</td>
-          <td style="padding:8px; text-align:right; color:#D4604A;">₩0</td>
-        </tr>
-      </table>
+    <div style="background:#FDF8F3; border:1px solid #E8DDD1; border-radius:8px; padding:14px; font-size:13px; color:#6B5D4F;">
+      <strong>핵심:</strong> 전체 구매율 0.31%로 낮음. 배너 리뉴얼 + 제품 구성 재설계 필요.
+      <br><strong>대표님 방향:</strong> 팝업에서 러블리 스타일 잘 팔림 → 자사몰에도 러블리 라인 적극 노출.
     </div>
-
-    <!-- 인사이트 -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
-      <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:16px;">
-        <h3 style="font-size:14px; color:#6B8F71; margin-bottom:10px;">잘 되는 것</h3>
-        <ul style="font-size:12px; color:#6B5D4F; padding-left:16px; line-height:1.8;">
-          <li><strong>Pick카부</strong> 방문자 1위 + 매출 1위 → 추천 큐레이션 수요 확인</li>
-          <li><strong>패밀리룩</strong> 구매율 0.58%로 최고 → 1인당 2페이지 탐색 = 꼼꼼히 봄</li>
-          <li><strong>마실룩</strong> 방문자 2위 → 코디 니즈 높음</li>
-        </ul>
-      </div>
-      <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:16px;">
-        <h3 style="font-size:14px; color:#D4604A; margin-bottom:10px;">개선 필요</h3>
-        <ul style="font-size:12px; color:#6B5D4F; padding-left:16px; line-height:1.8;">
-          <li><strong>첫 출산준비 구매 0건</strong> — 345명이 봤는데 아무도 안 샀음 → 카피/구성 재설계 최우선</li>
-          <li><strong>전체 구매율 0.31%</strong> — 자사몰 평균 대비 낮음 → 클릭 버튼 강화</li>
-          <li><strong>신상 미리보기</strong> 방문은 많지만 구매 불가 구조</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 데이터 기반 결정 -->
-    <div style="background:#3D3428; border-radius:10px; padding:20px; color:#E8DDD1; margin-bottom:16px;">
-      <h3 style="color:white; margin-bottom:10px; font-size:15px;">데이터 기반 신규 배너 결정</h3>
-      <p style="font-size:13px; margin-bottom:12px;">첫 번째 분석에서 <strong style="color:#E8836B;">구매율이 가장 높은 테마는 패밀리룩(0.58%)</strong>. 목적이 명확한 고객이 꼼꼼히 탐색 후 구매하는 패턴.</p>
-      <p style="font-size:13px; margin-bottom:12px;">신규 6번 배너도 <strong style="color:#E8836B;">목적이 명확한 상황</strong>을 잡아야 구매로 이어질 것으로 예상.</p>
-      <p style="font-size:14px; font-weight:700; color:white; margin:0;">
-        → 신규 배너 확정: <span style="color:#E8836B;">"선물 고민 끝"</span> (출산/돌 선물 세트 큐레이션)
-      </p>
-      <p style="font-size:12px; color:#9B8E7F; margin-top:8px;">
-        근거: 선물 구매자는 목적이 명확 + 세트 구매(평균 결제 34,654원) + 상시 수요. "첫 출산준비"와는 타겟이 다름 (본인 구매 vs 선물 구매)
-      </p>
-    </div>
-  </div>
-
-  <!-- 메인 큐레이션 참고 데이터 -->
-  <div class="section" style="margin-bottom:32px;">
-    <details>
-      <summary style="cursor:pointer; font-size:14px; color:#9B8E7F; padding:8px 0;">참고: 메인 큐레이션 성과 (2026.03.24 기준) ▸</summary>
-      <div style="margin-top:12px; padding:16px; background:#F8F6F3; border-radius:8px; font-size:13px; color:#6B5D4F;">
-        <p><strong>65개 제품 분석</strong> — 평균 매출 변화 +75.9%, 총 매출 증가 +1,260만원</p>
-        <p>잘 팔린 제품: 라온 세트(+1,690%), 슈슈 리본보넷(+800%), 스무드 바디수트(+569%)</p>
-        <p>세트 상품 평균 결제 34,654원 vs 단품 19,348원 (1.8배)</p>
-        <p>배치 효과: 대부분 8~14일 후 약해짐 → 10일 단위 교체 권장</p>
-      </div>
-    </details>
   </div>
 
   <!-- 현재 배너 Before -->
@@ -224,324 +84,158 @@
     <div class="section-title">BEFORE</div>
     <h2 style="font-size:20px; margin-bottom:16px;">현재 배너 — 무엇이 문제인가</h2>
     <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:16px;">
-      <div style="text-align:center;">
-        <img src="images/1_첫출산준비.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;">
-        <div style="font-size:11px; color:#9B8E7F; margin-top:4px;">1. 첫 출산준비</div>
-      </div>
-      <div style="text-align:center;">
-        <img src="images/2_온가족패밀리룩.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;">
-        <div style="font-size:11px; color:#9B8E7F; margin-top:4px;">2. 패밀리룩</div>
-      </div>
-      <div style="text-align:center;">
-        <img src="images/4_신상품미리보기.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;">
-        <div style="font-size:11px; color:#9B8E7F; margin-top:4px;">4. 신상 미리보기</div>
-      </div>
-      <div style="text-align:center;">
-        <img src="images/5_마실룩.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;">
-        <div style="font-size:11px; color:#9B8E7F; margin-top:4px;">5. 마실룩</div>
-      </div>
-      <div style="text-align:center;">
-        <img src="images/6_대구팝업.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1; opacity:0.5;">
-        <div style="font-size:11px; color:#D4604A; margin-top:4px;">6. 대구 팝업 (종료)</div>
-      </div>
+      <div style="text-align:center;"><img src="images/1_첫출산준비.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;"><div style="font-size:11px; color:#9B8E7F; margin-top:4px;">첫 출산준비</div></div>
+      <div style="text-align:center;"><img src="images/2_온가족패밀리룩.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;"><div style="font-size:11px; color:#9B8E7F; margin-top:4px;">패밀리룩</div></div>
+      <div style="text-align:center;"><img src="images/4_신상품미리보기.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;"><div style="font-size:11px; color:#9B8E7F; margin-top:4px;">신상 미리보기</div></div>
+      <div style="text-align:center;"><img src="images/5_마실룩.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;"><div style="font-size:11px; color:#9B8E7F; margin-top:4px;">마실룩</div></div>
+      <div style="text-align:center;"><img src="images/6_대구팝업.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1; opacity:0.5;"><div style="font-size:11px; color:#D4604A; margin-top:4px;">대구 팝업 (종료)</div></div>
     </div>
-    <div class="problem-box" style="margin-bottom:0;">
-      <h2 style="font-size:16px;">핵심 문제 4가지</h2>
-      <ul>
-        <li><strong>전부 같은 톤</strong> — 크림/베이지 일색이라 캐러셀에서 2장씩 볼 때 구분이 안 됨</li>
-        <li><strong>클릭 버튼 없음</strong> — 6장 중 2장만 버튼 있음. 나머지는 누를 곳이 보이지 않음</li>
-        <li><strong>문구가 설명적</strong> — "~까지, ~를 위한" 반복. 궁금해서 클릭하고 싶은 느낌이 약함</li>
+    <div style="background:#FDF8F3; border:1px solid #E8DDD1; border-radius:12px; padding:20px;">
+      <h3 style="font-size:16px; color:#D4604A; margin-bottom:10px;">문제 4가지</h3>
+      <ul style="padding-left:20px; font-size:14px; color:#6B5D4F;">
+        <li><strong>전부 같은 톤</strong> — 크림/베이지 일색이라 2장씩 볼 때 구분이 안 됨</li>
+        <li><strong>클릭 버튼 없음</strong> — 6장 중 2장만 버튼. 누를 곳이 보이지 않음</li>
+        <li><strong>문구가 설명적</strong> — "~까지, ~를 위한" 반복. 클릭하고 싶은 느낌이 약함</li>
         <li><strong>대구 팝업 종료</strong> — 3/26 종료 → 1장 교체 필요 (짝수 유지)</li>
       </ul>
     </div>
   </div>
 
-  <!-- 배너별 제품 구성 -->
+  <!-- 6장 배너 기획 -->
   <div class="section">
-    <div class="section-title">PRODUCT SELECTION</div>
-    <h2 style="font-size:20px; margin-bottom:6px;">각 배너에 어떤 제품을, 어떻게 보여줄 것인가</h2>
-    <p style="font-size:13px; color:#9B8E7F; margin-bottom:6px;">최근 30일 판매 + 재고 + 대표님 방향(러블리 라인 강화) 기반</p>
-    <div style="background:#FEF0EC; padding:10px 14px; border-radius:8px; margin-bottom:12px; font-size:13px; color:#D4604A;">
-      <strong>대표님 방향:</strong> 팝업에서 러블리 스타일이 잘 팔리고 있음 → 자사몰에도 러블리 라인을 적극 노출해서 매출 연결<br>
-      <strong>종료 라인:</strong> 뉴쿨링, 엘리, 달링, 마가린, 베리, 지니, 일랑, 소이 → 배너에서 제외
-    </div>
-    <div style="background:#FFF8F0; border:1px solid #E8DDD1; border-radius:8px; padding:12px 14px; margin-bottom:20px; font-size:12px;">
-      <strong style="color:#D4604A;">⚠ 배너에서 제외한 제품:</strong>
-      슈가(SKU 편중 — 스카이12M 품절, 핑크06M 3개) · 홀리(바디수트 베이지 전품절) · 메종(보넷M 재고 마이너스)<br>
-      <strong>팝업 세트 제외:</strong> 제제·슈슈·단단·말랑·루피·소피·해리·셀리·미미·쥬쥬 (팝업에서 이미 노출 중)
-    </div>
+    <div class="section-title">AFTER — 6장 배너 기획</div>
+    <h2 style="font-size:20px; margin-bottom:8px;">주제별 배너 + 카피 + 제품 구성</h2>
+    <p style="font-size:13px; color:#9B8E7F; margin-bottom:8px;">팝업 세트 제외(제제·슈슈·단단·말랑·루피·소피·해리·셀리·미미·쥬쥬) | SKU 검증 후 슈가·홀리·메종 제외</p>
+    <p style="font-size:13px; color:#9B8E7F; margin-bottom:20px;">페어 간 톤 차별화: PAIR 1 크림/베이지 | PAIR 2 세이지/민트 | PAIR 3 샌드/골드</p>
 
-    <!-- 러블리 라인 판매 현황 -->
-    <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; margin-bottom:20px;">
-      <h3 style="font-size:15px; margin-bottom:12px;">활성 러블리 라인 판매 현황 <span style="font-size:12px; color:#9B8E7F;">(최근 30일, 자사몰)</span></h3>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-        <div>
-          <div style="font-size:12px; color:#6B8F71; font-weight:700; margin-bottom:8px;">잘 팔리는 라인 (배너 메인)</div>
-          <table style="width:100%; font-size:12px; border-collapse:collapse;">
-            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">킨더</td><td style="text-align:right; font-weight:700;">150만</td><td style="text-align:right; color:#9B8E7F;">52개</td></tr>
-            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">제제</td><td style="text-align:right; font-weight:700;">149만</td><td style="text-align:right; color:#9B8E7F;">91개</td></tr>
-            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">루나 (주니어)</td><td style="text-align:right; font-weight:700;">131만</td><td style="text-align:right; color:#9B8E7F;">48개</td></tr>
-            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">슈슈</td><td style="text-align:right; font-weight:700;">106만</td><td style="text-align:right; color:#9B8E7F;">58개</td></tr>
-            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">아이린</td><td style="text-align:right;">53만</td><td style="text-align:right; color:#9B8E7F;">23개</td></tr>
-            <tr><td style="padding:4px;">아가일 (주니어)</td><td style="text-align:right;">46만</td><td style="text-align:right; color:#9B8E7F;">18개</td></tr>
-          </table>
-        </div>
-        <div>
-          <div style="font-size:12px; color:#C4A882; font-weight:700; margin-bottom:8px;">노출 필요 (배너로 밀어줄 대상)</div>
-          <table style="width:100%; font-size:12px; border-collapse:collapse;">
-            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">소피</td><td style="text-align:right;">14만</td><td style="text-align:right; color:#D4604A;">4개</td></tr>
-            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">루피</td><td style="text-align:right;">15만</td><td style="text-align:right; color:#D4604A;">7개</td></tr>
-            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">차밍</td><td style="text-align:right;">7만</td><td style="text-align:right; color:#D4604A;">3개</td></tr>
-            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">스윗피</td><td style="text-align:right;">4만</td><td style="text-align:right; color:#D4604A;">4개</td></tr>
-            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">비쥬</td><td style="text-align:right;">2만</td><td style="text-align:right; color:#D4604A;">1개</td></tr>
-            <tr><td style="padding:4px;">드엘</td><td style="text-align:right;">18만</td><td style="text-align:right; color:#9B8E7F;">12개</td></tr>
-          </table>
-        </div>
+    <!-- 배너 1 -->
+    <div class="banner-card" style="border-left:4px solid #E8836B;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div><span class="banner-num" style="background:#E8836B;">1</span><strong style="font-size:17px;">출산준비</strong></div>
+        <span class="tag tag-push">구매 0건 → 개선 최우선</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-main">처음 준비하는 아이의 옷장.</div>
+        <div class="copy-sub">배냇저고리부터 손싸개까지, 하나씩 꺼내 놓는 시간.</div>
+        <div class="copy-btn">준비물 보러가기 →</div>
+      </div>
+      <div class="product-list">
+        <strong>메인 제품:</strong> 프롬 배냇저고리(201개) + 프롬 바디배냇(149개) + 누보 바디배냇세트(653개)<br>
+        <strong>리본 임산부 라인:</strong> 리본 임산부 긴바지(31개) + 리본 MOM 튜브탑(47개) + 리본 MOM 슬리브리스(42개)<br>
+        <strong>서브:</strong> 포니 배냇세트(61개) / 리본 배냇세트(61개) / 리본 손싸개·발싸개 / 배냇 싸개<br>
+        <strong>보여주는 방식:</strong> 바구니에 배냇 제품을 정갈하게 담아놓은 <em>플랫레이</em>. 리본 임산부복은 별도 섹션으로 "엄마도 함께 준비해요"
       </div>
     </div>
 
-    <div style="display:flex; flex-direction:column; gap:16px;">
-
-      <!-- 배너 1 -->
-      <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; border-left:4px solid #E8836B;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <h3 style="font-size:16px; margin:0;">1. "우리 아기 첫 옷장"</h3>
-          <span style="font-size:11px; color:#D4604A; font-weight:700;">구매 0건 → 개선 최우선</span>
-        </div>
-        <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 킨더 baby세트+베레모 (핑크, 150만, 재고278, SKU 골고루) + 드엘 세트+보넷 (아이보리/오트밀, 재고279, 노출 필요)<br>
-          <strong>선정 이유:</strong> 킨더 = 러블리 매출 1위 + 베레모 포인트. 드엘 = 보넷+헤어밴드 구성이 출산준비 맥락에 적합<br>
-          <strong>보여주는 방식:</strong> 아기 바구니에 정갈하게 담아놓은 <em>플랫레이</em>. 크림/핑크 톤. "이것만 있으면 준비 끝"<br>
-          <strong>서브 제품:</strong> 아이린 보넷+블루머(319개, 리오더 예정) / 쁘띠 세트(196개)<br>
-          <strong style="color:#C4A882;">밀어줄 라인:</strong> 스윗피(479개/월4개, 120주분!) · 차밍 바디수트(337개/월3개, 112주분!)<br>
-          <strong>현재 문제:</strong> 발 클로즈업만 → 실제 제품이 한눈에 보여야 구매로 이어짐
-        </div>
+    <!-- 배너 2 -->
+    <div class="banner-card" style="border-left:4px solid #E8836B;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div><span class="banner-num" style="background:#E8836B;">2</span><strong style="font-size:17px;">맘커플룩</strong></div>
+        <span class="tag tag-end">종료 라인 재고 소진</span>
+        <span class="tag tag-stock">여름 제품</span>
       </div>
-
-      <!-- 배너 2 -->
-      <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; border-left:4px solid #E8836B;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <h3 style="font-size:16px; margin:0;">2. "우리 셋, 같은 옷 입는 날"</h3>
-          <span style="font-size:11px; color:#6B8F71; font-weight:700;">구매율 0.58% (최고)</span>
-        </div>
-        <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 멜로디 baby+주니어+mom (핑크/스킨, 37만, 재고466) + 루나 반팔세트 (크림, 131만, 재고2,016)<br>
-          <strong>선정 이유:</strong> 멜로디 = 유일한 mom 포함 패밀리라인. 루나 = 재고 2,016개 소진 필요. 둘 다 baby→주니어→어른 매칭 가능<br>
-          <strong>보여주는 방식:</strong> 엄마+아기+주니어 <em>3인 착용컷</em>. 봄 야외(공원/벚꽃) 배경<br>
-          <strong>서브 제품:</strong> 아가일 세트+베레모(366개/46만) / 쿨리(77만, 891개)<br>
-          <strong style="color:#C4A882;">밀어줄 라인:</strong> 셀리 수트(742개/월14개, 53주분 — 러블리 수트, "자매룩") · 해리 수트(671개/월10개 — "아들 패밀리룩")<br>
-          <strong style="color:#D4604A;">⚠️ 변경:</strong> 뉴쿨링 종료 → 제거
-        </div>
+      <div class="copy-block">
+        <div class="copy-main">엄마랑 나랑, 같은 옷 입는 날.</div>
+        <div class="copy-sub">나란히 서면 더 예쁜 여름.</div>
+        <div class="copy-btn">커플룩 보기 →</div>
       </div>
-
-      <!-- 배너 3 -->
-      <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; border-left:4px solid #6B8F71;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <h3 style="font-size:16px; margin:0;">3. "엄마들이 제일 많이 담은 조합"</h3>
-          <span style="font-size:11px; color:#6B8F71; font-weight:700;">방문자 1위 (645명)</span>
-        </div>
-        <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 킨더 baby세트+베레모 (핑크, 150만, 재고278) + 제제 블루머+보넷 (오트밀, 149만, 재고634)<br>
-          <strong>선정 이유:</strong> 러블리 라인 매출 1·2위. 방문자 가장 많은 배너에 피카부 대표 이미지 각인. 디저트는 재고 22일이라 제외<br>
-          <strong>보여주는 방식:</strong> 아기 <em>착용컷</em>(킨더 베레모) + "이 조합 N명이 담았어요" 숫자 강조<br>
-          <strong>서브 제품:</strong> 아이린 보넷+블루머(319개/53만) / 말랑 티셔츠(336개/77만합산) / 데이지 베이비세트(1,109개/374만)<br>
-          <strong style="color:#C4A882;">밀어줄 라인:</strong> 스윗피(479개) · 쁘띠(196개/19만) — "새로 주목받는 조합"으로 서브 배치
-        </div>
+      <div class="product-list">
+        <strong>메인 제품:</strong> 달링 세트+바디수트+MOM (723개, 종료예정) + 베리 원피스+바디수트+MOM (757개, 종료예정)<br>
+        <strong>서브:</strong> 멜로디 세트+바디수트+MOM(473개, 리오더 중) / 일랑 세트+MOM(184개, 종료예정)<br>
+        <strong>합산 재고:</strong> 달링+베리+일랑 = 1,664개 (종료 예정 라인 집중 소진)<br>
+        <strong>보여주는 방식:</strong> 엄마+아기 같은 패턴 <em>착용컷</em>. 여름 야외 배경. MOM 원피스/상의와 아기 바디수트 매칭
       </div>
+    </div>
 
-      <!-- 배너 4 -->
-      <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; border-left:4px solid #6B8F71;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <h3 style="font-size:16px; margin:0;">4. "아직 아무도 안 입었어요"</h3>
-          <span style="font-size:11px; color:#E8836B; font-weight:700;">재고 과다 라인 집중 노출</span>
-        </div>
-        <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 스윗피 세트 (핑크/옐로우, 재고479/월4개 — 120주분!) + 차밍 세트+바디수트 (크림/핑크, 재고337/월3개 — 112주분!)<br>
-          <strong>선정 이유:</strong> 이 배너의 핵심 = <em>재고 과다인데 판매 안 되는 러블리 라인을 "발견/신상" 프레임으로 살리기</em><br>
-          <strong>보여주는 방식:</strong> 포장지 살짝 열어본 느낌, "peek" 구도 (피카부 = peekaboo!). 핑크/크림/옐로우 파스텔 톤<br>
-          <strong>서브 제품:</strong> 비쥬 수트(389개/월1개 — 가장 심각) / 카라멜(324개/월4개) / 팅커벨(485개/월2개 — 243주분)<br>
-          <strong style="color:#D4604A;">재고 과다 5개 라인 집중:</strong> 스윗피·차밍·비쥬·카라멜·팅커벨 = 합산 재고 2,014개, 월 판매 14개<br>
-          <strong>26SS 신상:</strong> 포밍(연출컷 완료)·리지(착용컷 완료) 중 러블리한 것도 함께 배치
-        </div>
+    <!-- 배너 3 -->
+    <div class="banner-card" style="border-left:4px solid #6B8F71;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div><span class="banner-num" style="background:#6B8F71;">3</span><strong style="font-size:17px;">Pick카부</strong></div>
+        <span class="tag tag-stock">MD 추천 / 발견</span>
       </div>
-
-      <!-- 배너 5 -->
-      <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; border-left:4px solid #C4A882;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <h3 style="font-size:16px; margin:0;">5. "오늘 뭐 입지?"</h3>
-          <span style="font-size:11px; color:#6B8F71; font-weight:700;">방문자 2위 (620명)</span>
-        </div>
-        <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 말랑 티셔츠 + 제제 블루머 (77만합산, 재고 충분) + 단단 티셔츠 + 루피 쫄바지 (뉴트럴 코디)<br>
-          <strong>선정 이유:</strong> "오늘 뭐 입지?" = 상의+하의 코디 완성. 봄 파스텔 코디(말랑+제제) / 편안한 뉴트럴(단단+루피) 2가지 제안<br>
-          <strong>보여주는 방식:</strong> <em>"코디 카드" 형식</em> — 2~3가지 상황별 코디 조합 제안<br>
-          · 코디A "공원 나들이": 말랑 티 + 제제 블루머 + 슈슈 보넷 (봄 파스텔)<br>
-          · 코디B "동네 마실": 단단 티 + 루피 쫄바지 (편안한 뉴트럴)<br>
-          · 코디C "특별한 날": 아가일 세트 + 베레모 (366개/46만)<br>
-          <strong style="color:#C4A882;">밀어줄 라인:</strong> 윙고 상하세트(1,650개/월28개, 59주분 — "이거 하나면 코디 끝") · 소피 쫄바지(281개/월4개) · 루피(312개/월7개)
-        </div>
+      <div class="copy-block">
+        <div class="copy-main">피카부가 오늘 골라봤어요.</div>
+        <div class="copy-sub">이번 주, 눈에 띄었던 아이들.</div>
+        <div class="copy-btn">Pick카부 보기 →</div>
       </div>
-
-      <!-- 배너 6 NEW -->
-      <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; border-left:4px solid #C4A882;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <h3 style="font-size:16px; margin:0;">6. "선물 고민 끝" 🆕</h3>
-          <span style="font-size:11px; color:#E8836B; font-weight:700;">신규 배너</span>
-        </div>
-        <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 킨더 baby세트+베레모 (핑크, 150만, 재고278) — 세트+베레모 = "선물 한 박스" 완성<br>
-          <strong>선정 이유:</strong> 러블리 매출 1위. 베레모가 개봉 시 "와!" 포인트. 디저트는 재고 22일이라 제외<br>
-          <strong>보여주는 방식:</strong> 기프트백에 제품이 담긴 <em>언박싱</em> 구도. "포장까지 예쁘게 해드려요"<br>
-          <strong>가격대별 3단 (카테고리 페이지):</strong><br>
-          · "부담 없는 선물" (2~3만): 아이린 보넷(319개, 리오더 예정) / 드엘 보넷+헤어밴드(279개)<br>
-          · "딱 좋은 선물" (3~5만): 킨더 baby세트+베레모 / 드엘 세트(279개) / 차밍 세트(337개)<br>
-          · "특별한 선물" (5만~): 멜로디 세트(466개, 리오더 중) / 데이지 베이비세트(1,109개)<br>
-          <strong style="color:#C4A882;">밀어줄 라인:</strong> 드엘(279개, 소품 선물 세트) · 쁘띠(196개, 러블리 의류 선물) · 차밍(337개)
-        </div>
+      <div class="product-list">
+        <strong>메인:</strong> MD가 시즌/트렌드에 맞춰 선별. 10일마다 교체<br>
+        <strong>밀어줄 라인 (재고 과다):</strong><br>
+        · 스윗피 세트+baby(479개/월4개 — 120주분) <span class="tag tag-push">밀어야</span><br>
+        · 비쥬 수트+티셔츠(389개/월1개 — 389주분) <span class="tag tag-push">가장 심각</span><br>
+        · 팅커벨 세트+수트(485개/월2개 — 243주분) <span class="tag tag-push">밀어야</span><br>
+        · 카라멜 세트(324개/월4개 — 81주분) <span class="tag tag-push">밀어야</span><br>
+        <strong>보여주는 방식:</strong> 제품 중심 레이아웃. "MD가 골라낸 이번 주 아이템" 느낌. 재고 소진 의도가 드러나지 않게 큐레이션으로 포장
       </div>
+    </div>
 
+    <!-- 배너 4 -->
+    <div class="banner-card" style="border-left:4px solid #6B8F71;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div><span class="banner-num" style="background:#6B8F71;">4</span><strong style="font-size:17px;">신상 미리보기</strong></div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-main">조금 일찍 도착한 피카부의 새로운 이야기.</div>
+        <div class="copy-sub"></div>
+        <div class="copy-btn">신상 미리보기 →</div>
+      </div>
+      <div class="product-list">
+        <strong>26SS 신상:</strong> 포밍(연출컷 보정완료) / 리지(착용컷 보정완료) / 쇼콜라·보니·밀키(촬영 예정) / 코이(보정 중)<br>
+        <strong>포인트:</strong> 현재 흰 천 배경만 있어서 뭐가 오는지 모름 → 제품이 살짝 보여야 궁금해서 클릭함<br>
+        <strong>보여주는 방식:</strong> 가장 러블리한 신상 1개를 크게. 나머지는 살짝 가려진 "peek" 구도 (피카부 = peekaboo!)
+      </div>
+    </div>
+
+    <!-- 배너 5 -->
+    <div class="banner-card" style="border-left:4px solid #C4A882;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div><span class="banner-num" style="background:#C4A882;">5</span><strong style="font-size:17px;">코디</strong></div>
+        <span class="tag tag-stock">방문자 2위 (620명)</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-main">머리부터 발 끝까지, 엄마 맘에 쏙 들 코디.</div>
+        <div class="copy-sub">모델이 입은 예쁜 착장 그대로, 하나하나 찾기 쉽게 모아 두었어요.</div>
+        <div class="copy-btn">코디 보기 →</div>
+      </div>
+      <div class="product-list">
+        <strong>코디 A "공원 나들이":</strong> 쁘띠 티셔츠(196개) + 아이린 블루머(319개, 리오더 예정) + 아이린 보넷<br>
+        <strong>코디 B "동네 마실":</strong> 윙고 상하세트(1,650개, 59주분 — 소진 필요) + 윙고 헤어밴드(255개)<br>
+        <strong>코디 C "특별한 날":</strong> 아가일 세트+베레모(366개) — 포인트 코디<br>
+        <strong>보여주는 방식:</strong> 상의+하의+소품 조합을 <em>"코디 카드" 형식</em>으로 2~3가지 제안. 착용 모델컷
+      </div>
+    </div>
+
+    <!-- 배너 6 -->
+    <div class="banner-card" style="border-left:4px solid #C4A882;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div><span class="banner-num" style="background:#C4A882;">6</span><strong style="font-size:17px;">선물</strong></div>
+        <span class="tag tag-push">신규 배너</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-main">마음을 전하기에 딱 좋은 선물.</div>
+        <div class="copy-sub">받는 분도 좋아하실 세트를 골라뒀어요.</div>
+        <div class="copy-btn">선물 세트 보기 →</div>
+      </div>
+      <div class="product-list">
+        <strong>가격대별 구성:</strong><br>
+        · "부담 없는 선물" (2~3만): 드엘 보넷+헤어밴드(279개) / 차밍 헤어밴드(29개)<br>
+        · "딱 좋은 선물" (3~5만): 킨더 baby세트+베레모(278개, SKU 골고루) / 차밍 세트(337개) / 드엘 세트(279개)<br>
+        · "특별한 선물" (5만~): 멜로디 세트(473개) / 데이지 베이비세트(1,109개)<br>
+        <strong>보여주는 방식:</strong> 기프트백에 제품이 담긴 <em>언박싱</em> 구도. 포장+제품이 함께 보이게
+      </div>
     </div>
   </div>
 
-  <!-- 개선 전략 -->
+  <!-- 제외 제품 안내 -->
   <div class="section">
-    <div class="section-title">STRATEGY</div>
-    <h2 style="font-size:20px; margin-bottom:8px;">혼합 큐레이션 전략</h2>
-    <p style="font-size:14px; color:#6B5D4F;">페어별로 다른 고객 의도를 커버. 페어 내에서는 통일감, 페어 간에는 시각적으로 확실히 달라야 넘기기 동기가 생긴다.</p>
-  </div>
-
-  <!-- PAIR 1 -->
-  <div class="pair">
-    <div class="pair-header">
-      <span class="pair-badge p1">PAIR 1</span>
-      <span class="pair-desc">니즈 기반 — "목적이 있는 고객"</span>
-    </div>
-    <div class="pair-grid">
-
-      <div class="card">
-        <div class="before">Before: 첫 출산준비</div>
-        <h3>"우리 아기 첫 옷장"</h3>
-        <div class="copy-box">
-          <div class="copy-label">메인 카피안</div>
-          <div class="copy-main">"출산 준비 리스트, 여기서 끝."</div>
-          <div class="copy-sub">서브: 배냇저고리부터 손싸개까지 한 번에 담아요</div>
-        </div>
-        <div class="detail">
-          <strong>왜 클릭하나:</strong> 출산 준비물 리스트를 따로 안 찾아도 됨<br>
-          <strong>타겟:</strong> 예비맘, 출산 선물 찾는 사람<br>
-          <strong>버튼 문구:</strong> "한번에 보기 →"
-        </div>
+    <div style="background:#F8F6F3; border:1px solid #E8DDD1; border-radius:10px; padding:20px;">
+      <h3 style="font-size:15px; margin-bottom:10px;">배너에서 제외한 제품</h3>
+      <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
+        <strong>팝업 세트 (이미 노출 중):</strong> 제제, 슈슈, 단단, 말랑, 루피, 소피, 해리, 셀리, 미미, 쥬쥬<br>
+        <strong>SKU 편중:</strong> 슈가(스카이12M 품절, 핑크06M 3개) / 홀리(바디수트 베이지 전품절) / 메종(보넷M 재고 마이너스)<br>
+        <strong>재고 부족:</strong> 디저트 수트세트(22일 소진) / 디저트 보넷(25일 소진)<br>
+        <strong>종료 라인:</strong> 뉴쿨링, 엘리, 마가린, 지니, 소이 → 배너 미반영 (달링·베리·일랑은 맘커플룩에서 재고 소진)
       </div>
-
-      <div class="card">
-        <div class="before">Before: 온가족 패밀리룩</div>
-        <h3>"우리 셋, 같은 옷 입는 날"</h3>
-        <div class="copy-box">
-          <div class="copy-label">메인 카피안</div>
-          <div class="copy-main">"찍으면 바로 프사감."</div>
-          <div class="copy-sub">서브: 신생아~성인까지, 패밀리 매칭 세트</div>
-        </div>
-        <div class="detail">
-          <strong>왜 클릭하나:</strong> "프사감" = 결과를 상상하게 함 (SNS 욕구)<br>
-          <strong>타겟:</strong> 가족사진, 돌잔치, SNS 업로드<br>
-          <strong>버튼 문구:</strong> "매칭 세트 보기 →"
-        </div>
-      </div>
-
-    </div>
-    <div class="tone-guide p1">
-      🎨 톤 가이드: <strong>따뜻한 크림/베이지</strong> — 현재 톤 유지, 배너 1은 클로즈업, 배너 2는 가족 풀샷으로 구도 차별화
-    </div>
-  </div>
-
-  <!-- PAIR 2 -->
-  <div class="pair">
-    <div class="pair-header">
-      <span class="pair-badge p2">PAIR 2</span>
-      <span class="pair-desc">발견 기반 — "구경하러 온 고객"</span>
-    </div>
-    <div class="pair-grid">
-
-      <div class="card">
-        <div class="before">Before: Pick카부</div>
-        <h3>"엄마들이 제일 많이 담은 조합"</h3>
-        <div class="copy-box">
-          <div class="copy-label">메인 카피안</div>
-          <div class="copy-main">"이번 달 장바구니 1위 조합"</div>
-          <div class="copy-sub">서브: 피카부가 골라낸 베스트 매칭</div>
-        </div>
-        <div class="detail">
-          <strong>왜 클릭하나:</strong> "다른 엄마들은 뭘 사지?" 궁금함 자극<br>
-          <strong>타겟:</strong> 첫 방문, 뭘 사야할지 모르는 고객<br>
-          <strong>버튼 문구:</strong> "인기 조합 보기 →"
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="before">Before: 신상품 미리보기 (COMING SOON)</div>
-        <h3>"아직 아무도 안 입었어요"</h3>
-        <div class="copy-box">
-          <div class="copy-label">메인 카피안</div>
-          <div class="copy-main">"먼저 보는 26SS 신상 7종"</div>
-          <div class="copy-sub">서브: 곧 만나요, 피카부의 새로운 이야기</div>
-        </div>
-        <div class="detail">
-          <strong>왜 클릭하나:</strong> "아무도 안 입었다" = 희소성 + 선점 욕구<br>
-          <strong>타겟:</strong> 재구매 고객, 피카부 팬<br>
-          <strong>버튼 문구:</strong> "먼저 구경하기 →"<br>
-          <span class="warn">⚠️ 핵심 변경: 흰 천 배경 → 신상 제품 1~2개 티징 이미지 필수</span>
-        </div>
-      </div>
-
-    </div>
-    <div class="tone-guide p2">
-      🎨 톤 가이드: <strong>세이지/민트 계열</strong> — PAIR 1과 확실히 다른 톤. 제품 중심 레이아웃, 감성보다 정보 강조
-    </div>
-  </div>
-
-  <!-- PAIR 3 -->
-  <div class="pair">
-    <div class="pair-header">
-      <span class="pair-badge p3">PAIR 3</span>
-      <span class="pair-desc">상황 기반 — "시즌/이벤트 고객"</span>
-    </div>
-    <div class="pair-grid">
-
-      <div class="card">
-        <div class="before">Before: 우리 아기 마실룩</div>
-        <h3>"오늘 뭐 입지?"</h3>
-        <div class="copy-box">
-          <div class="copy-label">메인 카피안</div>
-          <div class="copy-main">"머리부터 발끝까지, 원클릭 코디"</div>
-          <div class="copy-sub">서브: 모델 착장 그대로, 세트로 담아두었어요</div>
-        </div>
-        <div class="detail">
-          <strong>왜 클릭하나:</strong> 매일의 고민 "오늘 뭐 입히지?" 정확히 해결<br>
-          <strong>타겟:</strong> 외출 코디 고민하는 엄마<br>
-          <strong>버튼 문구:</strong> "코디 세트 보기 →"
-        </div>
-      </div>
-
-      <div class="card" style="border-left:3px solid #E8836B;">
-        <div class="before new-label">🆕 신규 배너 — 대구 팝업 대체 (데이터 기반 확정)</div>
-        <h3>"선물 고민 끝"</h3>
-        <div class="copy-box">
-          <div class="copy-label">메인 카피안</div>
-          <div class="copy-main">"받는 사람도, 주는 사람도 만족."</div>
-          <div class="copy-sub">서브: 출산선물·돌선물, 세트로 골라뒀어요</div>
-        </div>
-        <div class="detail">
-          <strong>왜 클릭하나:</strong> "선물 뭐 사지?" 고민 해결 + 세트 구매 유도<br>
-          <strong>타겟:</strong> 출산 축하, 돌잔치 선물 찾는 지인/가족<br>
-          <strong>버튼 문구:</strong> "선물 세트 보기 →"<br>
-          <strong>구성:</strong> 인기 선물 세트 + 기프트백/포장 옵션 연결<br>
-          <strong style="color:#6B8F71;">선정 근거:</strong> 첫 분석에서 패밀리룩(구매율 0.58%)처럼 <em>목적이 명확한 테마</em>가 구매율 최고. 선물 구매 = 목적 명확 + 세트(평균 결제 34,654원) + 상시 수요
-        </div>
-      </div>
-
-    </div>
-    <div class="tone-guide p3">
-      🎨 톤 가이드: <strong>샌드/골드 계열</strong> — 활동적이고 밝은 느낌. 아기 풀샷+배경이 있는 라이프스타일 컷
     </div>
   </div>
 
@@ -553,22 +247,23 @@
         <strong>이미지 규격</strong>
         <ul>
           <li>사이즈: 1000 x 1000px (정사각)</li>
-          <li>모바일에서 2장이 나란히 보임 → 500px 너비 기준으로 글씨 읽혀야 함</li>
-          <li>메인 문구 최소 40pt 이상 권장</li>
-          <li>모든 배너에 <strong>클릭 버튼</strong> 필수 (둥근 사각형 + 화살표)</li>
+          <li>모바일에서 2장 나란히 → 500px 기준 가독성</li>
+          <li>메인 문구 최소 40pt 이상</li>
+          <li>모든 배너에 클릭 버튼 필수</li>
         </ul>
       </div>
       <div class="right">
         <strong>문구 가이드</strong>
         <ul>
-          <li>메인 문구: 15자 이내 (한눈에 읽히게)</li>
-          <li>서브 문구: 25자 이내 (보조 설명)</li>
-          <li>버튼 문구: 8자 이내 ("~보기 →" 형식)</li>
+          <li>메인 문구: 15자 이내</li>
+          <li>서브 문구: 25자 이내</li>
+          <li>버튼: 8자 이내 ("~보기 →")</li>
+          <li>피카부 톤: 담백하고 따뜻하게</li>
         </ul>
       </div>
     </div>
     <div style="margin-top:16px; padding-top:16px; border-top:1px solid #6B5D4F;">
-      <strong style="color:#E8836B;">페어별 톤 차별화 — 한눈에 구분되어야 합니다</strong>
+      <strong style="color:#E8836B;">페어별 톤 — 한눈에 구분되어야 합니다</strong>
       <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:12px;">
         <div style="text-align:center;">
           <div style="display:flex; gap:4px; justify-content:center; margin-bottom:6px;">
@@ -577,7 +272,7 @@
             <div style="width:28px; height:28px; border-radius:50%; background:#FDF8F3; border:1px solid #E8DDD1;"></div>
           </div>
           <div style="font-size:12px;">PAIR 1: 크림/베이지</div>
-          <div style="font-size:11px; color:#9B8E7F;">따뜻하고 감성적</div>
+          <div style="font-size:11px; color:#9B8E7F;">1. 출산준비 + 2. 맘커플룩</div>
         </div>
         <div style="text-align:center;">
           <div style="display:flex; gap:4px; justify-content:center; margin-bottom:6px;">
@@ -586,7 +281,7 @@
             <div style="width:28px; height:28px; border-radius:50%; background:#F0F5F0;"></div>
           </div>
           <div style="font-size:12px;">PAIR 2: 세이지/민트</div>
-          <div style="font-size:11px; color:#9B8E7F;">깔끔하고 정보적</div>
+          <div style="font-size:11px; color:#9B8E7F;">3. Pick카부 + 4. 신상</div>
         </div>
         <div style="text-align:center;">
           <div style="display:flex; gap:4px; justify-content:center; margin-bottom:6px;">
@@ -595,134 +290,106 @@
             <div style="width:28px; height:28px; border-radius:50%; background:#FAF5ED;"></div>
           </div>
           <div style="font-size:12px;">PAIR 3: 샌드/골드</div>
-          <div style="font-size:11px; color:#9B8E7F;">밝고 활동적</div>
+          <div style="font-size:11px; color:#9B8E7F;">5. 코디 + 6. 선물</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 목표 수치 -->
+  <!-- 목표 -->
   <div class="section" style="margin-top:40px;">
     <div class="section-title">GOAL</div>
     <h2 style="font-size:20px; margin-bottom:16px;">리뉴얼 목표</h2>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
       <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; text-align:center;">
-        <div style="font-size:12px; color:#9B8E7F; margin-bottom:4px;">구매율</div>
+        <div style="font-size:12px; color:#9B8E7F;">구매율</div>
         <div style="font-size:13px; color:#9B8E7F;">현재 0.31%</div>
         <div style="font-size:24px; font-weight:700; color:#6B8F71;">→ 1.0%</div>
-        <div style="font-size:11px; color:#9B8E7F;">3배 향상 목표</div>
       </div>
       <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; text-align:center;">
-        <div style="font-size:12px; color:#9B8E7F; margin-bottom:4px;">배너당 월 매출</div>
-        <div style="font-size:13px; color:#9B8E7F;">현재 ~₩40,000</div>
-        <div style="font-size:24px; font-weight:700; color:#6B8F71;">→ ₩150,000</div>
-        <div style="font-size:11px; color:#9B8E7F;">10일 기준</div>
+        <div style="font-size:12px; color:#9B8E7F;">종료 라인 재고</div>
+        <div style="font-size:13px; color:#9B8E7F;">달링+베리+일랑 1,664개</div>
+        <div style="font-size:24px; font-weight:700; color:#6B8F71;">→ 여름 내 소진</div>
       </div>
       <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; text-align:center;">
-        <div style="font-size:12px; color:#9B8E7F; margin-bottom:4px;">첫 출산준비 구매</div>
-        <div style="font-size:13px; color:#D4604A;">현재 0건</div>
-        <div style="font-size:24px; font-weight:700; color:#6B8F71;">→ 5건+</div>
-        <div style="font-size:11px; color:#9B8E7F;">10일 기준</div>
+        <div style="font-size:12px; color:#9B8E7F;">과다재고 라인</div>
+        <div style="font-size:13px; color:#9B8E7F;">스윗피+비쥬+팅커벨+카라멜</div>
+        <div style="font-size:24px; font-weight:700; color:#6B8F71;">→ 판매 2배</div>
       </div>
     </div>
   </div>
 
-  <!-- 일정 & 담당 -->
+  <!-- 일정 -->
   <div class="section">
     <div class="section-title">TIMELINE</div>
     <h2 style="font-size:20px; margin-bottom:16px;">제작 일정 & 담당</h2>
     <div style="background:white; border:1px solid #E8DDD1; border-radius:12px; padding:20px;">
       <table style="width:100%; font-size:13px; border-collapse:collapse;">
         <tr style="border-bottom:2px solid #E8DDD1;">
-          <th style="padding:10px 8px; text-align:left; color:#9B8E7F; font-weight:500; width:15%;">단계</th>
-          <th style="padding:10px 8px; text-align:left; color:#9B8E7F; font-weight:500; width:35%;">내용</th>
-          <th style="padding:10px 8px; text-align:center; color:#9B8E7F; font-weight:500; width:15%;">담당</th>
-          <th style="padding:10px 8px; text-align:center; color:#9B8E7F; font-weight:500; width:15%;">기한</th>
-          <th style="padding:10px 8px; text-align:center; color:#9B8E7F; font-weight:500; width:20%;">상태</th>
+          <th style="padding:10px 8px; text-align:left; color:#9B8E7F; width:15%;">단계</th>
+          <th style="padding:10px 8px; text-align:left; color:#9B8E7F; width:40%;">내용</th>
+          <th style="padding:10px 8px; text-align:center; color:#9B8E7F; width:15%;">담당</th>
+          <th style="padding:10px 8px; text-align:center; color:#9B8E7F; width:15%;">상태</th>
         </tr>
         <tr style="border-bottom:1px solid #F5EDE4;">
           <td style="padding:10px 8px; font-weight:700;">1. 기획</td>
-          <td style="padding:10px 8px;">배너 6장 테마/카피/톤 가이드</td>
+          <td style="padding:10px 8px;">배너 6장 테마/카피/제품 구성/톤 가이드</td>
           <td style="padding:10px 8px; text-align:center;">Semi</td>
-          <td style="padding:10px 8px; text-align:center;">3/25</td>
           <td style="padding:10px 8px; text-align:center;"><span style="background:#6B8F71; color:white; padding:2px 10px; border-radius:10px; font-size:11px;">완료</span></td>
         </tr>
         <tr style="border-bottom:1px solid #F5EDE4;">
-          <td style="padding:10px 8px; font-weight:700;">2. 대표님 확인</td>
-          <td style="padding:10px 8px;">기획안 검토 및 피드백</td>
+          <td style="padding:10px 8px; font-weight:700;">2. 컨펌</td>
+          <td style="padding:10px 8px;">대표님 기획안 검토 및 피드백</td>
           <td style="padding:10px 8px; text-align:center;">대표님</td>
-          <td style="padding:10px 8px; text-align:center;"></td>
           <td style="padding:10px 8px; text-align:center;"><span style="background:#C4A882; color:white; padding:2px 10px; border-radius:10px; font-size:11px;">대기</span></td>
         </tr>
         <tr style="border-bottom:1px solid #F5EDE4;">
-          <td style="padding:10px 8px; font-weight:700;">3. 디자인 제작</td>
+          <td style="padding:10px 8px; font-weight:700;">3. 디자인</td>
           <td style="padding:10px 8px;">배너 이미지 6장 제작 (1000x1000)</td>
           <td style="padding:10px 8px; text-align:center;">디자이너</td>
-          <td style="padding:10px 8px; text-align:center;"></td>
           <td style="padding:10px 8px; text-align:center;"><span style="background:#E8DDD1; color:#6B5D4F; padding:2px 10px; border-radius:10px; font-size:11px;">예정</span></td>
         </tr>
         <tr style="border-bottom:1px solid #F5EDE4;">
           <td style="padding:10px 8px; font-weight:700;">4. 검수</td>
           <td style="padding:10px 8px;">모바일 가독성, 버튼 위치, 톤 차별화 확인</td>
           <td style="padding:10px 8px; text-align:center;">Semi</td>
-          <td style="padding:10px 8px; text-align:center;"></td>
           <td style="padding:10px 8px; text-align:center;"><span style="background:#E8DDD1; color:#6B5D4F; padding:2px 10px; border-radius:10px; font-size:11px;">예정</span></td>
         </tr>
         <tr style="border-bottom:1px solid #F5EDE4;">
-          <td style="padding:10px 8px; font-weight:700;">5. 자사몰 적용</td>
+          <td style="padding:10px 8px; font-weight:700;">5. 적용</td>
           <td style="padding:10px 8px;">Cafe24 배너 교체 + 숨김 카테고리 업데이트</td>
           <td style="padding:10px 8px; text-align:center;">윤지님</td>
-          <td style="padding:10px 8px; text-align:center;"></td>
           <td style="padding:10px 8px; text-align:center;"><span style="background:#E8DDD1; color:#6B5D4F; padding:2px 10px; border-radius:10px; font-size:11px;">예정</span></td>
         </tr>
         <tr>
-          <td style="padding:10px 8px; font-weight:700;">6. 성과 측정</td>
-          <td style="padding:10px 8px;">첫 번째 사이클(10일) 데이터 확인</td>
+          <td style="padding:10px 8px; font-weight:700;">6. 측정</td>
+          <td style="padding:10px 8px;">첫 사이클(10일) 데이터 자동 수집 + 리포트</td>
           <td style="padding:10px 8px; text-align:center;">Semi (자동)</td>
-          <td style="padding:10px 8px; text-align:center;"></td>
           <td style="padding:10px 8px; text-align:center;"><span style="background:#E8DDD1; color:#6B5D4F; padding:2px 10px; border-radius:10px; font-size:11px;">예정</span></td>
         </tr>
       </table>
     </div>
   </div>
 
-  <!-- 운영 사이클 -->
-  <div class="section" style="margin-top:40px;">
+  <!-- 운영 방식 -->
+  <div class="section">
     <div class="section-title">OPERATION</div>
-    <h2 style="font-size:20px; margin-bottom:16px;">배너 로테이션 운영 방식</h2>
-
-    <div style="background:white; border:1px solid #E8DDD1; border-radius:12px; padding:24px; margin-bottom:20px;">
-      <h3 style="font-size:16px; margin-bottom:16px;">10일 1사이클 — 위치 로테이션</h3>
-      <p style="font-size:13px; color:#6B5D4F; margin-bottom:16px;">6개 배너를 2~3일마다 페어 순서를 교체. 10일 동안 모든 배너가 모든 위치를 경험 → 위치 편향 없는 순수 성과 비교 가능</p>
+    <h2 style="font-size:20px; margin-bottom:16px;">10일 1사이클 로테이션</h2>
+    <div style="background:white; border:1px solid #E8DDD1; border-radius:12px; padding:20px; margin-bottom:16px;">
+      <p style="font-size:13px; color:#6B5D4F; margin-bottom:16px;">2~3일마다 페어 순서 교체. 10일 동안 모든 배너가 모든 위치를 경험 → 공정한 성과 비교 가능</p>
       <table style="width:100%; font-size:13px; border-collapse:collapse;">
         <tr style="border-bottom:2px solid #E8DDD1;">
-          <th style="padding:8px; text-align:left; color:#9B8E7F; font-weight:500;">일자</th>
-          <th style="padding:8px; text-align:center; color:#E8836B; font-weight:500;">첫 화면 (1~2번)</th>
-          <th style="padding:8px; text-align:center; color:#6B8F71; font-weight:500;">두번째 (3~4번)</th>
-          <th style="padding:8px; text-align:center; color:#C4A882; font-weight:500;">세번째 (5~6번)</th>
+          <th style="padding:8px; text-align:left; color:#9B8E7F;">일자</th>
+          <th style="padding:8px; text-align:center; color:#E8836B;">첫 화면</th>
+          <th style="padding:8px; text-align:center; color:#6B8F71;">두번째</th>
+          <th style="padding:8px; text-align:center; color:#C4A882;">세번째</th>
         </tr>
-        <tr style="border-bottom:1px solid #F5EDE4;">
-          <td style="padding:8px;">Day 1~3</td>
-          <td style="padding:8px; text-align:center; background:#FEF0EC;">PAIR 1 니즈</td>
-          <td style="padding:8px; text-align:center; background:#E8F0E8;">PAIR 2 발견</td>
-          <td style="padding:8px; text-align:center; background:#F5EDDF;">PAIR 3 상황</td>
-        </tr>
-        <tr style="border-bottom:1px solid #F5EDE4;">
-          <td style="padding:8px;">Day 4~6</td>
-          <td style="padding:8px; text-align:center; background:#E8F0E8;">PAIR 2 발견</td>
-          <td style="padding:8px; text-align:center; background:#F5EDDF;">PAIR 3 상황</td>
-          <td style="padding:8px; text-align:center; background:#FEF0EC;">PAIR 1 니즈</td>
-        </tr>
-        <tr>
-          <td style="padding:8px;">Day 7~10</td>
-          <td style="padding:8px; text-align:center; background:#F5EDDF;">PAIR 3 상황</td>
-          <td style="padding:8px; text-align:center; background:#FEF0EC;">PAIR 1 니즈</td>
-          <td style="padding:8px; text-align:center; background:#E8F0E8;">PAIR 2 발견</td>
-        </tr>
+        <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:8px;">Day 1~3</td><td style="padding:8px; text-align:center; background:#FEF0EC;">출산+맘커플</td><td style="padding:8px; text-align:center; background:#E8F0E8;">Pick+신상</td><td style="padding:8px; text-align:center; background:#F5EDDF;">코디+선물</td></tr>
+        <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:8px;">Day 4~6</td><td style="padding:8px; text-align:center; background:#E8F0E8;">Pick+신상</td><td style="padding:8px; text-align:center; background:#F5EDDF;">코디+선물</td><td style="padding:8px; text-align:center; background:#FEF0EC;">출산+맘커플</td></tr>
+        <tr><td style="padding:8px;">Day 7~10</td><td style="padding:8px; text-align:center; background:#F5EDDF;">코디+선물</td><td style="padding:8px; text-align:center; background:#FEF0EC;">출산+맘커플</td><td style="padding:8px; text-align:center; background:#E8F0E8;">Pick+신상</td></tr>
       </table>
     </div>
-
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
       <div style="background:white; border:1px solid #E8DDD1; border-radius:12px; padding:20px;">
         <h3 style="font-size:15px; margin-bottom:10px;">사이클 후 판단 기준</h3>
         <ol style="font-size:13px; color:#6B5D4F; padding-left:20px; line-height:1.8;">
@@ -735,29 +402,33 @@
       <div style="background:white; border:1px solid #E8DDD1; border-radius:12px; padding:20px;">
         <h3 style="font-size:15px; margin-bottom:10px;">교체 의사결정</h3>
         <ul style="font-size:13px; color:#6B5D4F; padding-left:20px; line-height:1.8;">
-          <li><strong>성과 좋음</strong> → 유지, 다음 사이클 앞 순서 배치</li>
+          <li><strong>성과 좋음</strong> → 유지</li>
           <li><strong>많이 보는데 안 삼</strong> → 문구/버튼 수정</li>
           <li><strong>보지도 사지도 않음</strong> → 테마 or 이미지 교체</li>
           <li><strong>3사이클 연속 부진</strong> → 테마 자체를 교체</li>
         </ul>
       </div>
     </div>
-
     <div style="background:#3D3428; border-radius:12px; padding:20px; color:#E8DDD1;">
       <h3 style="color:white; margin-bottom:10px; font-size:15px;">자동화 스케줄</h3>
       <div style="font-size:13px; line-height:1.8;">
         <strong style="color:#E8836B;">매주 화요일 09:00</strong> — 최근 10일 방문/구매 데이터 자동 수집<br>
-        → 구글 시트에 자동 입력<br>
-        → 디스코드 알림 (테마별 방문자/구매/매출 요약)<br>
-        → 월 약 3사이클 × 데이터 쌓아서 추세 분석
+        → 구글 시트 자동 입력 → 디스코드 알림 → 월 3사이클 추세 분석
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- NEXT -->
+  <div class="section">
+    <div style="background:#FDF8F3; border:1px solid #E8DDD1; border-radius:12px; padding:20px;">
+      <h3 style="font-size:15px; margin-bottom:8px;">NEXT STEP</h3>
+      <p style="font-size:13px; color:#6B5D4F;">컨펌 후 → 배너 이미지 제작 → 자사몰 적용 → 이후 배너 주제를 기반으로 랜딩 페이지 제작 예정</p>
+    </div>
+  </div>
+
   <div class="footer">
     <div class="name">Planned by Semi Lee</div>
-    <div>Peekaboo Banner Curation Plan | 2026.03.25</div>
+    <div>Peekaboo Banner Curation Plan v4 | 2026.03.25</div>
   </div>
 
 </div>
