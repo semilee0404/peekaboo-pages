@@ -194,6 +194,9 @@ body {
   background: var(--bg);
   padding: 8px 0 10px;
   margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 .tabs-inner {
   display: flex;
@@ -320,6 +323,8 @@ body {
 }
 .table-scroll {
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: 70vh;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -336,6 +341,11 @@ thead {
   top: 0;
   z-index: 10;
 }
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 11;
+}
 th {
   background: #F6F7F9;
   color: var(--text-secondary);
@@ -344,6 +354,7 @@ th {
   text-transform: uppercase;
   letter-spacing: 0.03em;
   padding: 12px 14px;
+  box-shadow: 0 1px 0 var(--border);
   text-align: left;
   border-bottom: 1px solid var(--border);
   white-space: nowrap;
@@ -713,12 +724,145 @@ tr.group-start td {
 }
 
 /* ============================================
+   DATE RANGE FILTER BAR
+   ============================================ */
+.date-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+.date-filter-presets {
+  display: flex;
+  gap: 4px;
+}
+.date-preset-btn {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--border-light);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font);
+  white-space: nowrap;
+}
+.date-preset-btn:hover {
+  background: var(--pink-mid);
+  color: var(--pink);
+}
+.date-preset-btn.active {
+  background: var(--pink);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255,107,138,0.3);
+}
+.date-filter-sep {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+.date-filter-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+.date-filter-range input[type="date"] {
+  padding: 5px 8px;
+  font-size: 0.8rem;
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  outline: none;
+  transition: border-color var(--transition);
+  min-width: 120px;
+}
+.date-filter-range input[type="date"]:focus {
+  border-color: var(--pink);
+}
+.date-filter-range .range-tilde {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   CHANNEL FILTER (Daily Shipments Tab)
+   ============================================ */
+.channel-card {
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.channel-card.filter-dimmed {
+  opacity: 0.4;
+  border-color: var(--border-light) !important;
+}
+.channel-card.filter-active {
+  border: 2px solid var(--pink) !important;
+  box-shadow: 0 2px 8px rgba(255,107,138,0.2);
+}
+.channel-filter-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+.channel-filter-indicator .filter-label {
+  color: var(--pink);
+}
+.channel-filter-reset {
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--pink);
+  background: var(--pink-light);
+  border: 1px solid var(--pink-mid);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font);
+}
+.channel-filter-reset:hover {
+  background: var(--pink-mid);
+}
+
+/* ============================================
+   RESPONSIVE: DATE FILTER & CHANNEL FILTER
+   ============================================ */
+@media (max-width: 768px) {
+  .date-filter-bar { padding: 8px 10px; gap: 6px; }
+  .date-filter-sep { display: none; }
+  .date-filter-range { width: 100%; }
+  .date-filter-range input[type="date"] { flex: 1; min-width: 0; }
+  .date-preset-btn { padding: 6px 10px; font-size: 0.75rem; }
+}
+@media (max-width: 480px) {
+  .date-filter-presets { width: 100%; }
+  .date-preset-btn { flex: 1; text-align: center; padding: 7px 6px; }
+}
+
+/* ============================================
    PRINT STYLES
    ============================================ */
 @media print {
   .tabs-wrapper { position: static; }
   .tab-panel { display: block !important; page-break-inside: avoid; }
   .tab-btn { display: none; }
+  .date-filter-bar { display: none; }
 }
 
 /* ============================================
@@ -1236,8 +1380,23 @@ tr.group-start td {
     </div>
   </div>
 
-  <!-- TABS -->
+  <!-- DATE FILTER + TABS (sticky together) -->
   <div class="tabs-wrapper">
+    <!-- Date Range Filter -->
+    <div class="date-filter-bar" id="dateFilterBar">
+      <div class="date-filter-presets">
+        <button class="date-preset-btn" data-days="7">7일</button>
+        <button class="date-preset-btn" data-days="14">14일</button>
+        <button class="date-preset-btn" data-days="30">30일</button>
+        <button class="date-preset-btn active" data-days="all">전체</button>
+      </div>
+      <div class="date-filter-sep"></div>
+      <div class="date-filter-range">
+        <input type="date" id="dateFilterStart" title="시작일">
+        <span class="range-tilde">~</span>
+        <input type="date" id="dateFilterEnd" title="종료일">
+      </div>
+    </div>
     <div class="tabs-inner" id="tabsBar">
       <button class="tab-btn active" data-tab="trending">7일 트렌드</button>
       <button class="tab-btn" data-tab="dailyshipments">일별 출고</button>
@@ -1306,6 +1465,7 @@ tr.group-start td {
     </div>
     <div class="date-cards-scroll" id="dateCardsScroll"></div>
     <div id="dailyChannelSummary" class="channel-summary-grid"></div>
+    <div id="channelFilterIndicator" class="channel-filter-indicator" style="display:none;"></div>
     <div class="scroll-hint">&#8594; 좌우로 스크롤하세요</div>
     <div class="table-container">
       <div class="table-scroll">
@@ -1613,6 +1773,244 @@ let DATA = null;
 let sortStates = {};
 let dailySelectedDate = null;
 let productSearchIndex = null;
+
+/* ============================================
+   DATE RANGE FILTER (Global)
+   ============================================ */
+let DATE_FILTER = { start: null, end: null }; // null = no filter (show all)
+let activePreset = 'all';
+
+function isDateInRange(dateStr) {
+  if (!DATE_FILTER.start && !DATE_FILTER.end) return true;
+  if (DATE_FILTER.start && dateStr < DATE_FILTER.start) return false;
+  if (DATE_FILTER.end && dateStr > DATE_FILTER.end) return false;
+  return true;
+}
+
+function setDateFilter(start, end, preset) {
+  DATE_FILTER = { start: start, end: end };
+  activePreset = preset || 'custom';
+
+  // Update date inputs
+  var startInput = document.getElementById('dateFilterStart');
+  var endInput = document.getElementById('dateFilterEnd');
+  if (startInput) startInput.value = start || '';
+  if (endInput) endInput.value = end || '';
+
+  // Update preset button states
+  document.querySelectorAll('.date-preset-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-days') === activePreset);
+  });
+
+  // Recalculate filtered KPIs
+  renderFilteredKPIs();
+
+  // Re-render active tab content that is date-sensitive
+  renderDailyShipments();
+
+  // If product search has a selected product, re-render it
+  var searchInput = document.getElementById('searchProduct');
+  if (searchInput && searchInput.value.trim()) {
+    selectProduct(searchInput.value.trim());
+  }
+}
+
+function getFullDateRange() {
+  if (!DATA || !DATA.period) return { start: '', end: '' };
+  return { start: DATA.period.start || '', end: DATA.period.end || '' };
+}
+
+function renderFilteredKPIs() {
+  if (!DATA) return;
+
+  var shipments = DATA.daily_shipments || [];
+
+  // If no filter (show all), use original full_summary
+  if (!DATE_FILTER.start && !DATE_FILTER.end) {
+    renderKPIs(DATA.summary, DATA.full_summary);
+    return;
+  }
+
+  // Calculate filtered totals from daily_shipments
+  var totalQty = 0;
+  var totalRev = 0;
+  shipments.forEach(function(d) {
+    if (isDateInRange(d.date)) {
+      totalQty += (d.total_qty || 0);
+      totalRev += (d.total_rev || 0);
+    }
+  });
+
+  // Build a filtered summary override for sales/revenue only
+  var filteredFullSummary = {
+    total_sales: totalQty,
+    total_revenue: totalRev
+  };
+
+  // Use original summary for stock/product count, but override sales/revenue
+  document.getElementById('kpiSales').textContent = fmtNum(totalQty);
+  document.getElementById('kpiSalesSub').textContent = DATE_FILTER.start + ' ~ ' + DATE_FILTER.end;
+
+  document.getElementById('kpiRevenue').textContent = fmtKRWShort(totalRev);
+  document.getElementById('kpiRevenueSub').textContent = fmtKRW(totalRev);
+
+  // Stock and product count don't change with date filter
+  document.getElementById('kpiStock').textContent = fmtNum(DATA.summary.total_stock);
+  document.getElementById('kpiStockSub').textContent = '전 시즌 합계';
+
+  document.getElementById('kpiProducts').textContent = fmtNum(DATA.summary.product_count);
+  document.getElementById('kpiProductsSub').textContent = fmtNum(DATA.summary.sku_count) + '개 SKU';
+}
+
+function initDateFilter() {
+  var range = getFullDateRange();
+
+  // Set date inputs to full range
+  var startInput = document.getElementById('dateFilterStart');
+  var endInput = document.getElementById('dateFilterEnd');
+  if (startInput) {
+    startInput.value = range.start;
+    startInput.min = range.start;
+    startInput.max = range.end;
+  }
+  if (endInput) {
+    endInput.value = range.end;
+    endInput.min = range.start;
+    endInput.max = range.end;
+  }
+
+  // Preset button clicks
+  document.querySelectorAll('.date-preset-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var days = this.getAttribute('data-days');
+      if (days === 'all') {
+        setDateFilter(null, null, 'all');
+        // Show full range in inputs
+        startInput.value = range.start;
+        endInput.value = range.end;
+      } else {
+        var numDays = parseInt(days);
+        var endDate = range.end;
+        var startDate = new Date(endDate + 'T00:00:00');
+        startDate.setDate(startDate.getDate() - numDays + 1);
+        var startStr = startDate.toISOString().slice(0, 10);
+        // Clamp to data range
+        if (startStr < range.start) startStr = range.start;
+        setDateFilter(startStr, endDate, days);
+      }
+    });
+  });
+
+  // Custom date input changes
+  startInput.addEventListener('change', function() {
+    var s = startInput.value;
+    var e = endInput.value;
+    if (s && e) {
+      setDateFilter(s, e, 'custom');
+    }
+  });
+  endInput.addEventListener('change', function() {
+    var s = startInput.value;
+    var e = endInput.value;
+    if (s && e) {
+      setDateFilter(s, e, 'custom');
+    }
+  });
+}
+
+/* ============================================
+   CHANNEL FILTER (Daily Shipments Tab)
+   ============================================ */
+let activeChannelFilters = new Set();
+
+function toggleChannelFilter(channel) {
+  if (activeChannelFilters.has(channel)) {
+    activeChannelFilters.delete(channel);
+  } else {
+    activeChannelFilters.add(channel);
+  }
+  updateChannelFilterVisuals();
+  renderDailyItemsFiltered();
+}
+
+function resetChannelFilters() {
+  activeChannelFilters.clear();
+  updateChannelFilterVisuals();
+  renderDailyItemsFiltered();
+}
+
+function updateChannelFilterVisuals() {
+  var cards = document.querySelectorAll('#dailyChannelSummary .channel-card');
+  var hasFilter = activeChannelFilters.size > 0;
+
+  cards.forEach(function(card) {
+    var ch = card.getAttribute('data-channel');
+    card.classList.remove('filter-active', 'filter-dimmed');
+    if (hasFilter) {
+      if (activeChannelFilters.has(ch)) {
+        card.classList.add('filter-active');
+      } else {
+        card.classList.add('filter-dimmed');
+      }
+    }
+  });
+
+  // Update filter indicator
+  var indicator = document.getElementById('channelFilterIndicator');
+  if (hasFilter) {
+    var names = Array.from(activeChannelFilters).join(', ');
+    indicator.innerHTML = '<span class="filter-label">필터: ' + names + '</span>' +
+      '<button class="channel-filter-reset" onclick="resetChannelFilters()">전체 보기</button>';
+    indicator.style.display = 'flex';
+  } else {
+    indicator.style.display = 'none';
+  }
+}
+
+function renderDailyItemsFiltered() {
+  var shipments = DATA.daily_shipments || [];
+  var dayData = shipments.find(function(d) { return d.date === dailySelectedDate; });
+
+  var tbody = document.querySelector('#tableDailyItems tbody');
+  var countEl = document.getElementById('countDailyItems');
+
+  if (!dayData) {
+    tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><p>데이터 없음</p></div></td></tr>';
+    countEl.textContent = '';
+    return;
+  }
+
+  var items = dayData.top_items || [];
+  var hasFilter = activeChannelFilters.size > 0;
+
+  // Filter items by active channels
+  var filtered = hasFilter
+    ? items.filter(function(item) { return activeChannelFilters.has(item.channel); })
+    : items;
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><p>선택한 채널에 해당하는 아이템이 없습니다</p></div></td></tr>';
+    countEl.textContent = '';
+    return;
+  }
+
+  var rowsHtml = '';
+  var limit = Math.min(filtered.length, 50);
+  for (var i = 0; i < limit; i++) {
+    var item = filtered[i];
+    var color = getChannelColor(item.channel || '');
+    rowsHtml += '<tr>' +
+      '<td><span class="channel-dot" style="background:' + color + ';"></span>' + (item.channel || '') + '</td>' +
+      '<td class="product-name">' + (item.name || '') + '</td>' +
+      '<td style="font-size:0.8rem;color:var(--text-secondary);">' + (item.option || '') + '</td>' +
+      '<td class="num">' + fmtNum(item.qty) + '</td>' +
+      '<td class="num">' + fmtKRW(item.rev) + '</td>' +
+      '</tr>';
+  }
+  tbody.innerHTML = rowsHtml;
+  var filterLabel = hasFilter ? ' (채널 필터 적용)' : '';
+  countEl.textContent = (filtered.length > 50 ? 'TOP 50 / ' : '') + '총 ' + filtered.length + '건' + filterLabel;
+}
 
 /* ============================================
    TABLE RENDERING
@@ -1950,15 +2348,22 @@ function renderDailyShipments() {
     return;
   }
 
-  // Sort by date descending (most recent first)
-  var sorted = [...shipments].sort(function(a, b) {
-    return b.date.localeCompare(a.date);
-  });
+  // Filter by date range, then sort by date descending (most recent first)
+  var sorted = shipments
+    .filter(function(d) { return isDateInRange(d.date); })
+    .sort(function(a, b) { return b.date.localeCompare(a.date); });
+
+  if (sorted.length === 0) {
+    document.getElementById('dateCardsScroll').innerHTML = '<div class="empty-state"><p>선택한 기간에 출고 데이터가 없습니다</p></div>';
+    document.getElementById('dailyChannelSummary').innerHTML = '';
+    document.querySelector('#tableDailyItems tbody').innerHTML = '<tr><td colspan="5"><div class="empty-state"><p>데이터 없음</p></div></td></tr>';
+    document.getElementById('countDailyItems').textContent = '';
+    return;
+  }
 
   // Date cards
   var cardsHtml = '';
   sorted.forEach(function(d) {
-    // Format date nicely: "03-22 (토)" style
     var dateObj = new Date(d.date + 'T00:00:00');
     var weekDays = ['일','월','화','수','목','금','토'];
     var monthDay = (dateObj.getMonth()+1) + '/' + dateObj.getDate();
@@ -1977,16 +2382,22 @@ function renderDailyShipments() {
       dailySelectedDate = this.getAttribute('data-date');
       document.querySelectorAll('#dateCardsScroll .date-card').forEach(function(c) { c.classList.remove('active'); });
       this.classList.add('active');
+      // Reset channel filters when switching date
+      activeChannelFilters.clear();
       renderDailyDetail(dailySelectedDate);
     });
   });
 
-  // Select first date (most recent) by default
-  if (!dailySelectedDate) {
+  // If currently selected date is out of filtered range, reset to first
+  var selectedInRange = sorted.some(function(d) { return d.date === dailySelectedDate; });
+  if (!selectedInRange || !dailySelectedDate) {
     dailySelectedDate = sorted[0].date;
-    var firstCard = document.querySelector('#dateCardsScroll .date-card');
-    if (firstCard) firstCard.classList.add('active');
   }
+
+  // Make sure the active card is visually selected
+  var activeCard = document.querySelector('#dateCardsScroll .date-card[data-date="' + dailySelectedDate + '"]');
+  if (activeCard) activeCard.classList.add('active');
+
   renderDailyDetail(dailySelectedDate);
 }
 
@@ -2002,10 +2413,11 @@ function renderDailyDetail(dateStr) {
     channelEl.innerHTML = '';
     tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><p>데이터 없음</p></div></td></tr>';
     countEl.textContent = '';
+    document.getElementById('channelFilterIndicator').style.display = 'none';
     return;
   }
 
-  // Channel summary cards
+  // Channel summary cards (now clickable for filtering)
   var channels = dayData.channels || {};
   var channelKeys = Object.keys(channels).sort(function(a, b) {
     return (channels[b].qty || 0) - (channels[a].qty || 0);
@@ -2015,7 +2427,7 @@ function renderDailyDetail(dateStr) {
   channelKeys.forEach(function(ch) {
     var chData = channels[ch];
     var color = getChannelColor(ch);
-    chHtml += '<div class="channel-card" style="border-top: 3px solid ' + color + ';">' +
+    chHtml += '<div class="channel-card" data-channel="' + ch + '" style="border-top: 3px solid ' + color + ';">' +
       '<div class="channel-card-name"><span class="channel-dot" style="background:' + color + ';"></span>' + ch + '</div>' +
       '<div class="channel-card-qty">' + fmtNum(chData.qty) + '개</div>' +
       '<div class="channel-card-rev">' + fmtKRW(chData.rev) + '</div>' +
@@ -2023,29 +2435,19 @@ function renderDailyDetail(dateStr) {
   });
   channelEl.innerHTML = chHtml;
 
-  // Items table
-  var items = dayData.top_items || [];
-  if (items.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><p>상세 아이템 데이터가 없습니다 (최근 14일만 제공)</p></div></td></tr>';
-    countEl.textContent = '';
-    return;
-  }
+  // Set up channel card click handlers
+  channelEl.querySelectorAll('.channel-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var ch = this.getAttribute('data-channel');
+      toggleChannelFilter(ch);
+    });
+  });
 
-  var rowsHtml = '';
-  var limit = Math.min(items.length, 50);
-  for (var i = 0; i < limit; i++) {
-    var item = items[i];
-    var color = getChannelColor(item.channel || '');
-    rowsHtml += '<tr>' +
-      '<td><span class="channel-dot" style="background:' + color + ';"></span>' + (item.channel || '') + '</td>' +
-      '<td class="product-name">' + (item.name || '') + '</td>' +
-      '<td style="font-size:0.8rem;color:var(--text-secondary);">' + (item.option || '') + '</td>' +
-      '<td class="num">' + fmtNum(item.qty) + '</td>' +
-      '<td class="num">' + fmtKRW(item.rev) + '</td>' +
-      '</tr>';
-  }
-  tbody.innerHTML = rowsHtml;
-  countEl.textContent = (items.length > 50 ? 'TOP 50 / ' : '') + '총 ' + items.length + '건';
+  // Update channel filter visuals (in case filters are still active from before)
+  updateChannelFilterVisuals();
+
+  // Render items with channel filter applied
+  renderDailyItemsFiltered();
 }
 
 /* ============================================
@@ -2167,14 +2569,29 @@ function selectProduct(name) {
   var periodDays = '';
   if (DATA.period && DATA.period.days) periodDays = DATA.period.days + '일';
 
+  // Calculate filtered totals if date filter is active
+  var displayQty = p.total_qty;
+  var displayRev = p.total_rev;
+  var displayPeriod = periodDays;
+  if (DATE_FILTER.start || DATE_FILTER.end) {
+    var dailyData = p.daily || {};
+    displayQty = 0;
+    Object.keys(dailyData).forEach(function(d) {
+      if (isDateInRange(d)) displayQty += (dailyData[d] || 0);
+    });
+    displayPeriod = (DATE_FILTER.start || '') + ' ~ ' + (DATE_FILTER.end || '');
+  }
+
   // Header
   var html = '<div class="product-detail-card">';
   html += '<div class="pdc-header">';
   html += '<div class="pdc-title">' + name + '</div>';
   html += '<div class="pdc-stats">';
-  html += '<span>총 판매: <strong>' + fmtNum(p.total_qty) + '개</strong></span>';
-  html += '<span>총 매출: <strong>' + fmtKRW(p.total_rev) + '</strong></span>';
-  if (periodDays) html += '<span>기간: <strong>' + periodDays + '</strong></span>';
+  html += '<span>총 판매: <strong>' + fmtNum(displayQty) + '개</strong></span>';
+  if (!(DATE_FILTER.start || DATE_FILTER.end)) {
+    html += '<span>총 매출: <strong>' + fmtKRW(displayRev) + '</strong></span>';
+  }
+  if (displayPeriod) html += '<span>기간: <strong>' + displayPeriod + '</strong></span>';
   html += '</div></div>';
 
   // Channel bars
@@ -2202,16 +2619,17 @@ function selectProduct(name) {
     html += '</div>';
   }
 
-  // Daily sales chart (last 30 days)
+  // Daily sales chart (filtered by date range)
   var daily = p.daily || {};
-  var dailyKeys = Object.keys(daily).sort();
-  var last30 = dailyKeys.slice(-30);
-  if (last30.length > 0) {
-    var maxDaily = Math.max.apply(null, last30.map(function(k) { return daily[k] || 0; })) || 1;
+  var dailyKeys = Object.keys(daily).sort().filter(function(d) { return isDateInRange(d); });
+  var chartDays = dailyKeys.slice(-30);
+  if (chartDays.length > 0) {
+    var maxDaily = Math.max.apply(null, chartDays.map(function(k) { return daily[k] || 0; })) || 1;
     html += '<div class="pdc-section">';
-    html += '<div class="pdc-section-title">일별 판매 추이 (최근 ' + last30.length + '일)</div>';
+    var chartLabel = dailyKeys.length > 30 ? '최근 30일 (기간 내)' : dailyKeys.length + '일';
+    html += '<div class="pdc-section-title">일별 판매 추이 (' + chartLabel + ')</div>';
     html += '<div class="daily-chart">';
-    last30.forEach(function(d) {
+    chartDays.forEach(function(d) {
       var val = daily[d] || 0;
       var h = Math.max((val / maxDaily) * 100, 2);
       var dateObj = new Date(d + 'T00:00:00');
@@ -2376,6 +2794,9 @@ async function init() {
   document.getElementById('searchSku').addEventListener('input', debounce(function() {
     renderWeeklySku(document.getElementById('searchSku').value);
   }, 200));
+
+  // Date Filter
+  initDateFilter();
 
   // Tabs
   initTabs();
