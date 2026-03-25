@@ -219,15 +219,41 @@
     </details>
   </div>
 
-  <!-- 현재 문제점 -->
-  <div class="problem-box">
-    <h2>현재 배너의 핵심 문제</h2>
-    <ul>
-      <li><strong>시각적 차별화 부족</strong> — 모든 배너가 크림톤, 같은 구성이라 캐러셀에서 구분 안 됨</li>
-      <li><strong>클릭 버튼 없음</strong> — 6장 중 2장만 버튼 있음 → 누를 곳이 없다</li>
-      <li><strong>카피가 설명적</strong> — "~까지, ~를 위한" 구조 반복, 호기심 유발 약함</li>
-      <li><strong>대구 팝업 종료</strong> — 3/26 종료 → 1장 교체 필요 (짝수 유지)</li>
-    </ul>
+  <!-- 현재 배너 Before -->
+  <div class="section">
+    <div class="section-title">BEFORE</div>
+    <h2 style="font-size:20px; margin-bottom:16px;">현재 배너 — 무엇이 문제인가</h2>
+    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:16px;">
+      <div style="text-align:center;">
+        <img src="images/1_첫출산준비.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;">
+        <div style="font-size:11px; color:#9B8E7F; margin-top:4px;">1. 첫 출산준비</div>
+      </div>
+      <div style="text-align:center;">
+        <img src="images/2_온가족패밀리룩.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;">
+        <div style="font-size:11px; color:#9B8E7F; margin-top:4px;">2. 패밀리룩</div>
+      </div>
+      <div style="text-align:center;">
+        <img src="images/4_신상품미리보기.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;">
+        <div style="font-size:11px; color:#9B8E7F; margin-top:4px;">4. 신상 미리보기</div>
+      </div>
+      <div style="text-align:center;">
+        <img src="images/5_마실룩.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1;">
+        <div style="font-size:11px; color:#9B8E7F; margin-top:4px;">5. 마실룩</div>
+      </div>
+      <div style="text-align:center;">
+        <img src="images/6_대구팝업.jpg" style="width:100%; border-radius:8px; border:1px solid #E8DDD1; opacity:0.5;">
+        <div style="font-size:11px; color:#D4604A; margin-top:4px;">6. 대구 팝업 (종료)</div>
+      </div>
+    </div>
+    <div class="problem-box" style="margin-bottom:0;">
+      <h2 style="font-size:16px;">핵심 문제 4가지</h2>
+      <ul>
+        <li><strong>전부 같은 톤</strong> — 크림/베이지 일색이라 캐러셀에서 2장씩 볼 때 구분이 안 됨</li>
+        <li><strong>클릭 버튼 없음</strong> — 6장 중 2장만 버튼 있음. 나머지는 누를 곳이 보이지 않음</li>
+        <li><strong>문구가 설명적</strong> — "~까지, ~를 위한" 반복. 궁금해서 클릭하고 싶은 느낌이 약함</li>
+        <li><strong>대구 팝업 종료</strong> — 3/26 종료 → 1장 교체 필요 (짝수 유지)</li>
+      </ul>
+    </div>
   </div>
 
   <!-- 개선 전략 -->
@@ -374,25 +400,142 @@
 
   <!-- 디자이너 브리프 -->
   <div class="brief">
-    <h3>디자이너 브리프 핵심</h3>
+    <h3>디자이너 제작 가이드</h3>
     <div class="brief-grid">
       <div>
-        <strong>전체 공통</strong>
+        <strong>이미지 규격</strong>
         <ul>
-          <li>모든 배너에 클릭 버튼 필수</li>
-          <li>메인 카피 15자 이내</li>
-          <li>서브 카피 25자 이내</li>
-          <li>1000 x 1000 유지</li>
+          <li>사이즈: 1000 x 1000px (정사각)</li>
+          <li>모바일에서 2장이 나란히 보임 → 500px 너비 기준으로 글씨 읽혀야 함</li>
+          <li>메인 문구 최소 40pt 이상 권장</li>
+          <li>모든 배너에 <strong>클릭 버튼</strong> 필수 (둥근 사각형 + 화살표)</li>
         </ul>
       </div>
       <div class="right">
-        <strong>페어 간 차별화</strong>
+        <strong>문구 가이드</strong>
         <ul>
-          <li>PAIR 1: 크림/베이지 (감성)</li>
-          <li>PAIR 2: 세이지/민트 (정보)</li>
-          <li>PAIR 3: 샌드/골드 (라이프스타일)</li>
+          <li>메인 문구: 15자 이내 (한눈에 읽히게)</li>
+          <li>서브 문구: 25자 이내 (보조 설명)</li>
+          <li>버튼 문구: 8자 이내 ("~보기 →" 형식)</li>
         </ul>
       </div>
+    </div>
+    <div style="margin-top:16px; padding-top:16px; border-top:1px solid #6B5D4F;">
+      <strong style="color:#E8836B;">페어별 톤 차별화 — 한눈에 구분되어야 합니다</strong>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:12px;">
+        <div style="text-align:center;">
+          <div style="display:flex; gap:4px; justify-content:center; margin-bottom:6px;">
+            <div style="width:28px; height:28px; border-radius:50%; background:#F5EDE4;"></div>
+            <div style="width:28px; height:28px; border-radius:50%; background:#E8836B;"></div>
+            <div style="width:28px; height:28px; border-radius:50%; background:#FDF8F3; border:1px solid #E8DDD1;"></div>
+          </div>
+          <div style="font-size:12px;">PAIR 1: 크림/베이지</div>
+          <div style="font-size:11px; color:#9B8E7F;">따뜻하고 감성적</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="display:flex; gap:4px; justify-content:center; margin-bottom:6px;">
+            <div style="width:28px; height:28px; border-radius:50%; background:#A8B89C;"></div>
+            <div style="width:28px; height:28px; border-radius:50%; background:#D4E0CD;"></div>
+            <div style="width:28px; height:28px; border-radius:50%; background:#F0F5F0;"></div>
+          </div>
+          <div style="font-size:12px;">PAIR 2: 세이지/민트</div>
+          <div style="font-size:11px; color:#9B8E7F;">깔끔하고 정보적</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="display:flex; gap:4px; justify-content:center; margin-bottom:6px;">
+            <div style="width:28px; height:28px; border-radius:50%; background:#C4A882;"></div>
+            <div style="width:28px; height:28px; border-radius:50%; background:#E8DDD1;"></div>
+            <div style="width:28px; height:28px; border-radius:50%; background:#FAF5ED;"></div>
+          </div>
+          <div style="font-size:12px;">PAIR 3: 샌드/골드</div>
+          <div style="font-size:11px; color:#9B8E7F;">밝고 활동적</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 목표 수치 -->
+  <div class="section" style="margin-top:40px;">
+    <div class="section-title">GOAL</div>
+    <h2 style="font-size:20px; margin-bottom:16px;">리뉴얼 목표</h2>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+      <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; text-align:center;">
+        <div style="font-size:12px; color:#9B8E7F; margin-bottom:4px;">구매율</div>
+        <div style="font-size:13px; color:#9B8E7F;">현재 0.31%</div>
+        <div style="font-size:24px; font-weight:700; color:#6B8F71;">→ 1.0%</div>
+        <div style="font-size:11px; color:#9B8E7F;">3배 향상 목표</div>
+      </div>
+      <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; text-align:center;">
+        <div style="font-size:12px; color:#9B8E7F; margin-bottom:4px;">배너당 월 매출</div>
+        <div style="font-size:13px; color:#9B8E7F;">현재 ~₩40,000</div>
+        <div style="font-size:24px; font-weight:700; color:#6B8F71;">→ ₩150,000</div>
+        <div style="font-size:11px; color:#9B8E7F;">10일 기준</div>
+      </div>
+      <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; text-align:center;">
+        <div style="font-size:12px; color:#9B8E7F; margin-bottom:4px;">첫 출산준비 구매</div>
+        <div style="font-size:13px; color:#D4604A;">현재 0건</div>
+        <div style="font-size:24px; font-weight:700; color:#6B8F71;">→ 5건+</div>
+        <div style="font-size:11px; color:#9B8E7F;">10일 기준</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 일정 & 담당 -->
+  <div class="section">
+    <div class="section-title">TIMELINE</div>
+    <h2 style="font-size:20px; margin-bottom:16px;">제작 일정 & 담당</h2>
+    <div style="background:white; border:1px solid #E8DDD1; border-radius:12px; padding:20px;">
+      <table style="width:100%; font-size:13px; border-collapse:collapse;">
+        <tr style="border-bottom:2px solid #E8DDD1;">
+          <th style="padding:10px 8px; text-align:left; color:#9B8E7F; font-weight:500; width:15%;">단계</th>
+          <th style="padding:10px 8px; text-align:left; color:#9B8E7F; font-weight:500; width:35%;">내용</th>
+          <th style="padding:10px 8px; text-align:center; color:#9B8E7F; font-weight:500; width:15%;">담당</th>
+          <th style="padding:10px 8px; text-align:center; color:#9B8E7F; font-weight:500; width:15%;">기한</th>
+          <th style="padding:10px 8px; text-align:center; color:#9B8E7F; font-weight:500; width:20%;">상태</th>
+        </tr>
+        <tr style="border-bottom:1px solid #F5EDE4;">
+          <td style="padding:10px 8px; font-weight:700;">1. 기획</td>
+          <td style="padding:10px 8px;">배너 6장 테마/카피/톤 가이드</td>
+          <td style="padding:10px 8px; text-align:center;">Semi</td>
+          <td style="padding:10px 8px; text-align:center;">3/25</td>
+          <td style="padding:10px 8px; text-align:center;"><span style="background:#6B8F71; color:white; padding:2px 10px; border-radius:10px; font-size:11px;">완료</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #F5EDE4;">
+          <td style="padding:10px 8px; font-weight:700;">2. 대표님 확인</td>
+          <td style="padding:10px 8px;">기획안 검토 및 피드백</td>
+          <td style="padding:10px 8px; text-align:center;">대표님</td>
+          <td style="padding:10px 8px; text-align:center;"></td>
+          <td style="padding:10px 8px; text-align:center;"><span style="background:#C4A882; color:white; padding:2px 10px; border-radius:10px; font-size:11px;">대기</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #F5EDE4;">
+          <td style="padding:10px 8px; font-weight:700;">3. 디자인 제작</td>
+          <td style="padding:10px 8px;">배너 이미지 6장 제작 (1000x1000)</td>
+          <td style="padding:10px 8px; text-align:center;">디자이너</td>
+          <td style="padding:10px 8px; text-align:center;"></td>
+          <td style="padding:10px 8px; text-align:center;"><span style="background:#E8DDD1; color:#6B5D4F; padding:2px 10px; border-radius:10px; font-size:11px;">예정</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #F5EDE4;">
+          <td style="padding:10px 8px; font-weight:700;">4. 검수</td>
+          <td style="padding:10px 8px;">모바일 가독성, 버튼 위치, 톤 차별화 확인</td>
+          <td style="padding:10px 8px; text-align:center;">Semi</td>
+          <td style="padding:10px 8px; text-align:center;"></td>
+          <td style="padding:10px 8px; text-align:center;"><span style="background:#E8DDD1; color:#6B5D4F; padding:2px 10px; border-radius:10px; font-size:11px;">예정</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid #F5EDE4;">
+          <td style="padding:10px 8px; font-weight:700;">5. 자사몰 적용</td>
+          <td style="padding:10px 8px;">Cafe24 배너 교체 + 숨김 카테고리 업데이트</td>
+          <td style="padding:10px 8px; text-align:center;">윤지님</td>
+          <td style="padding:10px 8px; text-align:center;"></td>
+          <td style="padding:10px 8px; text-align:center;"><span style="background:#E8DDD1; color:#6B5D4F; padding:2px 10px; border-radius:10px; font-size:11px;">예정</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 8px; font-weight:700;">6. 성과 측정</td>
+          <td style="padding:10px 8px;">첫 번째 사이클(10일) 데이터 확인</td>
+          <td style="padding:10px 8px; text-align:center;">Semi (자동)</td>
+          <td style="padding:10px 8px; text-align:center;"></td>
+          <td style="padding:10px 8px; text-align:center;"><span style="background:#E8DDD1; color:#6B5D4F; padding:2px 10px; border-radius:10px; font-size:11px;">예정</span></td>
+        </tr>
+      </table>
     </div>
   </div>
 
