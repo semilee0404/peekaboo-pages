@@ -70,7 +70,7 @@
     border-radius: 12px;
     padding: 4px;
     margin: -22px auto 24px;
-    max-width: 480px;
+    max-width: 400px;
     box-shadow: 0 4px 16px rgba(180,140,140,0.1);
     position: relative;
     z-index: 2;
@@ -97,7 +97,7 @@
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
-  /* ── 대시보드: 브랜드 타임라인 ── */
+  /* ── 대시보드 섹션 ── */
   .dash-section {
     background: var(--white);
     border-radius: 14px;
@@ -106,50 +106,54 @@
     box-shadow: 0 1px 6px rgba(180,140,140,0.05);
   }
   .dash-section h3 {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
-    color: var(--text-sub);
-    letter-spacing: 0.5px;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-  }
-
-  .brand-grid {
-    display: grid;
-    grid-template-columns: 100px repeat(var(--weeks), 1fr);
-    gap: 2px;
-    font-size: 12px;
-  }
-  .brand-grid .header {
-    font-weight: 700;
-    color: var(--text-sub);
-    padding: 6px 8px;
-    text-align: center;
-    font-size: 11px;
-  }
-  .brand-grid .brand-name {
-    padding: 6px 8px;
-    font-weight: 600;
     color: var(--text);
-    font-size: 12.5px;
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
+    gap: 8px;
   }
-  .brand-grid .cell {
-    padding: 6px;
-    text-align: center;
-    border-radius: 6px;
+  .dash-section h3 .icon {
+    font-size: 18px;
   }
-  .brand-grid .cell.mentioned {
-    background: var(--pink-light);
-    cursor: pointer;
+  .dash-section .desc {
+    font-size: 13px;
+    color: var(--text-sub);
+    margin-bottom: 14px;
+    line-height: 1.6;
   }
-  .brand-grid .cell.mentioned:hover {
-    background: var(--pink);
-    color: white;
+
+  /* 경쟁사 요약 카드 */
+  .brand-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
-  .brand-grid .cell.empty {
-    background: #f5f3f3;
+  .brand-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .brand-row .bname {
+    font-weight: 700;
+    color: var(--pink-dark);
+    white-space: nowrap;
+    min-width: 72px;
+  }
+  .brand-row .bcount {
+    font-size: 12px;
+    color: var(--text-sub);
+    white-space: nowrap;
+  }
+  .brand-row .btopics {
+    color: var(--text-sub);
+    font-size: 13px;
   }
   .brand-tag {
     display: inline-block;
@@ -157,7 +161,8 @@
     border-radius: 4px;
     font-size: 9px;
     font-weight: 600;
-    margin-left: 6px;
+    margin-left: 4px;
+    vertical-align: middle;
   }
   .tag-직접경쟁 { background: #fce4e4; color: #c47070; }
   .tag-프리미엄 { background: #f0e4fc; color: #8a5cb8; }
@@ -341,63 +346,79 @@
   </header>
 
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="showTab('dashboard')">Dashboard</button>
-    <button class="tab-btn" onclick="showTab('actions')">Actions</button>
-    <button class="tab-btn" onclick="showTab('reports')">Reports</button>
+    <button class="tab-btn active" onclick="showTab('overview')">한눈에 보기</button>
+    <button class="tab-btn" onclick="showTab('actions')">할 일</button>
+    <button class="tab-btn" onclick="showTab('reports')">지난 리포트</button>
   </div>
 
   <div class="container">
 
-    <!-- 대시보드 탭 -->
-    <div id="tab-dashboard" class="tab-panel active">
+    <!-- 한눈에 보기 탭 -->
+    <div id="tab-overview" class="tab-panel active">
       <div class="dash-section">
-        <h3>Brand Timeline</h3>
-        <div class="brand-grid" style="--weeks:2;">
-<div class="header"></div><div class="header">3/18</div>
-<div class="header">3/24</div>
-<div class="brand-name">몽베베<span class="brand-tag tag-직접경쟁">직접경쟁</span></div>
-<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
-<div class="cell empty"></div>
-<div class="brand-name">아오스타<span class="brand-tag tag-직접경쟁">직접경쟁</span></div>
-<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
-<div class="cell empty"></div>
-<div class="brand-name">이키<span class="brand-tag tag-직접경쟁">직접경쟁</span></div>
-<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
-<div class="cell empty"></div>
-<div class="brand-name">베네베네<span class="brand-tag tag-프리미엄">프리미엄</span></div>
-<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
-<a href="2026-03-24.html" class="cell mentioned" title="3월 4주차">&bull;</a>
-<div class="brand-name">아림클로젯<span class="brand-tag tag-프리미엄">프리미엄</span></div>
-<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
-<a href="2026-03-24.html" class="cell mentioned" title="3월 4주차">&bull;</a>
-<div class="brand-name">미니로디니<span class="brand-tag tag-북유럽">북유럽</span></div>
-<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
-<div class="cell empty"></div>
-<div class="brand-name">보보쇼즈<span class="brand-tag tag-북유럽">북유럽</span></div>
-<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
-<a href="2026-03-24.html" class="cell mentioned" title="3월 4주차">&bull;</a>
-<div class="brand-name">미샤앤퍼프<span class="brand-tag tag-수공예">수공예</span></div>
-<a href="2026-03-18.html" class="cell mentioned" title="3월 3주차">&bull;</a>
-<a href="2026-03-24.html" class="cell mentioned" title="3월 4주차">&bull;</a>
-</div>
-      </div>
-      <div class="dash-section">
-        <h3>Latest Report</h3>
+        <h3>최신 리포트</h3>
         <a href="2026-03-24.html" class="report-card" style="margin:0;">
   <div class="card-top"><span class="week">3월 4주차</span><span class="date">2026-03-24</span></div>
   <div class="headline">베네베네가 스킨케어 브랜드 '본보우(BonBou)'를 공식 론칭하며 의류·케어·홈 3축의 라이프스타일 브랜드 전환을 완성했습니다. "가족의 일상을 디자인하는" 피카부에게도 같은 전략적 질문이 주어졌습니다.</div>
   <div class="brand-pills"><span class="brand-pill">베네베네</span> <span class="brand-pill">아림클로젯</span> <span class="brand-pill">보보쇼즈</span> <span class="brand-pill">미샤앤퍼프</span></div>
 </a>
       </div>
+      <div class="dash-section">
+        <h3>경쟁사 동향</h3>
+        <p class="desc">전체 리포트에서 어떤 브랜드가 얼마나 언급됐는지, 주요 내용은 무엇이었는지 요약합니다.</p>
+        <div class="brand-summary">
+<div class="brand-row">
+  <span class="bname">베네베네<span class="brand-tag tag-프리미엄">프리미엄</span></span>
+  <span class="bcount">2회 언급</span>
+  <span class="btopics">베네베네 — '의류+케어+홈' 3축 라이프스타일 브랜드 완성</span>
+</div>
+<div class="brand-row">
+  <span class="bname">아림클로젯<span class="brand-tag tag-프리미엄">프리미엄</span></span>
+  <span class="bcount">2회 언급</span>
+  <span class="btopics"></span>
+</div>
+<div class="brand-row">
+  <span class="bname">보보쇼즈<span class="brand-tag tag-북유럽">북유럽</span></span>
+  <span class="bcount">2회 언급</span>
+  <span class="btopics">보보쇼즈 SS26 — "스토리 있는 소재"가 프리미엄 가격을 만든다</span>
+</div>
+<div class="brand-row">
+  <span class="bname">미샤앤퍼프<span class="brand-tag tag-수공예">수공예</span></span>
+  <span class="bcount">2회 언급</span>
+  <span class="btopics">미샤앤퍼프 SS26 — Made-to-Order로 수공예 프리미엄 강화</span>
+</div>
+<div class="brand-row">
+  <span class="bname">몽베베<span class="brand-tag tag-직접경쟁">직접경쟁</span></span>
+  <span class="bcount">1회 언급</span>
+  <span class="btopics"></span>
+</div>
+<div class="brand-row">
+  <span class="bname">아오스타<span class="brand-tag tag-직접경쟁">직접경쟁</span></span>
+  <span class="bcount">1회 언급</span>
+  <span class="btopics"></span>
+</div>
+<div class="brand-row">
+  <span class="bname">이키<span class="brand-tag tag-직접경쟁">직접경쟁</span></span>
+  <span class="bcount">1회 언급</span>
+  <span class="btopics"></span>
+</div>
+<div class="brand-row">
+  <span class="bname">미니로디니<span class="brand-tag tag-북유럽">북유럽</span></span>
+  <span class="bcount">1회 언급</span>
+  <span class="btopics"></span>
+</div>
+</div>
+      </div>
     </div>
 
-    <!-- 액션 트래커 탭 -->
+    <!-- 할 일 탭 -->
     <div id="tab-actions" class="tab-panel">
       <div class="dash-section">
-        <h3>Action Tracker</h3>
+        <h3>피카부 할 일 모음</h3>
+        <p class="desc">매주 리포트에서 나온 제안들입니다. 완료한 항목은 체크하면 기록됩니다.</p>
         <div class="action-stats">
-          <div class="action-stat"><div class="stat-dot pending"></div><span id="pending-count">0</span> pending</div>
-          <div class="action-stat"><div class="stat-dot complete"></div><span id="complete-count">0</span> done</div>
+          <div class="action-stat"><div class="stat-dot pending"></div><span id="pending-count">0</span> 남음</div>
+          <div class="action-stat"><div class="stat-dot complete"></div><span id="complete-count">0</span> 완료</div>
         </div>
         <ul class="action-list" id="action-list">
           <li class="action-item">
@@ -460,7 +481,7 @@
       </div>
     </div>
 
-    <!-- 리포트 목록 탭 -->
+    <!-- 지난 리포트 탭 -->
     <div id="tab-reports" class="tab-panel">
       <div class="year-label">2026</div>
 <a href="2026-03-24.html" class="report-card">
@@ -489,8 +510,8 @@
 
   <script>
   function showTab(name) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
     document.getElementById('tab-' + name).classList.add('active');
     event.target.classList.add('active');
   }
