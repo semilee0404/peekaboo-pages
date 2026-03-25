@@ -147,6 +147,41 @@
     margin: 24px 0;
   }
 
+  /* ── 테이블 ── */
+  .section-card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .section-card thead th {
+    background: var(--pink);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+  .section-card thead th:first-child {
+    border-radius: 8px 0 0 0;
+  }
+  .section-card thead th:last-child {
+    border-radius: 0 8px 0 0;
+  }
+  .section-card tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .section-card tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .section-card tbody tr:hover {
+    background: var(--pink-light);
+  }
+
   /* ── 인용문 (고객 목소리) ── */
   .section-card blockquote {
     border-left: 3px solid var(--pink);
@@ -269,10 +304,6 @@
       <span></span>
     </div>
     <div class="section-card">
-  <h2></h2>
-  
-</div>
-<div class="section-card">
   <h2><span class="num">1</span>고객이 말하는 피카부</h2>
   <p><em>자사몰 공개 리뷰 기준 (2026년 3월 기준 최신 리뷰 분석)</em></p>
 <h3>고객이 좋아하는 것 (칭찬 Top 3)</h3>
