@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카부 제품 대시보드</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧸</text></svg>">
+<style>
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pink: #FF6B8A;
+  --pink-light: #FFF0F3;
+  --pink-mid: #FFD6DE;
+  --teal: #4ECDC4;
+  --teal-light: #E8FAF8;
+  --teal-mid: #B8F0EB;
+  --bg: #FAFBFC;
+  --bg-card: #FFFFFF;
+  --text-primary: #1A1D26;
+  --text-secondary: #5A6070;
+  --text-muted: #9098A9;
+  --border: #E8EBF0;
+  --border-light: #F0F2F5;
+  --amber: #F5A623;
+  --amber-light: #FFF8EC;
+  --red: #E74C5E;
+  --red-light: #FFF0F2;
+  --green: #2ECC71;
+  --green-light: #EEFBF3;
+  --blue: #5B8DEF;
+  --blue-light: #EEF3FE;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
+  --font: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  font-size: 14px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.4s ease;
+}
+.loading-screen.fade-out { opacity: 0; pointer-events: none; }
+.loading-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--pink-mid);
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.loading-text {
+  margin-top: 16px;
+  color: var(--text-secondary);
+  font-size: 0.93rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+.dashboard {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+  margin-bottom: 28px;
+}
+.header-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.header-title {
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+.header-title span {
+  color: var(--pink);
+}
+.header-updated {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  background: var(--border-light);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ============================================
+   KPI CARDS
+   ============================================ */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.kpi-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 20px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition), transform var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.kpi-card:nth-child(1)::before { background: var(--pink); }
+.kpi-card:nth-child(2)::before { background: var(--teal); }
+.kpi-card:nth-child(3)::before { background: var(--amber); }
+.kpi-card:nth-child(4)::before { background: var(--blue); }
+
+.kpi-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.kpi-value {
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.kpi-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* ============================================
+   TABS
+   ============================================ */
+.tabs-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  padding: 8px 0 10px;
+  margin-bottom: 12px;
+}
+.tabs-inner {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  padding: 5px;
+}
+.tabs-inner::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  flex-shrink: 0;
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+  font-family: var(--font);
+}
+.tab-btn:hover {
+  background: var(--border-light);
+  color: var(--text-primary);
+}
+.tab-btn.active {
+  background: var(--pink);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255,107,138,0.3);
+}
+
+/* ============================================
+   TAB PANELS
+   ============================================ */
+.tab-panel {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.tab-panel.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   SECTION TITLES
+   ============================================ */
+.section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title .icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+.section-divider {
+  margin-top: 32px;
+}
+
+/* ============================================
+   SEARCH BAR
+   ============================================ */
+.search-bar {
+  position: relative;
+  margin-bottom: 16px;
+  max-width: 380px;
+}
+.search-bar input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: var(--bg-card);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+.search-bar input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255,107,138,0.12);
+}
+.search-bar input::placeholder { color: var(--text-muted); }
+.search-bar .search-icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   TABLE CONTAINER
+   ============================================ */
+.table-container {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ============================================
+   TABLE STYLES
+   ============================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+th {
+  background: #F6F7F9;
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  user-select: none;
+}
+th.sortable {
+  cursor: pointer;
+  transition: color var(--transition);
+}
+th.sortable:hover {
+  color: var(--pink);
+}
+th.sort-asc::after,
+th.sort-desc::after {
+  margin-left: 4px;
+  font-size: 0.7rem;
+}
+th.sort-asc::after { content: '\25B2'; color: var(--pink); }
+th.sort-desc::after { content: '\25BC'; color: var(--pink); }
+
+th.num, td.num {
+  text-align: right;
+}
+
+td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+tr:last-child td { border-bottom: none; }
+tbody tr {
+  transition: background var(--transition);
+}
+tbody tr:nth-child(even) {
+  background: #FBFCFD;
+}
+tbody tr:hover {
+  background: var(--pink-light);
+}
+
+.product-name {
+  font-weight: 600;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.badge-a { background: var(--green-light); color: #1B8C4D; }
+.badge-b { background: var(--blue-light); color: #3D6FCC; }
+.badge-c { background: #FFF8EC; color: #C27D0E; }
+.badge-d { background: var(--red-light); color: var(--red); }
+
+/* ============================================
+   CHANGE INDICATOR (arrows)
+   ============================================ */
+.change {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+.change.up { color: #1B8C4D; }
+.change.down { color: var(--red); }
+.change.zero { color: var(--text-muted); }
+.change-arrow {
+  font-size: 0.65rem;
+}
+
+/* ============================================
+   PROGRESS BAR (소진율)
+   ============================================ */
+.burnrate-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 130px;
+}
+.burnrate-track {
+  flex: 1;
+  height: 7px;
+  background: var(--border-light);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.burnrate-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.burnrate-fill.low { background: linear-gradient(90deg, #E74C5E, #F0828E); }
+.burnrate-fill.mid { background: linear-gradient(90deg, #F5A623, #F7C76E); }
+.burnrate-fill.high { background: linear-gradient(90deg, #2ECC71, #6FE09B); }
+.burnrate-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  min-width: 40px;
+  text-align: right;
+}
+.burnrate-label.low { color: var(--red); }
+.burnrate-label.mid { color: var(--amber); }
+.burnrate-label.high { color: #1B8C4D; }
+
+/* ============================================
+   COLOR BAR CHART
+   ============================================ */
+.color-chart {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  padding: 28px;
+}
+.color-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.color-bar-item:last-child { margin-bottom: 0; }
+.color-bar-rank {
+  width: 26px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-align: center;
+  flex-shrink: 0;
+}
+.color-bar-rank.top3 { color: var(--pink); }
+.color-bar-label {
+  width: 60px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  flex-shrink: 0;
+  text-align: right;
+}
+.color-bar-track {
+  flex: 1;
+  height: 28px;
+  background: var(--border-light);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.color-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: fit-content;
+}
+.color-bar-fill-text {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+.color-bar-value {
+  width: 100px;
+  text-align: right;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   MINI SPARKLINE (weekly bars)
+   ============================================ */
+.sparkline {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 24px;
+}
+.spark-bar {
+  width: 14px;
+  border-radius: 2px 2px 0 0;
+  transition: height 0.4s ease;
+  position: relative;
+}
+.spark-bar::after {
+  content: attr(data-val);
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.sparkline:hover .spark-bar::after {
+  opacity: 1;
+}
+
+/* ============================================
+   LEAD TIME
+   ============================================ */
+.lead-time {
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+.lead-time.danger { color: var(--red); }
+.lead-time.warn { color: var(--amber); }
+.lead-time.safe { color: #1B8C4D; }
+
+/* ============================================
+   SLOW MOVER TABLE
+   ============================================ */
+.slow-mover-container {
+  background: var(--amber-light);
+  border: 1px solid #F5D89A;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.slow-mover-container th {
+  background: #FEF3D6;
+}
+.slow-mover-container tbody tr:nth-child(even) {
+  background: #FFFAF0;
+}
+.slow-mover-container tbody tr:hover {
+  background: #FFF3DE;
+}
+
+/* ============================================
+   GROUP HEADER (burndown, sku)
+   ============================================ */
+.group-header td {
+  background: var(--border-light) !important;
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  padding: 10px 14px;
+  letter-spacing: 0.02em;
+}
+tr.group-start td {
+  border-top: 2px solid var(--border);
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+.empty-state .empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+.empty-state p {
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   ROW COUNT
+   ============================================ */
+.row-count {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding: 10px 14px;
+  text-align: right;
+  border-top: 1px solid var(--border-light);
+  font-weight: 500;
+}
+
+/* ============================================
+   SEASON TAG
+   ============================================ */
+.season-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.season-tag.ss { background: #FFF0F3; color: var(--pink); }
+.season-tag.fw { background: var(--blue-light); color: var(--blue); }
+
+/* ============================================
+   ERROR STATE
+   ============================================ */
+.error-screen {
+  text-align: center;
+  padding: 80px 20px;
+}
+.error-screen h2 {
+  color: var(--red);
+  margin-bottom: 8px;
+}
+.error-screen p {
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  html { font-size: 13px; }
+  .dashboard { padding: 16px 12px 40px; }
+  .header-title { font-size: 1.35rem; }
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .kpi-card { padding: 16px; }
+  .kpi-value { font-size: 1.3rem; }
+  .tab-btn { padding: 9px 14px; font-size: 0.8rem; }
+  .color-chart { padding: 20px 16px; }
+  .color-bar-value { width: 80px; font-size: 0.75rem; }
+  .section-title { font-size: 0.95rem; }
+  th, td { padding: 9px 10px; }
+}
+
+@media (max-width: 480px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .kpi-card { padding: 14px; }
+  .kpi-value { font-size: 1.15rem; }
+  .kpi-label { font-size: 0.7rem; }
+  .header-top { flex-direction: column; gap: 6px; }
+  .color-bar-label { width: 48px; font-size: 0.78rem; }
+}
+
+/* ============================================
+   SCROLL HINT ON MOBILE
+   ============================================ */
+.scroll-hint {
+  display: none;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: right;
+  padding: 6px 14px 0;
+}
+@media (max-width: 768px) {
+  .scroll-hint { display: block; }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  .tabs-wrapper { position: static; }
+  .tab-panel { display: block !important; page-break-inside: avoid; }
+  .tab-btn { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">데이터를 불러오고 있습니다...</div>
+</div>
+
+<!-- Dashboard Container -->
+<div class="dashboard" id="app" style="opacity:0;">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <h1 class="header-title"><span>피카부</span> 제품 대시보드</h1>
+      <span class="header-updated" id="updatedAt"></span>
+    </div>
+  </header>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">총 판매수량</div>
+      <div class="kpi-value" id="kpiSales"></div>
+      <div class="kpi-sub" id="kpiSalesSub"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">총 매출액</div>
+      <div class="kpi-value" id="kpiRevenue"></div>
+      <div class="kpi-sub" id="kpiRevenueSub"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">총 재고</div>
+      <div class="kpi-value" id="kpiStock"></div>
+      <div class="kpi-sub" id="kpiStockSub"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">제품 수</div>
+      <div class="kpi-value" id="kpiProducts"></div>
+      <div class="kpi-sub" id="kpiProductsSub"></div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-wrapper">
+    <div class="tabs-inner" id="tabsBar">
+      <button class="tab-btn active" data-tab="trending">7일 트렌드</button>
+      <button class="tab-btn" data-tab="products26ss">제품별 누적 26SS</button>
+      <button class="tab-btn" data-tab="products25fw">제품별 누적 25FW</button>
+      <button class="tab-btn" data-tab="burndown">판매소진율</button>
+      <button class="tab-btn" data-tab="colors">베스트 칼라사이즈</button>
+      <button class="tab-btn" data-tab="weeklysku">SKU별 판매주기</button>
+    </div>
+  </div>
+
+  <!-- TAB: 7일 트렌드 -->
+  <div class="tab-panel active" id="panel-trending">
+    <div class="section-title">
+      <span class="icon" style="background:var(--pink-light);color:var(--pink);">&#9650;</span>
+      인기 TOP 20
+    </div>
+    <div class="scroll-hint">&#8594; 좌우로 스크롤하세요</div>
+    <div class="table-container">
+      <div class="table-scroll">
+        <table id="tableTrending">
+          <thead>
+            <tr>
+              <th style="width:48px" class="num">순위</th>
+              <th>제품명</th>
+              <th class="num">7일 판매</th>
+              <th class="num">일평균</th>
+              <th class="num">전주대비</th>
+              <th style="width:60px">등급</th>
+              <th class="num">재고</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+    <div class="section-title">
+      <span class="icon" style="background:var(--amber-light);color:var(--amber);">&#9888;</span>
+      슬로우무버 (7일 판매 3개 이하 &amp; 재고 20+)
+    </div>
+    <div class="slow-mover-container">
+      <div class="table-scroll">
+        <table id="tableSlow">
+          <thead>
+            <tr>
+              <th>제품명</th>
+              <th class="num">7일 판매</th>
+              <th class="num">재고</th>
+              <th style="width:60px">등급</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: 제품별 누적 26SS -->
+  <div class="tab-panel" id="panel-products26ss">
+    <div class="section-title">
+      <span class="icon" style="background:var(--pink-light);color:var(--pink);">&#9728;</span>
+      26SS 시즌 제품별 누적
+    </div>
+    <div class="scroll-hint">&#8594; 좌우로 스크롤하세요</div>
+    <div class="table-container">
+      <div class="table-scroll">
+        <table id="table26ss">
+          <thead>
+            <tr>
+              <th class="sortable" data-col="name">제품명</th>
+              <th class="sortable" data-col="code">품번</th>
+              <th class="sortable num" data-col="total_sales">누적판매</th>
+              <th class="sortable num" data-col="revenue">누적매출</th>
+              <th class="sortable num" data-col="retail">소매</th>
+              <th class="sortable num" data-col="export">해외수출</th>
+              <th class="sortable num" data-col="wholesale">도매</th>
+              <th class="sortable num" data-col="stock">현재고</th>
+              <th class="sortable num" data-col="burnrate" style="min-width:140px">소진율</th>
+              <th class="sortable num" data-col="weekly_avg">주평균</th>
+              <th class="sortable" data-col="grade" style="width:60px">등급</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="row-count" id="count26ss"></div>
+    </div>
+  </div>
+
+  <!-- TAB: 제품별 누적 25FW -->
+  <div class="tab-panel" id="panel-products25fw">
+    <div class="section-title">
+      <span class="icon" style="background:var(--blue-light);color:var(--blue);">&#10052;</span>
+      25FW 시즌 제품별 누적
+    </div>
+    <div class="scroll-hint">&#8594; 좌우로 스크롤하세요</div>
+    <div class="table-container">
+      <div class="table-scroll">
+        <table id="table25fw">
+          <thead>
+            <tr>
+              <th class="sortable" data-col="name">제품명</th>
+              <th class="sortable" data-col="code">품번</th>
+              <th class="sortable num" data-col="total_sales">누적판매</th>
+              <th class="sortable num" data-col="revenue">누적매출</th>
+              <th class="sortable num" data-col="retail">소매</th>
+              <th class="sortable num" data-col="export">해외수출</th>
+              <th class="sortable num" data-col="wholesale">도매</th>
+              <th class="sortable num" data-col="stock">현재고</th>
+              <th class="sortable num" data-col="burnrate" style="min-width:140px">소진율</th>
+              <th class="sortable num" data-col="weekly_avg">주평균</th>
+              <th class="sortable" data-col="grade" style="width:60px">등급</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="row-count" id="count25fw"></div>
+    </div>
+  </div>
+
+  <!-- TAB: 판매소진율 -->
+  <div class="tab-panel" id="panel-burndown">
+    <div class="section-title">
+      <span class="icon" style="background:var(--teal-light);color:var(--teal);">&#9733;</span>
+      전체 판매소진율
+    </div>
+    <div class="search-bar">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="searchBurndown" placeholder="제품명 또는 품번으로 검색...">
+    </div>
+    <div class="scroll-hint">&#8594; 좌우로 스크롤하세요</div>
+    <div class="table-container">
+      <div class="table-scroll">
+        <table id="tableBurndown">
+          <thead>
+            <tr>
+              <th>시즌</th>
+              <th class="sortable" data-col="name">제품명</th>
+              <th class="sortable" data-col="code">품번</th>
+              <th class="sortable num" data-col="total_sales">누적판매</th>
+              <th class="sortable num" data-col="stock">현재고</th>
+              <th class="sortable num" data-col="burnrate" style="min-width:140px">소진율</th>
+              <th class="sortable num" data-col="weekly_avg">주평균</th>
+              <th class="sortable" data-col="grade" style="width:60px">등급</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="row-count" id="countBurndown"></div>
+    </div>
+  </div>
+
+  <!-- TAB: 베스트 칼라사이즈 -->
+  <div class="tab-panel" id="panel-colors">
+    <div class="section-title">
+      <span class="icon" style="background:var(--pink-light);color:var(--pink);">&#127912;</span>
+      칼라별 판매 랭킹
+    </div>
+    <div class="color-chart" id="colorChart"></div>
+  </div>
+
+  <!-- TAB: SKU별 판매주기 -->
+  <div class="tab-panel" id="panel-weeklysku">
+    <div class="section-title">
+      <span class="icon" style="background:var(--teal-light);color:var(--teal);">&#128202;</span>
+      SKU별 주간 판매 추이
+    </div>
+    <div class="search-bar">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="searchSku" placeholder="제품명으로 검색...">
+    </div>
+    <div class="scroll-hint">&#8594; 좌우로 스크롤하세요</div>
+    <div class="table-container">
+      <div class="table-scroll">
+        <table id="tableWeekly">
+          <thead>
+            <tr>
+              <th class="sortable" data-col="name">제품명</th>
+              <th class="sortable" data-col="color">칼라</th>
+              <th class="sortable" data-col="size">사이즈</th>
+              <th class="sortable num" data-col="total_sales">누적판매</th>
+              <th class="sortable num" data-col="revenue">누적매출</th>
+              <th class="sortable num" data-col="retail">소매</th>
+              <th class="sortable num" data-col="export">해외</th>
+              <th class="sortable num" data-col="wholesale">도매</th>
+              <th class="sortable num" data-col="stock">현재고</th>
+              <th class="sortable num" data-col="lead_time_days">리드타임</th>
+              <th id="weeklyColHeaders">주간추이</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="row-count" id="countWeekly"></div>
+    </div>
+  </div>
+
+</div><!-- /dashboard -->
+
+<script>
+/* ============================================
+   UTILITY FUNCTIONS
+   ============================================ */
+
+/** Format number with commas: 12345 → "12,345" */
+function fmtNum(n) {
+  if (n == null || isNaN(n)) return '-';
+  return Number(n).toLocaleString('ko-KR');
+}
+
+/** Format currency in 억/만원: 324648564 → "3억 2,465만원" */
+function fmtKRW(n) {
+  if (n == null || isNaN(n)) return '-';
+  n = Math.round(Number(n));
+  const eok = Math.floor(n / 100000000);
+  const man = Math.floor((n % 100000000) / 10000);
+  const parts = [];
+  if (eok > 0) parts.push(eok.toLocaleString('ko-KR') + '억');
+  if (man > 0) parts.push(man.toLocaleString('ko-KR') + '만');
+  if (parts.length === 0) {
+    if (n > 0) return n.toLocaleString('ko-KR') + '원';
+    return '0원';
+  }
+  return parts.join(' ') + '원';
+}
+
+/** Short currency for KPI: "3.2억" */
+function fmtKRWShort(n) {
+  if (n == null) return '-';
+  n = Number(n);
+  if (n >= 100000000) return (n / 100000000).toFixed(1) + '억';
+  if (n >= 10000) return (n / 10000).toFixed(0).toLocaleString() + '만원';
+  return n.toLocaleString('ko-KR') + '원';
+}
+
+/** Grade badge HTML */
+function gradeBadge(g) {
+  if (!g) return '<span class="badge badge-d">-</span>';
+  const cls = { A: 'badge-a', B: 'badge-b', C: 'badge-c', D: 'badge-d' };
+  return '<span class="badge ' + (cls[g] || 'badge-d') + '">' + g + '</span>';
+}
+
+/** Change indicator HTML */
+function changeHTML(val) {
+  if (val == null) return '<span class="change zero">-</span>';
+  val = Number(val);
+  if (val > 0) return '<span class="change up"><span class="change-arrow">&#9650;</span>+' + val + '</span>';
+  if (val < 0) return '<span class="change down"><span class="change-arrow">&#9660;</span>' + val + '</span>';
+  return '<span class="change zero">0</span>';
+}
+
+/** Burnrate bar HTML */
+function burnrateHTML(rate) {
+  if (rate == null || isNaN(rate)) return '-';
+  rate = Number(rate);
+  const cls = rate < 30 ? 'low' : rate < 60 ? 'mid' : 'high';
+  return '<div class="burnrate-bar">' +
+    '<div class="burnrate-track"><div class="burnrate-fill ' + cls + '" style="width:' + Math.min(rate, 100) + '%"></div></div>' +
+    '<span class="burnrate-label ' + cls + '">' + rate.toFixed(1) + '%</span>' +
+    '</div>';
+}
+
+/** Lead time HTML */
+function leadTimeHTML(days) {
+  if (days == null || isNaN(days)) return '-';
+  days = Number(days);
+  const cls = days < 14 ? 'danger' : days <= 30 ? 'warn' : 'safe';
+  return '<span class="lead-time ' + cls + '">' + fmtNum(days) + '일</span>';
+}
+
+/** Mini sparkline bars HTML */
+function sparklineHTML(weeks) {
+  if (!weeks || typeof weeks !== 'object') return '-';
+  const keys = Object.keys(weeks);
+  const vals = keys.map(k => Number(weeks[k]) || 0);
+  const maxVal = Math.max(...vals, 1);
+  let html = '<div class="sparkline">';
+  vals.forEach((v, i) => {
+    const h = Math.max(2, (v / maxVal) * 22);
+    const opacity = 0.35 + (i / (vals.length - 1 || 1)) * 0.65;
+    html += '<div class="spark-bar" data-val="' + v + '" style="height:' + h + 'px;background:rgba(78,205,196,' + opacity + ');"></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+/** Season tag */
+function seasonTag(s) {
+  if (!s) return '';
+  const isSS = s.indexOf('SS') >= 0;
+  return '<span class="season-tag ' + (isSS ? 'ss' : 'fw') + '">' + s + '</span>';
+}
+
+
+/* ============================================
+   DATA STORE & STATE
+   ============================================ */
+let DATA = null;
+let sortStates = {};
+
+/* ============================================
+   TABLE RENDERING
+   ============================================ */
+
+function renderTrending(rows) {
+  const tbody = document.querySelector('#tableTrending tbody');
+  if (!rows || rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">&#128202;</div><p>트렌드 데이터가 없습니다</p></div></td></tr>';
+    return;
+  }
+  let html = '';
+  rows.forEach(r => {
+    html += '<tr>' +
+      '<td class="num" style="font-weight:800;color:' + (r.rank <= 3 ? 'var(--pink)' : 'var(--text-muted)') + ';">' + r.rank + '</td>' +
+      '<td class="product-name">' + (r.name || '') + '</td>' +
+      '<td class="num">' + fmtNum(r.sales_7d) + '</td>' +
+      '<td class="num">' + (r.daily_avg != null ? Number(r.daily_avg).toFixed(1) : '-') + '</td>' +
+      '<td class="num">' + changeHTML(r.vs_prev_week) + '</td>' +
+      '<td>' + gradeBadge(r.grade) + '</td>' +
+      '<td class="num">' + fmtNum(r.stock) + '</td>' +
+      '</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+function renderSlowMovers(rows) {
+  const tbody = document.querySelector('#tableSlow tbody');
+  if (!rows || rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4"><div class="empty-state"><p>슬로우무버 없음</p></div></td></tr>';
+    return;
+  }
+  let html = '';
+  rows.forEach(r => {
+    html += '<tr>' +
+      '<td class="product-name">' + (r.name || '') + '</td>' +
+      '<td class="num">' + fmtNum(r.sales_7d) + '</td>' +
+      '<td class="num">' + fmtNum(r.stock) + '</td>' +
+      '<td>' + gradeBadge(r.grade) + '</td>' +
+      '</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+function renderProductTable(tableId, countId, rows, sortState) {
+  const tbody = document.querySelector('#' + tableId + ' tbody');
+  const countEl = document.getElementById(countId);
+
+  if (!rows || rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="11"><div class="empty-state"><div class="empty-icon">&#128230;</div><p>제품 데이터가 없습니다</p></div></td></tr>';
+    if (countEl) countEl.textContent = '';
+    return;
+  }
+
+  // Sort
+  let sorted = [...rows];
+  if (sortState && sortState.col) {
+    const col = sortState.col;
+    const dir = sortState.dir;
+    sorted.sort((a, b) => {
+      let va = a[col], vb = b[col];
+      if (typeof va === 'string') va = va.toLowerCase();
+      if (typeof vb === 'string') vb = vb.toLowerCase();
+      if (va < vb) return dir === 'asc' ? -1 : 1;
+      if (va > vb) return dir === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
+
+  let html = '';
+  sorted.forEach(r => {
+    html += '<tr>' +
+      '<td class="product-name">' + (r.name || '') + '</td>' +
+      '<td style="font-size:0.78rem;color:var(--text-muted);font-family:monospace;">' + (r.code || '') + '</td>' +
+      '<td class="num">' + fmtNum(r.total_sales) + '</td>' +
+      '<td class="num">' + fmtKRW(r.revenue) + '</td>' +
+      '<td class="num">' + fmtNum(r.retail) + '</td>' +
+      '<td class="num">' + fmtNum(r.export) + '</td>' +
+      '<td class="num">' + fmtNum(r.wholesale) + '</td>' +
+      '<td class="num">' + fmtNum(r.stock) + '</td>' +
+      '<td class="num">' + burnrateHTML(r.burnrate) + '</td>' +
+      '<td class="num">' + (r.weekly_avg != null ? Number(r.weekly_avg).toFixed(1) : '-') + '</td>' +
+      '<td>' + gradeBadge(r.grade) + '</td>' +
+      '</tr>';
+  });
+  tbody.innerHTML = html;
+  if (countEl) countEl.textContent = '총 ' + sorted.length + '개 제품';
+}
+
+function renderBurndown(filter) {
+  const rows = DATA.burndown || [];
+  const tbody = document.querySelector('#tableBurndown tbody');
+  const countEl = document.getElementById('countBurndown');
+  const q = (filter || '').trim().toLowerCase();
+
+  let filtered = q
+    ? rows.filter(r =>
+        (r.name && r.name.toLowerCase().indexOf(q) >= 0) ||
+        (r.code && r.code.toLowerCase().indexOf(q) >= 0)
+      )
+    : [...rows];
+
+  // Sort
+  const st = sortStates['tableBurndown'];
+  if (st && st.col) {
+    const col = st.col;
+    const dir = st.dir;
+    filtered.sort((a, b) => {
+      let va = a[col], vb = b[col];
+      if (typeof va === 'string') va = va.toLowerCase();
+      if (typeof vb === 'string') vb = vb.toLowerCase();
+      if (va < vb) return dir === 'asc' ? -1 : 1;
+      if (va > vb) return dir === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><p>검색 결과가 없습니다</p></div></td></tr>';
+    countEl.textContent = '';
+    return;
+  }
+
+  // Group by season
+  let html = '';
+  let lastSeason = null;
+  filtered.forEach(r => {
+    const season = r.season || '';
+    if (season !== lastSeason) {
+      html += '<tr class="group-header"><td colspan="8">' + seasonTag(season) + ' ' + season + ' 시즌</td></tr>';
+      lastSeason = season;
+    }
+    html += '<tr>' +
+      '<td>' + seasonTag(season) + '</td>' +
+      '<td class="product-name">' + (r.name || '') + '</td>' +
+      '<td style="font-size:0.78rem;color:var(--text-muted);font-family:monospace;">' + (r.code || '') + '</td>' +
+      '<td class="num">' + fmtNum(r.total_sales) + '</td>' +
+      '<td class="num">' + fmtNum(r.stock) + '</td>' +
+      '<td class="num">' + burnrateHTML(r.burnrate) + '</td>' +
+      '<td class="num">' + (r.weekly_avg != null ? Number(r.weekly_avg).toFixed(1) : '-') + '</td>' +
+      '<td>' + gradeBadge(r.grade) + '</td>' +
+      '</tr>';
+  });
+  tbody.innerHTML = html;
+  countEl.textContent = '총 ' + filtered.length + '개 SKU';
+}
+
+function renderColorChart(rows) {
+  const container = document.getElementById('colorChart');
+  if (!rows || rows.length === 0) {
+    container.innerHTML = '<div class="empty-state"><p>칼라 데이터가 없습니다</p></div>';
+    return;
+  }
+
+  const barColors = [
+    '#FF6B8A', '#FF8FA4', '#4ECDC4', '#6ED5CE', '#F5A623',
+    '#5B8DEF', '#9B7FE6', '#E8725C', '#45B7D1', '#96CEB4',
+    '#FFB347', '#87CEEB', '#DDA0DD', '#98D8C8', '#F7DC6F'
+  ];
+
+  const maxQty = rows[0] ? rows[0].total_qty : 1;
+  let html = '';
+  rows.forEach((r, i) => {
+    const pct = (r.total_qty / maxQty) * 100;
+    const color = barColors[i % barColors.length];
+    html += '<div class="color-bar-item">' +
+      '<span class="color-bar-rank ' + (i < 3 ? 'top3' : '') + '">' + r.rank + '</span>' +
+      '<span class="color-bar-label">' + r.color + '</span>' +
+      '<div class="color-bar-track">' +
+        '<div class="color-bar-fill" style="width:' + pct + '%;background:' + color + ';">' +
+          '<span class="color-bar-fill-text">' + r.pct + '%</span>' +
+        '</div>' +
+      '</div>' +
+      '<span class="color-bar-value">' + fmtNum(r.total_qty) + '개</span>' +
+      '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function renderWeeklySku(filter) {
+  const rows = DATA.weekly_sku || [];
+  const tbody = document.querySelector('#tableWeekly tbody');
+  const countEl = document.getElementById('countWeekly');
+  const q = (filter || '').trim().toLowerCase();
+
+  let filtered = q
+    ? rows.filter(r => r.name && r.name.toLowerCase().indexOf(q) >= 0)
+    : [...rows];
+
+  // Sort
+  const st = sortStates['tableWeekly'];
+  if (st && st.col) {
+    const col = st.col;
+    const dir = st.dir;
+    filtered.sort((a, b) => {
+      let va = a[col], vb = b[col];
+      if (typeof va === 'string') va = va.toLowerCase();
+      if (typeof vb === 'string') vb = vb.toLowerCase();
+      if (va < vb) return dir === 'asc' ? -1 : 1;
+      if (va > vb) return dir === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="11"><div class="empty-state"><p>검색 결과가 없습니다</p></div></td></tr>';
+    countEl.textContent = '';
+    return;
+  }
+
+  // Group by product name
+  let html = '';
+  let lastProduct = null;
+  let groupIndex = 0;
+  filtered.forEach(r => {
+    if (r.name !== lastProduct) {
+      if (lastProduct !== null) groupIndex++;
+      lastProduct = r.name;
+    }
+    const bgClass = groupIndex % 2 === 0 ? '' : ' style="background:#F8F9FB;"';
+    html += '<tr' + bgClass + '>' +
+      '<td class="product-name">' + (r.name || '') + '</td>' +
+      '<td>' + (r.color || '') + '</td>' +
+      '<td>' + (r.size || '') + '</td>' +
+      '<td class="num">' + fmtNum(r.total_sales) + '</td>' +
+      '<td class="num">' + fmtKRW(r.revenue) + '</td>' +
+      '<td class="num">' + fmtNum(r.retail) + '</td>' +
+      '<td class="num">' + fmtNum(r.export) + '</td>' +
+      '<td class="num">' + fmtNum(r.wholesale) + '</td>' +
+      '<td class="num">' + fmtNum(r.stock) + '</td>' +
+      '<td class="num">' + leadTimeHTML(r.lead_time_days) + '</td>' +
+      '<td>' + sparklineHTML(r.weeks) + '</td>' +
+      '</tr>';
+  });
+  tbody.innerHTML = html;
+  countEl.textContent = '총 ' + filtered.length + '개 SKU';
+}
+
+
+/* ============================================
+   SORTING
+   ============================================ */
+function setupSorting(tableId, renderFn) {
+  const table = document.getElementById(tableId);
+  if (!table) return;
+  const headers = table.querySelectorAll('th.sortable');
+  sortStates[tableId] = { col: null, dir: 'asc' };
+
+  headers.forEach(th => {
+    th.addEventListener('click', function() {
+      const col = this.getAttribute('data-col');
+      const state = sortStates[tableId];
+
+      // Toggle direction
+      if (state.col === col) {
+        state.dir = state.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        state.col = col;
+        state.dir = 'desc'; // Default to descending for numbers
+      }
+
+      // Update header classes
+      headers.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
+      this.classList.add(state.dir === 'asc' ? 'sort-asc' : 'sort-desc');
+
+      renderFn(state);
+    });
+  });
+}
+
+
+/* ============================================
+   TAB SWITCHING
+   ============================================ */
+function initTabs() {
+  const btns = document.querySelectorAll('.tab-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const tab = this.getAttribute('data-tab');
+      btns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      const panel = document.getElementById('panel-' + tab);
+      if (panel) panel.classList.add('active');
+    });
+  });
+}
+
+
+/* ============================================
+   KPI RENDERING
+   ============================================ */
+function renderKPIs(summary) {
+  if (!summary) return;
+
+  document.getElementById('kpiSales').textContent = fmtNum(summary.total_sales);
+  document.getElementById('kpiSalesSub').textContent = 'SKU ' + fmtNum(summary.sku_count) + '개 기준';
+
+  document.getElementById('kpiRevenue').textContent = fmtKRWShort(summary.total_revenue);
+  document.getElementById('kpiRevenueSub').textContent = fmtKRW(summary.total_revenue);
+
+  document.getElementById('kpiStock').textContent = fmtNum(summary.total_stock);
+  document.getElementById('kpiStockSub').textContent = '전 시즌 합계';
+
+  document.getElementById('kpiProducts').textContent = fmtNum(summary.product_count);
+  document.getElementById('kpiProductsSub').textContent = fmtNum(summary.sku_count) + '개 SKU';
+}
+
+
+/* ============================================
+   SEARCH DEBOUNCE
+   ============================================ */
+function debounce(fn, ms) {
+  let timer;
+  return function() {
+    const args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(null, args), ms);
+  };
+}
+
+
+/* ============================================
+   INIT
+   ============================================ */
+async function init() {
+  const loadingEl = document.getElementById('loadingScreen');
+  const appEl = document.getElementById('app');
+
+  try {
+    const resp = await fetch('data.json');
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    DATA = await resp.json();
+  } catch (err) {
+    loadingEl.innerHTML = '<div class="error-screen"><h2>데이터 로드 실패</h2><p>data.json 파일을 확인해주세요.<br><small>' + err.message + '</small></p></div>';
+    return;
+  }
+
+  // Render everything
+  document.getElementById('updatedAt').textContent = '업데이트: ' + (DATA.updated_at || '-');
+  renderKPIs(DATA.summary);
+  renderTrending(DATA.trending);
+  renderSlowMovers(DATA.slow_movers);
+
+  // 26SS
+  renderProductTable('table26ss', 'count26ss', DATA.products_26ss, sortStates['table26ss']);
+  setupSorting('table26ss', function(state) {
+    renderProductTable('table26ss', 'count26ss', DATA.products_26ss, state);
+  });
+
+  // 25FW
+  renderProductTable('table25fw', 'count25fw', DATA.products_25fw, sortStates['table25fw']);
+  setupSorting('table25fw', function(state) {
+    renderProductTable('table25fw', 'count25fw', DATA.products_25fw, state);
+  });
+
+  // Burndown
+  renderBurndown('');
+  setupSorting('tableBurndown', function() {
+    renderBurndown(document.getElementById('searchBurndown').value);
+  });
+  document.getElementById('searchBurndown').addEventListener('input', debounce(function() {
+    renderBurndown(document.getElementById('searchBurndown').value);
+  }, 200));
+
+  // Color Chart
+  renderColorChart(DATA.color_ranking);
+
+  // Weekly SKU
+  renderWeeklySku('');
+  setupSorting('tableWeekly', function() {
+    renderWeeklySku(document.getElementById('searchSku').value);
+  });
+  document.getElementById('searchSku').addEventListener('input', debounce(function() {
+    renderWeeklySku(document.getElementById('searchSku').value);
+  }, 200));
+
+  // Tabs
+  initTabs();
+
+  // Show dashboard
+  loadingEl.classList.add('fade-out');
+  appEl.style.opacity = '1';
+  appEl.style.transition = 'opacity 0.4s ease';
+  setTimeout(() => loadingEl.remove(), 500);
+}
+
+// Fire on load
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
