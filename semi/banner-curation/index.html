@@ -260,7 +260,40 @@
   <div class="section">
     <div class="section-title">PRODUCT SELECTION</div>
     <h2 style="font-size:20px; margin-bottom:6px;">각 배너에 어떤 제품을, 어떻게 보여줄 것인가</h2>
-    <p style="font-size:13px; color:#9B8E7F; margin-bottom:20px;">최근 30일 자사몰 판매 데이터 기반 추천</p>
+    <p style="font-size:13px; color:#9B8E7F; margin-bottom:6px;">최근 30일 판매 + 재고 + 대표님 방향(러블리 라인 강화) 기반</p>
+    <div style="background:#FEF0EC; padding:10px 14px; border-radius:8px; margin-bottom:20px; font-size:13px; color:#D4604A;">
+      <strong>대표님 방향:</strong> 팝업에서 러블리 스타일이 잘 팔리고 있음 → 자사몰에도 러블리 라인을 적극 노출해서 매출 연결.<br>
+      <strong>종료 라인:</strong> 뉴쿨링, 엘리, 달링, 마가린, 베리, 지니, 일랑, 소이 → 배너에서 제외
+    </div>
+
+    <!-- 러블리 라인 판매 현황 -->
+    <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; margin-bottom:20px;">
+      <h3 style="font-size:15px; margin-bottom:12px;">활성 러블리 라인 판매 현황 <span style="font-size:12px; color:#9B8E7F;">(최근 30일, 자사몰)</span></h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <div>
+          <div style="font-size:12px; color:#6B8F71; font-weight:700; margin-bottom:8px;">잘 팔리는 라인 (배너 메인)</div>
+          <table style="width:100%; font-size:12px; border-collapse:collapse;">
+            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">킨더</td><td style="text-align:right; font-weight:700;">150만</td><td style="text-align:right; color:#9B8E7F;">52개</td></tr>
+            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">제제</td><td style="text-align:right; font-weight:700;">149만</td><td style="text-align:right; color:#9B8E7F;">91개</td></tr>
+            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">루나 (주니어)</td><td style="text-align:right; font-weight:700;">131만</td><td style="text-align:right; color:#9B8E7F;">48개</td></tr>
+            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">슈슈</td><td style="text-align:right; font-weight:700;">106만</td><td style="text-align:right; color:#9B8E7F;">58개</td></tr>
+            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">홀리 (주니어)</td><td style="text-align:right;">75만</td><td style="text-align:right; color:#9B8E7F;">23개</td></tr>
+            <tr><td style="padding:4px;">슈가</td><td style="text-align:right;">65만</td><td style="text-align:right; color:#9B8E7F;">19개</td></tr>
+          </table>
+        </div>
+        <div>
+          <div style="font-size:12px; color:#C4A882; font-weight:700; margin-bottom:8px;">노출 필요 (배너로 밀어줄 대상)</div>
+          <table style="width:100%; font-size:12px; border-collapse:collapse;">
+            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">소피</td><td style="text-align:right;">14만</td><td style="text-align:right; color:#D4604A;">4개</td></tr>
+            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">루피</td><td style="text-align:right;">15만</td><td style="text-align:right; color:#D4604A;">7개</td></tr>
+            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">차밍</td><td style="text-align:right;">7만</td><td style="text-align:right; color:#D4604A;">3개</td></tr>
+            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">스윗피</td><td style="text-align:right;">4만</td><td style="text-align:right; color:#D4604A;">4개</td></tr>
+            <tr style="border-bottom:1px solid #F5EDE4;"><td style="padding:4px;">비쥬</td><td style="text-align:right;">2만</td><td style="text-align:right; color:#D4604A;">1개</td></tr>
+            <tr><td style="padding:4px;">드엘</td><td style="text-align:right;">18만</td><td style="text-align:right; color:#9B8E7F;">12개</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
 
     <div style="display:flex; flex-direction:column; gap:16px;">
 
@@ -271,10 +304,11 @@
           <span style="font-size:11px; color:#D4604A; font-weight:700;">구매 0건 → 개선 최우선</span>
         </div>
         <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 포니 배냇세트 (월 46만원) + 프롬 배냇저고리<br>
-          <strong>보여주는 방식:</strong> 배냇저고리 + 손싸개 + 발싸개를 <em>펼쳐놓은 플랫레이</em> 구도. "이것만 있으면 준비 끝"이라는 완성감을 줘야 함<br>
-          <strong>현재 문제:</strong> 아기 발 클로즈업만 보여서 뭘 파는지 모름 → 실제 제품이 한눈에 보여야 함<br>
-          <strong>참고:</strong> 배냇 라인 전체 (리본, 프롬, 포니, 루나비, 포포)
+          <strong>메인 제품:</strong> 포니 배냇세트 (46만) + 스윗피/쁘띠 러블리 배냇 (노출 필요)<br>
+          <strong>보여주는 방식:</strong> 배냇저고리 + 손싸개 + 발싸개를 <em>예쁘게 펼쳐놓은 플랫레이</em>. 러블리한 디자인이 돋보이는 구도<br>
+          <strong>현재 문제:</strong> 아기 발 클로즈업만 보여서 뭘 파는지 모름 → 제품 구성이 한눈에 보여야 함<br>
+          <strong>카테고리 구성:</strong> 수유복(리본,포니,루나비,포포) / 배냇저고리(프롬) / 바디배냇 / 배냇상하세트 / 손발싸개 / 패브릭<br>
+          <strong style="color:#E8836B;">러블리 포인트:</strong> 스윗피·쁘띠 같은 러블리 라인을 서브 이미지로 함께 배치
         </div>
       </div>
 
@@ -285,10 +319,11 @@
           <span style="font-size:11px; color:#6B8F71; font-weight:700;">구매율 0.58% (최고)</span>
         </div>
         <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 포니 패밀리 파자마 세트 (월 46만원) — 아기+엄마 매칭<br>
-          <strong>보여주는 방식:</strong> 엄마와 아기가 <em>같은 패턴 옷을 입고 있는 모델컷</em>. 현재 사진이 이미 좋음 — 카피만 강화<br>
-          <strong>추가 노출:</strong> 쿨리 바디수트(77만), 버디 키즈세트(42만), 포포 파자마 세트(64만)<br>
-          <strong>포인트:</strong> "아기~성인까지 같은 패턴" 매칭감이 확실히 보여야 함
+          <strong>메인 제품:</strong> 멜로디 세트 (유일한 활성 패밀리 라인, 37만) + 포니 패밀리 파자마<br>
+          <strong>보여주는 방식:</strong> 엄마+아기 <em>같은 패턴 착용 모델컷</em>. 현재 사진 구도 좋음, 카피만 강화<br>
+          <strong style="color:#D4604A;">⚠️ 변경:</strong> 뉴쿨링 종료 → 2뎁스에서 제거. 쿨리(77만, 재고 891개)로 대체<br>
+          <strong>카테고리 구성:</strong> 포니 / 쿨리 / 버디 / 듀이 / 멜로디<br>
+          <strong style="color:#E8836B;">러블리 포인트:</strong> 멜로디의 러블리한 매칭 느낌을 메인 비주얼로
         </div>
       </div>
 
@@ -299,10 +334,11 @@
           <span style="font-size:11px; color:#6B8F71; font-weight:700;">방문자 1위 (645명)</span>
         </div>
         <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 디저트 수트세트 (월 1,546만원, 판매 1위) + 디저트 보넷(335만)<br>
-          <strong>보여주는 방식:</strong> 실제 잘 팔리는 조합을 <em>착용 모델컷</em>으로. "이 조합이 1위"라는 느낌<br>
-          <strong>추가 노출:</strong> 데이지 베이비세트(374만), 누보 수트세트(300만)<br>
-          <strong>포인트:</strong> 캐릭터 페어(미미&쥬쥬 등)보다 <em>실제 베스트셀러</em>를 보여주는 게 클릭 유도에 효과적
+          <strong>메인 제품:</strong> 데이지 베이비세트 (374만, 재고 1,109개) + 누보 수트세트 (300만, 재고 1,554개)<br>
+          <strong style="color:#D4604A;">⚠️ 변경:</strong> 디저트 수트세트(1위)는 재고 22일 소진 예상 → 메인에서 빼고 재고 여유 제품 우선<br>
+          <strong>보여주는 방식:</strong> 잘 팔리는 조합을 <em>착용 모델컷</em>으로. "엄마들이 실제로 담는 조합"<br>
+          <strong>러블리 라인 MIX:</strong> 미미(44만) + 쥬쥬(64만) + 아이린(53만) — 현재 Pick카부의 캐릭터 페어 중 실제로 팔리는 것 위주<br>
+          <strong style="color:#E8836B;">러블리 포인트:</strong> 아이린·메종(64만)처럼 디자인이 예쁜 라인을 "인기 조합"에 포함
         </div>
       </div>
 
@@ -310,13 +346,14 @@
       <div style="background:white; border:1px solid #E8DDD1; border-radius:10px; padding:20px; border-left:4px solid #6B8F71;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
           <h3 style="font-size:16px; margin:0;">4. "아직 아무도 안 입었어요"</h3>
-          <span style="font-size:11px; color:#9B8E7F;">티징용</span>
+          <span style="font-size:11px; color:#9B8E7F;">26SS 신상 티징</span>
         </div>
         <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 포밍 (연출컷 보정 완료) 또는 리지 (착용컷 보정 완료)<br>
-          <strong>보여주는 방식:</strong> 제품 1개를 <em>크게, 또렷하게</em>. 현재 흰 천 배경은 "뭐가 오는데?" 답이 없음<br>
-          <strong>촬영 상태:</strong> 포밍·리지 = 바로 사용 가능 / 쇼콜라·보니·밀키 = 촬영 예정 / 코이 = 보정 중<br>
-          <strong>포인트:</strong> 실제 제품이 살짝 보여야 "궁금해서 클릭"이 됨. 완전히 숨기면 클릭 안 함
+          <strong>메인 제품:</strong> 포밍 (연출컷 보정완료) 또는 리지 (착용컷 보정완료)<br>
+          <strong>보여주는 방식:</strong> 신상 제품 1개를 <em>크게, 러블리하게</em>. 흰 천만 있으면 "뭐가 오는데?" 답이 없음<br>
+          <strong>촬영 상태:</strong> 포밍·리지 = 바로 가능 / 쇼콜라·보니·밀키 = 촬영 예정 / 코이 = 보정 중<br>
+          <strong>포인트:</strong> 실제 제품이 살짝 보여야 "궁금해서 클릭". 7종 중 가장 러블리한 것을 메인에<br>
+          <strong style="color:#E8836B;">러블리 포인트:</strong> 26SS 신상도 러블리 무드라면, 팝업 인기 분위기와 연결되어 기대감 ↑
         </div>
       </div>
 
@@ -327,10 +364,11 @@
           <span style="font-size:11px; color:#6B8F71; font-weight:700;">방문자 2위 (620명)</span>
         </div>
         <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 제제 보넷(61만) + 제제 블루머(77만) + 상의 = 풀코디 세트<br>
-          <strong>보여주는 방식:</strong> 현재 배너(마실룩)의 구도가 가장 좋음 — <em>모델이 풀코디 입은 착용컷</em> 유지<br>
-          <strong>추가 노출:</strong> 슈슈 리본보넷(43만), 데이지 삭스(55만), 플라워 니삭스(48만)<br>
-          <strong>포인트:</strong> "이 조합 그대로 살 수 있다"는 느낌. 머리(보넷)~발(양말)까지 한 컷에
+          <strong>메인 제품:</strong> 제제(149만) 보넷+블루머+상의 풀코디 or 슈슈(106만) 리본보넷+블루머 풀코디<br>
+          <strong>보여주는 방식:</strong> <em>러블리한 풀코디 착용 모델컷</em> — 현재 배너 구도가 이미 가장 좋음<br>
+          <strong>카테고리 구성:</strong> 제제, 슈슈, 단단(19만), 말랑/뉴말랑(77만 합산) + 소품<br>
+          <strong>노출 필요 라인:</strong> 차밍(7만), 소피(14만), 비쥬(2만) — 판매 약하지만 러블리해서 코디 조합에 넣으면 클릭 유도<br>
+          <strong style="color:#E8836B;">러블리 포인트:</strong> 머리(슈슈 보넷)~발(데이지 삭스)까지 "이게 러블리 코디 정석" 느낌
         </div>
       </div>
 
@@ -341,10 +379,11 @@
           <span style="font-size:11px; color:#E8836B; font-weight:700;">신규 배너</span>
         </div>
         <div style="font-size:13px; color:#6B5D4F; line-height:1.8;">
-          <strong>메인 제품:</strong> 디저트 수트세트 (판매 1위, 1,546만) + 기프트백 포장<br>
-          <strong>보여주는 방식:</strong> 선물 포장 박스/기프트백에 제품이 담긴 <em>언박싱 느낌</em>의 구도<br>
-          <strong>추천 세트 구성:</strong> 디저트 수트세트 + 보넷, 데이지 베이비세트, 프렌즈 baby세트, 킨더 baby세트<br>
-          <strong>포인트:</strong> "포장까지 예쁘게 해준다" = 선물 구매자의 핵심 니즈. 제품 + 포장이 함께 보여야 함
+          <strong>메인 제품:</strong> 킨더 baby세트 (150만, 러블리 라인 매출 1위) + 슈가 baby세트 (65만)<br>
+          <strong style="color:#D4604A;">⚠️ 변경:</strong> 디저트 수트세트는 재고 부족(22일) → 킨더/슈가로 대체 (러블리 + 선물 적합)<br>
+          <strong>보여주는 방식:</strong> 기프트백에 러블리한 세트가 담긴 <em>언박싱 느낌</em>의 구도<br>
+          <strong>추천 세트:</strong> 킨더 baby세트, 슈가 baby세트, 데이지 베이비세트(374만, 재고 충분), 아이린 세트(53만)<br>
+          <strong style="color:#E8836B;">러블리 포인트:</strong> "선물로 주면 너무 예쁘다" = 받는 사람 반응이 상상되게. 포장+러블리 제품 조합
         </div>
       </div>
 
