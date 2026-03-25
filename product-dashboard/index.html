@@ -720,6 +720,474 @@ tr.group-start td {
   .tab-panel { display: block !important; page-break-inside: avoid; }
   .tab-btn { display: none; }
 }
+
+/* ============================================
+   HEADER PERIOD INFO
+   ============================================ */
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ============================================
+   DAILY SHIPMENTS TAB
+   ============================================ */
+.date-cards-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 4px 2px 12px;
+  margin-bottom: 20px;
+}
+.date-cards-scroll::-webkit-scrollbar { display: none; }
+
+.date-card {
+  flex-shrink: 0;
+  padding: 12px 18px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: center;
+  min-width: 90px;
+}
+.date-card:hover {
+  border-color: var(--pink-mid);
+  background: var(--pink-light);
+}
+.date-card.active {
+  border-color: var(--pink);
+  background: var(--pink-light);
+  box-shadow: 0 2px 8px rgba(255,107,138,0.2);
+}
+.date-card-date {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.date-card.active .date-card-date { color: var(--pink); }
+.date-card-qty {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.date-card.active .date-card-qty { color: var(--pink); }
+
+.channel-summary-grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.channel-card {
+  flex: 1 1 160px;
+  max-width: 220px;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+.channel-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.channel-card-name {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.channel-card-qty {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.channel-card-rev {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.channel-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* ============================================
+   PRODUCT SEARCH TAB
+   ============================================ */
+.search-large-wrapper {
+  position: relative;
+  max-width: 560px;
+  margin: 0 auto 28px;
+}
+.search-large-input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.search-large-input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 4px rgba(255,107,138,0.1);
+}
+.search-large-input::placeholder { color: var(--text-muted); font-weight: 400; }
+.search-large-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+.search-suggest {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 200;
+  display: none;
+}
+.search-suggest.visible { display: block; }
+.search-suggest-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background var(--transition);
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.88rem;
+}
+.search-suggest-item:last-child { border-bottom: none; }
+.search-suggest-item:hover,
+.search-suggest-item.highlighted {
+  background: var(--pink-light);
+}
+.search-suggest-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.search-suggest-qty {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Product Detail Card */
+.product-detail-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+.pdc-header {
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+.pdc-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.pdc-stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.pdc-stats strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.pdc-section {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+}
+.pdc-section:last-child { border-bottom: none; }
+.pdc-section-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+}
+
+/* Channel horizontal bars */
+.channel-hbar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.channel-hbar-item:last-child { margin-bottom: 0; }
+.channel-hbar-label {
+  width: 120px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: right;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.channel-hbar-track {
+  flex: 1;
+  height: 22px;
+  background: var(--border-light);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.channel-hbar-fill {
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: fit-content;
+}
+.channel-hbar-fill-text {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+.channel-hbar-value {
+  width: 60px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Daily bar chart */
+.daily-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 120px;
+  padding-top: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.daily-bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 18px;
+  height: 100%;
+  justify-content: flex-end;
+}
+.daily-bar {
+  width: 100%;
+  border-radius: 3px 3px 0 0;
+  background: var(--teal);
+  transition: background var(--transition);
+  position: relative;
+  cursor: default;
+  min-height: 2px;
+}
+.daily-bar:hover {
+  background: var(--pink);
+}
+.daily-bar-tooltip {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text-primary);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  z-index: 10;
+}
+.daily-bar:hover .daily-bar-tooltip { opacity: 1; }
+.daily-bar-date {
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  height: 36px;
+  overflow: hidden;
+}
+
+/* Options table in product detail */
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-size: 0.84rem;
+}
+.option-row:last-child { margin-bottom: 0; }
+.option-name {
+  width: 130px;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.option-qty {
+  width: 52px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-align: right;
+  flex-shrink: 0;
+  font-size: 0.82rem;
+}
+.option-bar-track {
+  flex: 1;
+  height: 16px;
+  background: var(--border-light);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.option-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--teal), var(--teal-mid));
+  transition: width 0.5s ease;
+}
+.option-stock {
+  width: 80px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: right;
+  flex-shrink: 0;
+}
+.option-lead {
+  width: 55px;
+  font-size: 0.75rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Stock section in product detail */
+.stock-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+.stock-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--bg);
+  border-radius: var(--radius-xs);
+  font-size: 0.82rem;
+}
+.stock-item-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.stock-item-info {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.stock-item-val {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Search empty/no-result state */
+.search-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+}
+.search-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+.search-empty p {
+  font-size: 0.95rem;
+}
+.search-empty .hint {
+  font-size: 0.82rem;
+  margin-top: 6px;
+  color: var(--text-muted);
+}
+
+/* Responsive additions for new tabs */
+@media (max-width: 768px) {
+  .pdc-header { padding: 18px 16px 14px; }
+  .pdc-section { padding: 14px 16px; }
+  .pdc-title { font-size: 1.1rem; }
+  .pdc-stats { font-size: 0.78rem; gap: 12px; }
+  .channel-hbar-label { width: 80px; font-size: 0.75rem; }
+  .search-large-input { padding: 14px 16px 14px 42px; font-size: 0.95rem; }
+  .option-name { width: 100px; }
+  .daily-chart { height: 90px; }
+  .daily-bar-date { font-size: 0.5rem; height: 28px; }
+  .channel-card { flex: 1 1 130px; max-width: none; padding: 10px 12px; }
+  .channel-card-qty { font-size: 1rem; }
+  .date-card { padding: 10px 14px; min-width: 78px; }
+}
+@media (max-width: 480px) {
+  .channel-hbar-label { width: 60px; font-size: 0.7rem; }
+  .option-name { width: 80px; font-size: 0.78rem; }
+  .option-qty { width: 40px; }
+  .stock-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -737,7 +1205,10 @@ tr.group-start td {
   <header class="header">
     <div class="header-top">
       <h1 class="header-title"><span>피카부</span> 제품 대시보드</h1>
-      <span class="header-updated" id="updatedAt"></span>
+      <div class="header-meta">
+        <span class="header-updated" id="periodInfo"></span>
+        <span class="header-updated" id="updatedAt"></span>
+      </div>
     </div>
   </header>
 
@@ -769,11 +1240,13 @@ tr.group-start td {
   <div class="tabs-wrapper">
     <div class="tabs-inner" id="tabsBar">
       <button class="tab-btn active" data-tab="trending">7일 트렌드</button>
+      <button class="tab-btn" data-tab="dailyshipments">일별 출고</button>
       <button class="tab-btn" data-tab="products26ss">제품별 누적 26SS</button>
       <button class="tab-btn" data-tab="products25fw">제품별 누적 25FW</button>
       <button class="tab-btn" data-tab="burndown">판매소진율</button>
       <button class="tab-btn" data-tab="colors">베스트 칼라사이즈</button>
       <button class="tab-btn" data-tab="weeklysku">SKU별 판매주기</button>
+      <button class="tab-btn" data-tab="productsearch">제품 검색</button>
     </div>
   </div>
 
@@ -822,6 +1295,34 @@ tr.group-start td {
           <tbody></tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <!-- TAB: 일별 출고 -->
+  <div class="tab-panel" id="panel-dailyshipments">
+    <div class="section-title">
+      <span class="icon" style="background:var(--teal-light);color:var(--teal);">&#128666;</span>
+      일별 출고 현황
+    </div>
+    <div class="date-cards-scroll" id="dateCardsScroll"></div>
+    <div id="dailyChannelSummary" class="channel-summary-grid"></div>
+    <div class="scroll-hint">&#8594; 좌우로 스크롤하세요</div>
+    <div class="table-container">
+      <div class="table-scroll">
+        <table id="tableDailyItems">
+          <thead>
+            <tr>
+              <th>채널</th>
+              <th>제품명</th>
+              <th>옵션</th>
+              <th class="num">수량</th>
+              <th class="num">금액</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="row-count" id="countDailyItems"></div>
     </div>
   </div>
 
@@ -967,6 +1468,26 @@ tr.group-start td {
     </div>
   </div>
 
+  <!-- TAB: 제품 검색 -->
+  <div class="tab-panel" id="panel-productsearch">
+    <div class="section-title">
+      <span class="icon" style="background:var(--pink-light);color:var(--pink);">&#128270;</span>
+      제품 검색
+    </div>
+    <div class="search-large-wrapper">
+      <span class="search-large-icon">&#128269;</span>
+      <input type="text" class="search-large-input" id="searchProduct" placeholder="제품명으로 검색..." autocomplete="off">
+      <div class="search-suggest" id="searchSuggest"></div>
+    </div>
+    <div id="productDetailArea">
+      <div class="search-empty">
+        <div class="search-empty-icon">&#128270;</div>
+        <p>제품명을 검색하면 상세 정보를 볼 수 있습니다</p>
+        <p class="hint">예: 쿨쿨세트, 샤인 키즈세트, 스타 발레 상하세트</p>
+      </div>
+    </div>
+  </div>
+
 </div><!-- /dashboard -->
 
 <script>
@@ -1063,12 +1584,35 @@ function seasonTag(s) {
   return '<span class="season-tag ' + (isSS ? 'ss' : 'fw') + '">' + s + '</span>';
 }
 
+/** Channel color map */
+const CHANNEL_COLORS = {
+  '카페24': '#FF6B8A',
+  '쿠팡로켓배송SKU': '#4ECDC4',
+  '스마트스토어': '#5B8DEF',
+  '도매주문관리': '#F5A623',
+  'Hipeekaboo(China)': '#9B59B6',
+  '글로벌 몰': '#2ECC71',
+  '롯데ON': '#E74C5E',
+  '카카오': '#FFE812',
+  '도매카페24': '#FF8C42',
+};
+const CHANNEL_COLORS_FALLBACK = ['#45B7D1','#96CEB4','#DDA0DD','#87CEEB','#FFB347'];
+function getChannelColor(ch) {
+  if (CHANNEL_COLORS[ch]) return CHANNEL_COLORS[ch];
+  // deterministic fallback
+  let hash = 0;
+  for (let i = 0; i < ch.length; i++) hash = ((hash << 5) - hash) + ch.charCodeAt(i);
+  return CHANNEL_COLORS_FALLBACK[Math.abs(hash) % CHANNEL_COLORS_FALLBACK.length];
+}
+
 
 /* ============================================
    DATA STORE & STATE
    ============================================ */
 let DATA = null;
 let sortStates = {};
+let dailySelectedDate = null;
+let productSearchIndex = null;
 
 /* ============================================
    TABLE RENDERING
@@ -1361,20 +1905,399 @@ function initTabs() {
 /* ============================================
    KPI RENDERING
    ============================================ */
-function renderKPIs(summary) {
+function renderKPIs(summary, fullSummary) {
   if (!summary) return;
 
-  document.getElementById('kpiSales').textContent = fmtNum(summary.total_sales);
-  document.getElementById('kpiSalesSub').textContent = 'SKU ' + fmtNum(summary.sku_count) + '개 기준';
+  // Use full_summary for sales/revenue if available, otherwise fall back to summary
+  var salesSource = fullSummary || summary;
 
-  document.getElementById('kpiRevenue').textContent = fmtKRWShort(summary.total_revenue);
-  document.getElementById('kpiRevenueSub').textContent = fmtKRW(summary.total_revenue);
+  document.getElementById('kpiSales').textContent = fmtNum(salesSource.total_sales);
+  document.getElementById('kpiSalesSub').textContent = fullSummary
+    ? '전체 기간 누적'
+    : ('SKU ' + fmtNum(summary.sku_count) + '개 기준');
+
+  document.getElementById('kpiRevenue').textContent = fmtKRWShort(salesSource.total_revenue);
+  document.getElementById('kpiRevenueSub').textContent = fmtKRW(salesSource.total_revenue);
 
   document.getElementById('kpiStock').textContent = fmtNum(summary.total_stock);
   document.getElementById('kpiStockSub').textContent = '전 시즌 합계';
 
   document.getElementById('kpiProducts').textContent = fmtNum(summary.product_count);
   document.getElementById('kpiProductsSub').textContent = fmtNum(summary.sku_count) + '개 SKU';
+}
+
+/* ============================================
+   PERIOD INFO RENDERING
+   ============================================ */
+function renderPeriodInfo(period) {
+  var el = document.getElementById('periodInfo');
+  if (!period || !el) return;
+  var start = period.start || '';
+  var end = period.end || '';
+  var days = period.days || '';
+  if (start && end) {
+    el.textContent = start + ' ~ ' + end + (days ? ' (' + days + '일간)' : '');
+  }
+}
+
+/* ============================================
+   DAILY SHIPMENTS TAB
+   ============================================ */
+function renderDailyShipments() {
+  var shipments = DATA.daily_shipments;
+  if (!shipments || shipments.length === 0) {
+    document.getElementById('dateCardsScroll').innerHTML = '<div class="empty-state"><p>일별 출고 데이터가 없습니다</p></div>';
+    return;
+  }
+
+  // Sort by date descending (most recent first)
+  var sorted = [...shipments].sort(function(a, b) {
+    return b.date.localeCompare(a.date);
+  });
+
+  // Date cards
+  var cardsHtml = '';
+  sorted.forEach(function(d) {
+    // Format date nicely: "03-22 (토)" style
+    var dateObj = new Date(d.date + 'T00:00:00');
+    var weekDays = ['일','월','화','수','목','금','토'];
+    var monthDay = (dateObj.getMonth()+1) + '/' + dateObj.getDate();
+    var dayName = weekDays[dateObj.getDay()];
+    var isActive = d.date === dailySelectedDate ? ' active' : '';
+    cardsHtml += '<div class="date-card' + isActive + '" data-date="' + d.date + '">' +
+      '<div class="date-card-date">' + monthDay + ' (' + dayName + ')</div>' +
+      '<div class="date-card-qty">' + fmtNum(d.total_qty) + '개</div>' +
+      '</div>';
+  });
+  document.getElementById('dateCardsScroll').innerHTML = cardsHtml;
+
+  // Set up click handlers
+  document.querySelectorAll('#dateCardsScroll .date-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      dailySelectedDate = this.getAttribute('data-date');
+      document.querySelectorAll('#dateCardsScroll .date-card').forEach(function(c) { c.classList.remove('active'); });
+      this.classList.add('active');
+      renderDailyDetail(dailySelectedDate);
+    });
+  });
+
+  // Select first date (most recent) by default
+  if (!dailySelectedDate) {
+    dailySelectedDate = sorted[0].date;
+    var firstCard = document.querySelector('#dateCardsScroll .date-card');
+    if (firstCard) firstCard.classList.add('active');
+  }
+  renderDailyDetail(dailySelectedDate);
+}
+
+function renderDailyDetail(dateStr) {
+  var shipments = DATA.daily_shipments || [];
+  var dayData = shipments.find(function(d) { return d.date === dateStr; });
+
+  var channelEl = document.getElementById('dailyChannelSummary');
+  var tbody = document.querySelector('#tableDailyItems tbody');
+  var countEl = document.getElementById('countDailyItems');
+
+  if (!dayData) {
+    channelEl.innerHTML = '';
+    tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><p>데이터 없음</p></div></td></tr>';
+    countEl.textContent = '';
+    return;
+  }
+
+  // Channel summary cards
+  var channels = dayData.channels || {};
+  var channelKeys = Object.keys(channels).sort(function(a, b) {
+    return (channels[b].qty || 0) - (channels[a].qty || 0);
+  });
+
+  var chHtml = '';
+  channelKeys.forEach(function(ch) {
+    var chData = channels[ch];
+    var color = getChannelColor(ch);
+    chHtml += '<div class="channel-card" style="border-top: 3px solid ' + color + ';">' +
+      '<div class="channel-card-name"><span class="channel-dot" style="background:' + color + ';"></span>' + ch + '</div>' +
+      '<div class="channel-card-qty">' + fmtNum(chData.qty) + '개</div>' +
+      '<div class="channel-card-rev">' + fmtKRW(chData.rev) + '</div>' +
+      '</div>';
+  });
+  channelEl.innerHTML = chHtml;
+
+  // Items table
+  var items = dayData.top_items || [];
+  if (items.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><p>상세 아이템 데이터가 없습니다 (최근 14일만 제공)</p></div></td></tr>';
+    countEl.textContent = '';
+    return;
+  }
+
+  var rowsHtml = '';
+  var limit = Math.min(items.length, 50);
+  for (var i = 0; i < limit; i++) {
+    var item = items[i];
+    var color = getChannelColor(item.channel || '');
+    rowsHtml += '<tr>' +
+      '<td><span class="channel-dot" style="background:' + color + ';"></span>' + (item.channel || '') + '</td>' +
+      '<td class="product-name">' + (item.name || '') + '</td>' +
+      '<td style="font-size:0.8rem;color:var(--text-secondary);">' + (item.option || '') + '</td>' +
+      '<td class="num">' + fmtNum(item.qty) + '</td>' +
+      '<td class="num">' + fmtKRW(item.rev) + '</td>' +
+      '</tr>';
+  }
+  tbody.innerHTML = rowsHtml;
+  countEl.textContent = (items.length > 50 ? 'TOP 50 / ' : '') + '총 ' + items.length + '건';
+}
+
+/* ============================================
+   PRODUCT SEARCH TAB
+   ============================================ */
+function buildProductSearchIndex() {
+  var ps = DATA.product_search;
+  if (!ps) { productSearchIndex = []; return; }
+  productSearchIndex = Object.keys(ps).map(function(name) {
+    return { name: name, total_qty: ps[name].total_qty || 0, lower: name.toLowerCase() };
+  }).sort(function(a, b) { return b.total_qty - a.total_qty; });
+}
+
+function renderProductSearch() {
+  var input = document.getElementById('searchProduct');
+  var suggestEl = document.getElementById('searchSuggest');
+  var detailArea = document.getElementById('productDetailArea');
+  var highlightIdx = -1;
+  var currentMatches = [];
+
+  function doSearch(q) {
+    q = q.trim().toLowerCase();
+    if (!q || q.length < 1) {
+      suggestEl.classList.remove('visible');
+      currentMatches = [];
+      highlightIdx = -1;
+      return;
+    }
+    currentMatches = productSearchIndex.filter(function(p) {
+      return p.lower.indexOf(q) >= 0;
+    }).slice(0, 30);
+
+    if (currentMatches.length === 0) {
+      suggestEl.innerHTML = '<div class="search-suggest-item" style="color:var(--text-muted);pointer-events:none;">검색 결과가 없습니다</div>';
+      suggestEl.classList.add('visible');
+      return;
+    }
+    highlightIdx = -1;
+    var html = '';
+    currentMatches.forEach(function(p, i) {
+      html += '<div class="search-suggest-item" data-idx="' + i + '">' +
+        '<span class="search-suggest-name">' + p.name + '</span>' +
+        '<span class="search-suggest-qty">' + fmtNum(p.total_qty) + '개</span>' +
+        '</div>';
+    });
+    suggestEl.innerHTML = html;
+    suggestEl.classList.add('visible');
+
+    // Click handlers
+    suggestEl.querySelectorAll('.search-suggest-item[data-idx]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var idx = parseInt(this.getAttribute('data-idx'));
+        selectProduct(currentMatches[idx].name);
+        suggestEl.classList.remove('visible');
+        input.value = currentMatches[idx].name;
+      });
+    });
+  }
+
+  var debouncedSearch = debounce(function() {
+    doSearch(input.value);
+  }, 300);
+
+  input.addEventListener('input', debouncedSearch);
+
+  // Keyboard navigation
+  input.addEventListener('keydown', function(e) {
+    if (!suggestEl.classList.contains('visible') || currentMatches.length === 0) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      highlightIdx = Math.min(highlightIdx + 1, currentMatches.length - 1);
+      updateHighlight();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      highlightIdx = Math.max(highlightIdx - 1, 0);
+      updateHighlight();
+    } else if (e.key === 'Enter' && highlightIdx >= 0) {
+      e.preventDefault();
+      selectProduct(currentMatches[highlightIdx].name);
+      input.value = currentMatches[highlightIdx].name;
+      suggestEl.classList.remove('visible');
+    } else if (e.key === 'Escape') {
+      suggestEl.classList.remove('visible');
+    }
+  });
+
+  function updateHighlight() {
+    suggestEl.querySelectorAll('.search-suggest-item').forEach(function(el, i) {
+      el.classList.toggle('highlighted', i === highlightIdx);
+    });
+    // Scroll into view
+    var highlighted = suggestEl.querySelector('.highlighted');
+    if (highlighted) highlighted.scrollIntoView({ block: 'nearest' });
+  }
+
+  // Close suggest on outside click
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-large-wrapper')) {
+      suggestEl.classList.remove('visible');
+    }
+  });
+
+  // Re-open suggest on focus
+  input.addEventListener('focus', function() {
+    if (input.value.trim().length > 0 && currentMatches.length > 0) {
+      suggestEl.classList.add('visible');
+    }
+  });
+}
+
+function selectProduct(name) {
+  var ps = DATA.product_search;
+  if (!ps || !ps[name]) return;
+
+  var p = ps[name];
+  var detailArea = document.getElementById('productDetailArea');
+
+  // Period info
+  var periodDays = '';
+  if (DATA.period && DATA.period.days) periodDays = DATA.period.days + '일';
+
+  // Header
+  var html = '<div class="product-detail-card">';
+  html += '<div class="pdc-header">';
+  html += '<div class="pdc-title">' + name + '</div>';
+  html += '<div class="pdc-stats">';
+  html += '<span>총 판매: <strong>' + fmtNum(p.total_qty) + '개</strong></span>';
+  html += '<span>총 매출: <strong>' + fmtKRW(p.total_rev) + '</strong></span>';
+  if (periodDays) html += '<span>기간: <strong>' + periodDays + '</strong></span>';
+  html += '</div></div>';
+
+  // Channel bars
+  var channels = p.channels || {};
+  var chKeys = Object.keys(channels).filter(function(k) { return channels[k] > 0; })
+    .sort(function(a, b) { return channels[b] - channels[a]; });
+  var maxChQty = chKeys.length > 0 ? channels[chKeys[0]] : 1;
+
+  if (chKeys.length > 0) {
+    html += '<div class="pdc-section">';
+    html += '<div class="pdc-section-title">채널별 판매</div>';
+    chKeys.forEach(function(ch) {
+      var qty = channels[ch];
+      var pct = (qty / maxChQty) * 100;
+      var color = getChannelColor(ch);
+      html += '<div class="channel-hbar-item">' +
+        '<span class="channel-hbar-label">' + ch + '</span>' +
+        '<div class="channel-hbar-track">' +
+        '<div class="channel-hbar-fill" style="width:' + Math.max(pct, 3) + '%;background:' + color + ';">' +
+        '<span class="channel-hbar-fill-text">' + (pct > 15 ? fmtNum(qty) : '') + '</span>' +
+        '</div></div>' +
+        '<span class="channel-hbar-value">' + fmtNum(qty) + '</span>' +
+        '</div>';
+    });
+    html += '</div>';
+  }
+
+  // Daily sales chart (last 30 days)
+  var daily = p.daily || {};
+  var dailyKeys = Object.keys(daily).sort();
+  var last30 = dailyKeys.slice(-30);
+  if (last30.length > 0) {
+    var maxDaily = Math.max.apply(null, last30.map(function(k) { return daily[k] || 0; })) || 1;
+    html += '<div class="pdc-section">';
+    html += '<div class="pdc-section-title">일별 판매 추이 (최근 ' + last30.length + '일)</div>';
+    html += '<div class="daily-chart">';
+    last30.forEach(function(d) {
+      var val = daily[d] || 0;
+      var h = Math.max((val / maxDaily) * 100, 2);
+      var dateObj = new Date(d + 'T00:00:00');
+      var dateLabel = (dateObj.getMonth()+1) + '/' + dateObj.getDate();
+      html += '<div class="daily-bar-col">' +
+        '<div class="daily-bar" style="height:' + h + '%;">' +
+        '<div class="daily-bar-tooltip">' + dateLabel + ': ' + val + '개</div>' +
+        '</div>' +
+        '<div class="daily-bar-date">' + dateLabel + '</div>' +
+        '</div>';
+    });
+    html += '</div></div>';
+  }
+
+  // Options table
+  var options = p.options || {};
+  var optKeys = Object.keys(options).sort(function(a, b) {
+    return (options[b].qty || 0) - (options[a].qty || 0);
+  });
+  var maxOptQty = optKeys.length > 0 ? (options[optKeys[0]].qty || 1) : 1;
+
+  // Find matching weekly_sku entries for stock info
+  var skuStockMap = {};
+  if (DATA.weekly_sku) {
+    DATA.weekly_sku.forEach(function(sku) {
+      if (sku.name === name) {
+        var optionKey = '[' + (sku.color || '') + '-' + (sku.size || '') + ']';
+        skuStockMap[optionKey] = { stock: sku.stock, lead_time_days: sku.lead_time_days };
+      }
+    });
+  }
+
+  if (optKeys.length > 0) {
+    html += '<div class="pdc-section">';
+    html += '<div class="pdc-section-title">옵션별 판매</div>';
+    optKeys.forEach(function(opt) {
+      var oData = options[opt];
+      var qty = oData.qty || 0;
+      var pct = (qty / maxOptQty) * 100;
+      // Try to find stock info
+      var stockInfo = skuStockMap[opt];
+      var stockText = stockInfo ? fmtNum(stockInfo.stock) + '개' : '';
+      var leadText = '';
+      if (stockInfo && stockInfo.lead_time_days != null) {
+        var ltDays = Number(stockInfo.lead_time_days);
+        var ltCls = ltDays < 14 ? 'danger' : ltDays <= 30 ? 'warn' : 'safe';
+        leadText = '<span class="lead-time ' + ltCls + '">' + ltDays + '일</span>';
+      }
+
+      html += '<div class="option-row">' +
+        '<span class="option-name" title="' + opt + '">' + opt + '</span>' +
+        '<span class="option-qty">' + fmtNum(qty) + '개</span>' +
+        '<div class="option-bar-track"><div class="option-bar-fill" style="width:' + pct + '%;"></div></div>' +
+        '<span class="option-stock">' + stockText + '</span>' +
+        '<span class="option-lead">' + leadText + '</span>' +
+        '</div>';
+    });
+    html += '</div>';
+  }
+
+  // Stock section (from weekly_sku if matched)
+  var stockEntries = Object.keys(skuStockMap);
+  if (stockEntries.length > 0) {
+    html += '<div class="pdc-section">';
+    html += '<div class="pdc-section-title">재고 현황</div>';
+    html += '<div class="stock-grid">';
+    stockEntries.forEach(function(opt) {
+      var s = skuStockMap[opt];
+      var leadText = '';
+      if (s.lead_time_days != null) {
+        var ltDays = Number(s.lead_time_days);
+        var ltCls = ltDays < 14 ? 'danger' : ltDays <= 30 ? 'warn' : 'safe';
+        leadText = '<span class="lead-time ' + ltCls + '">' + ltDays + '일</span>';
+      }
+      html += '<div class="stock-item">' +
+        '<span class="stock-item-name">' + opt + '</span>' +
+        '<div class="stock-item-info">' +
+        '<span class="stock-item-val">' + fmtNum(s.stock) + '개</span>' +
+        leadText +
+        '</div></div>';
+    });
+    html += '</div></div>';
+  }
+
+  html += '</div>';
+  detailArea.innerHTML = html;
 }
 
 
@@ -1409,9 +2332,17 @@ async function init() {
 
   // Render everything
   document.getElementById('updatedAt').textContent = '업데이트: ' + (DATA.updated_at || '-');
-  renderKPIs(DATA.summary);
+  renderPeriodInfo(DATA.period);
+  renderKPIs(DATA.summary, DATA.full_summary);
   renderTrending(DATA.trending);
   renderSlowMovers(DATA.slow_movers);
+
+  // Daily Shipments
+  renderDailyShipments();
+
+  // Product Search
+  buildProductSearchIndex();
+  renderProductSearch();
 
   // 26SS
   renderProductTable('table26ss', 'count26ss', DATA.products_26ss, sortStates['table26ss']);
