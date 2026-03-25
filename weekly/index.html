@@ -169,81 +169,30 @@
   .tag-북유럽 { background: var(--blue-light); color: var(--blue); }
   .tag-수공예 { background: var(--orange-light); color: var(--orange); }
 
-  /* ── 대시보드: 액션 트래커 ── */
-  .action-list {
-    list-style: none;
-  }
-  .action-item {
+  /* ── 인사이트 피드 ── */
+  .insight-feed {
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    gap: 10px;
+  }
+  .insight-entry {
+    padding: 14px 16px;
+    background: var(--bg);
+    border-radius: 10px;
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.65;
+    color: var(--text);
+    border-left: 3px solid var(--pink);
   }
-  .action-item:last-child {
-    border-bottom: none;
-  }
-  .action-check {
-    width: 20px;
-    height: 20px;
-    border-radius: 6px;
-    border: 2px solid var(--border);
-    cursor: pointer;
-    flex-shrink: 0;
-    margin-top: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    background: var(--white);
-  }
-  .action-check.done {
-    background: var(--green);
-    border-color: var(--green);
-    color: white;
-  }
-  .action-check.done::after {
-    content: "\2713";
+  .insight-entry .insight-meta {
     font-size: 12px;
-    font-weight: 700;
-  }
-  .action-text {
-    flex: 1;
-  }
-  .action-text.done {
-    text-decoration: line-through;
     color: var(--text-sub);
-    opacity: 0.6;
+    margin-top: 6px;
   }
-  .action-meta {
-    font-size: 11px;
-    color: var(--text-sub);
-    margin-top: 2px;
-  }
-  .action-meta a {
+  .insight-entry .insight-meta a {
     color: var(--pink-dark);
     text-decoration: none;
   }
-  .action-stats {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 16px;
-    font-size: 13px;
-  }
-  .action-stat {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .stat-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-  .stat-dot.pending { background: var(--pink); }
-  .stat-dot.complete { background: var(--green); }
 
   /* ── 리포트 목록 ── */
   .year-label {
@@ -347,8 +296,7 @@
 
   <div class="tab-nav">
     <button class="tab-btn active" onclick="showTab('overview')">한눈에 보기</button>
-    <button class="tab-btn" onclick="showTab('actions')">할 일</button>
-    <button class="tab-btn" onclick="showTab('reports')">지난 리포트</button>
+    <button class="tab-btn" onclick="showTab('reports')">주차별 리서치</button>
   </div>
 
   <div class="container">
@@ -364,124 +312,34 @@
 </a>
       </div>
       <div class="dash-section">
-        <h3>경쟁사 동향</h3>
-        <p class="desc">전체 리포트에서 어떤 브랜드가 얼마나 언급됐는지, 주요 내용은 무엇이었는지 요약합니다.</p>
-        <div class="brand-summary">
-<div class="brand-row">
-  <span class="bname">베네베네<span class="brand-tag tag-프리미엄">프리미엄</span></span>
-  <span class="bcount">2회 언급</span>
-  <span class="btopics">베네베네 — '의류+케어+홈' 3축 라이프스타일 브랜드 완성</span>
+        <h3>시장에서 읽은 것들</h3>
+        <p class="desc">매주 리서치에서 피카부와 관련된 시장 흐름을 모아봅니다.</p>
+        <div class="insight-feed" id="insight-feed">
+          <div class="insight-entry">
+  피카부의 슬로건 "가족의 일상을 디자인하는"은 이미 라이프스타일 브랜드의 언어입니다. 그러나 현재 상품은 아동복에 한정되어 있습니다. 베네베네가 먼저 이 공간을 채우기 시작했습니다.
+  <div class="insight-meta">3월 4주차 &middot; <a href="2026-03-24.html">리서치 원문</a></div>
 </div>
-<div class="brand-row">
-  <span class="bname">아림클로젯<span class="brand-tag tag-프리미엄">프리미엄</span></span>
-  <span class="bcount">2회 언급</span>
-  <span class="btopics"></span>
+<div class="insight-entry">
+  소재 인증(오가닉 코튼 여부, 원단 출처 등)을 브랜드 스토리로 연결하면 "비슷한데 왜 더 비싸지?"가 아닌 "이유 있는 피카부"로 포지셔닝할 수 있습니다.
+  <div class="insight-meta">3월 4주차 &middot; <a href="2026-03-24.html">리서치 원문</a></div>
 </div>
-<div class="brand-row">
-  <span class="bname">보보쇼즈<span class="brand-tag tag-북유럽">북유럽</span></span>
-  <span class="bcount">2회 언급</span>
-  <span class="btopics">보보쇼즈 SS26 — "스토리 있는 소재"가 프리미엄 가격을 만든다</span>
+<div class="insight-entry">
+  당장 따라 하기 어렵지만, 시즌 한정 컬렉션을 사전예약 방식으로 운영하는 것은 피카부 규모에서도 시도 가능한 전술입니다. 프리미엄 포지셔닝에 도움이 됩니다.
+  <div class="insight-meta">3월 4주차 &middot; <a href="2026-03-24.html">리서치 원문</a></div>
 </div>
-<div class="brand-row">
-  <span class="bname">미샤앤퍼프<span class="brand-tag tag-수공예">수공예</span></span>
-  <span class="bcount">2회 언급</span>
-  <span class="btopics">미샤앤퍼프 SS26 — Made-to-Order로 수공예 프리미엄 강화</span>
+<div class="insight-entry">
+  "태열 아기를 위한 오가닉 머슬린" 시리즈로 배냇세트·배냇가운·쫄바지·속싸개를 구성. 제품 설명에 소재 원산지와 오가닉 인증을 명시합니다.
+  <div class="insight-meta">3월 4주차 &middot; <a href="2026-03-24.html">리서치 원문</a></div>
 </div>
-<div class="brand-row">
-  <span class="bname">몽베베<span class="brand-tag tag-직접경쟁">직접경쟁</span></span>
-  <span class="bcount">1회 언급</span>
-  <span class="btopics"></span>
+<div class="insight-entry">
+  현재 뉴트럴 팔레트를 유지하면서, 26 SS 컬렉션에 파우더리 라일락과 소프트 세이지 그린을 포인트 컬러로 추가합니다. 기존 아이템과 자연스럽게 코디되도록 기획하면 '코디 구매'를 유도할 수 있습니다.
+  <div class="insight-meta">3월 4주차 &middot; <a href="2026-03-24.html">리서치 원문</a></div>
 </div>
-<div class="brand-row">
-  <span class="bname">아오스타<span class="brand-tag tag-직접경쟁">직접경쟁</span></span>
-  <span class="bcount">1회 언급</span>
-  <span class="btopics"></span>
-</div>
-<div class="brand-row">
-  <span class="bname">이키<span class="brand-tag tag-직접경쟁">직접경쟁</span></span>
-  <span class="bcount">1회 언급</span>
-  <span class="btopics"></span>
-</div>
-<div class="brand-row">
-  <span class="bname">미니로디니<span class="brand-tag tag-북유럽">북유럽</span></span>
-  <span class="bcount">1회 언급</span>
-  <span class="btopics"></span>
-</div>
-</div>
-      </div>
-    </div>
-
-    <!-- 할 일 탭 -->
-    <div id="tab-actions" class="tab-panel">
-      <div class="dash-section">
-        <h3>피카부 할 일 모음</h3>
-        <p class="desc">매주 리포트에서 나온 제안들입니다. 완료한 항목은 체크하면 기록됩니다.</p>
-        <div class="action-stats">
-          <div class="action-stat"><div class="stat-dot pending"></div><span id="pending-count">0</span> 남음</div>
-          <div class="action-stat"><div class="stat-dot complete"></div><span id="complete-count">0</span> 완료</div>
         </div>
-        <ul class="action-list" id="action-list">
-          <li class="action-item">
-  <div class="action-check" data-id="2026-03-24-0"></div>
-  <div class="action-text">
-    피카부의 슬로건 "가족의 일상을 디자인하는"은 이미 라이프스타일 브랜드의 언어입니다. 그러나 현재 상품은 아동복에 한정되어 있습니다. 베네베네가 먼저 이 공간을 채우기 시작했습니다.
-    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
-  </div>
-</li>
-<li class="action-item">
-  <div class="action-check" data-id="2026-03-24-1"></div>
-  <div class="action-text">
-    소재 인증(오가닉 코튼 여부, 원단 출처 등)을 브랜드 스토리로 연결하면 "비슷한데 왜 더 비싸지?"가 아닌 "이유 있는 피카부"로 포지셔닝할 수 있습니다.
-    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
-  </div>
-</li>
-<li class="action-item">
-  <div class="action-check" data-id="2026-03-24-2"></div>
-  <div class="action-text">
-    당장 따라 하기 어렵지만, 시즌 한정 컬렉션을 사전예약 방식으로 운영하는 것은 피카부 규모에서도 시도 가능한 전술입니다. 프리미엄 포지셔닝에 도움이 됩니다.
-    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
-  </div>
-</li>
-<li class="action-item">
-  <div class="action-check" data-id="2026-03-24-3"></div>
-  <div class="action-text">
-    "태열 아기를 위한 오가닉 머슬린" 시리즈로 배냇세트·배냇가운·쫄바지·속싸개를 구성. 제품 설명에 소재 원산지와 오가닉 인증을 명시합니다.
-    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
-  </div>
-</li>
-<li class="action-item">
-  <div class="action-check" data-id="2026-03-24-4"></div>
-  <div class="action-text">
-    현재 뉴트럴 팔레트를 유지하면서, 26 SS 컬렉션에 파우더리 라일락과 소프트 세이지 그린을 포인트 컬러로 추가합니다. 기존 아이템과 자연스럽게 코디되도록 기획하면 '코디 구매'를 유도할 수 있습니다.
-    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
-  </div>
-</li>
-<li class="action-item">
-  <div class="action-check" data-id="2026-03-24-5"></div>
-  <div class="action-text">
-    배냇 세트에서 나아가 "상의 + 하의 + 가디건/아우터" 3-piece 봄 코디 큐레이션을 제품 단위로 기획합니다. 인스타그램에서 코디컷을 전면에 내세우면 자연스러운 세트 구매 유도가 됩니다.
-    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
-  </div>
-</li>
-<li class="action-item">
-  <div class="action-check" data-id="2026-03-24-6"></div>
-  <div class="action-text">
-    키즈 라인 중심으로 워싱 린넨 소재 셋업(상하 세트) 또는 원피스를 26 SS에 추가합니다. "세탁할수록 더 자연스러워지는" 소재 특성을 피카부 브랜드 철학("변화하되, 변함없는")과 연결하면 스토리가 됩니다.
-    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
-  </div>
-</li>
-<li class="action-item">
-  <div class="action-check" data-id="2026-03-24-7"></div>
-  <div class="action-text">
-    신생아 케어 소품(오가닉 베이비워시 또는 바디오일) 1~2종을 소싱하거나 OEM으로 **'피카부 케어' 첫 제품**을 소프트 론칭하는 것을 검토합니다. 스킨케어는 재구매율이 높고, 브랜드 로열티를 강화하는 카테고리입니다. 베네베네의 본보우와 직접 충돌하기보다, 피카부만의 일상적이고 미니멀한 케어 루틴 제안으로 차별화합니다. 인스타그램을 통한 소규모 론칭부터 시작할 수 있습니다.
-    <div class="action-meta">3월 4주차 &middot; <a href="2026-03-24.html">리포트 보기</a></div>
-  </div>
-</li>
-        </ul>
       </div>
     </div>
 
-    <!-- 지난 리포트 탭 -->
+    <!-- 주차별 리서치 탭 -->
     <div id="tab-reports" class="tab-panel">
       <div class="year-label">2026</div>
 <a href="2026-03-24.html" class="report-card">
@@ -516,37 +374,6 @@
     event.target.classList.add('active');
   }
 
-  // 액션 아이템 체크 상태 (localStorage)
-  function initActions() {
-    const stored = JSON.parse(localStorage.getItem('pkb-actions') || '{}');
-    document.querySelectorAll('.action-check').forEach(el => {
-      const id = el.dataset.id;
-      if (stored[id]) {
-        el.classList.add('done');
-        el.nextElementSibling.classList.add('done');
-      }
-      el.addEventListener('click', () => {
-        el.classList.toggle('done');
-        el.nextElementSibling.classList.toggle('done');
-        const s = JSON.parse(localStorage.getItem('pkb-actions') || '{}');
-        if (el.classList.contains('done')) {
-          s[id] = true;
-        } else {
-          delete s[id];
-        }
-        localStorage.setItem('pkb-actions', JSON.stringify(s));
-        updateCounts();
-      });
-    });
-    updateCounts();
-  }
-  function updateCounts() {
-    const total = document.querySelectorAll('.action-check').length;
-    const done = document.querySelectorAll('.action-check.done').length;
-    document.getElementById('pending-count').textContent = total - done;
-    document.getElementById('complete-count').textContent = done;
-  }
-  initActions();
   </script>
 </body>
 </html>
