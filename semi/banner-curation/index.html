@@ -445,6 +445,74 @@
     </div>
   </div>
 
+  <!-- 운영 사이클 -->
+  <div class="section" style="margin-top:40px;">
+    <div class="section-title">OPERATION</div>
+    <h2 style="font-size:20px; margin-bottom:16px;">배너 로테이션 운영 방식</h2>
+
+    <div style="background:white; border:1px solid #E8DDD1; border-radius:12px; padding:24px; margin-bottom:20px;">
+      <h3 style="font-size:16px; margin-bottom:16px;">10일 1사이클 — 위치 로테이션</h3>
+      <p style="font-size:13px; color:#6B5D4F; margin-bottom:16px;">6개 배너를 2~3일마다 페어 순서를 교체. 10일 동안 모든 배너가 모든 위치를 경험 → 위치 편향 없는 순수 성과 비교 가능</p>
+      <table style="width:100%; font-size:13px; border-collapse:collapse;">
+        <tr style="border-bottom:2px solid #E8DDD1;">
+          <th style="padding:8px; text-align:left; color:#9B8E7F; font-weight:500;">일자</th>
+          <th style="padding:8px; text-align:center; color:#E8836B; font-weight:500;">첫 화면 (1~2번)</th>
+          <th style="padding:8px; text-align:center; color:#6B8F71; font-weight:500;">두번째 (3~4번)</th>
+          <th style="padding:8px; text-align:center; color:#C4A882; font-weight:500;">세번째 (5~6번)</th>
+        </tr>
+        <tr style="border-bottom:1px solid #F5EDE4;">
+          <td style="padding:8px;">Day 1~3</td>
+          <td style="padding:8px; text-align:center; background:#FEF0EC;">PAIR 1 니즈</td>
+          <td style="padding:8px; text-align:center; background:#E8F0E8;">PAIR 2 발견</td>
+          <td style="padding:8px; text-align:center; background:#F5EDDF;">PAIR 3 상황</td>
+        </tr>
+        <tr style="border-bottom:1px solid #F5EDE4;">
+          <td style="padding:8px;">Day 4~6</td>
+          <td style="padding:8px; text-align:center; background:#E8F0E8;">PAIR 2 발견</td>
+          <td style="padding:8px; text-align:center; background:#F5EDDF;">PAIR 3 상황</td>
+          <td style="padding:8px; text-align:center; background:#FEF0EC;">PAIR 1 니즈</td>
+        </tr>
+        <tr>
+          <td style="padding:8px;">Day 7~10</td>
+          <td style="padding:8px; text-align:center; background:#F5EDDF;">PAIR 3 상황</td>
+          <td style="padding:8px; text-align:center; background:#FEF0EC;">PAIR 1 니즈</td>
+          <td style="padding:8px; text-align:center; background:#E8F0E8;">PAIR 2 발견</td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+      <div style="background:white; border:1px solid #E8DDD1; border-radius:12px; padding:20px;">
+        <h3 style="font-size:15px; margin-bottom:10px;">사이클 후 판단 기준</h3>
+        <ol style="font-size:13px; color:#6B5D4F; padding-left:20px; line-height:1.8;">
+          <li><strong>UV 변화율</strong> — 유입이 줄고 있는가?</li>
+          <li><strong>전환율</strong> — 보고 있지만 안 사는가?</li>
+          <li><strong>PV/UV</strong> — 깊게 탐색하는가 바로 이탈하는가?</li>
+          <li><strong>매출 기여</strong> — 실제 매출에 기여하는가?</li>
+        </ol>
+      </div>
+      <div style="background:white; border:1px solid #E8DDD1; border-radius:12px; padding:20px;">
+        <h3 style="font-size:15px; margin-bottom:10px;">교체 의사결정</h3>
+        <ul style="font-size:13px; color:#6B5D4F; padding-left:20px; line-height:1.8;">
+          <li><strong>성과 좋음</strong> → 유지, 다음 사이클 앞 순서 배치</li>
+          <li><strong>UV 높고 전환 낮음</strong> → 카피/CTA 수정</li>
+          <li><strong>UV도 전환도 낮음</strong> → 테마 or 이미지 교체</li>
+          <li><strong>3사이클 연속 부진</strong> → 테마 자체를 교체</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="background:#3D3428; border-radius:12px; padding:20px; color:#E8DDD1;">
+      <h3 style="color:white; margin-bottom:10px; font-size:15px;">자동화 스케줄</h3>
+      <div style="font-size:13px; line-height:1.8;">
+        <strong style="color:#E8836B;">매주 화요일 09:00</strong> — GA4 데이터 자동 수집 (최근 10일)<br>
+        → 시트 "배너 큐레이션 유입/전환" 탭에 자동 입력<br>
+        → 디스코드 알림 (테마별 UV/전환/매출 요약)<br>
+        → 월 약 3사이클 × 데이터 축적 → 트렌드 분석 가능
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <div class="footer">
     <div class="name">Planned by Semi Lee</div>
