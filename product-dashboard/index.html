@@ -167,6 +167,39 @@ body {
   border-color: var(--pink);
   box-shadow: 0 2px 8px rgba(255,107,138,0.25);
 }
+.channel-cat-btn.active .cat-detail {
+  color: rgba(255,255,255,0.8);
+}
+.cat-detail {
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+.channel-cat-notice {
+  font-size: 0.76rem;
+  color: var(--pink);
+  font-weight: 600;
+  padding: 6px 14px;
+  background: var(--pink-light);
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+}
+.kpi-card.filter-dimmed {
+  opacity: 0.55;
+  position: relative;
+}
+.kpi-card.filter-dimmed::after {
+  content: '필터 무관';
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  background: var(--border-light);
+  padding: 1px 6px;
+  border-radius: 10px;
+}
 
 /* ============================================
    KPI CARDS
@@ -1648,12 +1681,13 @@ tr.group-start td {
 
   <!-- CHANNEL CATEGORY FILTER -->
   <div class="channel-cat-filter" id="channelCatFilter">
-    <span class="channel-cat-label">판매채널 보기</span>
+    <span class="channel-cat-label">판매채널</span>
     <button class="channel-cat-btn active" data-cat="all">전체</button>
-    <button class="channel-cat-btn" data-cat="소매" title="카페24, 쿠팡, 스마트스토어, 롯데ON, 카카오">소매</button>
-    <button class="channel-cat-btn" data-cat="해외" title="글로벌 몰, Hipeekaboo(China)">해외</button>
-    <button class="channel-cat-btn" data-cat="도매" title="도매주문관리, 도매카페24, 예약거래">도매</button>
+    <button class="channel-cat-btn" data-cat="소매">소매 <span class="cat-detail">카페24 / 쿠팡 / 스마트스토어 등</span></button>
+    <button class="channel-cat-btn" data-cat="해외">해외 <span class="cat-detail">글로벌몰 / China</span></button>
+    <button class="channel-cat-btn" data-cat="도매">도매 <span class="cat-detail">도매주문관리 / 예약거래</span></button>
   </div>
+  <div class="channel-cat-notice" id="channelCatNotice" style="display:none;"></div>
 
   <!-- KPI CARDS -->
   <div class="kpi-grid">
@@ -3002,7 +3036,9 @@ function renderDailyShipments() {
     return;
   }
 
-  // Date cards
+  // Date cards (채널 필터 적용)
+  var filterChannels = getChannelCatChannels();
+  var channelCats = DATA.channel_categories || {};
   var cardsHtml = '';
   sorted.forEach(function(d) {
     var dateObj = new Date(d.date + 'T00:00:00');
@@ -3010,9 +3046,17 @@ function renderDailyShipments() {
     var monthDay = (dateObj.getMonth()+1) + '/' + dateObj.getDate();
     var dayName = weekDays[dateObj.getDay()];
     var isActive = d.date === dailySelectedDate ? ' active' : '';
+    var dayQty = d.total_qty;
+    if (filterChannels) {
+      dayQty = 0;
+      var chs = d.channels || {};
+      for (var ch in chs) {
+        if (filterChannels.indexOf(ch) >= 0) dayQty += (chs[ch].qty || 0);
+      }
+    }
     cardsHtml += '<div class="date-card' + isActive + '" data-date="' + d.date + '">' +
       '<div class="date-card-date">' + monthDay + ' (' + dayName + ')</div>' +
-      '<div class="date-card-qty">' + fmtNum(d.total_qty) + '개</div>' +
+      '<div class="date-card-qty">' + fmtNum(dayQty) + '개</div>' +
       '</div>';
   });
   document.getElementById('dateCardsScroll').innerHTML = cardsHtml;
@@ -3058,11 +3102,15 @@ function renderDailyDetail(dateStr) {
     return;
   }
 
-  // Channel summary cards (now clickable for filtering)
+  // Channel summary cards (채널 필터 적용)
   var channels = dayData.channels || {};
+  var filterChs = getChannelCatChannels();
   var channelKeys = Object.keys(channels).sort(function(a, b) {
     return (channels[b].qty || 0) - (channels[a].qty || 0);
   });
+  if (filterChs) {
+    channelKeys = channelKeys.filter(function(ch) { return filterChs.indexOf(ch) >= 0; });
+  }
 
   var chHtml = '';
   channelKeys.forEach(function(ch) {
@@ -3391,8 +3439,31 @@ function initChannelCatFilter() {
       renderFilteredKPIs();
       renderPeriodAnalysis();
       renderDailyShipments();
+      updateChannelFilterUI();
     });
   });
+}
+
+function updateChannelFilterUI() {
+  var notice = document.getElementById('channelCatNotice');
+  var kpiCards = document.querySelectorAll('.kpi-card');
+  var isFiltered = CHANNEL_CAT_FILTER !== 'all';
+
+  // 안내 메시지
+  if (notice) {
+    if (isFiltered) {
+      notice.style.display = 'block';
+      notice.textContent = CHANNEL_CAT_FILTER + ' 채널만 보는 중 — 팔린 수량과 매출만 필터됩니다. 재고와 제품 수는 항상 전체입니다.';
+    } else {
+      notice.style.display = 'none';
+    }
+  }
+
+  // 재고/제품수 카드 dim 처리 (3번째, 4번째)
+  if (kpiCards.length >= 4) {
+    kpiCards[2].classList.toggle('filter-dimmed', isFiltered);
+    kpiCards[3].classList.toggle('filter-dimmed', isFiltered);
+  }
 }
 
 
