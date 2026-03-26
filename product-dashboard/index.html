@@ -585,7 +585,7 @@ tbody tr:hover {
 .lead-time.safe { color: #1B8C4D; }
 
 /* ============================================
-   SLOW MOVER TABLE
+   SLOW MOVER TABLE (legacy, kept for other uses)
    ============================================ */
 .slow-mover-container {
   background: var(--amber-light);
@@ -601,6 +601,247 @@ tbody tr:hover {
 }
 .slow-mover-container tbody tr:hover {
   background: #FFF3DE;
+}
+
+/* ============================================
+   PERIOD ANALYSIS TAB
+   ============================================ */
+.period-section {
+  margin-bottom: 32px;
+}
+.period-section:last-child {
+  margin-bottom: 0;
+}
+.period-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.period-section-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.period-section-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.period-stat-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 12px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+.period-stat-bar .stat-value {
+  color: var(--text-primary);
+  font-weight: 800;
+  font-size: 0.88rem;
+}
+.period-stat-bar .stat-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+.period-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: var(--border-light);
+  color: var(--text-secondary);
+  margin-left: 6px;
+}
+
+/* Dead Stock section: amber warning card */
+.period-dead-stock-card {
+  background: #FFFBF0;
+  border: 1.5px solid #F5D89A;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(245,166,35,0.08);
+}
+.period-dead-stock-card .table-scroll {
+  max-height: 60vh;
+}
+.period-dead-stock-card th {
+  background: #FEF3D6;
+  color: #8B6914;
+}
+.period-dead-stock-card tbody tr:nth-child(even) {
+  background: #FFFAF0;
+}
+.period-dead-stock-card tbody tr:hover {
+  background: #FFF3DE;
+}
+.period-dead-stock-card tbody tr.high-stock td {
+  background: #FFF0D0;
+}
+.period-dead-stock-card tbody tr.high-stock:hover td {
+  background: #FFE8B8;
+}
+.period-dead-stock-summary {
+  display: flex;
+  gap: 20px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #FFF8EC 0%, #FFFBF0 100%);
+  border-bottom: 1px solid #F5D89A;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #8B6914;
+  flex-wrap: wrap;
+}
+.period-dead-stock-summary .ds-metric {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.period-dead-stock-summary .ds-metric-value {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--amber);
+}
+
+/* Stock Risk section: red-tinted */
+.period-risk-card {
+  background: #FFF5F6;
+  border: 1.5px solid #F5A0A8;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(231,76,94,0.06);
+}
+.period-risk-card th {
+  background: #FDE8EA;
+  color: #8B2030;
+}
+.period-risk-card tbody tr:nth-child(even) {
+  background: #FFF8F9;
+}
+.period-risk-card tbody tr:hover {
+  background: #FFECEE;
+}
+.urgency-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 100px;
+}
+.urgency-track {
+  flex: 1;
+  height: 7px;
+  background: #FDE8EA;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.urgency-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #E74C5E, #F0828E);
+  transition: width 0.5s ease;
+}
+.urgency-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--red);
+  min-width: 35px;
+  text-align: right;
+}
+
+/* Section divider line */
+.period-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 28px 0;
+}
+
+/* No-risk message */
+.period-no-risk {
+  text-align: center;
+  padding: 32px 20px;
+  background: var(--green-light);
+  border-radius: var(--radius);
+  border: 1px solid #B8E6CA;
+  color: #1B8C4D;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.period-no-risk-icon {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+/* Period analysis search */
+.period-search-bar {
+  position: relative;
+  max-width: 320px;
+}
+.period-search-bar input {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.84rem;
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: var(--bg-card);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.period-search-bar input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255,107,138,0.12);
+}
+.period-search-bar input::placeholder { color: var(--text-muted); }
+.period-search-bar .ps-icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  font-size: 0.85rem;
+}
+
+/* Channel dot inline */
+.channel-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* Days of stock color codes */
+.dos-danger { color: var(--red); font-weight: 800; }
+.dos-warn { color: var(--amber); font-weight: 700; }
+.dos-safe { color: #1B8C4D; font-weight: 600; }
+.dos-plenty { color: var(--text-muted); font-weight: 500; }
+
+@media (max-width: 768px) {
+  .period-section-header { flex-direction: column; align-items: flex-start; }
+  .period-stat-bar { gap: 10px; padding: 8px 12px; font-size: 0.78rem; }
+  .period-dead-stock-summary { padding: 10px 14px; font-size: 0.82rem; gap: 12px; }
+  .period-search-bar { max-width: 100%; }
 }
 
 /* ============================================
@@ -1398,7 +1639,7 @@ tr.group-start td {
       </div>
     </div>
     <div class="tabs-inner" id="tabsBar">
-      <button class="tab-btn active" data-tab="trending">7일 트렌드</button>
+      <button class="tab-btn active" data-tab="periodanalysis">기간별 제품 분석</button>
       <button class="tab-btn" data-tab="dailyshipments">일별 출고</button>
       <button class="tab-btn" data-tab="products26ss">제품별 누적 26SS</button>
       <button class="tab-btn" data-tab="products25fw">제품별 누적 25FW</button>
@@ -1409,50 +1650,12 @@ tr.group-start td {
     </div>
   </div>
 
-  <!-- TAB: 7일 트렌드 -->
-  <div class="tab-panel active" id="panel-trending">
-    <div class="section-title">
-      <span class="icon" style="background:var(--pink-light);color:var(--pink);">&#9650;</span>
-      인기 TOP 20
-    </div>
-    <div class="scroll-hint">&#8594; 좌우로 스크롤하세요</div>
-    <div class="table-container">
-      <div class="table-scroll">
-        <table id="tableTrending">
-          <thead>
-            <tr>
-              <th style="width:48px" class="num">순위</th>
-              <th>제품명</th>
-              <th class="num">7일 판매</th>
-              <th class="num">일평균</th>
-              <th class="num">전주대비</th>
-              <th style="width:60px">등급</th>
-              <th class="num">재고</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="section-divider"></div>
-    <div class="section-title">
-      <span class="icon" style="background:var(--amber-light);color:var(--amber);">&#9888;</span>
-      슬로우무버 (7일 판매 3개 이하 &amp; 재고 20+)
-    </div>
-    <div class="slow-mover-container">
-      <div class="table-scroll">
-        <table id="tableSlow">
-          <thead>
-            <tr>
-              <th>제품명</th>
-              <th class="num">7일 판매</th>
-              <th class="num">재고</th>
-              <th style="width:60px">등급</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+  <!-- TAB: 기간별 제품 분석 -->
+  <div class="tab-panel active" id="panel-periodanalysis">
+    <div id="periodAnalysisContent">
+      <div class="empty-state">
+        <div class="empty-icon">&#128202;</div>
+        <p>데이터를 불러오는 중...</p>
       </div>
     </div>
   </div>
@@ -1802,8 +2005,15 @@ function setDateFilter(start, end, preset) {
     btn.classList.toggle('active', btn.getAttribute('data-days') === activePreset);
   });
 
+  // Invalidate period analysis cache
+  _periodAnalysisCacheKey = '';
+  _periodAnalysisCache = null;
+
   // Recalculate filtered KPIs
   renderFilteredKPIs();
+
+  // Re-render period analysis tab
+  renderPeriodAnalysis();
 
   // Re-render active tab content that is date-sensitive
   renderDailyShipments();
@@ -2016,43 +2226,324 @@ function renderDailyItemsFiltered() {
    TABLE RENDERING
    ============================================ */
 
-function renderTrending(rows) {
-  const tbody = document.querySelector('#tableTrending tbody');
-  if (!rows || rows.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">&#128202;</div><p>트렌드 데이터가 없습니다</p></div></td></tr>';
-    return;
+/* ============================================
+   PERIOD ANALYSIS — DATA CALCULATION & RENDERING
+   ============================================ */
+let _periodAnalysisCache = null;
+let _periodAnalysisCacheKey = '';
+
+function calculatePeriodAnalysis() {
+  // Cache key based on current date filter
+  var cacheKey = (DATE_FILTER.start || '') + '|' + (DATE_FILTER.end || '');
+  if (_periodAnalysisCacheKey === cacheKey && _periodAnalysisCache) {
+    return _periodAnalysisCache;
   }
-  let html = '';
-  rows.forEach(r => {
-    html += '<tr>' +
-      '<td class="num" style="font-weight:800;color:' + (r.rank <= 3 ? 'var(--pink)' : 'var(--text-muted)') + ';">' + r.rank + '</td>' +
-      '<td class="product-name">' + (r.name || '') + '</td>' +
-      '<td class="num">' + fmtNum(r.sales_7d) + '</td>' +
-      '<td class="num">' + (r.daily_avg != null ? Number(r.daily_avg).toFixed(1) : '-') + '</td>' +
-      '<td class="num">' + changeHTML(r.vs_prev_week) + '</td>' +
-      '<td>' + gradeBadge(r.grade) + '</td>' +
-      '<td class="num">' + fmtNum(r.stock) + '</td>' +
-      '</tr>';
+
+  var results = [];
+
+  // Build stock lookup from weekly_sku
+  var stockByProduct = {};
+  (DATA.weekly_sku || []).forEach(function(sku) {
+    if (!stockByProduct[sku.name]) stockByProduct[sku.name] = { stock: 0, skus: [] };
+    stockByProduct[sku.name].stock += sku.stock;
+    stockByProduct[sku.name].skus.push(sku);
   });
-  tbody.innerHTML = html;
+
+  var psData = DATA.product_search || {};
+  var productNames = Object.keys(psData);
+
+  for (var pi = 0; pi < productNames.length; pi++) {
+    var name = productNames[pi];
+    var detail = psData[name];
+
+    var periodSales = 0;
+    var periodRevenue = 0;
+    var daysWithSales = 0;
+    var totalDaysInRange = 0;
+
+    // Get all dates in range
+    var dailyData = detail.daily || {};
+    var allDates = Object.keys(dailyData);
+
+    if (!DATE_FILTER.start && !DATE_FILTER.end) {
+      // Use full totals
+      periodSales = detail.total_qty || 0;
+      periodRevenue = detail.total_rev || 0;
+      totalDaysInRange = (DATA.period && DATA.period.days) ? DATA.period.days : 73;
+      // Count days with sales
+      for (var di = 0; di < allDates.length; di++) {
+        if ((dailyData[allDates[di]] || 0) > 0) daysWithSales++;
+      }
+    } else {
+      for (var di2 = 0; di2 < allDates.length; di2++) {
+        var dt = allDates[di2];
+        if (!isDateInRange(dt)) continue;
+        totalDaysInRange++;
+        var daySales = dailyData[dt] || 0;
+        periodSales += daySales;
+        if (daySales > 0) daysWithSales++;
+      }
+      // If filtering, also count days that had 0 sales within range
+      // We need to count total calendar days in the range
+      if (DATE_FILTER.start && DATE_FILTER.end) {
+        var rangeStart = new Date(DATE_FILTER.start + 'T00:00:00');
+        var rangeEnd = new Date(DATE_FILTER.end + 'T00:00:00');
+        totalDaysInRange = Math.round((rangeEnd - rangeStart) / (1000 * 60 * 60 * 24)) + 1;
+      }
+      // Calculate revenue proportionally
+      periodRevenue = (detail.total_rev || 0) > 0
+        ? Math.round((detail.total_rev || 0) * (periodSales / Math.max(detail.total_qty || 1, 1)))
+        : 0;
+    }
+
+    var dailyAvg = totalDaysInRange > 0 ? periodSales / totalDaysInRange : 0;
+    var stock = stockByProduct[name] ? stockByProduct[name].stock : 0;
+    var daysOfStock = dailyAvg > 0 ? Math.round(stock / dailyAvg) : (stock > 0 ? 9999 : 0);
+
+    results.push({
+      name: name,
+      periodSales: periodSales,
+      periodRevenue: periodRevenue,
+      dailyAvg: dailyAvg,
+      totalDaysInRange: totalDaysInRange,
+      daysWithSales: daysWithSales,
+      stock: stock,
+      daysOfStock: daysOfStock,
+      channels: detail.channels || {}
+    });
+  }
+
+  _periodAnalysisCache = results;
+  _periodAnalysisCacheKey = cacheKey;
+  return results;
 }
 
-function renderSlowMovers(rows) {
-  const tbody = document.querySelector('#tableSlow tbody');
-  if (!rows || rows.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4"><div class="empty-state"><p>슬로우무버 없음</p></div></td></tr>';
-    return;
+function getDateRangeLabel() {
+  if (!DATE_FILTER.start && !DATE_FILTER.end) {
+    var p = DATA.period;
+    if (p && p.start && p.end) return p.start + ' ~ ' + p.end + ' (전체 ' + (p.days || '') + '일)';
+    return '전체 기간';
   }
-  let html = '';
-  rows.forEach(r => {
-    html += '<tr>' +
-      '<td class="product-name">' + (r.name || '') + '</td>' +
-      '<td class="num">' + fmtNum(r.sales_7d) + '</td>' +
-      '<td class="num">' + fmtNum(r.stock) + '</td>' +
-      '<td>' + gradeBadge(r.grade) + '</td>' +
-      '</tr>';
+  return (DATE_FILTER.start || '') + ' ~ ' + (DATE_FILTER.end || '');
+}
+
+var _periodSearchFilter = '';
+
+function renderPeriodAnalysis() {
+  var container = document.getElementById('periodAnalysisContent');
+  if (!container || !DATA) return;
+
+  var results = calculatePeriodAnalysis();
+  var rangeLabel = getDateRangeLabel();
+  var q = _periodSearchFilter.trim().toLowerCase();
+
+  // ---- SECTION 1: Sales TOP 30 ----
+  var topSorted = results.slice().sort(function(a, b) { return b.periodSales - a.periodSales; });
+  if (q) {
+    topSorted = topSorted.filter(function(r) { return r.name.toLowerCase().indexOf(q) >= 0; });
+  }
+  var top30 = topSorted.slice(0, 30);
+
+  // Summary for top 30
+  var totalTopSales = 0;
+  var totalTopDailyAvg = 0;
+  top30.forEach(function(r) { totalTopSales += r.periodSales; totalTopDailyAvg += r.dailyAvg; });
+
+  var html = '';
+
+  // Search bar
+  html += '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">';
+  html += '<div class="period-search-bar"><span class="ps-icon">&#128269;</span>';
+  html += '<input type="text" id="periodSearchInput" placeholder="제품명으로 검색..." value="' + (_periodSearchFilter || '') + '"></div>';
+  html += '</div>';
+
+  // Section 1
+  html += '<div class="period-section">';
+  html += '<div class="period-section-header">';
+  html += '<div class="period-section-title">\uD83C\uDFC6 판매 TOP 30</div>';
+  html += '<span class="period-section-subtitle">' + rangeLabel + '</span>';
+  html += '</div>';
+  html += '<div class="period-stat-bar">';
+  html += '<span><span class="stat-value">' + (q ? topSorted.length : top30.length) + '</span>개 제품</span>';
+  html += '<span class="stat-divider"></span>';
+  html += '<span>기간 판매 <span class="stat-value">' + fmtNum(totalTopSales) + '</span>개</span>';
+  html += '<span class="stat-divider"></span>';
+  html += '<span>일평균 합계 <span class="stat-value">' + fmtNum(Math.round(totalTopDailyAvg)) + '</span>개</span>';
+  html += '</div>';
+  html += '<div class="scroll-hint">&#8594; 좌우로 스크롤하세요</div>';
+  html += '<div class="table-container"><div class="table-scroll" style="max-height:60vh;">';
+  html += '<table><thead><tr>';
+  html += '<th style="width:48px" class="num">순위</th>';
+  html += '<th>제품명</th>';
+  html += '<th class="num">기간판매</th>';
+  html += '<th class="num">일평균</th>';
+  html += '<th class="num">판매일수</th>';
+  html += '<th class="num">현재고</th>';
+  html += '<th class="num">소진예상일</th>';
+  html += '<th>주요채널</th>';
+  html += '</tr></thead><tbody>';
+
+  if (top30.length === 0) {
+    html += '<tr><td colspan="8"><div class="empty-state"><p>' + (q ? '검색 결과가 없습니다' : '판매 데이터가 없습니다') + '</p></div></td></tr>';
+  } else {
+    for (var i = 0; i < top30.length; i++) {
+      var r = top30[i];
+      var rank = i + 1;
+      var rankColor = rank <= 3 ? 'var(--pink)' : rank <= 10 ? 'var(--text-primary)' : 'var(--text-muted)';
+      var dosClass = r.daysOfStock <= 14 ? 'dos-danger' : r.daysOfStock <= 30 ? 'dos-warn' : r.daysOfStock <= 90 ? 'dos-safe' : 'dos-plenty';
+      var dosText = r.daysOfStock >= 9999 ? '-' : fmtNum(r.daysOfStock) + '일';
+
+      // Top channel
+      var topCh = '';
+      var chKeys = Object.keys(r.channels);
+      if (chKeys.length > 0) {
+        chKeys.sort(function(a, b) { return (r.channels[b] || 0) - (r.channels[a] || 0); });
+        var topChName = chKeys[0];
+        var topChColor = getChannelColor(topChName);
+        topCh = '<span class="channel-inline"><span class="channel-dot" style="background:' + topChColor + ';"></span>' + topChName + '</span>';
+      }
+
+      html += '<tr>';
+      html += '<td class="num" style="font-weight:800;color:' + rankColor + ';">' + rank + '</td>';
+      html += '<td class="product-name">' + (r.name || '') + '</td>';
+      html += '<td class="num" style="font-weight:700;">' + fmtNum(r.periodSales) + '</td>';
+      html += '<td class="num">' + r.dailyAvg.toFixed(1) + '</td>';
+      html += '<td class="num">' + r.daysWithSales + '/' + r.totalDaysInRange + '</td>';
+      html += '<td class="num">' + fmtNum(r.stock) + '</td>';
+      html += '<td class="num"><span class="' + dosClass + '">' + dosText + '</span></td>';
+      html += '<td>' + topCh + '</td>';
+      html += '</tr>';
+    }
+  }
+  html += '</tbody></table></div>';
+  if (top30.length > 0) {
+    html += '<div class="row-count">TOP ' + top30.length + '개' + (q ? ' (검색 결과)' : '') + '</div>';
+  }
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Divider ----
+  html += '<div class="period-divider"></div>';
+
+  // ---- SECTION 2: Dead Stock (미판매 제품) ----
+  var deadStock = results.filter(function(r) { return r.periodSales === 0 && r.stock > 0; });
+  if (q) {
+    deadStock = deadStock.filter(function(r) { return r.name.toLowerCase().indexOf(q) >= 0; });
+  }
+  deadStock.sort(function(a, b) { return b.stock - a.stock; });
+  var totalDeadStockQty = 0;
+  deadStock.forEach(function(r) { totalDeadStockQty += r.stock; });
+
+  html += '<div class="period-section">';
+  html += '<div class="period-section-header">';
+  html += '<div class="period-section-title">\u26A0\uFE0F 미판매 제품<span class="period-count-badge" style="background:#FFF0D0;color:#8B6914;">' + deadStock.length + '개</span></div>';
+  html += '<span class="period-section-subtitle">' + rangeLabel + '</span>';
+  html += '</div>';
+
+  html += '<div class="period-dead-stock-card">';
+  html += '<div class="period-dead-stock-summary">';
+  html += '<div class="ds-metric">미판매 제품 <span class="ds-metric-value">' + deadStock.length + '</span>개</div>';
+  html += '<div class="ds-metric">총 재고 <span class="ds-metric-value">' + fmtNum(totalDeadStockQty) + '</span>개</div>';
+  html += '</div>';
+
+  if (deadStock.length === 0) {
+    html += '<div style="padding:32px;text-align:center;color:#8B6914;font-weight:600;">&#10003; 미판매 재고 제품이 없습니다</div>';
+  } else {
+    html += '<div class="table-scroll"><table><thead><tr>';
+    html += '<th>제품명</th>';
+    html += '<th class="num">기간판매</th>';
+    html += '<th class="num">현재고</th>';
+    html += '<th>비고</th>';
+    html += '</tr></thead><tbody>';
+    for (var j = 0; j < deadStock.length; j++) {
+      var d = deadStock[j];
+      var rowClass = d.stock > 100 ? ' class="high-stock"' : '';
+      var note = d.stock > 100 ? '<span style="color:var(--amber);font-weight:700;">대량 재고</span>' : '';
+      html += '<tr' + rowClass + '>';
+      html += '<td class="product-name">' + (d.name || '') + '</td>';
+      html += '<td class="num" style="color:var(--text-muted);">0</td>';
+      html += '<td class="num" style="font-weight:700;color:var(--amber);">' + fmtNum(d.stock) + '</td>';
+      html += '<td>' + note + '</td>';
+      html += '</tr>';
+    }
+    html += '</tbody></table></div>';
+    html += '<div class="row-count" style="border-color:#F5D89A;">총 ' + deadStock.length + '개 미판매 제품</div>';
+  }
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Divider ----
+  html += '<div class="period-divider"></div>';
+
+  // ---- SECTION 3: Stock Risk (재고 위험) ----
+  var riskProducts = results.filter(function(r) {
+    return r.daysOfStock > 0 && r.daysOfStock <= 14 && r.periodSales > 0;
   });
-  tbody.innerHTML = html;
+  if (q) {
+    riskProducts = riskProducts.filter(function(r) { return r.name.toLowerCase().indexOf(q) >= 0; });
+  }
+  riskProducts.sort(function(a, b) { return a.daysOfStock - b.daysOfStock; });
+
+  html += '<div class="period-section">';
+  html += '<div class="period-section-header">';
+  html += '<div class="period-section-title">\uD83D\uDD34 재고 위험 (2주 내 소진 예상)<span class="period-count-badge" style="background:#FDE8EA;color:#8B2030;">' + riskProducts.length + '개</span></div>';
+  html += '<span class="period-section-subtitle">' + rangeLabel + '</span>';
+  html += '</div>';
+
+  if (riskProducts.length === 0) {
+    html += '<div class="period-no-risk"><div class="period-no-risk-icon">&#10003;</div>재고 위험 제품 없음</div>';
+  } else {
+    html += '<div class="period-stat-bar" style="border-color:#F5A0A8;background:#FFF8F9;">';
+    html += '<span style="color:#8B2030;">위험 제품 <span class="stat-value" style="color:var(--red);">' + riskProducts.length + '</span>개</span>';
+    html += '</div>';
+
+    html += '<div class="period-risk-card"><div class="table-scroll"><table><thead><tr>';
+    html += '<th>제품명</th>';
+    html += '<th class="num">기간판매</th>';
+    html += '<th class="num">일평균</th>';
+    html += '<th class="num">현재고</th>';
+    html += '<th class="num">소진예상일</th>';
+    html += '<th style="min-width:120px">긴급도</th>';
+    html += '</tr></thead><tbody>';
+
+    for (var k = 0; k < riskProducts.length; k++) {
+      var rp = riskProducts[k];
+      var urgencyPct = Math.max(0, Math.min(100, ((14 - rp.daysOfStock) / 14) * 100));
+      html += '<tr>';
+      html += '<td class="product-name">' + (rp.name || '') + '</td>';
+      html += '<td class="num" style="font-weight:700;">' + fmtNum(rp.periodSales) + '</td>';
+      html += '<td class="num">' + rp.dailyAvg.toFixed(1) + '</td>';
+      html += '<td class="num">' + fmtNum(rp.stock) + '</td>';
+      html += '<td class="num"><span class="dos-danger">' + rp.daysOfStock + '일</span></td>';
+      html += '<td><div class="urgency-bar">' +
+        '<div class="urgency-track"><div class="urgency-fill" style="width:' + urgencyPct + '%;"></div></div>' +
+        '<span class="urgency-label">' + rp.daysOfStock + 'D</span>' +
+        '</div></td>';
+      html += '</tr>';
+    }
+    html += '</tbody></table></div>';
+    html += '<div class="row-count" style="border-color:#F5A0A8;">총 ' + riskProducts.length + '개 위험 제품</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+
+  // Render to DOM using innerHTML
+  container.innerHTML = html;
+
+  // Wire up the search input
+  var searchInput = document.getElementById('periodSearchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', debounce(function() {
+      _periodSearchFilter = searchInput.value;
+      renderPeriodAnalysis();
+      // Restore focus and cursor position
+      var newInput = document.getElementById('periodSearchInput');
+      if (newInput) {
+        newInput.focus();
+        newInput.setSelectionRange(newInput.value.length, newInput.value.length);
+      }
+    }, 250));
+  }
 }
 
 function renderProductTable(tableId, countId, rows, sortState) {
@@ -2310,9 +2801,7 @@ function renderKPIs(summary, fullSummary) {
   var salesSource = fullSummary || summary;
 
   document.getElementById('kpiSales').textContent = fmtNum(salesSource.total_sales);
-  document.getElementById('kpiSalesSub').textContent = fullSummary
-    ? '전체 기간 누적'
-    : ('SKU ' + fmtNum(summary.sku_count) + '개 기준');
+  document.getElementById('kpiSalesSub').textContent = '전체 기간 누적';
 
   document.getElementById('kpiRevenue').textContent = fmtKRWShort(salesSource.total_revenue);
   document.getElementById('kpiRevenueSub').textContent = fmtKRW(salesSource.total_revenue);
@@ -2752,8 +3241,9 @@ async function init() {
   document.getElementById('updatedAt').textContent = '업데이트: ' + (DATA.updated_at || '-');
   renderPeriodInfo(DATA.period);
   renderKPIs(DATA.summary, DATA.full_summary);
-  renderTrending(DATA.trending);
-  renderSlowMovers(DATA.slow_movers);
+
+  // Period Analysis (new default tab)
+  renderPeriodAnalysis();
 
   // Daily Shipments
   renderDailyShipments();
