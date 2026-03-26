@@ -901,18 +901,18 @@
       <div class="hero-brand">피카부 매출 리포트</div>
       <div class="hero-period">2026년 3월 4주차 (3/16 ~ 3/22)</div>
       <div class="hero-month-label">3월 누적매출</div>
-      <div class="hero-revenue">7,453만원</div>
+      <div class="hero-revenue">1.29억원</div>
       <div class="hero-sub-stats">
-        <span>이번 주 2,143만원</span>
+        <span>이번 주 4,086만원</span>
         <span class="hero-separator">|</span>
 
-        <span>WoW -5.3%</span>
+        <span>WoW +10.5%</span>
 
       </div>
       <div class="hero-badges">
 
-        <span class="badge badge--red">
-          ▼ 5.3%
+        <span class="badge badge--green">
+          ▲ 10.5%
           <span class="badge-label">전주 대비</span>
         </span>
         
@@ -922,8 +922,8 @@
         <div style="text-align:center;">
           <div style="font-size:11px; color:rgba(255,255,255,0.45);">주문수</div>
           <div style="font-size:22px; font-weight:800;">353건</div>
-          <div style="font-size:11px; color:#ef9a9a;">
-            ▼ 5.3%
+          <div style="font-size:11px; color:#81c784;">
+            ▲ 10.5%
           </div>
         </div>
         <div style="text-align:center;">
@@ -1020,9 +1020,9 @@
           <tbody>
             <tr>
               <td>쿠팡-납품</td>
-              <td>339만</td>
-              <td style="color:#999;">1,727만</td>
-              <td><span class="change--down">-33.4%</span></td>
+              <td>2,283만</td>
+              <td style="color:#999;">7,163만</td>
+              <td><span class="change--up">+17.3%</span></td>
             </tr>
             <tr>
               <td>스마트스토어</td>
@@ -1271,8 +1271,8 @@
           <div class="analysis-type analysis-type--positive">
             &#x1F4C8; 자사몰 성장
           </div>
-          <div class="analysis-title">자사몰 전주 대비 +5.9% 상승, 전체 매출은 -5.3%</div>
-          <div class="analysis-desc">자사몰 주간 1,719만원으로 유일하게 성장. 쿠팡-납품(-33.4%), 스마트스토어(-31.7%) 하락으로 전체 매출 감소</div>
+          <div class="analysis-title">전체 매출 +10.5% 성장</div>
+          <div class="analysis-desc">자사몰(+5.9%)과 쿠팡-납품(+17.3%) 동반 성장. 주간 4,086만원 달성. 스마트스토어(-31.7%)는 하락</div>
         </div>
 
         <div class="analysis-item analysis-item--positive">
@@ -1813,7 +1813,7 @@ Pick your flavor!
 
     // ── Channel Bar Chart ──
     (function() {
-      const channels = [{"channel": "자사몰", "revenue": 17188756, "prev_week_revenue": 16235519, "month_revenue": 54234536, "change_pct": 5.9, "commission_rate": 0.035, "share_pct": 80.2}, {"channel": "쿠팡-납품", "revenue": 3398000, "prev_week_revenue": 5100600, "month_revenue": 17278800, "change_pct": -33.4, "commission_rate": 0.0, "share_pct": 15.9}, {"channel": "스마트스토어", "revenue": 811200, "prev_week_revenue": 1188200, "month_revenue": 2784100, "change_pct": -31.7, "commission_rate": 0.055, "share_pct": 3.8}, {"channel": "롯데온", "revenue": 30600, "prev_week_revenue": 108800, "month_revenue": 232900, "change_pct": -71.9, "commission_rate": 0.12, "share_pct": 0.1}];
+      const channels = [{"channel": "자사몰", "revenue": 17188756, "prev_week_revenue": 16235519, "month_revenue": 54234536, "change_pct": 5.9, "commission_rate": 0.035, "share_pct": 42.1}, {"channel": "쿠팡-납품", "revenue": 22828300, "prev_week_revenue": 19454900, "month_revenue": 71629200, "change_pct": 17.3, "commission_rate": 0.0, "share_pct": 55.9}, {"channel": "스마트스토어", "revenue": 811200, "prev_week_revenue": 1188200, "month_revenue": 2784100, "change_pct": -31.7, "commission_rate": 0.055, "share_pct": 2.0}, {"channel": "롯데온", "revenue": 30600, "prev_week_revenue": 108800, "month_revenue": 232900, "change_pct": -71.9, "commission_rate": 0.12, "share_pct": 0.1}];
       const ctx = document.getElementById('channelChart').getContext('2d');
 
       new Chart(ctx, {
