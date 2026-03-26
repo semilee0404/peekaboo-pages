@@ -1,0 +1,4 @@
+# Data files (not for deployment)
+sales-dashboard/*.csv
+sales-dashboard/*.json
+.gstack/
