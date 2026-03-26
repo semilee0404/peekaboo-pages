@@ -2304,14 +2304,43 @@ function renderDailyItemsFiltered() {
 let _periodAnalysisCache = null;
 let _periodAnalysisCacheKey = '';
 
+function getChannelCatChannels() {
+  // 현재 채널 필터에 해당하는 채널명 목록 반환
+  if (CHANNEL_CAT_FILTER === 'all') return null; // null = 전체
+  var catMap = DATA.channel_categories || {};
+  var matched = [];
+  for (var ch in catMap) {
+    if (catMap[ch] === CHANNEL_CAT_FILTER) matched.push(ch);
+  }
+  return matched;
+}
+
+function getChannelFilteredQtyRev(channels, filterChannels) {
+  // channels = { "카페24": {qty:10, rev:5000}, ... } 또는 { "카페24": 10, ... } (구버전)
+  var qty = 0, rev = 0;
+  if (!channels) return { qty: 0, rev: 0 };
+  for (var ch in channels) {
+    if (filterChannels && filterChannels.indexOf(ch) < 0) continue;
+    var v = channels[ch];
+    if (typeof v === 'object') {
+      qty += (v.qty || 0);
+      rev += (v.rev || 0);
+    } else {
+      qty += (v || 0);
+    }
+  }
+  return { qty: qty, rev: rev };
+}
+
 function calculatePeriodAnalysis() {
-  // Cache key based on current date filter
-  var cacheKey = (DATE_FILTER.start || '') + '|' + (DATE_FILTER.end || '');
+  // Cache key based on current date filter + channel filter
+  var cacheKey = (DATE_FILTER.start || '') + '|' + (DATE_FILTER.end || '') + '|' + CHANNEL_CAT_FILTER;
   if (_periodAnalysisCacheKey === cacheKey && _periodAnalysisCache) {
     return _periodAnalysisCache;
   }
 
   var results = [];
+  var filterChannels = getChannelCatChannels(); // null = 전체
 
   // Build stock lookup from weekly_sku
   var stockByProduct = {};
@@ -2328,44 +2357,56 @@ function calculatePeriodAnalysis() {
     var name = productNames[pi];
     var detail = psData[name];
 
+    // 채널 필터 적용: 해당 채널의 판매량만 계산
+    var chFiltered = getChannelFilteredQtyRev(detail.channels, filterChannels);
+    if (filterChannels && chFiltered.qty === 0) continue; // 해당 채널 판매 없으면 스킵
+
     var periodSales = 0;
     var periodRevenue = 0;
     var daysWithSales = 0;
     var totalDaysInRange = 0;
 
-    // Get all dates in range
     var dailyData = detail.daily || {};
     var allDates = Object.keys(dailyData);
 
+    // 채널 필터 시 전체 대비 비율로 일별 데이터 환산
+    var channelRatio = 1;
+    if (filterChannels) {
+      channelRatio = (detail.total_qty > 0) ? chFiltered.qty / detail.total_qty : 0;
+    }
+
     if (!DATE_FILTER.start && !DATE_FILTER.end) {
-      // Use full totals
-      periodSales = detail.total_qty || 0;
-      periodRevenue = detail.total_rev || 0;
+      periodSales = filterChannels ? chFiltered.qty : (detail.total_qty || 0);
+      periodRevenue = filterChannels ? chFiltered.rev : (detail.total_rev || 0);
       totalDaysInRange = (DATA.period && DATA.period.days) ? DATA.period.days : 73;
-      // Count days with sales
       for (var di = 0; di < allDates.length; di++) {
-        if ((dailyData[allDates[di]] || 0) > 0) daysWithSales++;
+        var dayQty = Math.round((dailyData[allDates[di]] || 0) * channelRatio);
+        if (dayQty > 0) daysWithSales++;
       }
     } else {
       for (var di2 = 0; di2 < allDates.length; di2++) {
         var dt = allDates[di2];
         if (!isDateInRange(dt)) continue;
         totalDaysInRange++;
-        var daySales = dailyData[dt] || 0;
+        var daySales = Math.round((dailyData[dt] || 0) * channelRatio);
         periodSales += daySales;
         if (daySales > 0) daysWithSales++;
       }
-      // If filtering, also count days that had 0 sales within range
-      // We need to count total calendar days in the range
       if (DATE_FILTER.start && DATE_FILTER.end) {
         var rangeStart = new Date(DATE_FILTER.start + 'T00:00:00');
         var rangeEnd = new Date(DATE_FILTER.end + 'T00:00:00');
         totalDaysInRange = Math.round((rangeEnd - rangeStart) / (1000 * 60 * 60 * 24)) + 1;
       }
-      // Calculate revenue proportionally
-      periodRevenue = (detail.total_rev || 0) > 0
-        ? Math.round((detail.total_rev || 0) * (periodSales / Math.max(detail.total_qty || 1, 1)))
-        : 0;
+      // 채널 필터 없을 때만 비례 매출 계산
+      if (!filterChannels) {
+        periodRevenue = (detail.total_rev || 0) > 0
+          ? Math.round((detail.total_rev || 0) * (periodSales / Math.max(detail.total_qty || 1, 1)))
+          : 0;
+      } else {
+        periodRevenue = chFiltered.rev > 0
+          ? Math.round(chFiltered.rev * (periodSales / Math.max(chFiltered.qty || 1, 1)))
+          : 0;
+      }
     }
 
     var dailyAvg = totalDaysInRange > 0 ? periodSales / totalDaysInRange : 0;
@@ -2432,7 +2473,8 @@ function renderPeriodAnalysis() {
   // Section 1
   html += '<div class="period-section">';
   html += '<div class="period-section-header">';
-  html += '<div class="period-section-title">\uD83C\uDFC6 판매 TOP 30</div>';
+  var catLabel = CHANNEL_CAT_FILTER === 'all' ? '' : ' (' + CHANNEL_CAT_FILTER + ')';
+  html += '<div class="period-section-title">\uD83C\uDFC6 판매 TOP 30' + catLabel + '</div>';
   html += '<span class="period-section-subtitle">' + rangeLabel + '</span>';
   html += '</div>';
   html += '<div class="period-stat-bar">';
@@ -3324,7 +3366,13 @@ function initChannelCatFilter() {
         b.classList.remove('active');
       });
       this.classList.add('active');
+
+      // 캐시 무효화 + 전체 재렌더
+      _periodAnalysisCacheKey = '';
+      _periodAnalysisCache = null;
       renderFilteredKPIs();
+      renderPeriodAnalysis();
+      renderDailyShipments();
     });
   });
 }
