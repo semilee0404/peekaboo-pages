@@ -128,6 +128,47 @@ body {
 }
 
 /* ============================================
+   CHANNEL CATEGORY FILTER
+   ============================================ */
+.channel-cat-filter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.channel-cat-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-right: 4px;
+}
+.channel-cat-btn {
+  padding: 6px 16px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font);
+  position: relative;
+}
+.channel-cat-btn:hover {
+  border-color: var(--pink);
+  color: var(--pink);
+}
+.channel-cat-btn.active {
+  background: var(--pink);
+  color: #fff;
+  border-color: var(--pink);
+  box-shadow: 0 2px 8px rgba(255,107,138,0.25);
+}
+
+/* ============================================
    KPI CARDS
    ============================================ */
 .kpi-grid {
@@ -182,6 +223,14 @@ body {
   color: var(--text-muted);
   margin-top: 4px;
   font-weight: 500;
+}
+.kpi-note {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+  font-weight: 400;
+  opacity: 0.7;
+  line-height: 1.3;
 }
 
 /* ============================================
@@ -1597,27 +1646,38 @@ tr.group-start td {
     </div>
   </header>
 
+  <!-- CHANNEL CATEGORY FILTER -->
+  <div class="channel-cat-filter" id="channelCatFilter">
+    <span class="channel-cat-label">판매채널 보기</span>
+    <button class="channel-cat-btn active" data-cat="all">전체</button>
+    <button class="channel-cat-btn" data-cat="소매" title="카페24, 쿠팡, 스마트스토어, 롯데ON, 카카오">소매</button>
+    <button class="channel-cat-btn" data-cat="해외" title="글로벌 몰, Hipeekaboo(China)">해외</button>
+    <button class="channel-cat-btn" data-cat="도매" title="도매주문관리, 도매카페24, 예약거래">도매</button>
+  </div>
+
   <!-- KPI CARDS -->
   <div class="kpi-grid">
     <div class="kpi-card">
-      <div class="kpi-label">총 판매수량</div>
+      <div class="kpi-label">팔린 수량</div>
       <div class="kpi-value" id="kpiSales"></div>
       <div class="kpi-sub" id="kpiSalesSub"></div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">총 매출액</div>
+      <div class="kpi-label">매출</div>
       <div class="kpi-value" id="kpiRevenue"></div>
       <div class="kpi-sub" id="kpiRevenueSub"></div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">총 재고</div>
+      <div class="kpi-label">창고 재고</div>
       <div class="kpi-value" id="kpiStock"></div>
       <div class="kpi-sub" id="kpiStockSub"></div>
+      <div class="kpi-note" id="kpiStockNote"></div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">제품 수</div>
+      <div class="kpi-label">등록 제품</div>
       <div class="kpi-value" id="kpiProducts"></div>
       <div class="kpi-sub" id="kpiProductsSub"></div>
+      <div class="kpi-note" id="kpiProductsNote"></div>
     </div>
   </div>
 
@@ -1976,6 +2036,7 @@ let DATA = null;
 let sortStates = {};
 let dailySelectedDate = null;
 let productSearchIndex = null;
+let CHANNEL_CAT_FILTER = 'all'; // 'all', '소매', '해외', '도매'
 
 /* ============================================
    DATE RANGE FILTER (Global)
@@ -2035,41 +2096,52 @@ function renderFilteredKPIs() {
 
   var shipments = DATA.daily_shipments || [];
 
-  // If no filter (show all), use original full_summary
+  // If no date filter, use renderKPIs (which handles channel filter)
   if (!DATE_FILTER.start && !DATE_FILTER.end) {
     renderKPIs(DATA.summary, DATA.full_summary);
     return;
   }
 
-  // Calculate filtered totals from daily_shipments
+  // Date-filtered: calculate from daily_shipments
+  var channelCats = DATA.channel_categories || {};
   var totalQty = 0;
   var totalRev = 0;
   shipments.forEach(function(d) {
-    if (isDateInRange(d.date)) {
+    if (!isDateInRange(d.date)) return;
+    if (CHANNEL_CAT_FILTER === 'all') {
       totalQty += (d.total_qty || 0);
       totalRev += (d.total_rev || 0);
+    } else {
+      // Sum only matching channels
+      var channels = d.channels || {};
+      for (var ch in channels) {
+        if (channelCats[ch] === CHANNEL_CAT_FILTER) {
+          totalQty += (channels[ch].qty || 0);
+          totalRev += (channels[ch].rev || 0);
+        }
+      }
     }
   });
 
-  // Build a filtered summary override for sales/revenue only
-  var filteredFullSummary = {
-    total_sales: totalQty,
-    total_revenue: totalRev
-  };
-
-  // Use original summary for stock/product count, but override sales/revenue
-  document.getElementById('kpiSales').textContent = fmtNum(totalQty);
-  document.getElementById('kpiSalesSub').textContent = DATE_FILTER.start + ' ~ ' + DATE_FILTER.end;
+  var catLabel = CHANNEL_CAT_FILTER === 'all' ? '' : ' / ' + CHANNEL_CAT_FILTER + '만';
+  document.getElementById('kpiSales').textContent = fmtNum(totalQty) + '개';
+  document.getElementById('kpiSalesSub').textContent = DATE_FILTER.start + ' ~ ' + DATE_FILTER.end + catLabel;
 
   document.getElementById('kpiRevenue').textContent = fmtKRWShort(totalRev);
   document.getElementById('kpiRevenueSub').textContent = fmtKRW(totalRev);
 
-  // Stock and product count don't change with date filter
-  document.getElementById('kpiStock').textContent = fmtNum(DATA.summary.total_stock);
-  document.getElementById('kpiStockSub').textContent = '전 시즌 합계';
+  // 재고/제품수는 항상 전체
+  document.getElementById('kpiStock').textContent = fmtNum(DATA.summary.total_stock) + '개';
+  document.getElementById('kpiStockSub').textContent = '제품만 (포장재 등 운영용 제외)';
 
-  document.getElementById('kpiProducts').textContent = fmtNum(DATA.summary.product_count);
-  document.getElementById('kpiProductsSub').textContent = fmtNum(DATA.summary.sku_count) + '개 SKU';
+  document.getElementById('kpiProducts').textContent = fmtNum(DATA.summary.product_count) + '가지';
+  document.getElementById('kpiProductsSub').textContent = '색상/사이즈 조합 ' + fmtNum(DATA.summary.sku_count) + '가지';
+
+  var excluded = DATA.summary.excluded_count || 0;
+  var stockNote = document.getElementById('kpiStockNote');
+  if (stockNote) stockNote.textContent = excluded ? '운영용 항목 ' + excluded + '건 제외됨' : '';
+  var productsNote = document.getElementById('kpiProductsNote');
+  if (productsNote) productsNote.textContent = '';
 }
 
 function initDateFilter() {
@@ -2797,20 +2869,40 @@ function initTabs() {
 function renderKPIs(summary, fullSummary) {
   if (!summary) return;
 
-  // Use full_summary for sales/revenue if available, otherwise fall back to summary
-  var salesSource = fullSummary || summary;
+  var catTotals = DATA.category_totals || {};
+  var salesQty, salesRev, salesLabel;
 
-  document.getElementById('kpiSales').textContent = fmtNum(salesSource.total_sales);
-  document.getElementById('kpiSalesSub').textContent = '전체 기간 누적';
+  if (CHANNEL_CAT_FILTER === 'all') {
+    var salesSource = fullSummary || summary;
+    salesQty = salesSource.total_sales;
+    salesRev = salesSource.total_revenue;
+    salesLabel = '모든 채널 합산';
+  } else {
+    var cat = catTotals[CHANNEL_CAT_FILTER];
+    salesQty = cat ? cat.qty : 0;
+    salesRev = cat ? cat.rev : 0;
+    salesLabel = CHANNEL_CAT_FILTER + '만 보는 중';
+  }
 
-  document.getElementById('kpiRevenue').textContent = fmtKRWShort(salesSource.total_revenue);
-  document.getElementById('kpiRevenueSub').textContent = fmtKRW(salesSource.total_revenue);
+  document.getElementById('kpiSales').textContent = fmtNum(salesQty) + '개';
+  document.getElementById('kpiSalesSub').textContent = salesLabel;
 
-  document.getElementById('kpiStock').textContent = fmtNum(summary.total_stock);
-  document.getElementById('kpiStockSub').textContent = '전 시즌 합계';
+  document.getElementById('kpiRevenue').textContent = fmtKRWShort(salesRev);
+  document.getElementById('kpiRevenueSub').textContent = fmtKRW(salesRev);
 
-  document.getElementById('kpiProducts').textContent = fmtNum(summary.product_count);
-  document.getElementById('kpiProductsSub').textContent = fmtNum(summary.sku_count) + '개 SKU';
+  // 재고/제품수는 항상 전체 (제품만, 운영용 제외)
+  document.getElementById('kpiStock').textContent = fmtNum(summary.total_stock) + '개';
+  document.getElementById('kpiStockSub').textContent = '제품만 (포장재 등 운영용 제외)';
+
+  document.getElementById('kpiProducts').textContent = fmtNum(summary.product_count) + '가지';
+  document.getElementById('kpiProductsSub').textContent = '색상/사이즈 조합 ' + fmtNum(summary.sku_count) + '가지';
+
+  // 운영용 제외 표기
+  var excluded = summary.excluded_count || 0;
+  var stockNote = document.getElementById('kpiStockNote');
+  var productsNote = document.getElementById('kpiProductsNote');
+  if (stockNote) stockNote.textContent = excluded ? '운영용 항목 ' + excluded + '건 제외됨' : '';
+  if (productsNote) productsNote.textContent = '';
 }
 
 /* ============================================
@@ -3222,6 +3314,23 @@ function debounce(fn, ms) {
 
 
 /* ============================================
+   CHANNEL CATEGORY FILTER
+   ============================================ */
+function initChannelCatFilter() {
+  document.querySelectorAll('.channel-cat-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      CHANNEL_CAT_FILTER = this.getAttribute('data-cat');
+      document.querySelectorAll('.channel-cat-btn').forEach(function(b) {
+        b.classList.remove('active');
+      });
+      this.classList.add('active');
+      renderFilteredKPIs();
+    });
+  });
+}
+
+
+/* ============================================
    INIT
    ============================================ */
 async function init() {
@@ -3284,6 +3393,9 @@ async function init() {
   document.getElementById('searchSku').addEventListener('input', debounce(function() {
     renderWeeklySku(document.getElementById('searchSku').value);
   }, 200));
+
+  // Channel Category Filter
+  initChannelCatFilter();
 
   // Date Filter
   initDateFilter();
