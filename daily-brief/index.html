@@ -11,18 +11,14 @@ body { font-family: -apple-system, 'Pretendard', sans-serif; background: #FAFAF8
 .header h1 { font-size: 13px; letter-spacing: 4px; color: #999; font-weight: 400; }
 .header .date { font-size: 15px; color: #666; margin-top: 8px; }
 .section { margin-bottom: 28px; }
-.section-title { font-size: 11px; letter-spacing: 2px; color: #999; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; }
+.section-title { font-size: 11px; letter-spacing: 2px; color: #999; font-weight: 600; margin-bottom: 12px; }
 .hero { text-align: center; padding: 20px 0; }
 .hero .amount { font-size: 36px; font-weight: 700; color: #2C2C2C; }
 .hero .change { font-size: 14px; color: #888; margin-top: 4px; }
-.ch-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEEB; }
-.ch-name { color: #666; font-size: 14px; }
-.ch-val { font-weight: 600; font-size: 14px; }
+.hero .note { font-size: 11px; color: #BBB; margin-top: 2px; }
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 th { text-align: left; padding: 8px 4px; border-bottom: 2px solid #E8E6E3; font-size: 11px; letter-spacing: 1px; color: #999; font-weight: 600; }
 td { padding: 8px 4px; border-bottom: 1px solid #F0EEEB; }
-.ok { color: #4A7C59; }
-.warn { color: #C4533A; font-weight: 600; }
 .actions { background: #F5F4F1; border-radius: 8px; padding: 16px 20px; }
 .actions li { padding: 6px 0; font-size: 14px; line-height: 1.5; }
 .alert { padding: 8px 12px; margin-bottom: 6px; border-radius: 6px; font-size: 13px; }
@@ -38,51 +34,28 @@ td { padding: 8px 4px; border-bottom: 1px solid #F0EEEB; }
 </div>
 
 <div class="section">
-    <div class="section-title">소매 매출</div>
+    <div class="section-title">자사몰 매출 (Cafe24 결제 기준)</div>
     <div class="hero">
-        <div class="amount">251만원</div>
-        <div class="change">(전일 대비 +27.2%)</div>
+        <div class="amount">607만원</div>
+        <div class="change">주문 83건 (전일 대비 +14.5%)</div>
+        <div class="note">API 참고치 · 셀러센터 확정 후 갱신</div>
     </div>
-    <div class="ch-item"><span class="ch-name">자사몰</span><span class="ch-val">237만원</span></div>
-<div class="ch-item"><span class="ch-name">스마트스토어</span><span class="ch-val">10만원</span></div>
-<div class="ch-item"><span class="ch-name">롯데온</span><span class="ch-val">4만원</span></div>
-
 </div>
 
 <div class="section">
-    <div class="section-title">인기 제품 (7일)</div>
+    <div class="section-title">당일 판매 TOP (수량 기준 · 확정)</div>
     <table>
-        <tr><th>#</th><th>제품</th><th>7일</th><th>vs전주</th><th>재고</th><th></th></tr>
-        <tr>
-            <td>1</td><td>쿨쿨 수트세트</td>
-            <td>38</td><td>+29</td>
-            <td class="warn">0</td>
-            <td></td>
-        </tr>
-<tr>
-            <td>2</td><td>디저트 수트세트</td>
-            <td>36</td><td>-84</td>
-            <td class="warn">0</td>
-            <td></td>
-        </tr>
-<tr>
-            <td>3</td><td>쿨쿨 꼭지모자</td>
-            <td>26</td><td>+18</td>
-            <td class="warn">0</td>
-            <td></td>
-        </tr>
-<tr>
-            <td>4</td><td>누보 키즈 주니어세트(파스텔)</td>
-            <td>18</td><td>-24</td>
-            <td class="warn">0</td>
-            <td></td>
-        </tr>
-<tr>
-            <td>5</td><td>디저트 보넷</td>
-            <td>17</td><td>-44</td>
-            <td class="warn">0</td>
-            <td></td>
-        </tr>
+        <tr><th>#</th><th>제품</th><th>수량</th></tr>
+        <tr><td>1</td><td>쇼콜라 티셔츠</td><td>23개</td></tr>
+<tr><td>2</td><td>보니 블루머</td><td>23개</td></tr>
+<tr><td>3</td><td>퐁퐁 반팔 수트(단품)</td><td>18개</td></tr>
+<tr><td>4</td><td>보니 헤어밴드</td><td>14개</td></tr>
+<tr><td>5</td><td>밀키 베이비 3종 세트</td><td>10개</td></tr>
+<tr><td>6</td><td>쿨쿨 수트세트</td><td>7개</td></tr>
+<tr><td>7</td><td>플라워 니삭스 (+mom)</td><td>6개</td></tr>
+<tr><td>8</td><td>디저트 수트세트</td><td>6개</td></tr>
+<tr><td>9</td><td>쿨쿨 꼭지모자</td><td>6개</td></tr>
+<tr><td>10</td><td>쿨리 바디수트</td><td>6개</td></tr>
 
     </table>
 </div>
