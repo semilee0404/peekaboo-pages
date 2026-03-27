@@ -186,48 +186,40 @@ tr:last-child td{border-bottom:none}
 <div class="sec" style="border-left:4px solid var(--red);">
   <div class="sec-t"><span class="n" style="background:var(--red);">3</span> 재고 현황 & 리오더 필요</div>
 
-  <p style="font-size:13px;color:var(--sub);margin-bottom:14px;">잘 팔리는 옵션 중심으로 현재고 확인. <strong class="neg">마이너스 재고 = 주문 들어왔으나 재고 없음 (팝업 예약주문 포함)</strong></p>
+  <p style="font-size:13px;color:var(--sub);margin-bottom:14px;">이지어드민 <strong>정상재고</strong> 기준 (3/27 15:37 조회). 리오더 필요 옵션만 표시.</p>
 
   <table>
-    <thead><tr><th>제품</th><th>옵션</th><th class="num">가용재고</th><th>상태</th><th>비고</th></tr></thead>
+    <thead><tr><th>제품</th><th>옵션</th><th class="num">정상재고</th><th>상태</th><th>비고</th></tr></thead>
     <tbody>
-      <!-- 쇼콜라 티셔츠 -->
-      <tr style="background:#FDECEB;"><td rowspan="4"><strong>쇼콜라 티셔츠</strong></td><td>아이보리/70</td><td class="num neg">-46</td><td><span class="badge b-red">긴급</span></td><td rowspan="4">밝은톤 70·80 마이너스<br>베이지·블랙 충분 (18~39개)</td></tr>
-      <tr style="background:#FDECEB;"><td>아이보리/80</td><td class="num neg">-55</td><td><span class="badge b-red">긴급</span></td></tr>
-      <tr style="background:#FDECEB;"><td>크림/70</td><td class="num neg">-21</td><td><span class="badge b-red">긴급</span></td></tr>
-      <tr style="background:#FDECEB;"><td>크림/80</td><td class="num neg">-33</td><td><span class="badge b-red">긴급</span></td></tr>
-      <!-- 보니 블루머 -->
-      <tr style="background:#FFF6E8;"><td rowspan="3"><strong>보니 블루머</strong></td><td>레드/70</td><td class="num neg">-3</td><td><span class="badge b-red">긴급</span></td><td rowspan="3">레드 70·80 소진, 블랙 90 소진<br>나머지 컬러·사이즈 충분 (12~76개)</td></tr>
-      <tr style="background:#FFF6E8;"><td>레드/80</td><td class="num neg">-36</td><td><span class="badge b-red">긴급</span></td></tr>
-      <tr style="background:#FFF6E8;"><td>블랙/90</td><td class="num neg">-2</td><td><span class="badge b-org">부족</span></td></tr>
-      <!-- 보니 헤어밴드 -->
-      <tr style="background:#FFF6E8;"><td><strong>보니 헤어밴드</strong></td><td>레드/FREE</td><td class="num neg">-15</td><td><span class="badge b-red">긴급</span></td><td>다른 컬러 48~94개 여유</td></tr>
       <!-- 밀키 3종세트 -->
-      <tr style="background:#FDECEB;"><td rowspan="6"><strong>밀키 3종세트</strong></td><td>브라운/70</td><td class="num neg">-3</td><td><span class="badge b-red">긴급</span></td><td rowspan="6">베이지 충분 (22~33개)<br>브라운·핑크 전 사이즈 마이너스</td></tr>
-      <tr style="background:#FDECEB;"><td>브라운/80</td><td class="num neg">-1</td><td><span class="badge b-red">긴급</span></td></tr>
-      <tr style="background:#FDECEB;"><td>핑크/60</td><td class="num neg">-2</td><td><span class="badge b-red">긴급</span></td></tr>
-      <tr style="background:#FDECEB;"><td>핑크/70</td><td class="num neg">-14</td><td><span class="badge b-red">긴급</span></td></tr>
-      <tr style="background:#FDECEB;"><td>핑크/80</td><td class="num neg">-16</td><td><span class="badge b-red">긴급</span></td></tr>
-      <tr style="background:#FDECEB;"><td>브라운/60</td><td class="num">0</td><td><span class="badge b-org">품절임박</span></td></tr>
+      <tr style="background:#FDECEB;"><td rowspan="6"><strong>밀키 3종세트</strong></td><td>브라운/60</td><td class="num neg">0</td><td><span class="badge b-red">품절</span></td><td rowspan="6">브라운·핑크 전 사이즈 품절<br>베이지만 보유 (22~42개)</td></tr>
+      <tr style="background:#FDECEB;"><td>브라운/70</td><td class="num neg">0</td><td><span class="badge b-red">품절</span></td></tr>
+      <tr style="background:#FDECEB;"><td>브라운/80</td><td class="num neg">0</td><td><span class="badge b-red">품절</span></td></tr>
+      <tr style="background:#FDECEB;"><td>핑크/60</td><td class="num neg">0</td><td><span class="badge b-red">품절</span></td></tr>
+      <tr style="background:#FDECEB;"><td>핑크/70</td><td class="num neg">0</td><td><span class="badge b-red">품절</span></td></tr>
+      <tr style="background:#FDECEB;"><td>핑크/80</td><td class="num neg">0</td><td><span class="badge b-red">품절</span></td></tr>
       <!-- 밀키 헤어밴드 -->
-      <tr style="background:#FDECEB;"><td rowspan="3"><strong>밀키 헤어밴드</strong></td><td>베이지/FREE</td><td class="num neg">-46</td><td><span class="badge b-red">긴급</span></td><td rowspan="3">전 컬러 마이너스<br>입고 확인 필요</td></tr>
-      <tr style="background:#FDECEB;"><td>핑크/FREE</td><td class="num neg">-46</td><td><span class="badge b-red">긴급</span></td></tr>
-      <tr style="background:#FDECEB;"><td>브라운/FREE</td><td class="num neg">-33</td><td><span class="badge b-red">긴급</span></td></tr>
+      <tr style="background:#FDECEB;"><td><strong>밀키 헤어밴드</strong></td><td>전 컬러</td><td class="num neg">-1</td><td><span class="badge b-red">품절</span></td><td>전 컬러 재고 없음, 입고 확인 필요</td></tr>
+      <!-- 보니 블루머 -->
+      <tr style="background:#E8F8EF;"><td rowspan="3"><strong>보니 블루머</strong></td><td>레드/70</td><td class="num">92</td><td><span class="badge b-grn">보유</span></td><td rowspan="3">전 옵션 재고 충분 (1~103개)<br>블랙/90만 1개 잔여</td></tr>
+      <tr style="background:#E8F8EF;"><td>레드/80</td><td class="num">86</td><td><span class="badge b-grn">보유</span></td></tr>
+      <tr style="background:#FFF6E8;"><td>블랙/90</td><td class="num">1</td><td><span class="badge b-org">소진임박</span></td></tr>
+      <!-- 보니 헤어밴드 -->
+      <tr style="background:#E8F8EF;"><td><strong>보니 헤어밴드</strong></td><td>전 컬러</td><td class="num">68~102</td><td><span class="badge b-grn">보유</span></td><td>전 컬러 충분</td></tr>
+      <!-- 쇼콜라 티셔츠 -->
+      <tr style="background:#E8F8EF;"><td rowspan="2"><strong>쇼콜라 티셔츠</strong></td><td>아이보리 전체</td><td class="num">16~50</td><td><span class="badge b-grn">보유</span></td><td rowspan="2">전 옵션 재고 보유<br>베이지·블랙 25~44개 / 크림 25~84개</td></tr>
+      <tr style="background:#E8F8EF;"><td>크림 전체</td><td class="num">25~84</td><td><span class="badge b-grn">보유</span></td></tr>
     </tbody>
   </table>
 
   <div style="margin-top:20px;padding:16px;background:var(--pink-l);border-radius:8px;border:1px solid var(--pink);">
     <div style="font-size:14px;font-weight:700;color:var(--pink);margin-bottom:8px;">리오더 요약</div>
     <table style="font-size:12px;">
-      <thead><tr><th>제품</th><th>옵션</th><th class="num">현재고</th><th class="num">예상 필요</th><th>우선순위</th></tr></thead>
+      <thead><tr><th>제품</th><th>옵션</th><th class="num">정상재고</th><th>우선순위</th></tr></thead>
       <tbody>
-        <tr><td>쇼콜라 티셔츠</td><td>아이보리 70·80</td><td class="num neg">-101</td><td class="num"><strong>150+</strong></td><td><span class="badge b-red">1순위</span></td></tr>
-        <tr><td>쇼콜라 티셔츠</td><td>크림 70·80</td><td class="num neg">-54</td><td class="num"><strong>100+</strong></td><td><span class="badge b-red">1순위</span></td></tr>
-        <tr><td>밀키 헤어밴드</td><td>전 컬러</td><td class="num neg">-125</td><td class="num"><strong>입고확인</strong></td><td><span class="badge b-red">1순위</span></td></tr>
-        <tr><td>보니 블루머</td><td>레드 70·80</td><td class="num neg">-39</td><td class="num"><strong>80+</strong></td><td><span class="badge b-red">1순위</span></td></tr>
-        <tr><td>밀키 3종세트</td><td>브라운·핑크</td><td class="num neg">-36</td><td class="num"><strong>50+</strong></td><td><span class="badge b-org">2순위</span></td></tr>
-        <tr><td>보니 헤어밴드</td><td>레드</td><td class="num neg">-15</td><td class="num"><strong>50+</strong></td><td><span class="badge b-org">2순위</span></td></tr>
-        <tr><td>보니 블루머</td><td>블랙 90</td><td class="num neg">-2</td><td class="num"><strong>30+</strong></td><td><span class="badge b-org">2순위</span></td></tr>
+        <tr><td>밀키 3종세트</td><td>브라운·핑크 전 사이즈</td><td class="num neg">0</td><td><span class="badge b-red">1순위 — 입고 필요</span></td></tr>
+        <tr><td>밀키 헤어밴드</td><td>전 컬러</td><td class="num neg">-1</td><td><span class="badge b-red">1순위 — 입고 필요</span></td></tr>
+        <tr><td>보니 블루머</td><td>블랙/90</td><td class="num">1</td><td><span class="badge b-org">2순위 — 소진임박</span></td></tr>
       </tbody>
     </table>
   </div>
