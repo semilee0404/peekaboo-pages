@@ -124,305 +124,6 @@
       color: rgba(255, 255, 255, 0.3);
     }
 
-    /* ─── Section 1.2: Target Gauge ─── */
-    .hero-target {
-      max-width: 480px;
-      margin: 28px auto 0;
-      text-align: left;
-    }
-
-    .target-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 8px;
-    }
-
-    .target-header strong {
-      color: rgba(255,255,255,0.9);
-      font-size: 14px;
-    }
-
-    .target-bar-bg {
-      width: 100%;
-      height: 10px;
-      background: rgba(255,255,255,0.12);
-      border-radius: 5px;
-      overflow: hidden;
-    }
-
-    .target-bar-fill {
-      height: 100%;
-      border-radius: 5px;
-      background: linear-gradient(90deg, #81c784, #66bb6a);
-      transition: width 0.6s ease;
-    }
-
-    .target-bar-fill--behind {
-      background: linear-gradient(90deg, #ffb74d, #ffa726);
-    }
-
-    .target-bar-fill--danger {
-      background: linear-gradient(90deg, #ef9a9a, #e57373);
-    }
-
-    .target-footer {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: rgba(255,255,255,0.45);
-      margin-top: 6px;
-    }
-
-    /* ─── Section 1.3: Goal Banner ─── */
-    .goal-banner {
-      background: linear-gradient(135deg, #1a237e, #283593);
-      border-radius: 14px;
-      padding: 22px 24px;
-      margin-top: -28px;
-      margin-bottom: 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .goal-banner::after {
-      content: '';
-      position: absolute;
-      top: -20px;
-      right: -20px;
-      width: 100px;
-      height: 100px;
-      background: rgba(255,255,255,0.04);
-      border-radius: 50%;
-    }
-
-    .goal-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #90caf9;
-      margin-bottom: 6px;
-    }
-
-    .goal-title {
-      font-size: 20px;
-      font-weight: 900;
-      color: #fff;
-      margin-bottom: 12px;
-    }
-
-    .goal-stats {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 14px;
-    }
-
-    .goal-stat-item {
-      text-align: center;
-    }
-
-    .goal-stat-label {
-      font-size: 10px;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 2px;
-    }
-
-    .goal-stat-value {
-      font-size: 18px;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .goal-stat-sub {
-      font-size: 10px;
-      color: rgba(255,255,255,0.4);
-      margin-top: 2px;
-    }
-
-    .goal-bar-bg {
-      width: 100%;
-      height: 8px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .goal-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      background: linear-gradient(90deg, #42a5f5, #1e88e5);
-    }
-
-    .goal-bar-label {
-      font-size: 11px;
-      color: rgba(255,255,255,0.5);
-      margin-top: 6px;
-      text-align: right;
-    }
-
-    /* ─── Focus Channel Card ─── */
-    .focus-channel {
-      border-left: 4px solid #4361ee;
-      padding: 24px;
-    }
-
-    .focus-channel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .focus-channel-revenue {
-      font-size: 32px;
-      font-weight: 900;
-      color: #1a1a2e;
-    }
-
-    .focus-channel-sub {
-      font-size: 13px;
-      color: #999;
-      margin-top: 4px;
-    }
-
-    .focus-channel-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-top: 20px;
-      padding-top: 16px;
-      border-top: 1px solid #f0f0f0;
-    }
-
-    .focus-channel-grid .stat-label {
-      font-size: 11px;
-      color: #999;
-    }
-
-    .focus-channel-grid .stat-value {
-      font-size: 16px;
-      font-weight: 800;
-      color: #333;
-    }
-
-    /* ─── Other Channels Table ─── */
-    .other-channels {
-      padding: 16px;
-    }
-
-    .other-channels table {
-      width: 100%;
-      font-size: 13px;
-      border-collapse: collapse;
-    }
-
-    .other-channels th {
-      text-align: right;
-      padding: 6px 8px;
-      font-size: 11px;
-      color: #999;
-      font-weight: 600;
-    }
-
-    .other-channels th:first-child {
-      text-align: left;
-    }
-
-    .other-channels td {
-      text-align: right;
-      padding: 8px;
-    }
-
-    .other-channels td:first-child {
-      text-align: left;
-      font-weight: 600;
-    }
-
-    .other-channels tr + tr {
-      border-top: 1px solid #f8f8f8;
-    }
-
-    /* ─── Instagram Rank Badge ─── */
-    .ig-rank {
-      width: 56px;
-      height: 56px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #e1306c, #c13584);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: 900;
-      color: #fff;
-    }
-
-    .ig-item {
-      display: flex;
-      gap: 16px;
-      padding: 14px;
-      border-radius: 10px;
-      background: #fafafa;
-      text-decoration: none;
-      color: inherit;
-      transition: background 0.15s;
-    }
-
-    .ig-item:hover {
-      background: #f0f0f0;
-    }
-
-    .ig-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: #222;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .ig-metrics {
-      display: flex;
-      gap: 16px;
-      margin-top: 6px;
-      font-size: 12px;
-      color: #888;
-    }
-
-    /* ─── Inventory ─── */
-    .inventory-alert {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .inventory-alert--danger { color: #e53935; }
-    .inventory-alert--warning { color: #e65100; }
-
-    .inventory-note {
-      font-size: 11px;
-      color: #999;
-      margin-bottom: 14px;
-    }
-
-    .stock-critical {
-      font-weight: 700;
-      color: #e65100;
-    }
-
-    .stock-zero {
-      color: #e53935;
-    }
-
-    .stock-amount {
-      font-weight: 700;
-      color: #c62828;
-    }
-
     /* ─── Section 1.5: Channel Cards ─── */
     .channel-grid {
       display: grid;
@@ -571,61 +272,6 @@
       border-radius: 12px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
       padding: 24px;
-    }
-
-    /* ─── Section: New Product Tracker ─── */
-    .np-status {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 10px;
-    }
-
-    .np-status--hot {
-      background: #e8f5e9;
-      color: #2e7d32;
-    }
-
-    .np-status--slow {
-      background: #fff3e0;
-      color: #e65100;
-    }
-
-    .np-status--dead {
-      background: #ffebee;
-      color: #c62828;
-    }
-
-    .np-status--new {
-      background: #e3f2fd;
-      color: #1565c0;
-    }
-
-    .np-summary {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .np-summary-item {
-      text-align: center;
-      padding: 14px 8px;
-      background: #fafafa;
-      border-radius: 10px;
-    }
-
-    .np-summary-value {
-      font-size: 22px;
-      font-weight: 900;
-      color: #1a1a2e;
-    }
-
-    .np-summary-label {
-      font-size: 11px;
-      color: #999;
-      margin-top: 2px;
     }
 
     /* ─── Section 2: AI Analysis ─── */
@@ -899,21 +545,27 @@
   <div class="hero">
     <div class="container">
       <div class="hero-brand">피카부 매출 리포트</div>
-      <div class="hero-period">2026년 3월 4주차 (3/16 ~ 3/22)</div>
+      <div class="hero-period">2026년 3월 12주차 (3/16 ~ 3/22)</div>
       <div class="hero-month-label">3월 누적매출</div>
-      <div class="hero-revenue">1.91억원</div>
+      <div class="hero-revenue">2.1억원</div>
       <div class="hero-sub-stats">
-        <span>이번 주 6,365만원</span>
+        <span>이번 주 6,334만원</span>
         <span class="hero-separator">|</span>
-
-        <span>WoW +3.0%</span>
-
+        
+        <span>WoW +4.0%</span>
+        
       </div>
       <div class="hero-badges">
-
+        
         <span class="badge badge--green">
-          ▲ 3.0%
+          ▲ 4.0%
           <span class="badge-label">전주 대비</span>
+        </span>
+        
+        
+        <span class="badge badge--blue">
+          ▲ 4.3%
+          <span class="badge-label">전년 대비</span>
         </span>
         
       </div>
@@ -921,15 +573,27 @@
       <div style="display:flex; justify-content:center; gap:32px; margin-bottom:20px;">
         <div style="text-align:center;">
           <div style="font-size:11px; color:rgba(255,255,255,0.45);">주문수</div>
-          <div style="font-size:22px; font-weight:800;">353건</div>
-          <div style="font-size:11px; color:#81c784;">
-            ▲ 3.0%
+          <div style="font-size:22px; font-weight:800;">1,093건</div>
+          
+          <div style="font-size:11px; color:#ef9a9a;">
+            ▼ 2.8%
           </div>
+          
         </div>
         <div style="text-align:center;">
           <div style="font-size:11px; color:rgba(255,255,255,0.45);">객단가</div>
-          <div style="font-size:22px; font-weight:800;">6.1만원</div>
+          <div style="font-size:22px; font-weight:800;">6만원</div>
+          
+          <div style="font-size:11px; color:#81c784;">
+            ▲ 7.0%
+          </div>
+          
         </div>
+      </div>
+      <div class="hero-ytd">연 누적: <strong>9.0억원</strong>
+        
+        &nbsp;·&nbsp; 전월 동기 대비 -19.6%
+        
       </div>
     </div>
   </div>
@@ -938,333 +602,106 @@
 
   <div class="container">
 
-    <!-- ═══ 1차 목표: 자사몰 일매출 ═══ -->
-    <div class="goal-banner">
-      <div class="goal-label">1차 목표</div>
-      <div class="goal-title">자사몰 일매출 1,000만원</div>
-      <div class="goal-stats">
-        <div class="goal-stat-item">
-          <div class="goal-stat-label">현재 일평균</div>
-          <div class="goal-stat-value">269만</div>
-          <div class="goal-stat-sub">이번주 순매출 기준</div>
-        </div>
-        <div class="goal-stat-item">
-          <div class="goal-stat-label">목표 대비</div>
-          <div class="goal-stat-value" style="color:#ffb74d;">26.9%</div>
-          <div class="goal-stat-sub">731만원 부족</div>
-        </div>
-        <div class="goal-stat-item">
-          <div class="goal-stat-label">주간 순매출</div>
-          <div class="goal-stat-value">1,886만</div>
-          <div class="goal-stat-sub">결제 2,090만 - 환불 204만</div>
-        </div>
-        <div class="goal-stat-item">
-          <div class="goal-stat-label">최고 일매출</div>
-          <div class="goal-stat-value">-</div>
-          <div class="goal-stat-sub">데이터 추가 필요</div>
-        </div>
-      </div>
-      <div class="goal-bar-bg">
-        <div class="goal-bar-fill" style="width: 26.9%"></div>
-      </div>
-      <div class="goal-bar-label">26.9% 달성</div>
-    </div>
-
-    <!-- ═══ Section 1.5: 자사몰 집중 + 타채널 요약 ═══ -->
+    <!-- ═══ Section 1.5: 채널별 매출 ═══ -->
     <div class="section">
-      <div class="section-title">자사몰 (핵심 채널)</div>
-      <div class="card focus-channel">
-        <div class="focus-channel-header">
-          <div>
-            <div class="focus-channel-revenue">1,886만원</div>
-            <div class="focus-channel-sub">이번 주 순매출 (결제 2,090만 - 환불 204만)</div>
+      <div class="section-title">채널별 매출</div>
+      <div class="channel-grid">
+        
+        <div class="channel-card">
+          
+          <div class="channel-name">쿠팡</div>
+          <div class="channel-revenue">4,313만원</div>
+          <div class="channel-meta">
+            <span class="channel-prev">전주 4,175만원</span>
+            
+              
+                <span class="channel-change channel-change--up">▲ +3.3%</span>
+              
+            
           </div>
-          <div style="text-align:right;">
-            <span class="change--up" style="font-size:18px;">&#x25B2; +5.9%</span>
-            <div class="focus-channel-sub">전주 대비</div>
+          <div class="channel-extended">
+            <div class="channel-month">3월 누적: 1.3억원</div>
+            <div class="channel-margin">추정 마진: 3,847만원</div>
           </div>
+          <div class="channel-share">비중 62.5%</div>
         </div>
-        <div class="focus-channel-grid">
-          <div>
-            <div class="stat-label">3월 누적</div>
-            <div class="stat-value">-</div>
+        
+        <div class="channel-card">
+          
+          <div class="channel-name">자사몰</div>
+          <div class="channel-revenue">1,719만원</div>
+          <div class="channel-meta">
+            <span class="channel-prev">전주 1,624만원</span>
+            
+              
+                <span class="channel-change channel-change--up">▲ +5.9%</span>
+              
+            
           </div>
-          <div>
-            <div class="stat-label">일평균</div>
-            <div class="stat-value">269만원</div>
+          <div class="channel-extended">
+            <div class="channel-month">3월 누적: 5,423만원</div>
+            <div class="channel-margin">추정 마진: 1,659만원</div>
           </div>
-          <div>
-            <div class="stat-label">수수료율</div>
-            <div class="stat-value">3%</div>
+          <div class="channel-share">비중 25.3%</div>
+        </div>
+        
+        <div class="channel-card">
+          
+          <div class="channel-name">쿠팡-납품</div>
+          <div class="channel-revenue">158만원</div>
+          <div class="channel-meta">
+            <span class="channel-prev">전주 160만원</span>
+            
+              
+                <span class="channel-change channel-change--down">▼ -1.6%</span>
+              
+            
           </div>
-          <div>
-            <div class="stat-label">수수료 차감</div>
-            <div class="stat-value" style="color:#2e7d32;">1,829만원</div>
+          <div class="channel-extended">
+            <div class="channel-month">3월 누적: 2,191만원</div>
+            <div class="channel-margin">추정 마진: 158만원</div>
           </div>
+          <div class="channel-share">비중 10.2%</div>
         </div>
-      </div>
-    </div>
-
-    <div class="section" style="padding-top:0;">
-      <div class="section-title">타 채널 <span style="font-size:12px; font-weight:400; color:#bbb;">(리소스 미투입)</span></div>
-      <div class="card other-channels">
-        <table>
-          <thead>
-            <tr>
-              <th>채널</th>
-              <th>이번주</th>
-              <th>3월누적</th>
-              <th>증감</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>쿠팡 (소비자가)</td>
-              <td>4,313만</td>
-              <td style="color:#999;">1.34억</td>
-              <td><span class="change--up">+3.3%</span></td>
-            </tr>
-            <tr>
-              <td>쿠팡 (납품가)</td>
-              <td style="color:#999;">2,283만</td>
-              <td style="color:#999;">7,163만</td>
-              <td><span class="change--up">+17.3%</span></td>
-            </tr>
-            <tr>
-              <td>스마트스토어</td>
-              <td>97만</td>
-              <td style="color:#999;">-</td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td>롯데온</td>
-              <td>69만</td>
-              <td style="color:#999;">-</td>
-              <td>-</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ═══ 신상품 성과 트래커 ═══ -->
-    <div class="section">
-      <div class="section-title">26SS 신상품 성과</div>
-
-      <!-- 요약 카드 -->
-      <div class="np-summary">
-        <div class="np-summary-item">
-          <div class="np-summary-value">31</div>
-          <div class="np-summary-label">총 신상품</div>
+        
+        <div class="channel-card">
+          
+          <div class="channel-name">스마트스토어</div>
+          <div class="channel-revenue">141만원</div>
+          <div class="channel-meta">
+            <span class="channel-prev">전주 119만원</span>
+            
+              
+                <span class="channel-change channel-change--up">▲ +19.1%</span>
+              
+            
+          </div>
+          <div class="channel-extended">
+            <div class="channel-month">3월 누적: 412만원</div>
+            <div class="channel-margin">추정 마진: 134만원</div>
+          </div>
+          <div class="channel-share">비중 1.9%</div>
         </div>
-        <div class="np-summary-item">
-          <div class="np-summary-value">21</div>
-          <div class="np-summary-label">판매 발생</div>
+        
+        <div class="channel-card">
+          
+          <div class="channel-name">롯데온</div>
+          <div class="channel-revenue">3만원</div>
+          <div class="channel-meta">
+            <span class="channel-prev">전주 11만원</span>
+            
+              
+                <span class="channel-change channel-change--down">▼ -71.9%</span>
+              
+            
+          </div>
+          <div class="channel-extended">
+            <div class="channel-month">3월 누적: 23만원</div>
+            <div class="channel-margin">추정 마진: 3만원</div>
+          </div>
+          <div class="channel-share">비중 0.1%</div>
         </div>
-        <div class="np-summary-item">
-          <div class="np-summary-value">10</div>
-          <div class="np-summary-label" style="color:#e65100;">미판매</div>
-        </div>
-        <div class="np-summary-item">
-          <div class="np-summary-value">~65%</div>
-          <div class="np-summary-label">평균 마진율</div>
-        </div>
-      </div>
-
-      <!-- 신상품 테이블 -->
-      <div class="card">
-        <div style="font-size:12px; color:#999; margin-bottom:12px;">이번 주(3/16~3/22) 자사몰 판매 기준 · 등록 후 판매 추이</div>
-        <table class="products-table">
-          <thead>
-            <tr>
-              <th>상태</th>
-              <th>상품명</th>
-              <th>등록일</th>
-              <th>판매가</th>
-              <th>주간매출</th>
-              <th>판매수</th>
-              <th>마진율</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- TOP 신상품 -->
-            <tr>
-              <td><span class="np-status np-status--hot">HOT</span></td>
-              <td class="product-name">디저트 수트세트</td>
-              <td style="color:#999;">02/06</td>
-              <td>28,000</td>
-              <td style="font-weight:700;">151만</td>
-              <td>54건</td>
-              <td>64.0%</td>
-            </tr>
-            <tr>
-              <td><span class="np-status np-status--hot">HOT</span></td>
-              <td class="product-name">누보 키즈 주니어세트(파스텔)</td>
-              <td style="color:#999;">02/12</td>
-              <td>19,000</td>
-              <td style="font-weight:700;">64만</td>
-              <td>34건</td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td><span class="np-status np-status--hot">HOT</span></td>
-              <td class="product-name">누보 수트세트(파스텔)</td>
-              <td style="color:#999;">02/12</td>
-              <td>24,000</td>
-              <td style="font-weight:700;">38만</td>
-              <td>16건</td>
-              <td>59.3%</td>
-            </tr>
-            <tr>
-              <td><span class="np-status np-status--hot">HOT</span></td>
-              <td class="product-name">디저트 보넷</td>
-              <td style="color:#999;">02/06</td>
-              <td>12,000</td>
-              <td style="font-weight:700;">34만</td>
-              <td>29건</td>
-              <td>71.8%</td>
-            </tr>
-            <tr>
-              <td><span class="np-status np-status--hot">HOT</span></td>
-              <td class="product-name">디저트 방울보넷</td>
-              <td style="color:#999;">02/06</td>
-              <td>15,000</td>
-              <td style="font-weight:700;">30만</td>
-              <td>20건</td>
-              <td>70.1%</td>
-            </tr>
-            <tr>
-              <td><span class="np-status np-status--hot">HOT</span></td>
-              <td class="product-name">데이지 베이비세트</td>
-              <td style="color:#999;">02/12</td>
-              <td>29,000</td>
-              <td>26만</td>
-              <td>9건</td>
-              <td>68.0%</td>
-            </tr>
-
-            <!-- 판매 시작됨 -->
-            <tr>
-              <td><span class="np-status np-status--slow">SLOW</span></td>
-              <td class="product-name">와플 수면조끼</td>
-              <td style="color:#999;">03/05</td>
-              <td>19,000</td>
-              <td>17만</td>
-              <td>9건</td>
-              <td>47.8%</td>
-            </tr>
-            <tr>
-              <td><span class="np-status np-status--new">NEW</span></td>
-              <td class="product-name">미미쥬쥬 세트</td>
-              <td style="color:#999;">03/18</td>
-              <td>39,100</td>
-              <td>15만</td>
-              <td>4건</td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td><span class="np-status np-status--new">NEW</span></td>
-              <td class="product-name">셀리소피 세트</td>
-              <td style="color:#999;">03/18</td>
-              <td>51,000</td>
-              <td>15만</td>
-              <td>3건</td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td><span class="np-status np-status--slow">SLOW</span></td>
-              <td class="product-name">누보 스카프(파스텔)</td>
-              <td style="color:#999;">02/12</td>
-              <td>15,000</td>
-              <td>12만</td>
-              <td>8건</td>
-              <td>68.0%</td>
-            </tr>
-
-            <!-- 부진 / 미판매 -->
-            <tr style="background:#fff8f8;">
-              <td><span class="np-status np-status--dead">부진</span></td>
-              <td class="product-name">프롬 반팔 배냇저고리</td>
-              <td style="color:#999;">03/12</td>
-              <td>26,000</td>
-              <td style="color:#e53935;">2만</td>
-              <td style="color:#e53935;">1건</td>
-              <td>69.3%</td>
-            </tr>
-            <tr style="background:#fff8f8;">
-              <td><span class="np-status np-status--dead">부진</span></td>
-              <td class="product-name">곰곰 거즈 블랭킷</td>
-              <td style="color:#999;">03/05</td>
-              <td>52,000</td>
-              <td style="color:#e53935;">5만</td>
-              <td style="color:#e53935;">1건</td>
-              <td>60.2%</td>
-            </tr>
-            <tr style="background:#fff8f8;">
-              <td><span class="np-status np-status--dead">부진</span></td>
-              <td class="product-name">토토 거즈 블랭킷</td>
-              <td style="color:#999;">03/05</td>
-              <td>56,000</td>
-              <td style="color:#e53935;">0</td>
-              <td style="color:#e53935;">0건</td>
-              <td>61.3%</td>
-            </tr>
-            <tr style="background:#fff8f8;">
-              <td><span class="np-status np-status--dead">부진</span></td>
-              <td class="product-name">와플 블랭킷</td>
-              <td style="color:#999;">03/05</td>
-              <td>38,000</td>
-              <td style="color:#e53935;">0</td>
-              <td style="color:#e53935;">0건</td>
-              <td>50.8%</td>
-            </tr>
-            <tr style="background:#fff8f8;">
-              <td><span class="np-status np-status--dead">부진</span></td>
-              <td class="product-name">프롬 방울 비니</td>
-              <td style="color:#999;">03/12</td>
-              <td>14,000</td>
-              <td style="color:#e53935;">0</td>
-              <td style="color:#e53935;">0건</td>
-              <td>73.8%</td>
-            </tr>
-            <tr style="background:#fff8f8;">
-              <td><span class="np-status np-status--dead">부진</span></td>
-              <td class="product-name">프롬 긴팔 바디배냇</td>
-              <td style="color:#999;">03/12</td>
-              <td>32,000</td>
-              <td style="color:#e53935;">0</td>
-              <td style="color:#e53935;">0건</td>
-              <td>-</td>
-            </tr>
-            <tr style="background:#fff8f8;">
-              <td><span class="np-status np-status--dead">부진</span></td>
-              <td class="product-name">프롬 반팔 바디배냇</td>
-              <td style="color:#999;">03/12</td>
-              <td>30,000</td>
-              <td style="color:#e53935;">0</td>
-              <td style="color:#e53935;">0건</td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td><span class="np-status np-status--new">NEW</span></td>
-              <td class="product-name">디저트 반팔 수트세트</td>
-              <td style="color:#999;">03/24</td>
-              <td>26,000</td>
-              <td>-</td>
-              <td>-</td>
-              <td>64.8%</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- 미진열 신상품 알림 -->
-      <div class="card" style="margin-top:12px; border-left:4px solid #1565c0; background:#f8f9ff;">
-        <div style="font-size:13px; font-weight:700; color:#1565c0; margin-bottom:8px;">&#x1F4E6; 미진열 신상품 12종 (3/25 등록)</div>
-        <div style="font-size:12px; color:#666; line-height:1.8;">
-          리지 (맘세트·키즈주니어·바디수트·터번) · 밀키 (3종세트·헤어밴드) · 보니 (블루머·헤어밴드) · 쇼콜라 티셔츠 · 코이 (블루머·티셔츠·헤어밴드·토끼보넷)
-          <br><span style="color:#1565c0; font-weight:600;">→ 3/27(금) 오픈 예정</span>
-        </div>
+        
       </div>
     </div>
 
@@ -1272,76 +709,68 @@
     <div class="section">
       <div class="section-title">왜?</div>
       <div class="card">
-
+        
         <div class="analysis-item analysis-item--positive">
           <div class="analysis-type analysis-type--positive">
-            &#x1F4C8; 자사몰 성장
+            &#x1F4C8; 매출 상승 원인
           </div>
-          <div class="analysis-title">전체 매출 주간 6,365만 (순매출 기준)</div>
-          <div class="analysis-desc">쿠팡 GMV 4,313만(+3.3%), 자사몰 2,045만(+5.9%) 동반 성장</div>
+          <div class="analysis-title">주요 채널 성장세 유지</div>
+          <div class="analysis-desc">쿠팡(+3.3%), 자사몰(+5.9%), 스마트스토어(+19.1%) 모두 상승하며 전체 매출 증가 견인</div>
         </div>
-
-        <div class="analysis-item analysis-item--positive">
-          <div class="analysis-type analysis-type--positive">
-            &#x1F4C8; 신상품 견인
-          </div>
-          <div class="analysis-title">신상품이 자사몰 주간 매출의 상당 부분 견인</div>
-          <div class="analysis-desc">디저트 수트세트(151만), 누보 파스텔(102만), 디저트 보넷(64만) 등 26SS 신상이 TOP 매출 차지</div>
-        </div>
-
+        
         <div class="analysis-item analysis-item--warning">
           <div class="analysis-type analysis-type--warning">
             &#x1F4C9; 주의 포인트
           </div>
-          <div class="analysis-title">3월 신상품 다수가 매출 미발생</div>
-          <div class="analysis-desc">프롬 시리즈(3/12 등록), 토토/곰곰 블랭킷(3/5 등록) 등 등록 2~3주 경과 상품 중 판매 1건 이하 다수</div>
+          <div class="analysis-title">디저트 라인 전반적 매출 급락</div>
+          <div class="analysis-desc">디저트 수트세트(-50%), 디저트 보넷(-46.6%) 등 디저트 시리즈 제품들이 일제히 큰 폭으로 하락</div>
         </div>
-
+        
         <div class="analysis-item analysis-item--warning">
           <div class="analysis-type analysis-type--warning">
             &#x1F4C9; 주의 포인트
           </div>
-          <div class="analysis-title">객단가 상승(+7%)이지만 주문수 하락(-2.8%)</div>
-          <div class="analysis-desc">고객 유입이 줄고 있음. 자사몰 일매출 목표 달성을 위해 유입 확대 또는 전환율 개선 필요</div>
+          <div class="analysis-title">롯데온 채널 매출 급감</div>
+          <div class="analysis-desc">롯데온에서 전주 대비 71.9% 급락으로 채널 다각화 전략 점검 필요</div>
         </div>
-
+        
         <div class="analysis-footer">
           &#x1F916; AI 분석 초안
-           &middot; 2026-03-26
+           &middot; 2026-03-24T08:07:54
         </div>
       </div>
     </div>
 
     <!-- ═══ Section 3: 다음 액션 ═══ -->
-
+    
     <div class="section">
       <div class="section-title">다음 액션</div>
       <div class="action-list">
-
+        
         <div class="action-item action-item--1">
           <div class="action-num action-num--1">1</div>
           <div>
-            <div class="action-title">부진 신상품 자사몰 노출 점검</div>
-            <div class="action-desc">프롬 시리즈, 블랭킷류 등 등록 2주 이상 경과했으나 판매 1건 이하 상품 — 메인 배너/기획전 노출 여부 확인 및 콘텐츠 제작</div>
+            <div class="action-title">디저트 라인 매출 하락 원인 분석</div>
+            <div class="action-desc">재고 부족, 가격 정책, 시즌성 변화 등을 긴급 점검하여 대응 방안 수립</div>
           </div>
         </div>
-
+        
         <div class="action-item action-item--2">
           <div class="action-num action-num--2">2</div>
           <div>
-            <div class="action-title">자사몰 유입 확대 방안 실행</div>
-            <div class="action-desc">주문수 -2.8% 하락 중. 인스타 콘텐츠 → 자사몰 전환 경로 강화, 신상품 중심 릴스/캐러셀 발행</div>
+            <div class="action-title">쿨쿨·킨더 베이비세트 재고 확보</div>
+            <div class="action-desc">급성장 제품(437.5%, 333.3%)의 품절 방지를 위한 긴급 생산 및 재고 보충</div>
           </div>
         </div>
-
+        
         <div class="action-item action-item--3">
           <div class="action-num action-num--3">3</div>
           <div>
-            <div class="action-title">3/27(금) 신상품 12종 런칭 콘텐츠 준비</div>
-            <div class="action-desc">리지·밀키·보니·코이 시리즈 오픈 D-1 — 메인 배너, 인스타 릴스/캐러셀, 카카오 알림톡 발송 준비</div>
+            <div class="action-title">롯데온 채널 관리 강화</div>
+            <div class="action-desc">롯데온 담당자와 미팅을 통해 매출 급락 원인 파악 및 프로모션 계획 수립</div>
           </div>
         </div>
-
+        
       </div>
     </div>
     
@@ -1467,19 +896,20 @@
         <div style="display:flex; flex-direction:column; gap:12px;">
           
           <a href="https://www.instagram.com/p/DWAbZA0EzWh/" target="_blank" rel="noopener"
-             class="ig-item">
-
-            <div class="ig-rank">
-              1
+             style="display:flex; gap:16px; padding:14px; border-radius:10px; background:#fafafa; text-decoration:none; color:inherit; transition:background 0.15s;"
+             onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#fafafa'">
+            
+            <div style="width:56px; height:56px; border-radius:8px; background:#e0e0e0; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:20px;">
+              &#x1F4F7;
             </div>
             
             <div style="flex:1; min-width:0;">
-              <div class="ig-title">
+              <div style="font-size:13px; font-weight:600; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
                 ✨
 대구 팝업스토어에서 가장 먼저 만날 수 있는
 특별한
               </div>
-              <div class="ig-metrics">
+              <div style="display:flex; gap:16px; margin-top:6px; font-size:12px; color:#888;">
                 <span>&#x2764;&#xFE0F; 383</span>
                 <span>&#x1F4BE; 149</span>
                 <span>&#x1F4E4; 87</span>
@@ -1494,18 +924,19 @@
           </a>
           
           <a href="https://www.instagram.com/p/DVvMrY3k2jR/" target="_blank" rel="noopener"
-             class="ig-item">
-
-            <div class="ig-rank">
-              2
+             style="display:flex; gap:16px; padding:14px; border-radius:10px; background:#fafafa; text-decoration:none; color:inherit; transition:background 0.15s;"
+             onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#fafafa'">
+            
+            <div style="width:56px; height:56px; border-radius:8px; background:#e0e0e0; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:20px;">
+              &#x1F4F7;
             </div>
             
             <div style="flex:1; min-width:0;">
-              <div class="ig-title">
+              <div style="font-size:13px; font-weight:600; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
                 [마감] 드디어, 피카부가 대구에 갑니다.
 온라인에서만
               </div>
-              <div class="ig-metrics">
+              <div style="display:flex; gap:16px; margin-top:6px; font-size:12px; color:#888;">
                 <span>&#x2764;&#xFE0F; 205</span>
                 <span>&#x1F4BE; 27</span>
                 <span>&#x1F4E4; 150</span>
@@ -1518,19 +949,20 @@
           </a>
           
           <a href="https://www.instagram.com/p/DVH0NAIkxRj/" target="_blank" rel="noopener"
-             class="ig-item">
-
-            <div class="ig-rank">
-              3
+             style="display:flex; gap:16px; padding:14px; border-radius:10px; background:#fafafa; text-decoration:none; color:inherit; transition:background 0.15s;"
+             onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#fafafa'">
+            
+            <div style="width:56px; height:56px; border-radius:8px; background:#e0e0e0; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:20px;">
+              &#x1F4F7;
             </div>
             
             <div style="flex:1; min-width:0;">
-              <div class="ig-title">
+              <div style="font-size:13px; font-weight:600; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
                 🤎
 Pick your flavor! 
 어떤 맛의 디저트
               </div>
-              <div class="ig-metrics">
+              <div style="display:flex; gap:16px; margin-top:6px; font-size:12px; color:#888;">
                 <span>&#x2764;&#xFE0F; 512</span>
                 <span>&#x1F4BE; 115</span>
                 <span>&#x1F4E4; 27</span>
@@ -1543,18 +975,19 @@ Pick your flavor!
           </a>
           
           <a href="https://www.instagram.com/p/DVaRn8-k_qB/" target="_blank" rel="noopener"
-             class="ig-item">
-
-            <div class="ig-rank">
-              4
+             style="display:flex; gap:16px; padding:14px; border-radius:10px; background:#fafafa; text-decoration:none; color:inherit; transition:background 0.15s;"
+             onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#fafafa'">
+            
+            <div style="width:56px; height:56px; border-radius:8px; background:#e0e0e0; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:20px;">
+              &#x1F4F7;
             </div>
             
             <div style="flex:1; min-width:0;">
-              <div class="ig-title">
+              <div style="font-size:13px; font-weight:600; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
                 정답은 바로!
 뜨거운 열정의 도시, 대구(신세계)였습니
               </div>
-              <div class="ig-metrics">
+              <div style="display:flex; gap:16px; margin-top:6px; font-size:12px; color:#888;">
                 <span>&#x2764;&#xFE0F; 193</span>
                 <span>&#x1F4BE; 40</span>
                 <span>&#x1F4E4; 77</span>
@@ -1567,16 +1000,17 @@ Pick your flavor!
           </a>
           
           <a href="https://www.instagram.com/reel/DV-yWbFky4A/" target="_blank" rel="noopener"
-             class="ig-item">
-
+             style="display:flex; gap:16px; padding:14px; border-radius:10px; background:#fafafa; text-decoration:none; color:inherit; transition:background 0.15s;"
+             onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#fafafa'">
+            
             <img src="https://scontent-icn2-1.cdninstagram.com/v/t51.71878-15/652659149_2002552240630992_4107093669174205779_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=RcEShyZlQRMQ7kNvwH4bVXS&_nc_oc=AdrRhBsT9xo6lumOga2yxfvxDk8wxqKZ9hEBQaWN0L5tPlRbZeOvymw4lV9LFUxPTQU&_nc_zt=23&_nc_ht=scontent-icn2-1.cdninstagram.com&edm=AJdBtusEAAAA&_nc_gid=Wk6xe5GcqSpUoG15fVZirg&_nc_tpa=Q5bMBQHOA8Osy7-zK4v3nBc0QNaN5a-JsHJ97e8H0TkXc2MlvCx-vbMAdJcTif4vqnbZrNZ5pY_bh4Uu&oh=00_AfzXW7cwIv6rpXqfaVqUDe9Ob4PFjH063-An51-kB94PhQ&oe=69C9C419" alt="" style="width:56px; height:56px; border-radius:8px; object-fit:cover; flex-shrink:0;">
             
             <div style="flex:1; min-width:0;">
-              <div class="ig-title">
+              <div style="font-size:13px; font-weight:600; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
                 아이와 외출할 때, ”오늘은 뭐 입히지?“ 고민하며 
 
               </div>
-              <div class="ig-metrics">
+              <div style="display:flex; gap:16px; margin-top:6px; font-size:12px; color:#888;">
                 <span>&#x2764;&#xFE0F; 110</span>
                 <span>&#x1F4BE; 46</span>
                 <span>&#x1F4E4; 64</span>
@@ -1614,7 +1048,7 @@ Pick your flavor!
             <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#fafafa; border-radius:8px;">
               <div>
                 <div style="font-size:13px; font-weight:600; color:#333;">instagram.com / referral</div>
-                <div style="font-size:11px; color:#999;">57세션 &middot; 1전환</div>
+                <div style="font-size:11px; color:#999;">48세션 &middot; 1전환</div>
               </div>
               
               <div style="font-size:14px; font-weight:700; color:#2e7d32;">5만원</div>
@@ -1624,10 +1058,10 @@ Pick your flavor!
             <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#fafafa; border-radius:8px;">
               <div>
                 <div style="font-size:13px; font-weight:600; color:#333;">l.instagram.com / referral</div>
-                <div style="font-size:11px; color:#999;">27세션 &middot; 3전환</div>
+                <div style="font-size:11px; color:#999;">18세션 &middot; 2전환</div>
               </div>
               
-              <div style="font-size:14px; font-weight:700; color:#2e7d32;">8만원</div>
+              <div style="font-size:14px; font-weight:700; color:#2e7d32;">4만원</div>
               
             </div>
             
@@ -1638,6 +1072,8 @@ Pick your flavor!
       
     </div>
 
+    <!-- ═══ 광고 효율 (ROAS) ═══ -->
+    
 
     <!-- ═══ 주의 상품 (워스트) ═══ -->
     
@@ -1701,56 +1137,9 @@ Pick your flavor!
     
     <div class="section">
       <div class="section-title">&#x1F4E6; 재고 현황</div>
-
+      
       <div class="card" style="margin-bottom:12px;">
-        <div class="inventory-alert inventory-alert--warning">과잉 재고 — 추정 <span style="color:#c62828;">2.2억원</span> 묶임</div>
-        <div class="inventory-note">판매 0건 · 소매가 기준 환산 (원가 미등록 상품은 소매가 적용)</div>
-        <table class="products-table">
-          <thead>
-            <tr>
-              <th>상품명</th>
-              <th>현재고</th>
-              <th>주간판매</th>
-              <th>묶인 금액</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="product-name">무드_삭스 시크무드</td>
-              <td style="font-weight:700; color:#e65100;">4,716개</td>
-              <td style="color:#e53935;">0개</td>
-              <td style="font-weight:700; color:#c62828;">~8,960만</td>
-            </tr>
-            <tr>
-              <td class="product-name">다이아양말 아베검</td>
-              <td style="font-weight:700; color:#e65100;">4,098개</td>
-              <td style="color:#e53935;">0개</td>
-              <td style="font-weight:700; color:#c62828;">~6,270만</td>
-            </tr>
-            <tr>
-              <td class="product-name">젤라또양말세트 민트</td>
-              <td style="font-weight:700; color:#e65100;">4,991개</td>
-              <td style="color:#e53935;">0개</td>
-              <td style="font-weight:700; color:#c62828;">~5,090만</td>
-            </tr>
-            <tr>
-              <td class="product-name">타비양말 라벤더</td>
-              <td style="font-weight:700; color:#e65100;">3,882개</td>
-              <td style="color:#e53935;">0개</td>
-              <td style="font-weight:700;">~658만</td>
-            </tr>
-            <tr>
-              <td class="product-name">타비양말 핑크</td>
-              <td style="font-weight:700; color:#e65100;">3,869개</td>
-              <td style="color:#e53935;">0개</td>
-              <td style="font-weight:700;">~656만</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="card">
-        <div class="inventory-alert inventory-alert--danger">재고 부족 — 매출 기회 놓칠 수 있음</div>
+        <div style="font-size:14px; font-weight:700; color:#e53935; margin-bottom:12px;">재고 부족 — 매출 기회 놓칠 수 있음</div>
         <table class="products-table">
           <thead>
             <tr>
@@ -1761,15 +1150,73 @@ Pick your flavor!
             </tr>
           </thead>
           <tbody>
+            
             <tr>
               <td class="product-name">쿨리 헤어밴드 핑크</td>
-              <td><span style="font-weight:700; color:#e65100;">14개</span></td>
+              <td>
+                <span style="font-weight:700; color:#e65100;">
+                  14개
+                </span>
+              </td>
               <td>8개/주</td>
-              <td><span style="font-weight:700; color:#e65100;">1.8주</span></td>
+              <td>
+                <span style="font-weight:700; color:#e65100;">
+                  1.8주
+                </span>
+              </td>
             </tr>
+            
           </tbody>
         </table>
       </div>
+      
+      
+      <div class="card">
+        <div style="font-size:14px; font-weight:700; color:#e65100; margin-bottom:12px;">과잉 재고 — 현금 묶임</div>
+        <table class="products-table">
+          <thead>
+            <tr>
+              <th>상품명</th>
+              <th>현재고</th>
+              <th>주간판매</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td class="product-name">젤라또양말세트 민트</td>
+              <td style="font-weight:700; color:#e65100;">4991개</td>
+              <td style="color:#e53935;">0개</td>
+            </tr>
+            
+            <tr>
+              <td class="product-name">무드_삭스 시크무드</td>
+              <td style="font-weight:700; color:#e65100;">4716개</td>
+              <td style="color:#e53935;">0개</td>
+            </tr>
+            
+            <tr>
+              <td class="product-name">다이아양말 아베검</td>
+              <td style="font-weight:700; color:#e65100;">4098개</td>
+              <td style="color:#e53935;">0개</td>
+            </tr>
+            
+            <tr>
+              <td class="product-name">타비양말 라벤더</td>
+              <td style="font-weight:700; color:#e65100;">3882개</td>
+              <td style="color:#e53935;">0개</td>
+            </tr>
+            
+            <tr>
+              <td class="product-name">타비양말 핑크</td>
+              <td style="font-weight:700; color:#e65100;">3869개</td>
+              <td style="color:#e53935;">0개</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+      
     </div>
     
 
@@ -1778,23 +1225,36 @@ Pick your flavor!
     <div class="section">
       <div class="section-title">사업팀 프로젝트</div>
       <div class="project-grid">
-
+        
         <div class="project-card project-card--active">
           <div class="project-status project-status--active">
             &#x1F7E2; 진행중
+            
           </div>
-          <div class="project-name">자사몰 유입 증대 리뉴얼</div>
-          <div class="project-desc">자사몰 일매출 1,000만 목표 달성을 위한 UX·전환율 개선</div>
+          <div class="project-name">26SS 컬렉션 론칭</div>
+          <div class="project-date">3/15 오픈 예정</div>
+          <div class="project-desc">쿠팡/자사몰 동시 입고</div>
         </div>
-
-        <div class="project-card project-card--active">
-          <div class="project-status project-status--active">
-            &#x1F7E2; 진행중
+        
+        <div class="project-card project-card--preparing">
+          <div class="project-status project-status--preparing">
+            &#x1F7E1; 준비중
+            
           </div>
-          <div class="project-name">신상품 오픈</div>
-          <div class="project-desc">이븐 · 샤인 · 에어 · 포밍 · 링고 · 샌디 · 디어</div>
+          <div class="project-name">중국 수출 확대</div>
+          <div class="project-date">4월 목표</div>
+          <div class="project-desc">Hipeekaboo 신규 30종</div>
         </div>
-
+        
+        <div class="project-card project-card--planned">
+          <div class="project-status project-status--planned">
+            &#x26AA; 예정
+          </div>
+          <div class="project-name">자사몰 리뉴얼</div>
+          <div class="project-date">Q2 예정</div>
+          <div class="project-desc">모바일 UX 개선</div>
+        </div>
+        
       </div>
     </div>
     
@@ -1803,7 +1263,7 @@ Pick your flavor!
 
   <!-- ═══ Footer ═══ -->
   <div class="footer">
-    마지막 업데이트: 2026-03-26 09:04<br>
+    마지막 업데이트: 2026-03-27 09:05<br>
     마지막 상세 분석: 2026-03-24T08:07:54
   </div>
 
@@ -1819,7 +1279,7 @@ Pick your flavor!
 
     // ── Channel Bar Chart ──
     (function() {
-      const channels = [{"channel": "쿠팡", "revenue": 43127090, "prev_week_revenue": 41746050, "month_revenue": 134165850, "change_pct": 3.3, "commission_rate": 0.108, "share_pct": 66.9}, {"channel": "자사몰", "revenue": 18856899, "prev_week_revenue": 0, "month_revenue": 0, "change_pct": 0, "commission_rate": 0.03, "share_pct": 29.6}, {"channel": "스마트스토어", "revenue": 967900, "prev_week_revenue": 0, "month_revenue": 0, "change_pct": 0, "commission_rate": 0.07, "share_pct": 1.5}, {"channel": "롯데온", "revenue": 693600, "prev_week_revenue": 0, "month_revenue": 0, "change_pct": 0, "commission_rate": 0.15, "share_pct": 1.1}];
+      const channels = [{"change_pct": 3.3, "channel": "\ucfe0\ud321", "commission_rate": 0.108, "dependency_warning": false, "estimated_margin": 38469364, "month_revenue": 134165850, "prev_week_revenue": 41746050, "revenue": 43127090, "share_pct": 62.5}, {"change_pct": 5.9, "channel": "\uc790\uc0ac\ubab0", "commission_rate": 0.035, "dependency_warning": false, "estimated_margin": 16587150, "month_revenue": 54234536, "prev_week_revenue": 16235519, "revenue": 17188756, "share_pct": 25.3}, {"change_pct": -1.6, "channel": "\ucfe0\ud321-\ub0a9\ud488", "commission_rate": 0.0, "dependency_warning": false, "estimated_margin": 1578700, "month_revenue": 21908995, "prev_week_revenue": 1604800, "revenue": 1578700, "share_pct": 10.2}, {"change_pct": 19.1, "channel": "\uc2a4\ub9c8\ud2b8\uc2a4\ud1a0\uc5b4", "commission_rate": 0.055, "dependency_warning": false, "estimated_margin": 1336892, "month_revenue": 4116500, "prev_week_revenue": 1188200, "revenue": 1414700, "share_pct": 1.9}, {"change_pct": -71.9, "channel": "\ub86f\ub370\uc628", "commission_rate": 0.12, "dependency_warning": false, "estimated_margin": 26928, "month_revenue": 232900, "prev_week_revenue": 108800, "revenue": 30600, "share_pct": 0.1}];
       const ctx = document.getElementById('channelChart').getContext('2d');
 
       new Chart(ctx, {
@@ -1949,7 +1409,7 @@ Pick your flavor!
       const el = document.getElementById('igTrafficChart');
       if (!el) return;
 
-      const trend = [{"conv_rate": 5.6, "conversions": 1, "date": "2026-03-19", "label": "03-19", "revenue": 40999, "sessions": 18, "users": 16}, {"conv_rate": 0.0, "conversions": 0, "date": "2026-03-20", "label": "03-20", "revenue": 0, "sessions": 8, "users": 6}, {"conv_rate": 0.0, "conversions": 0, "date": "2026-03-21", "label": "03-21", "revenue": 0, "sessions": 10, "users": 8}, {"conv_rate": 0.0, "conversions": 0, "date": "2026-03-22", "label": "03-22", "revenue": 0, "sessions": 15, "users": 15}, {"conv_rate": 9.1, "conversions": 3, "date": "2026-03-24", "label": "03-24", "revenue": 87998, "sessions": 33, "users": 32}];
+      const trend = [{"conv_rate": 0.0, "conversions": 0, "date": "2026-03-20", "label": "03-20", "revenue": 0, "sessions": 8, "users": 6}, {"conv_rate": 0.0, "conversions": 0, "date": "2026-03-21", "label": "03-21", "revenue": 0, "sessions": 10, "users": 8}, {"conv_rate": 0.0, "conversions": 0, "date": "2026-03-22", "label": "03-22", "revenue": 0, "sessions": 15, "users": 15}, {"conv_rate": 9.1, "conversions": 3, "date": "2026-03-24", "label": "03-24", "revenue": 87998, "sessions": 33, "users": 32}];
       if (!trend || !trend.length) return;
 
       const ctx = el.getContext('2d');
