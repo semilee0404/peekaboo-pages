@@ -92564,6 +92564,158 @@
   "slow_movers": [],
   "products_26ss": [
     {
+      "name": "데이지 수트세트",
+      "code": "PKAS10SS560R",
+      "total_sales": 130,
+      "revenue": 4300000,
+      "retail": 130,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 8.8,
+      "grade": "",
+      "weeks": {
+        "08주": 8,
+        "09주": 14,
+        "10주": 8,
+        "11주": 5
+      }
+    },
+    {
+      "name": "데이지 상하배냇세트",
+      "code": "PKAS10BT561R",
+      "total_sales": 22,
+      "revenue": 858000,
+      "retail": 22,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.3,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 4,
+        "10주": 2,
+        "11주": 1
+      }
+    },
+    {
+      "name": "데이지 터번모자",
+      "code": "PKAS60BC951R",
+      "total_sales": 30,
+      "revenue": 720000,
+      "retail": 30,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.8,
+      "grade": "",
+      "weeks": {
+        "08주": 6,
+        "09주": 6,
+        "10주": 4,
+        "11주": 3
+      }
+    },
+    {
+      "name": "데이지 뉴본터번모자",
+      "code": "PKAS60BC957R",
+      "total_sales": 12,
+      "revenue": 288000,
+      "retail": 12,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 0,
+        "10주": 0,
+        "11주": 2
+      }
+    },
+    {
+      "name": "데이지 손싸개",
+      "code": "PKAS60BM952R",
+      "total_sales": 3,
+      "revenue": 78000,
+      "retail": 3,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 2
+      }
+    },
+    {
+      "name": "데이지 발싸개",
+      "code": "PKAS60FM957R",
+      "total_sales": 8,
+      "revenue": 224000,
+      "retail": 8,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 4,
+        "11주": 0
+      }
+    },
+    {
+      "name": "데이지 반팔 상하배냇세트",
+      "code": "PKAM10BT562R",
+      "total_sales": 16,
+      "revenue": 624000,
+      "retail": 16,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.3,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 2,
+        "10주": 3,
+        "11주": 2
+      }
+    },
+    {
+      "name": "데이지 민소매 키즈세트",
+      "code": "PKAM20ST563R",
+      "total_sales": 14,
+      "revenue": 280000,
+      "retail": 14,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.5,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 2,
+        "11주": 3
+      }
+    },
+    {
       "name": "데이지_민소매 주니어세트",
       "code": "PKAM30ST565R",
       "total_sales": 0,
@@ -92580,6 +92732,44 @@
         "09주": 0,
         "10주": 0,
         "11주": 0
+      }
+    },
+    {
+      "name": "데이지 헤어밴드",
+      "code": "PKAM60HB955R",
+      "total_sales": 36,
+      "revenue": 324000,
+      "retail": 36,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 3.7,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 6,
+        "10주": 2,
+        "11주": 3
+      }
+    },
+    {
+      "name": "데이지 빕",
+      "code": "PKAM60BI956R",
+      "total_sales": 22,
+      "revenue": 418000,
+      "retail": 22,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.5,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 2,
+        "10주": 5,
+        "11주": 1
       }
     },
     {
@@ -92621,6 +92811,101 @@
       }
     },
     {
+      "name": "포니 기저귀가방 - 피카부 아기 출산준비물",
+      "code": "PKAF60BG958M",
+      "total_sales": 5,
+      "revenue": 200000,
+      "retail": 5,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "포니 투웨이 싸개 – 피카부 아기 속싸개",
+      "code": "PKAF60BK963M",
+      "total_sales": 21,
+      "revenue": 1188000,
+      "retail": 21,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "포니 블랭킷 – 피카부 아기블랭킷 아기담요",
+      "code": "PKAF60BK964M",
+      "total_sales": 45,
+      "revenue": 1890000,
+      "retail": 45,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.7,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 4,
+        "10주": 1,
+        "11주": 3
+      }
+    },
+    {
+      "name": "포니 손수건 – 피카부 아기손수건 유아손수건",
+      "code": "PKAF60HC965M",
+      "total_sales": 16,
+      "revenue": 144000,
+      "retail": 16,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 2,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "포니 보넷 - 피카부 신생아 모자",
+      "code": "PKAF60HT967M",
+      "total_sales": 68,
+      "revenue": 1020000,
+      "retail": 68,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.2,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 8,
+        "10주": 3,
+        "11주": 4
+      }
+    },
+    {
       "name": "포니 반팔 파자마 바디수트",
       "code": "PKAF10PB576M",
       "total_sales": 0,
@@ -92655,6 +92940,120 @@
         "08주": 0,
         "09주": 0,
         "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "포니 반팔 파자마 맘 원피스 – 피카부 반팔원피스 여성홈웨어",
+      "code": "PKAF50PJ712M",
+      "total_sales": 3,
+      "revenue": 174000,
+      "retail": 3,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "포니 배냇세트 – 피카부 신생아옷 3종세트",
+      "code": "PKAF10BS580M",
+      "total_sales": 37,
+      "revenue": 1924000,
+      "retail": 37,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.5,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 4,
+        "10주": 0,
+        "11주": 1
+      }
+    },
+    {
+      "name": "포니 바디배냇 – 피카부 신생아옷 긴팔바디수트",
+      "code": "PKAF10BB581M",
+      "total_sales": 75,
+      "revenue": 2850000,
+      "retail": 75,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 3.2,
+      "grade": "",
+      "weeks": {
+        "08주": 4,
+        "09주": 4,
+        "10주": 2,
+        "11주": 3
+      }
+    },
+    {
+      "name": "포니 파자마 바디수트 - 피카부 아기바디수트 실내복",
+      "code": "PKAF60BI960M",
+      "total_sales": 106,
+      "revenue": 4382000,
+      "retail": 106,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 9.0,
+      "grade": "",
+      "weeks": {
+        "08주": 6,
+        "09주": 20,
+        "10주": 3,
+        "11주": 7
+      }
+    },
+    {
+      "name": "포니 손발싸개 – 피카부 신생아용품 손싸개 발싸개",
+      "code": "PKAF60FC961M",
+      "total_sales": 33,
+      "revenue": 858000,
+      "retail": 33,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 2,
+        "10주": 1,
+        "11주": 3
+      }
+    },
+    {
+      "name": "포니 리버시블 빕 – 피카부 아기빕 양면턱받이",
+      "code": "PKAF60BI962M",
+      "total_sales": 48,
+      "revenue": 672000,
+      "retail": 48,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.7,
+      "grade": "",
+      "weeks": {
+        "08주": 8,
+        "09주": 4,
+        "10주": 2,
         "11주": 0
       }
     },
@@ -93155,6 +93554,44 @@
   ],
   "products_25fw": [
     {
+      "name": "모아 배냇 세트 - 피카부 신생아옷  3종세트",
+      "code": "PKAF10BT501M",
+      "total_sales": 1562,
+      "revenue": 58732300,
+      "retail": 1562,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 39.5,
+      "grade": "",
+      "weeks": {
+        "08주": 26,
+        "09주": 84,
+        "10주": 27,
+        "11주": 21
+      }
+    },
+    {
+      "name": "모아 베이비 세트 - 피카부 아기옷 실내복 내복",
+      "code": "PKAF10ST502M",
+      "total_sales": 1443,
+      "revenue": 33106000,
+      "retail": 1443,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 51.8,
+      "grade": "",
+      "weeks": {
+        "08주": 72,
+        "09주": 72,
+        "10주": 39,
+        "11주": 24
+      }
+    },
+    {
       "name": "모아 키즈 세트",
       "code": "PKAF20ST505M",
       "total_sales": 0,
@@ -93171,6 +93608,44 @@
         "09주": 0,
         "10주": 0,
         "11주": 0
+      }
+    },
+    {
+      "name": "루아 배냇 세트 - 피카부 신생아옷  3종세트",
+      "code": "PKAF10BT507M",
+      "total_sales": 68,
+      "revenue": 2584000,
+      "retail": 68,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.7,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 2,
+        "10주": 1,
+        "11주": 0
+      }
+    },
+    {
+      "name": "루아 베이비 세트 - 피카부 아기옷 실내복 내복",
+      "code": "PKAF10ST508M",
+      "total_sales": 181,
+      "revenue": 4344000,
+      "retail": 181,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 2,
+        "11주": 6
       }
     },
     {
@@ -93193,6 +93668,120 @@
       }
     },
     {
+      "name": "네프 배냇 세트 - 피카부 신생아옷 3종세트 (손발싸개 제외)",
+      "code": "PKAF10BA526M",
+      "total_sales": 126,
+      "revenue": 6552000,
+      "retail": 126,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.5,
+      "grade": "",
+      "weeks": {
+        "08주": 4,
+        "09주": 0,
+        "10주": 1,
+        "11주": 0
+      }
+    },
+    {
+      "name": "네프 비니 - 피카부 아기모자 아기비니",
+      "code": "PKAF60BN930M",
+      "total_sales": 41,
+      "revenue": 615000,
+      "retail": 41,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.3,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 4,
+        "10주": 1,
+        "11주": 0
+      }
+    },
+    {
+      "name": "네프 손싸개 - 피카부 신생아용품 아기손싸개",
+      "code": "PKAF60HC931M",
+      "total_sales": 24,
+      "revenue": 432000,
+      "retail": 24,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "네프 발싸개 - 피카부 신생아용품 아기발싸개",
+      "code": "PKAF60FC932M",
+      "total_sales": 22,
+      "revenue": 484000,
+      "retail": 22,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "네프 프릴 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI911M",
+      "total_sales": 19,
+      "revenue": 418000,
+      "retail": 19,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.5,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 4,
+        "10주": 1,
+        "11주": 0
+      }
+    },
+    {
+      "name": "네프 베이비 세트 - 피카부 아기옷 실내복 내복",
+      "code": "PKAF10ST528M",
+      "total_sales": 74,
+      "revenue": 3108000,
+      "retail": 74,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.3,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 2,
+        "10주": 1,
+        "11주": 1
+      }
+    },
+    {
       "name": "네프 키즈 세트",
       "code": "PKAF20ST529M",
       "total_sales": 0,
@@ -93209,6 +93798,25 @@
         "09주": 0,
         "10주": 0,
         "11주": 0
+      }
+    },
+    {
+      "name": "노아 배냇세트 - 피카부 신생아옷  3종세트",
+      "code": "PKAF10BT101M",
+      "total_sales": 114,
+      "revenue": 4332000,
+      "retail": 114,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.5,
+      "grade": "",
+      "weeks": {
+        "08주": 8,
+        "09주": 6,
+        "10주": 1,
+        "11주": 3
       }
     },
     {
@@ -93250,6 +93858,44 @@
       }
     },
     {
+      "name": "노아 비니 - 피카부 아기모자 아기비니",
+      "code": "PKAF60CP906M",
+      "total_sales": 328,
+      "revenue": 3936000,
+      "retail": 328,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.2,
+      "grade": "",
+      "weeks": {
+        "08주": 4,
+        "09주": 6,
+        "10주": 2,
+        "11주": 5
+      }
+    },
+    {
+      "name": "안나 배냇세트 - 피카부 신생아옷  3종세트",
+      "code": "PKAF10BT301M",
+      "total_sales": 62,
+      "revenue": 2728000,
+      "retail": 62,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.3,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 0,
+        "10주": 1,
+        "11주": 4
+      }
+    },
+    {
       "name": "안나 바디수트",
       "code": "PKAF20ST303M",
       "total_sales": 0,
@@ -93259,6 +93905,44 @@
       "wholesale": 0,
       "stock": 0,
       "burnrate": 0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "안나 헤어밴드 - 피카부 아기헤어밴드 아기악세서리",
+      "code": "PKAF60HB907M",
+      "total_sales": 37,
+      "revenue": 444000,
+      "retail": 37,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "안나 스크런치 - 피카부 머리끈 맘커플",
+      "code": "PKAF60HB908M",
+      "total_sales": 14,
+      "revenue": 140000,
+      "retail": 14,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
       "weekly_avg": 0,
       "grade": "",
       "weeks": {
@@ -93307,6 +93991,44 @@
       }
     },
     {
+      "name": "누보 배냇 세트(모노) - 피카부 신생아옷 3종세트",
+      "code": "PKAF10BT514M",
+      "total_sales": 74,
+      "revenue": 2472000,
+      "retail": 74,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 6.0,
+      "grade": "",
+      "weeks": {
+        "08주": 10,
+        "09주": 6,
+        "10주": 2,
+        "11주": 0
+      }
+    },
+    {
+      "name": "누보 비니(모노) - 피카부 아기모자 아기비니",
+      "code": "PKAF60HT910M",
+      "total_sales": 159,
+      "revenue": 1908000,
+      "retail": 159,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 6.8,
+      "grade": "",
+      "weeks": {
+        "08주": 4,
+        "09주": 20,
+        "10주": 2,
+        "11주": 1
+      }
+    },
+    {
       "name": "누보 바디수트(모노)",
       "code": "PKAF10SS515M",
       "total_sales": 0,
@@ -93341,6 +94063,44 @@
         "08주": 0,
         "09주": 0,
         "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "누보 배냇 세트(컬러) - 피카부 신생아옷 3종세트",
+      "code": "PKAF10BT518M",
+      "total_sales": 82,
+      "revenue": 2788000,
+      "retail": 82,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 3.5,
+      "grade": "",
+      "weeks": {
+        "08주": 4,
+        "09주": 0,
+        "10주": 0,
+        "11주": 3
+      }
+    },
+    {
+      "name": "누보 비니(컬러) - 피카부 아기모자 아기비니",
+      "code": "PKAF60HT911M",
+      "total_sales": 72,
+      "revenue": 864000,
+      "retail": 72,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 1,
         "11주": 0
       }
     },
@@ -93421,6 +94181,253 @@
       }
     },
     {
+      "name": "베티 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI924M",
+      "total_sales": 146,
+      "revenue": 1752000,
+      "retail": 146,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.2,
+      "grade": "",
+      "weeks": {
+        "08주": 4,
+        "09주": 8,
+        "10주": 2,
+        "11주": 3
+      }
+    },
+    {
+      "name": "포코 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI925M",
+      "total_sales": 50,
+      "revenue": 700000,
+      "retail": 50,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 6.0,
+      "grade": "",
+      "weeks": {
+        "08주": 6,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "포포 배냇세트 - 피카부 신생아옷 3종세트",
+      "code": "PKAF10BS559M",
+      "total_sales": 43,
+      "revenue": 1720000,
+      "retail": 43,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "포포 프릴 배냇 세트 - 피카부 신생아옷 3종세트",
+      "code": "PKAF10BS560M",
+      "total_sales": 28,
+      "revenue": 1176000,
+      "retail": 28,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.5,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 1,
+        "11주": 2
+      }
+    },
+    {
+      "name": "포포 손싸개 - 피카부 도트 신생아용",
+      "code": "PKAF60HC934M",
+      "total_sales": 19,
+      "revenue": 228000,
+      "retail": 19,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "포포 헤어밴드 - 피카부 유아 헤어악세서리",
+      "code": "PKAF60HB923M",
+      "total_sales": 11,
+      "revenue": 165000,
+      "retail": 11,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "포포 파자마 바디수트 - 피카부 유아용 내복",
+      "code": "PKAF10PJ531M",
+      "total_sales": 50,
+      "revenue": 1500000,
+      "retail": 50,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "포포 파자마 프릴 바디수트 - 피카부 유아용 여아 내복",
+      "code": "PKAF10PJ532M",
+      "total_sales": 52,
+      "revenue": 1664000,
+      "retail": 52,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 2,
+        "11주": 0
+      }
+    },
+    {
+      "name": "포포 파자마 베이비 세트 - 피카부 유아용 상하세트",
+      "code": "PKAF10PJ533M",
+      "total_sales": 34,
+      "revenue": 1100000,
+      "retail": 34,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 1
+      }
+    },
+    {
+      "name": "포포 파자마 패밀리 세트 - 피카부 홈웨어 상하세트",
+      "code": "PKAF50PJ701M",
+      "total_sales": 48,
+      "revenue": 2714000,
+      "retail": 48,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 4,
+        "10주": 6,
+        "11주": 2
+      }
+    },
+    {
+      "name": "루나비 바디배냇세트 - 피카부 신생아옷 수트세트",
+      "code": "PKAF10SS541M",
+      "total_sales": 103,
+      "revenue": 3682400,
+      "retail": 103,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 2,
+        "10주": 0,
+        "11주": 2
+      }
+    },
+    {
+      "name": "루나비 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI930M",
+      "total_sales": 40,
+      "revenue": 936000,
+      "retail": 40,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "루나비 파자마 베이비 세트 - 피카부 아기옷 실내복 내복",
+      "code": "PKAF10PJ542M",
+      "total_sales": 155,
+      "revenue": 4030000,
+      "retail": 155,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.5,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 2,
+        "10주": 9,
+        "11주": 5
+      }
+    },
+    {
       "name": "루나비 파자마 키즈세트",
       "code": "PKAF20PJ543M",
       "total_sales": 0,
@@ -93440,6 +94447,82 @@
       }
     },
     {
+      "name": "루나비 파자마 패밀리세트 - 피카부 홈웨어 상하세트",
+      "code": "PKAF50PJ702M",
+      "total_sales": 14,
+      "revenue": 700000,
+      "retail": 14,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "리본 배냇 세트 - 피카부 신생아옷 상하세트",
+      "code": "PKAF10BS549M",
+      "total_sales": 15,
+      "revenue": 540000,
+      "retail": 15,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 1,
+        "11주": 0
+      }
+    },
+    {
+      "name": "리본 반팔 배냇 세트 - 피카부 신생아옷 상하세트",
+      "code": "PKAF10BS562M",
+      "total_sales": 17,
+      "revenue": 578000,
+      "retail": 17,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "리본 꼬리 배냇 - 피카부 신생아옷 속싸개",
+      "code": "PKAF10BN563M",
+      "total_sales": 11,
+      "revenue": 264000,
+      "retail": 11,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 1,
+        "11주": 0
+      }
+    },
+    {
       "name": "리본터번",
       "code": "PKAF60TB935M",
       "total_sales": 0,
@@ -93449,6 +94532,63 @@
       "wholesale": 0,
       "stock": 0,
       "burnrate": 0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "리본 임산부 긴바지 - 피카부 임부복 임산부바지 홈웨어",
+      "code": "PKAF50PT703M",
+      "total_sales": 2,
+      "revenue": 68000,
+      "retail": 2,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "리본 임산부 쫄반바지 - 피카부 임부복 임산부바지 홈웨어",
+      "code": "PKAF50PT706M",
+      "total_sales": 1,
+      "revenue": 32000,
+      "retail": 1,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "임산부 긴바지 - 피카부 임부복 임산부바지 홈웨어",
+      "code": "PKAF50PT705M",
+      "total_sales": 4,
+      "revenue": 104000,
+      "retail": 4,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
       "weekly_avg": 0,
       "grade": "",
       "weeks": {
@@ -93478,6 +94618,158 @@
       }
     },
     {
+      "name": "리본 MOM 튜브 탑 - 피카부 임산부옷 촬영룩 홈웨어",
+      "code": "PKAF50TP709M",
+      "total_sales": 7,
+      "revenue": 168000,
+      "retail": 7,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "리본 비니 - 피카부 아기모자 신생아모자",
+      "code": "PKAF60HT937M",
+      "total_sales": 9,
+      "revenue": 162000,
+      "retail": 9,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "리본 손싸개 - 피카부 신생아용품 아기손싸개",
+      "code": "PKAF60HC939M",
+      "total_sales": 18,
+      "revenue": 288000,
+      "retail": 18,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 2,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "리본 발싸개 - 피카부 신생아용품 아기발싸개",
+      "code": "PKAF60FC938M",
+      "total_sales": 19,
+      "revenue": 342000,
+      "retail": 19,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "윌리 배냇세트 - 피카부 신생아옷 3종세트",
+      "code": "PKAF10BN565M",
+      "total_sales": 52,
+      "revenue": 2392000,
+      "retail": 52,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 4,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "윌리 손발싸개 - 피카부 신생아용품 아기 손발싸개",
+      "code": "PKAF60HF944M",
+      "total_sales": 8,
+      "revenue": 288000,
+      "retail": 8,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "윌리 양갈래 모자 - 피카부 아기모자 양갈래 모자",
+      "code": "PKAF60HT940M",
+      "total_sales": 65,
+      "revenue": 918000,
+      "retail": 65,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 2,
+        "10주": 2,
+        "11주": 2
+      }
+    },
+    {
+      "name": "윌리 바디수트 - 피카부 유아용 바디수트 내복",
+      "code": "PKAF60BI943M",
+      "total_sales": 105,
+      "revenue": 3572000,
+      "retail": 105,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 2,
+        "10주": 2,
+        "11주": 2
+      }
+    },
+    {
       "name": "윌리 바디수트",
       "code": "PKAF10BS566M",
       "total_sales": 0,
@@ -93487,6 +94779,63 @@
       "wholesale": 0,
       "stock": 0,
       "burnrate": 0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "윌리 베이비세트 - 피카부 유아용 상하세트",
+      "code": "PKAF10ST567M",
+      "total_sales": 48,
+      "revenue": 1728000,
+      "retail": 48,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.5,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 4,
+        "10주": 1,
+        "11주": 0
+      }
+    },
+    {
+      "name": "윌리 스트라이프 페이크 폴라 - 피카부 유아동 목폴라 코디템",
+      "code": "PKAF60FP941M",
+      "total_sales": 15,
+      "revenue": 210000,
+      "retail": 15,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "윌리 솔리드 페이크 폴라 - 피카부 유아동 목폴라 코디템",
+      "code": "PKAF60FP942M",
+      "total_sales": 20,
+      "revenue": 240000,
+      "retail": 20,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
       "weekly_avg": 0,
       "grade": "",
       "weeks": {
@@ -93516,6 +94865,44 @@
       }
     },
     {
+      "name": "모브 베이비 티셔츠 - 피카부 유아용 긴팔 티셔츠",
+      "code": "PKAF10TS550M",
+      "total_sales": 264,
+      "revenue": 3498000,
+      "retail": 264,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 19.5,
+      "grade": "",
+      "weeks": {
+        "08주": 14,
+        "09주": 36,
+        "10주": 13,
+        "11주": 15
+      }
+    },
+    {
+      "name": "모브 베이비 바지 - 피카부 유아용 긴바지",
+      "code": "PKAF10PT553M",
+      "total_sales": 115,
+      "revenue": 1606000,
+      "retail": 115,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 8.0,
+      "grade": "",
+      "weeks": {
+        "08주": 8,
+        "09주": 10,
+        "10주": 9,
+        "11주": 5
+      }
+    },
+    {
       "name": "모브 키즈 바지",
       "code": "PKAF20PT554M",
       "total_sales": 0,
@@ -93532,6 +94919,25 @@
         "09주": 0,
         "10주": 0,
         "11주": 0
+      }
+    },
+    {
+      "name": "모브 베이비 반목폴라 - 피카부 유아용 하프넥 티셔츠",
+      "code": "PKAF10TS556M",
+      "total_sales": 136,
+      "revenue": 1904000,
+      "retail": 136,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 1
       }
     },
     {
@@ -93568,6 +94974,120 @@
       "weeks": {
         "08주": 0,
         "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "링클 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI919M",
+      "total_sales": 66,
+      "revenue": 990000,
+      "retail": 66,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.8,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 2,
+        "10주": 1,
+        "11주": 2
+      }
+    },
+    {
+      "name": "알밤 배냇 세트 - 피카부 신생아 상하세트",
+      "code": "PKAF10BS545M",
+      "total_sales": 20,
+      "revenue": 900000,
+      "retail": 20,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 2,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "알밤 수트세트 - 피카부 유아용 바디수트 상하세트",
+      "code": "PKAF10SS546M",
+      "total_sales": 71,
+      "revenue": 2556000,
+      "retail": 71,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 2,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "알밤 키즈세트 - 피카부 아동용 상하세트",
+      "code": "PKAF20ST547M",
+      "total_sales": 39,
+      "revenue": 1248000,
+      "retail": 39,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 0,
+        "10주": 2,
+        "11주": 0
+      }
+    },
+    {
+      "name": "알밤 모자 - 피카부 유아 아동 보넷",
+      "code": "PKAF60HT913M",
+      "total_sales": 25,
+      "revenue": 375000,
+      "retail": 25,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "모비 플라워 보넷 - 피카부 유아 아동 모자",
+      "code": "PKAF60HT945M",
+      "total_sales": 17,
+      "revenue": 442000,
+      "retail": 17,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 8.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 8,
         "10주": 0,
         "11주": 0
       }
@@ -93725,6 +95245,82 @@
       }
     },
     {
+      "name": "빵실 이어머프 - 피카부 유아동 방한 귀마개",
+      "code": "PKAF60EM950M",
+      "total_sales": 49,
+      "revenue": 882000,
+      "retail": 49,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "빵실 베이비세트 - 피카부 유아용 조끼 팬츠 2종 세트",
+      "code": "PKAF10VP572M",
+      "total_sales": 75,
+      "revenue": 3300000,
+      "retail": 75,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.5,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 2,
+        "11주": 1
+      }
+    },
+    {
+      "name": "빵실 키즈세트 - 피카부 아동용 조끼 팬츠 2종 세트",
+      "code": "PKAF20VP573M",
+      "total_sales": 33,
+      "revenue": 1584000,
+      "retail": 33,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "배트 보넷 - 피카부 유아용 할로윈 아기 모자",
+      "code": "PKAF60HT948M",
+      "total_sales": 45,
+      "revenue": 675000,
+      "retail": 45,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
       "name": "배트 바디수트",
       "code": "PKAF10BS570M",
       "total_sales": 0,
@@ -93782,6 +95378,82 @@
       }
     },
     {
+      "name": "컬리 헤어밴드 - 피카부 유아동 곱슬 헤어밴드",
+      "code": "PKAF60HB953M",
+      "total_sales": 9,
+      "revenue": 162000,
+      "retail": 9,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "뉴김장 두건 - 피카부 유아동 스카프",
+      "code": "PKAF60BD952M",
+      "total_sales": 30,
+      "revenue": 300000,
+      "retail": 30,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "뉴김장 미니 복조리백 - 피카부 유아동 미니 가방",
+      "code": "PKAF60BG954M",
+      "total_sales": 18,
+      "revenue": 252000,
+      "retail": 18,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "뉴김장 복조리백 - 피카부 맘커플 가방",
+      "code": "PKAF60BG955M",
+      "total_sales": 8,
+      "revenue": 144000,
+      "retail": 8,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
       "name": "뉴김장 바디수트",
       "code": "PKAF10BS575M",
       "total_sales": 0,
@@ -93799,9 +95471,241 @@
         "10주": 0,
         "11주": 0
       }
+    },
+    {
+      "name": "뉴김장 키즈세트 - 피카부 아동용 촌캉스룩 상하세트",
+      "code": "PKAF20VP574M",
+      "total_sales": 183,
+      "revenue": 6128900,
+      "retail": 183,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 6.5,
+      "grade": "",
+      "weeks": {
+        "08주": 6,
+        "09주": 6,
+        "10주": 3,
+        "11주": 11
+      }
+    },
+    {
+      "name": "네프 테리 스캘럽 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI912M",
+      "total_sales": 16,
+      "revenue": 320000,
+      "retail": 16,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 2,
+        "09주": 2,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "네프 테리 빅 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI969M",
+      "total_sales": 19,
+      "revenue": 342000,
+      "retail": 19,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 4,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "모브 티셔츠 MOM - 피카부 맘 긴팔 티셔츠",
+      "code": "PKAF50TS717M",
+      "total_sales": 13,
+      "revenue": 311400,
+      "retail": 13,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "보아 곰 보넷 - 피카부 유아 아동 모자",
+      "code": "PKAF60HT970M",
+      "total_sales": 68,
+      "revenue": 1496000,
+      "retail": 68,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 4,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "보아 블루머 - 피카부 아기 바지 블루머",
+      "code": "PKAF10BL582M",
+      "total_sales": 72,
+      "revenue": 2016000,
+      "retail": 72,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "보아 빕 - 피카부 아기빕 턱받이 넥워머",
+      "code": "PKAF60BI972M",
+      "total_sales": 28,
+      "revenue": 532000,
+      "retail": 28,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0,
+      "grade": "",
+      "weeks": {
+        "08주": 0,
+        "09주": 0,
+        "10주": 0,
+        "11주": 0
+      }
+    },
+    {
+      "name": "보아 풋워머 - 피카부 아기 풋워머",
+      "code": "PKAF60FW974M",
+      "total_sales": 92,
+      "revenue": 1748000,
+      "retail": 92,
+      "export": 0,
+      "wholesale": 0,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "",
+      "weeks": {
+        "08주": 4,
+        "09주": 0,
+        "10주": 1,
+        "11주": 1
+      }
     }
   ],
   "burndown": [
+    {
+      "season": "26SS",
+      "name": "데이지 수트세트",
+      "code": "PKAS10SS560R",
+      "total_sales": 130,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 9.2,
+      "grade": "0"
+    },
+    {
+      "season": "26SS",
+      "name": "데이지 상하배냇세트",
+      "code": "PKAS10BT561R",
+      "total_sales": 22,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.5,
+      "grade": "0"
+    },
+    {
+      "season": "26SS",
+      "name": "데이지 터번모자",
+      "code": "PKAS60BC951R",
+      "total_sales": 30,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.9,
+      "grade": "0"
+    },
+    {
+      "season": "26SS",
+      "name": "데이지 뉴본터번모자",
+      "code": "PKAS60BC957R",
+      "total_sales": 12,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.1,
+      "grade": "0"
+    },
+    {
+      "season": "26SS",
+      "name": "데이지 손싸개",
+      "code": "PKAS60BM952R",
+      "total_sales": 3,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.5,
+      "grade": "0"
+    },
+    {
+      "season": "26SS",
+      "name": "데이지 발싸개",
+      "code": "PKAS60FM957R",
+      "total_sales": 8,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.1,
+      "grade": "0"
+    },
+    {
+      "season": "26SS",
+      "name": "데이지 반팔 상하배냇세트",
+      "code": "PKAM10BT562R",
+      "total_sales": 16,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.9,
+      "grade": "0"
+    },
+    {
+      "season": "26SS",
+      "name": "데이지 민소매 키즈세트",
+      "code": "PKAM20ST563R",
+      "total_sales": 14,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.5,
+      "grade": "0"
+    },
     {
       "season": "26SS",
       "name": "데이지_민소매 주니어세트",
@@ -93811,6 +95715,26 @@
       "burnrate": 0.0,
       "weekly_avg": 0.0,
       "grade": "999"
+    },
+    {
+      "season": "26SS",
+      "name": "데이지 헤어밴드",
+      "code": "PKAM60HB955R",
+      "total_sales": 36,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 3.0,
+      "grade": "0"
+    },
+    {
+      "season": "26SS",
+      "name": "데이지 빕",
+      "code": "PKAM60BI956R",
+      "total_sales": 22,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.9,
+      "grade": "0"
     },
     {
       "season": "26SS",
@@ -93834,6 +95758,16 @@
     },
     {
       "season": "26SS",
+      "name": "포니 기저귀가방 - 피카부 아기 출산준비물",
+      "code": "PKAF60BG958M",
+      "total_sales": 5,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "26SS",
       "name": "포니 블랭킷",
       "code": "PKAF60BK964M",
       "total_sales": 45,
@@ -93850,6 +95784,16 @@
       "stock": 0,
       "burnrate": 100.0,
       "weekly_avg": 0.6,
+      "grade": "0"
+    },
+    {
+      "season": "26SS",
+      "name": "포니 보넷 - 피카부 신생아 모자",
+      "code": "PKAF60HT967M",
+      "total_sales": 68,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.3,
       "grade": "0"
     },
     {
@@ -93871,6 +95815,46 @@
       "burnrate": 0.0,
       "weekly_avg": 0.0,
       "grade": "999"
+    },
+    {
+      "season": "26SS",
+      "name": "포니 반팔 파자마 맘 원피스 – 피카부 반팔원피스 여성홈웨어",
+      "code": "PKAF50PJ712M",
+      "total_sales": 3,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "26SS",
+      "name": "포니 배냇세트 – 피카부 신생아옷 3종세트",
+      "code": "PKAF10BS580M",
+      "total_sales": 37,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.3,
+      "grade": "0"
+    },
+    {
+      "season": "26SS",
+      "name": "포니 바디배냇 – 피카부 신생아옷 긴팔바디수트",
+      "code": "PKAF10BB581M",
+      "total_sales": 75,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 3.3,
+      "grade": "0"
+    },
+    {
+      "season": "26SS",
+      "name": "포니 리버시블 빕 – 피카부 아기빕 양면턱받이",
+      "code": "PKAF60BI962M",
+      "total_sales": 48,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 3.5,
+      "grade": "0"
     },
     {
       "season": "26SS",
@@ -94144,6 +96128,26 @@
     },
     {
       "season": "25FW",
+      "name": "모아 배냇 세트 - 피카부 신생아옷  3종세트",
+      "code": "PKAF10BT501M",
+      "total_sales": 117,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.4,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "모아 베이비 세트 - 피카부 아기옷 실내복 내복",
+      "code": "PKAF10ST502M",
+      "total_sales": 1214,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 20.9,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
       "name": "모아 키즈 세트",
       "code": "PKAF20ST505M",
       "total_sales": 0,
@@ -94151,6 +96155,26 @@
       "burnrate": 0.0,
       "weekly_avg": 0.0,
       "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "루아 배냇 세트 - 피카부 신생아옷  3종세트",
+      "code": "PKAF10BT507M",
+      "total_sales": 68,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.3,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "루아 베이비 세트 - 피카부 아기옷 실내복 내복",
+      "code": "PKAF10ST508M",
+      "total_sales": 181,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.2,
+      "grade": "0"
     },
     {
       "season": "25FW",
@@ -94164,6 +96188,66 @@
     },
     {
       "season": "25FW",
+      "name": "네프 배냇 세트 - 피카부 신생아옷 3종세트",
+      "code": "PKAF10BA526M",
+      "total_sales": 126,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.3,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "네프 비니 - 피카부 아기모자 아기비니",
+      "code": "PKAF60BN930M",
+      "total_sales": 41,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.8,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "네프 손싸개 - 피카부 신생아용품 아기손싸개",
+      "code": "PKAF60HC931M",
+      "total_sales": 24,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "네프 발싸개 - 피카부 신생아용품 아기발싸개",
+      "code": "PKAF60FC932M",
+      "total_sales": 22,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "네프 프릴 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI911M",
+      "total_sales": 19,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.5,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "네프 베이비 세트 - 피카부 아기옷 실내복 내복",
+      "code": "PKAF10ST528M",
+      "total_sales": 74,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.2,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
       "name": "네프 키즈 세트",
       "code": "PKAF20ST529M",
       "total_sales": 0,
@@ -94171,6 +96255,16 @@
       "burnrate": 0.0,
       "weekly_avg": 0.0,
       "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "노아 배냇세트 - 피카부 신생아옷  3종세트",
+      "code": "PKAF10BT101M",
+      "total_sales": 114,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.7,
+      "grade": "0"
     },
     {
       "season": "25FW",
@@ -94194,11 +96288,51 @@
     },
     {
       "season": "25FW",
+      "name": "노아 비니 - 피카부 아기모자 아기비니",
+      "code": "PKAF60CP906M",
+      "total_sales": 328,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.9,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "안나 배냇세트 - 피카부 신생아옷  3종세트",
+      "code": "PKAF10BT301M",
+      "total_sales": 62,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.9,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
       "name": "안나 바디수트",
       "code": "PKAF20ST303M",
       "total_sales": 0,
       "stock": 0,
       "burnrate": 0.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "안나 헤어밴드 - 피카부 아기헤어밴드 아기악세서리",
+      "code": "PKAF60HB907M",
+      "total_sales": 37,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "안나 스크런치 - 피카부 머리끈 맘커플",
+      "code": "PKAF60HB908M",
+      "total_sales": 14,
+      "stock": 0,
+      "burnrate": 100.0,
       "weekly_avg": 0.0,
       "grade": "999"
     },
@@ -94224,6 +96358,36 @@
     },
     {
       "season": "25FW",
+      "name": "누보 바디수트(뉴트럴) - 피카부 아기옷 바디수트 내복",
+      "code": "PKAF30ST513M",
+      "total_sales": 752,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 12.1,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "누보 배냇 세트(모노) - 피카부 신생아옷 3종세트",
+      "code": "PKAF10BT514M",
+      "total_sales": 48,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "누보 비니(모노) - 피카부 아기모자 아기비니",
+      "code": "PKAF60HT910M",
+      "total_sales": 159,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.1,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
       "name": "누보 바디수트(모노)",
       "code": "PKAF10SS515M",
       "total_sales": 0,
@@ -94241,6 +96405,36 @@
       "burnrate": 0.0,
       "weekly_avg": 0.0,
       "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "누보 바디수트(모노) - 피카부 아기옷 바디수트 내복",
+      "code": "PKAF30ST517M",
+      "total_sales": 865,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 21.7,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "누보 배냇 세트(컬러) - 피카부 신생아옷 3종세트",
+      "code": "PKAF10BT518M",
+      "total_sales": 82,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.8,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "누보 비니(컬러) - 피카부 아기모자 아기비니",
+      "code": "PKAF60HT911M",
+      "total_sales": 72,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.3,
+      "grade": "0"
     },
     {
       "season": "25FW",
@@ -94284,6 +96478,96 @@
     },
     {
       "season": "25FW",
+      "name": "베티 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI924M",
+      "total_sales": 146,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 3.7,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "포코 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI925M",
+      "total_sales": 50,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.1,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "포포 배냇세트 - 피카부 신생아옷 3종세트",
+      "code": "PKAF10BS559M",
+      "total_sales": 43,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.6,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "포포 프릴 배냇 세트 - 피카부 신생아옷 3종세트",
+      "code": "PKAF10BS560M",
+      "total_sales": 28,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.8,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "포포 손싸개 - 피카부 도트 신생아용",
+      "code": "PKAF60HC934M",
+      "total_sales": 19,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "포포 헤어밴드 - 피카부 유아 헤어악세서리",
+      "code": "PKAF60HB923M",
+      "total_sales": 11,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "포포 파자마 바디수트 - 피카부 유아용 내복",
+      "code": "PKAF10PJ531M",
+      "total_sales": 50,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "포포 파자마 프릴 바디수트 - 피카부 유아용 여아 내복",
+      "code": "PKAF10PJ532M",
+      "total_sales": 52,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.6,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "포포 파자마 베이비 세트 - 피카부 유아용 상하세트",
+      "code": "PKAF10PJ533M",
+      "total_sales": 26,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
       "name": "포포 파자마 키즈 세트",
       "code": "PKAF20PJ534M",
       "total_sales": 0,
@@ -94291,6 +96575,46 @@
       "burnrate": 0.0,
       "weekly_avg": 0.0,
       "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "포포 파자마 맘 원피스 - 피카부 임산부 수유복",
+      "code": "PKAF50PJ704M",
+      "total_sales": 1,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "루나비 바디배냇세트 - 피카부 신생아옷 수트세트",
+      "code": "PKAF10SS541M",
+      "total_sales": 103,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.1,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "루나비 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI930M",
+      "total_sales": 40,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "루나비 파자마 베이비 세트 - 피카부 아기옷 실내복 내복",
+      "code": "PKAF10PJ542M",
+      "total_sales": 155,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 4.6,
+      "grade": "0"
     },
     {
       "season": "25FW",
@@ -94304,11 +96628,101 @@
     },
     {
       "season": "25FW",
+      "name": "루나비 파자마 패밀리세트 - 피카부 홈웨어 상하세트",
+      "code": "PKAF50PJ702M",
+      "total_sales": 14,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "루나비 파자마 맘원피스 - 피카부 임산부 수유복",
+      "code": "PKAF50PJ710M",
+      "total_sales": 2,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.3,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "리본 배냇 세트 - 피카부 신생아옷 상하세트",
+      "code": "PKAF10BS549M",
+      "total_sales": 15,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.3,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "리본 반팔 배냇 세트 - 피카부 신생아옷 상하세트",
+      "code": "PKAF10BS562M",
+      "total_sales": 17,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.6,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "리본 꼬리 배냇 - 피카부 신생아옷 속싸개",
+      "code": "PKAF10BN563M",
+      "total_sales": 11,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.3,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
       "name": "리본터번",
       "code": "PKAF60TB935M",
       "total_sales": 0,
       "stock": 0,
       "burnrate": 0.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "리본 터번 - 피카부 아기헤어밴드 아기악세서리",
+      "code": "PKAF60HB936M",
+      "total_sales": 98,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 5.7,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "리본 임산부 긴바지 - 피카부 임부복 임산부바지 홈웨어",
+      "code": "PKAF50PT703M",
+      "total_sales": 2,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "리본 임산부 쫄반바지 - 피카부 임부복 임산부바지 홈웨어",
+      "code": "PKAF50PT706M",
+      "total_sales": 1,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "임산부 긴바지 - 피카부 임부복 임산부바지 홈웨어",
+      "code": "PKAF50PT705M",
+      "total_sales": 4,
+      "stock": 0,
+      "burnrate": 100.0,
       "weekly_avg": 0.0,
       "grade": "999"
     },
@@ -94324,11 +96738,121 @@
     },
     {
       "season": "25FW",
+      "name": "리본 MOM 튜브 탑 - 피카부 임산부옷 촬영룩 홈웨어",
+      "code": "PKAF50TP709M",
+      "total_sales": 7,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "리본 비니 - 피카부 아기모자 신생아모자",
+      "code": "PKAF60HT937M",
+      "total_sales": 9,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "리본 손싸개 - 피카부 신생아용품 아기손싸개",
+      "code": "PKAF60HC939M",
+      "total_sales": 18,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.6,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "리본 발싸개 - 피카부 신생아용품 아기발싸개",
+      "code": "PKAF60FC938M",
+      "total_sales": 19,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.6,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "윌리 배냇세트 - 피카부 신생아옷 3종세트",
+      "code": "PKAF10BN565M",
+      "total_sales": 52,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.0,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "윌리 손발싸개 - 피카부 신생아용품 아기 손발싸개",
+      "code": "PKAF60HF944M",
+      "total_sales": 8,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "윌리 양갈래 모자 - 피카부 아기모자 양갈래 모자",
+      "code": "PKAF60HT940M",
+      "total_sales": 65,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.3,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "윌리 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI943M",
+      "total_sales": 105,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
       "name": "윌리 바디수트",
       "code": "PKAF10BS566M",
       "total_sales": 0,
       "stock": 0,
       "burnrate": 0.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "윌리 베이비세트 - 피카부 유아용 상하세트",
+      "code": "PKAF10ST567M",
+      "total_sales": 48,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.4,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "윌리 스트라이프 페이크 폴라 - 피카부 유아동 목폴라 코디템",
+      "code": "PKAF60FP941M",
+      "total_sales": 15,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "윌리 솔리드 페이크 폴라 - 피카부 유아동 목폴라 코디템",
+      "code": "PKAF60FP942M",
+      "total_sales": 20,
+      "stock": 0,
+      "burnrate": 100.0,
       "weekly_avg": 0.0,
       "grade": "999"
     },
@@ -94344,6 +96868,16 @@
     },
     {
       "season": "25FW",
+      "name": "모브 베이비 바지 - 피카부 유아용 긴바지",
+      "code": "PKAF10PT553M",
+      "total_sales": 115,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 8.4,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
       "name": "모브 키즈 바지",
       "code": "PKAF20PT554M",
       "total_sales": 0,
@@ -94351,6 +96885,16 @@
       "burnrate": 0.0,
       "weekly_avg": 0.0,
       "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "모브 베이비 반목폴라 - 피카부 유아용 하프넥 티셔츠",
+      "code": "PKAF10TS556M",
+      "total_sales": 136,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.3,
+      "grade": "0"
     },
     {
       "season": "25FW",
@@ -94369,6 +96913,76 @@
       "total_sales": 0,
       "stock": 0,
       "burnrate": 0.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "링클 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI919M",
+      "total_sales": 66,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.4,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "알밤 배냇 세트 - 피카부 신생아 상하세트",
+      "code": "PKAF10BS545M",
+      "total_sales": 20,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.6,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "알밤 수트세트 - 피카부 유아용 바디수트 상하세트",
+      "code": "PKAF10SS546M",
+      "total_sales": 71,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.6,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "알밤 키즈세트 - 피카부 아동용 상하세트",
+      "code": "PKAF20ST547M",
+      "total_sales": 39,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.1,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "알밤 모자 - 피카부 유아 아동 보넷",
+      "code": "PKAF60HT913M",
+      "total_sales": 25,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "모비 플라워 보넷 - 피카부 유아 아동 모자",
+      "code": "PKAF60HT945M",
+      "total_sales": 17,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 2.0,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "모비 방울 보넷 - 피카부 유아 아동 모자",
+      "code": "PKAF60HT947M",
+      "total_sales": 11,
+      "stock": 0,
+      "burnrate": 100.0,
       "weekly_avg": 0.0,
       "grade": "999"
     },
@@ -94454,6 +97068,46 @@
     },
     {
       "season": "25FW",
+      "name": "빵실 이어머프 - 피카부 유아동 방한 귀마개",
+      "code": "PKAF60EM950M",
+      "total_sales": 49,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "빵실 베이비세트 - 피카부 유아용 조끼 팬츠 2종 세트",
+      "code": "PKAF10VP572M",
+      "total_sales": 75,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.8,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "빵실 키즈세트 - 피카부 아동용 조끼 팬츠 2종 세트",
+      "code": "PKAF20VP573M",
+      "total_sales": 33,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "배트 보넷 - 피카부 유아용 할로윈 아기 모자",
+      "code": "PKAF60HT948M",
+      "total_sales": 45,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
       "name": "배트 바디수트",
       "code": "PKAF10BS570M",
       "total_sales": 0,
@@ -94484,6 +97138,46 @@
     },
     {
       "season": "25FW",
+      "name": "컬리 헤어밴드 - 피카부 유아동 곱슬 헤어밴드",
+      "code": "PKAF60HB953M",
+      "total_sales": 9,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "뉴김장 두건 - 피카부 유아동 스카프",
+      "code": "PKAF60BD952M",
+      "total_sales": 30,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "뉴김장 미니 복조리백 - 피카부 유아동 미니 가방",
+      "code": "PKAF60BG954M",
+      "total_sales": 18,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "뉴김장 복조리백 - 피카부 맘커플 가방",
+      "code": "PKAF60BG955M",
+      "total_sales": 8,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
       "name": "뉴김장 바디수트",
       "code": "PKAF10BS575M",
       "total_sales": 0,
@@ -94491,6 +97185,86 @@
       "burnrate": 0.0,
       "weekly_avg": 0.0,
       "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "뉴김장 키즈세트 - 피카부 아동용 촌캉스룩 상하세트",
+      "code": "PKAF20VP574M",
+      "total_sales": 78,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "네프 테리 스캘럽 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI912M",
+      "total_sales": 16,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.1,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "네프 테리 빅 빕 - 피카부 아기빕 턱받이",
+      "code": "PKAF60BI969M",
+      "total_sales": 19,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.0,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "보아 곰 보넷 - 피카부 유아 아동 모자",
+      "code": "PKAF60HT970M",
+      "total_sales": 68,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.0,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "보아 토끼 보넷 - 피카부 유아 아동 모자",
+      "code": "PKAF60HT971M",
+      "total_sales": 36,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.6,
+      "grade": "0"
+    },
+    {
+      "season": "25FW",
+      "name": "보아 블루머 – 피카부 아기 바지 블루머",
+      "code": "PKAF10BL582M",
+      "total_sales": 72,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "보아 빕 - 피카부 아기빕 턱받이 넥워머",
+      "code": "PKAF60BI972M",
+      "total_sales": 28,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 0.0,
+      "grade": "999"
+    },
+    {
+      "season": "25FW",
+      "name": "보아 풋워머 - 피카부 아기 풋워머",
+      "code": "PKAF60FW974M",
+      "total_sales": 92,
+      "stock": 0,
+      "burnrate": 100.0,
+      "weekly_avg": 1.6,
+      "grade": "0"
     }
   ],
   "color_ranking": [
