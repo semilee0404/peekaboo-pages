@@ -2,7 +2,8 @@
   "period": {
     "start": "2025-12-28",
     "end": "2026-03-27",
-    "days": 74
+    "days": 74,
+    "sales_file_date": "2026-03-27"
   },
   "full_summary": {
     "total_sales": 140604,
@@ -111900,6 +111901,10 @@
     }
   },
   "updated_at": "2026-03-27 16:35",
+  "data_sources": {
+    "sales_date": "2026-03-27",
+    "stock_date": "2026-03-27"
+  },
   "summary": {
     "total_sales": 140604,
     "total_revenue": 2183975261,
