@@ -639,141 +639,228 @@
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="section" id="coupon">
 
-  <!-- 쿠폰 종합 현황 -->
-  <div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">
+  <!-- 쿠폰 종합 현황 KPI -->
+  <div class="kpi-row" style="grid-template-columns:repeat(5,1fr)">
     <div class="kpi">
-      <div class="label">총 쿠폰 발급</div>
-      <div class="val" style="color:var(--orange)">43건</div>
-      <div class="sub">3종 쿠폰 합계</div>
+      <div class="label">전체 주문 (3/19~30)</div>
+      <div class="val" style="color:var(--text)">630건</div>
+      <div class="sub">Cafe24 API 기준</div>
     </div>
     <div class="kpi">
-      <div class="label">총 사용</div>
-      <div class="val" style="color:var(--green)">8건</div>
-      <div class="sub">사용 완료 기준</div>
+      <div class="label">쿠폰 사용 주문</div>
+      <div class="val" style="color:var(--orange)">215건</div>
+      <div class="sub">전체의 34.1%</div>
     </div>
     <div class="kpi">
-      <div class="label">종합 사용률</div>
-      <div class="val" style="color:var(--accent2)">18.6%</div>
-      <div class="sub">8 / 43건</div>
+      <div class="label">무료배송 쿠폰</div>
+      <div class="val" style="color:var(--blue)">180건</div>
+      <div class="sub">쿠폰 주문의 83.7%</div>
     </div>
     <div class="kpi">
-      <div class="label">예상 쿠폰 매출 기여</div>
-      <div class="val" style="color:var(--gold)">~14만</div>
-      <div class="sub">1만원권 7건 + 무료배송 1건</div>
+      <div class="label">총 쿠폰 할인액</div>
+      <div class="val" style="color:var(--red)">~73만</div>
+      <div class="sub">215건 할인 합계</div>
+    </div>
+    <div class="kpi">
+      <div class="label">쿠폰 주문 매출</div>
+      <div class="val" style="color:var(--green)">~780만</div>
+      <div class="sub">쿠폰 사용 주문 결제액</div>
     </div>
   </div>
 
-  <!-- 쿠폰별 상세 -->
+  <!-- Cafe24 API 쿠폰 주문 분석 -->
   <div class="card">
-    <div class="card-title"><div class="icon" style="background:rgba(245,158,11,0.12);color:var(--orange)">C</div>쿠폰별 발급/사용 현황</div>
+    <div class="card-title"><div class="icon" style="background:var(--blue-bg);color:var(--blue)">D</div>Cafe24 API 쿠폰 사용 주문 분석 (3/19~3/30)</div>
     <table class="data-table">
-      <tr><th>#</th><th>쿠폰명</th><th>혜택</th><th>배포 방식</th><th class="right">발급</th><th class="right">사용</th><th class="right">미사용</th><th class="right">사용률</th><th>상태</th></tr>
-      <tr>
-        <td><span class="rank gold">1</span></td>
-        <td style="font-weight:600">뽑기 1만원 상품권</td>
-        <td><span style="background:var(--green-bg);color:var(--green);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">1만원 할인</span></td>
-        <td style="font-size:12px;color:var(--text-dim)">팝업 현장 뽑기</td>
-        <td class="num">25</td>
-        <td class="num" style="color:var(--green);font-weight:700">7</td>
-        <td class="num">18</td>
-        <td class="num" style="color:var(--green);font-weight:700">28.0%</td>
-        <td><span style="background:var(--green-bg);color:var(--green);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">완료</span></td>
+      <tr><th>쿠폰 유형</th><th class="right">사용 건수</th><th class="right">비중</th><th class="right">할인 금액</th><th>추정 쿠폰</th></tr>
+      <tr style="background:rgba(59,130,246,0.04)">
+        <td style="font-weight:600;color:var(--blue)">3,000원 할인 + 배송쿠폰</td>
+        <td class="num" style="font-weight:700">~170건</td>
+        <td class="num">79.1%</td>
+        <td class="num">건당 6,000원</td>
+        <td style="font-size:12px;color:var(--text-dim)">상시 운영 자동발급 쿠폰</td>
+      </tr>
+      <tr style="background:rgba(34,197,94,0.04)">
+        <td style="font-weight:600;color:var(--green)">10,000원 할인</td>
+        <td class="num" style="color:var(--green);font-weight:700">7건</td>
+        <td class="num">3.3%</td>
+        <td class="num">건당 10,000원</td>
+        <td style="font-size:12px;color:var(--green)">뽑기 1만원 상품권 (Cafe24 데이터 일치)</td>
       </tr>
       <tr>
-        <td><span class="rank silver">2</span></td>
-        <td style="font-weight:600">팝업 소문내기 무료배송</td>
-        <td><span style="background:var(--blue-bg);color:var(--blue);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">무료배송</span></td>
-        <td style="font-size:12px;color:var(--text-dim)">인스타 DM</td>
-        <td class="num">18</td>
-        <td class="num">1</td>
-        <td class="num">17</td>
-        <td class="num" style="color:var(--red)">5.6%</td>
-        <td><span style="background:var(--green-bg);color:var(--green);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">완료</span></td>
+        <td style="font-weight:600;color:var(--purple)">정률 할인 (2,000~18,000원)</td>
+        <td class="num">~35건</td>
+        <td class="num">16.3%</td>
+        <td class="num">건당 평균 ~4,500원</td>
+        <td style="font-size:12px;color:var(--text-dim)">% 기반 할인 쿠폰</td>
       </tr>
-      <tr style="background:rgba(245,158,11,0.04)">
-        <td><span class="rank bronze">3</span></td>
-        <td style="font-weight:600">대구팝업방문인증 무료배송</td>
-        <td><span style="background:var(--blue-bg);color:var(--blue);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">무료배송</span></td>
-        <td style="font-size:12px;color:var(--text-dim)">인스타 DM</td>
+      <tr>
+        <td style="font-weight:600;color:var(--text-dim)">배송비 0원 주문 (쿠폰 외)</td>
+        <td class="num">197건</td>
+        <td class="num">31.3%</td>
         <td class="num">-</td>
-        <td class="num">-</td>
-        <td class="num">-</td>
-        <td class="num">-</td>
-        <td><span style="background:var(--orange-bg);color:var(--orange);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">DM 발송 예정</span></td>
+        <td style="font-size:12px;color:var(--text-dim)">무료배송 기준 충족 (5만원 이상 등)</td>
       </tr>
+    </table>
+    <div class="insight" style="margin-top:12px">
+      <span class="tag">API VALIDATION</span>
+      뽑기 1만원 상품권 <strong>7건 사용</strong>이 Cafe24 주문 데이터에서 <strong>coupon_discount_price = 10,000원</strong>으로 정확히 확인됩니다.
+      상시 3,000원 쿠폰(자동발급)이 170건으로 가장 많지만, 이는 팝업 전용이 아닌 <strong>기존 운영 쿠폰</strong>입니다.
+    </div>
+  </div>
+
+  <!-- 일별 쿠폰 사용 추이 -->
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:rgba(245,158,11,0.12);color:var(--orange)">T</div>일별 쿠폰 사용 추이</div>
+    <table class="data-table">
+      <tr><th>날짜</th><th class="right">전체 주문</th><th class="right">쿠폰 사용</th><th class="right">쿠폰 비율</th><th class="right">10,000원 쿠폰</th><th>비고</th></tr>
+      <tr><td>3/19 (D1)</td><td class="num">50+</td><td class="num">20</td><td class="num">~40%</td><td class="num">0</td><td style="font-size:11px;color:var(--text-dim)">팝업 오픈일</td></tr>
+      <tr><td>3/20 (D2)</td><td class="num">47+</td><td class="num">17</td><td class="num">~36%</td><td class="num">0</td><td></td></tr>
+      <tr><td>3/21 (D3)</td><td class="num">37+</td><td class="num">11</td><td class="num">~30%</td><td class="num" style="color:var(--green)">1</td><td style="font-size:11px;color:var(--green)">첫 뽑기권 사용</td></tr>
+      <tr><td>3/22 (D4)</td><td class="num">38+</td><td class="num">22</td><td class="num" style="color:var(--orange)">~58%</td><td class="num" style="color:var(--green)">1</td><td style="font-size:11px;color:var(--orange)">쿠폰 사용 피크</td></tr>
+      <tr><td>3/23 (D5)</td><td class="num">67+</td><td class="num">21</td><td class="num">~31%</td><td class="num">0</td><td></td></tr>
+      <tr><td>3/24 (D6)</td><td class="num">67+</td><td class="num">24</td><td class="num">~36%</td><td class="num" style="color:var(--green)">1</td><td></td></tr>
+      <tr><td>3/25 (D7)</td><td class="num">50+</td><td class="num">19</td><td class="num">~38%</td><td class="num">0</td><td></td></tr>
+      <tr><td>3/26 (D8)</td><td class="num">63+</td><td class="num">21</td><td class="num">~33%</td><td class="num" style="color:var(--green)">2</td><td style="font-size:11px;color:var(--text-dim)">팝업 마지막날</td></tr>
+      <tr style="background:rgba(245,158,11,0.04)"><td>3/27 (팝업 후)</td><td class="num">79+</td><td class="num">21</td><td class="num">~27%</td><td class="num" style="color:var(--green)">1</td><td style="font-size:11px;color:var(--orange)">팝업 후 잔존 전환</td></tr>
+      <tr><td>3/28</td><td class="num">42+</td><td class="num">13</td><td class="num">~31%</td><td class="num" style="color:var(--green)">1</td><td></td></tr>
+      <tr><td>3/29~30</td><td class="num">38+</td><td class="num">16</td><td class="num">~42%</td><td class="num">0</td><td></td></tr>
     </table>
   </div>
 
-  <!-- 쿠폰 시각화 -->
+  <!-- 팝업 전용 쿠폰 상세 -->
   <div class="grid-2">
     <div class="card">
-      <div class="card-title"><div class="icon" style="background:var(--green-bg);color:var(--green)">V</div>쿠폰 사용률 비교</div>
-      <div class="bar-chart">
+      <div class="card-title"><div class="icon" style="background:var(--green-bg);color:var(--green)">P</div>팝업 전용 쿠폰 현황</div>
+      <table class="data-table">
+        <tr><th>쿠폰명</th><th>혜택</th><th>배포</th><th class="right">발급</th><th class="right">사용</th><th class="right">사용률</th><th>상태</th></tr>
+        <tr>
+          <td style="font-weight:600">뽑기 1만원 상품권</td>
+          <td><span style="background:var(--green-bg);color:var(--green);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">1만원</span></td>
+          <td style="font-size:11px;color:var(--text-dim)">현장 뽑기</td>
+          <td class="num">25</td>
+          <td class="num" style="color:var(--green);font-weight:700">7</td>
+          <td class="num" style="color:var(--green);font-weight:700">28.0%</td>
+          <td><span style="background:var(--green-bg);color:var(--green);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">완료</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">소문내기 무료배송</td>
+          <td><span style="background:var(--blue-bg);color:var(--blue);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">무료배송</span></td>
+          <td style="font-size:11px;color:var(--text-dim)">인스타 DM</td>
+          <td class="num">18</td>
+          <td class="num">1</td>
+          <td class="num" style="color:var(--red)">5.6%</td>
+          <td><span style="background:var(--green-bg);color:var(--green);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">완료</span></td>
+        </tr>
+        <tr style="background:rgba(245,158,11,0.04)">
+          <td style="font-weight:600">방문인증 무료배송</td>
+          <td><span style="background:var(--blue-bg);color:var(--blue);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">무료배송</span></td>
+          <td style="font-size:11px;color:var(--text-dim)">인스타 DM</td>
+          <td class="num">-</td>
+          <td class="num">-</td>
+          <td class="num">-</td>
+          <td><span style="background:var(--orange-bg);color:var(--orange);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">발송 예정</span></td>
+        </tr>
+      </table>
+      <div class="bar-chart" style="margin-top:16px">
         <div class="bar-row">
-          <div class="bar-label">뽑기 1만원 상품권</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width:28%;background:var(--green)">28.0%</div>
-          </div>
+          <div class="bar-label">뽑기 1만원</div>
+          <div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--green)">28.0%</div></div>
           <div class="bar-value">7/25</div>
         </div>
         <div class="bar-row">
           <div class="bar-label">소문내기 무료배송</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width:5.6%;background:var(--red);min-width:50px">5.6%</div>
-          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:5.6%;background:var(--red);min-width:50px">5.6%</div></div>
           <div class="bar-value">1/18</div>
         </div>
-        <div class="bar-row">
-          <div class="bar-label">방문인증 무료배송</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width:0%;background:var(--orange);min-width:60px">발송 예정</div>
-          </div>
-          <div class="bar-value">-</div>
-        </div>
-      </div>
-      <div class="insight" style="margin-top:16px">
-        <span class="tag">COUPON INSIGHT</span>
-        <strong>1만원 할인권(28%)</strong>이 무료배송(5.6%)보다 <strong>5배 높은 사용률</strong>.
-        금액 할인이 체감 혜택이 크기 때문입니다. 부산 팝업에서는 <strong>금액 할인 쿠폰 비중을 높이는 것</strong>을 권장합니다.
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title"><div class="icon" style="background:rgba(168,85,247,0.12);color:var(--purple)">A</div>쿠폰 분석 &amp; 부산 팝업 전략</div>
-      <div style="display:flex;flex-direction:column;gap:16px">
-        <div style="background:rgba(239,68,68,0.06);border-radius:10px;padding:16px;border-left:3px solid var(--red)">
-          <div style="font-weight:700;font-size:13px;margin-bottom:6px;color:var(--red)">무료배송 쿠폰 사용률 저조 (5.6%)</div>
-          <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
-            DM으로 발송한 무료배송 쿠폰은 18건 중 1건만 사용. 배송비(~3,000원) 할인은 구매 동기로 약하며, DM 도달률/오픈률 자체가 낮았을 가능성도 있음.
-          </div>
-        </div>
-        <div style="background:rgba(34,197,94,0.06);border-radius:10px;padding:16px;border-left:3px solid var(--green)">
-          <div style="font-weight:700;font-size:13px;margin-bottom:6px;color:var(--green)">뽑기 상품권 효과적 (28%)</div>
-          <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
-            현장 뽑기 이벤트로 받은 1만원 상품권은 7명이 실제 사용. 현장 체험 &rarr; 쿠폰 수령 &rarr; 온라인 구매로 이어지는 O2O 전환이 확인됨.
-          </div>
-        </div>
-        <div style="background:rgba(59,130,246,0.06);border-radius:10px;padding:16px;border-left:3px solid var(--blue)">
-          <div style="font-weight:700;font-size:13px;margin-bottom:6px;color:var(--blue)">부산 팝업 쿠폰 전략 제안</div>
-          <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
-            1) 현장 뽑기/이벤트 쿠폰 <strong>발급량 2배</strong> (50장+) 확대<br>
-            2) 무료배송 대신 <strong>5,000원 할인</strong>으로 체감 혜택 상향<br>
-            3) DM 발송 시 <strong>단축 URL + UTM</strong>으로 정확한 추적<br>
-            4) 쿠폰 유효기간을 <strong>2주 이내</strong>로 설정해 긴급성 부여
-          </div>
-        </div>
+      <div class="card-title"><div class="icon" style="background:rgba(6,182,212,0.12);color:var(--cyan)">U</div>UTM 추적 유입 (QR/단축URL)</div>
+      <table class="data-table">
+        <tr><th>UTM Campaign</th><th>Source</th><th class="right">세션</th><th class="right">유저</th><th class="right">구매</th></tr>
+        <tr>
+          <td style="font-weight:600;color:var(--cyan)">daegu_popup_2603</td>
+          <td style="font-size:12px">offline / qr</td>
+          <td class="num">23</td>
+          <td class="num">19</td>
+          <td class="num" style="color:var(--red)">0</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;color:var(--cyan)">daegu_popup_2503</td>
+          <td style="font-size:12px">qr / pop_display</td>
+          <td class="num">5</td>
+          <td class="num">2</td>
+          <td class="num" style="color:var(--red)">0</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;color:var(--purple)">reurl.cc (단축URL)</td>
+          <td style="font-size:12px">referral</td>
+          <td class="num">73</td>
+          <td class="num">66</td>
+          <td class="num" style="color:var(--red)">0</td>
+        </tr>
+      </table>
+      <div class="insight" style="margin-top:12px">
+        <span class="tag">UTM INSIGHT</span>
+        QR 코드 2종 + 단축URL로 총 <strong>101세션, 87유저</strong>가 유입됐지만 직접 구매 전환은 <strong>0건</strong>.
+        이 유저들은 사이트 탐색 후 이탈했거나, <strong>나중에 direct로 재방문하여 구매</strong>한 것으로 추정됩니다.
+        (뽑기 상품권 7건 사용은 direct 세션으로 잡혔을 가능성 높음)
       </div>
     </div>
   </div>
 
-  <!-- 방문인증 쿠폰 안내 -->
-  <div class="coupon-note">
-    <h4>대구팝업방문인증 무료배송 &mdash; DM 발송 예정</h4>
-    <p>
-      팝업 방문 인증 고객 대상 무료배송 쿠폰은 DM 발송 후 수치가 업데이트됩니다.<br>
-      발송 완료 후 <strong>발급 수 / 다운로드 수 / 사용 수</strong>를 알려주시면 이 대시보드에 즉시 반영하겠습니다.<br>
-      <strong style="color:var(--orange)">TIP:</strong> 발송 시 bit.ly 등 단축 URL로 쿠폰 링크를 감싸면 DM 클릭 수를 정확히 추적할 수 있습니다.
-    </p>
+  <!-- 구매인증 이벤트 + 전략 -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:rgba(236,72,153,0.12);color:var(--pink)">I</div>진행 중인 이벤트</div>
+      <div style="background:rgba(236,72,153,0.06);border-radius:12px;padding:20px;border-left:3px solid var(--pink);margin-bottom:16px">
+        <div style="font-weight:700;font-size:14px;color:var(--pink);margin-bottom:8px">#피카부대구팝업구매인증</div>
+        <div style="font-size:12px;color:var(--text-dim);line-height:1.7">
+          인스타그램 해시태그 기반 구매인증 이벤트 진행 중.<br>
+          GA4에서는 추적 불가 (인스타 네이티브 활동).<br>
+          <strong style="color:var(--pink)">확인 방법:</strong> 인스타 검색에서 해시태그 게시물 수 카운트.
+        </div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);border-radius:12px;padding:20px;border-left:3px solid var(--orange)">
+        <div style="font-weight:700;font-size:14px;color:var(--orange);margin-bottom:8px">대구팝업방문인증 무료배송 (DM 발송 예정)</div>
+        <div style="font-size:12px;color:var(--text-dim);line-height:1.7">
+          팝업 방문 인증 고객 대상 무료배송 쿠폰 DM 발송 예정.<br>
+          <strong style="color:var(--orange)">TIP:</strong> bit.ly 단축URL + UTM 파라미터로 발송하면<br>클릭 수 &rarr; 사이트 유입 &rarr; 구매 전환까지 정확히 추적 가능.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:rgba(168,85,247,0.12);color:var(--purple)">S</div>쿠폰 전략 분석 &amp; 부산 적용</div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="background:rgba(34,197,94,0.06);border-radius:10px;padding:16px;border-left:3px solid var(--green)">
+          <div style="font-weight:700;font-size:13px;color:var(--green);margin-bottom:6px">뽑기 상품권 = 최고 효율 (28%)</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
+            현장 체험 &rarr; 쿠폰 수령 &rarr; 온라인 구매. O2O 전환의 핵심 장치. 부산에서는 <strong>발급량 50장+</strong>으로 확대 권장.
+          </div>
+        </div>
+        <div style="background:rgba(239,68,68,0.06);border-radius:10px;padding:16px;border-left:3px solid var(--red)">
+          <div style="font-weight:700;font-size:13px;color:var(--red);margin-bottom:6px">DM 무료배송 = 저조 (5.6%)</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
+            배송비 3,000원 할인은 체감이 약함. 부산에서는 <strong>5,000원 할인</strong>으로 변경하고, DM 대신 <strong>스토리 멘션 자동 발급</strong> 방식 검토.
+          </div>
+        </div>
+        <div style="background:rgba(59,130,246,0.06);border-radius:10px;padding:16px;border-left:3px solid var(--blue)">
+          <div style="font-weight:700;font-size:13px;color:var(--blue);margin-bottom:6px">QR 유입 O, 구매 전환 X</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
+            QR/단축URL로 101명 유입됐지만 직접 구매 0건. QR 랜딩을 <strong>쿠폰 자동 적용 + 베스트 상품 페이지</strong>로 변경하면 전환 개선 가능.
+          </div>
+        </div>
+        <div style="background:rgba(168,85,247,0.06);border-radius:10px;padding:16px;border-left:3px solid var(--purple)">
+          <div style="font-weight:700;font-size:13px;color:var(--purple);margin-bottom:6px">Cafe24 쿠폰 API 권한 추가 필요</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
+            현재 주문 데이터에서 쿠폰 사용은 확인 가능하나, <strong>쿠폰명/발급 내역</strong>은 별도 API 스코프(mall.read_coupon) 추가 후 자동화 가능.
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
