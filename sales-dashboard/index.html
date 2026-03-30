@@ -549,23 +549,23 @@
       <div class="hero-month-label">3월 누적매출 (3채널)</div>
       <div class="hero-revenue">2.7억원</div>
       <div class="hero-sub-stats">
-        <span>이번 주 7,299만원</span>
+        <span>이번 주 7,298만원</span>
         <span class="hero-separator">|</span>
 
-        <span>WoW +18.2%</span>
+        <span>WoW +18.8%</span>
         
       </div>
       <div class="hero-badges">
         
         <span class="badge badge--green">
-          ▲ 18.2%
+          ▲ 18.8%
           <span class="badge-label">전주 대비</span>
         </span>
-        
-        
+
+
         <span class="badge badge--blue">
-          ▲ 4.3%
-          <span class="badge-label">전년 대비</span>
+          ▲ 13.1%
+          <span class="badge-label">자사몰 전년 대비</span>
         </span>
         
       </div>
@@ -609,7 +609,7 @@
         
         <div class="channel-card">
           
-          <div class="channel-name">쿠팡</div>
+          <div class="channel-name">쿠팡 (GMV)</div>
           <div class="channel-revenue">4,553만원</div>
           <div class="channel-meta">
             <span class="channel-prev">전주 4,313만원</span>
@@ -629,18 +629,18 @@
         <div class="channel-card">
           
           <div class="channel-name">자사몰</div>
-          <div class="channel-revenue">2,664만원</div>
+          <div class="channel-revenue">2,663만원</div>
           <div class="channel-meta">
-            <span class="channel-prev">전주 1,719만원</span>
+            <span class="channel-prev">전주 1,691만원</span>
 
 
-                <span class="channel-change channel-change--up">▲ +55.0%</span>
+                <span class="channel-change channel-change--up">▲ +57.5%</span>
 
 
           </div>
           <div class="channel-extended">
-            <div class="channel-month">3월 누적: 8,088만원</div>
-            <div class="channel-margin">추정 마진: 2,571만원</div>
+            <div class="channel-month">전년 동기: 2,356만원 (YoY +13.1%)</div>
+            <div class="channel-margin">추정 마진: 2,570만원</div>
           </div>
           <div class="channel-share">비중 36.5%</div>
         </div>
@@ -704,8 +704,8 @@
           <div class="analysis-type analysis-type--warning">
             &#x1F4C9; 주의 포인트
           </div>
-          <div class="analysis-title">자사몰 API vs 실수치 차이 주의</div>
-          <div class="analysis-desc">자사몰 2,664만원은 API 참고치. 셀러센터 DailyList 기준 실수치와 차이 가능 (환불 미반영)</div>
+          <div class="analysis-title">자사몰 API 참고치 주의</div>
+          <div class="analysis-desc">자사몰 2,663만원은 API값(2회 조회 일치). 취소/환불 소급 반영으로 실수치와 차이 가능</div>
         </div>
         
         <div class="analysis-footer">
@@ -1237,8 +1237,8 @@ Pick your flavor!
 
   <!-- ═══ Footer ═══ -->
   <div class="footer">
-    마지막 업데이트: 2026-03-30 14:50<br>
-    3채널 기준 (쿠팡·자사몰·스마트스토어) · 롯데온 미반영 · 자사몰 API 참고치
+    마지막 업데이트: 2026-03-31<br>
+    3채널 기준 · 자사몰 API 참고치(2회 검증) · 쿠팡 GMV(검산 완료) · 스마트스토어 셀러센터 순매출
   </div>
 
   <!-- ═══ Chart.js ═══ -->
@@ -1253,7 +1253,7 @@ Pick your flavor!
 
     // ── Channel Bar Chart ──
     (function() {
-      const channels = [{"change_pct": 5.6, "channel": "\ucfe0\ud321", "commission_rate": 0.108, "dependency_warning": false, "estimated_margin": 40608300, "month_revenue": 179690850, "prev_week_revenue": 43127090, "revenue": 45525000, "share_pct": 62.4}, {"change_pct": 55.0, "channel": "\uc790\uc0ac\ubab0", "commission_rate": 0.035, "dependency_warning": false, "estimated_margin": 25709801, "month_revenue": 80876817, "prev_week_revenue": 17188756, "revenue": 26642281, "share_pct": 36.5}, {"change_pct": -41.6, "channel": "\uc2a4\ub9c8\ud2b8\uc2a4\ud1a0\uc5b4", "commission_rate": 0.055, "dependency_warning": false, "estimated_margin": 781232, "month_revenue": 4943200, "prev_week_revenue": 1414700, "revenue": 826700, "share_pct": 1.1}];
+      const channels = [{"change_pct": 5.6, "channel": "\ucfe0\ud321", "commission_rate": 0.108, "dependency_warning": false, "estimated_margin": 40608300, "month_revenue": 179690850, "prev_week_revenue": 43127090, "revenue": 45525000, "share_pct": 62.4}, {"change_pct": 57.5, "channel": "\uc790\uc0ac\ubab0", "commission_rate": 0.035, "dependency_warning": false, "estimated_margin": 25699958, "month_revenue": 80876817, "prev_week_revenue": 16910256, "revenue": 26632081, "share_pct": 36.5}, {"change_pct": -41.6, "channel": "\uc2a4\ub9c8\ud2b8\uc2a4\ud1a0\uc5b4", "commission_rate": 0.055, "dependency_warning": false, "estimated_margin": 781232, "month_revenue": 4943200, "prev_week_revenue": 1414700, "revenue": 826700, "share_pct": 1.1}];
       const ctx = document.getElementById('channelChart').getContext('2d');
 
       new Chart(ctx, {
@@ -1304,7 +1304,7 @@ Pick your flavor!
 
     // ── Weekly Trend Line Chart ──
     (function() {
-      const trend = [{"label": "2/2~", "prev_year_revenue": 66146318, "revenue": 86757542, "week_end": "2026-02-08", "week_start": "2026-02-02"}, {"label": "2/9~", "prev_year_revenue": 61917488, "revenue": 90707153, "week_end": "2026-02-15", "week_start": "2026-02-09"}, {"label": "2/16~", "prev_year_revenue": 65021776, "revenue": 79560180, "week_end": "2026-02-22", "week_start": "2026-02-16"}, {"label": "2/23~", "prev_year_revenue": 57975272, "revenue": 63002477, "week_end": "2026-03-01", "week_start": "2026-02-23"}, {"label": "3/2~", "prev_year_revenue": 65111134, "revenue": 79500191, "week_end": "2026-03-08", "week_start": "2026-03-02"}, {"label": "3/9~", "prev_year_revenue": 68427997, "revenue": 60883369, "week_end": "2026-03-15", "week_start": "2026-03-09"}, {"label": "3/16~", "prev_year_revenue": 60705194, "revenue": 63339846, "week_end": "2026-03-22", "week_start": "2026-03-16"}, {"label": "3/23~", "prev_year_revenue": 0, "revenue": 72993981, "week_end": "2026-03-29", "week_start": "2026-03-23"}];
+      const trend = [{"label": "2/2~", "prev_year_revenue": 66146318, "revenue": 86757542, "week_end": "2026-02-08", "week_start": "2026-02-02"}, {"label": "2/9~", "prev_year_revenue": 61917488, "revenue": 90707153, "week_end": "2026-02-15", "week_start": "2026-02-09"}, {"label": "2/16~", "prev_year_revenue": 65021776, "revenue": 79560180, "week_end": "2026-02-22", "week_start": "2026-02-16"}, {"label": "2/23~", "prev_year_revenue": 57975272, "revenue": 63002477, "week_end": "2026-03-01", "week_start": "2026-02-23"}, {"label": "3/2~", "prev_year_revenue": 65111134, "revenue": 79500191, "week_end": "2026-03-08", "week_start": "2026-03-02"}, {"label": "3/9~", "prev_year_revenue": 68427997, "revenue": 60883369, "week_end": "2026-03-15", "week_start": "2026-03-09"}, {"label": "3/16~", "prev_year_revenue": 60705194, "revenue": 63339846, "week_end": "2026-03-22", "week_start": "2026-03-16"}, {"label": "3/23~", "prev_year_revenue": 23555405, "revenue": 72983781, "week_end": "2026-03-29", "week_start": "2026-03-23"}];
       const ctx = document.getElementById('trendChart').getContext('2d');
 
       new Chart(ctx, {
