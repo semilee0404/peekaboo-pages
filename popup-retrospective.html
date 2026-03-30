@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카부 x 신세계 대구 팝업 회고록</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0b10; --card: #13151e; --card2: #1a1d2a; --border: #252838;
+    --text: #e8e8ec; --text-dim: #8b8d9e; --text-muted: #5a5d6e;
+    --accent: #6c63ff; --accent2: #8b84ff;
+    --green: #22c55e; --green-bg: rgba(34,197,94,0.1);
+    --red: #ef4444; --red-bg: rgba(239,68,68,0.1);
+    --orange: #f59e0b; --orange-bg: rgba(245,158,11,0.1);
+    --blue: #3b82f6; --blue-bg: rgba(59,130,246,0.1);
+    --pink: #ec4899; --purple: #a855f7; --cyan: #06b6d4;
+    --gold: #fbbf24;
+  }
+  body { font-family: 'Noto Sans KR', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  /* Header */
+  .header { background: linear-gradient(180deg, #151828 0%, #0a0b10 100%); border-bottom: 1px solid var(--border); padding: 32px 0; }
+  .header-inner { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+  .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--accent), var(--pink)); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: #fff; }
+  .logo h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+  .logo .sub { font-size: 13px; color: var(--text-dim); font-weight: 400; margin-top: 2px; }
+  .badge { padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid; }
+  .badge-gold { background: rgba(251,191,36,0.12); color: var(--gold); border-color: rgba(251,191,36,0.3); }
+  .badge-green { background: var(--green-bg); color: var(--green); border-color: rgba(34,197,94,0.3); }
+  .header-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .header-stat { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; }
+  .header-stat .label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .header-stat .value { font-size: 26px; font-weight: 800; letter-spacing: -1px; }
+  .header-stat .note { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+
+  /* Tabs */
+  .tabs { background: var(--card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .tabs-inner { max-width: 1400px; margin: 0 auto; padding: 0 32px; display: flex; gap: 0; overflow-x: auto; }
+  .tab { padding: 14px 24px; font-size: 13px; font-weight: 600; color: var(--text-dim); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent2); border-bottom-color: var(--accent); }
+
+  /* Container */
+  .container { max-width: 1400px; margin: 0 auto; padding: 32px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* Cards */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 24px; transition: border-color 0.2s; }
+  .card:hover { border-color: #353850; }
+  .card-title { font-size: 16px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .card-title .icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+
+  /* KPI Row */
+  .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 28px; }
+  .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .kpi .label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .kpi .val { font-size: 26px; font-weight: 800; letter-spacing: -1px; }
+  .kpi .change { font-size: 12px; font-weight: 600; margin-top: 6px; padding: 2px 8px; border-radius: 6px; display: inline-block; }
+  .kpi .change.up { background: var(--green-bg); color: var(--green); }
+  .kpi .change.down { background: var(--red-bg); color: var(--red); }
+  .kpi .sub { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+
+  /* Highlight box */
+  .highlight { border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+  .highlight.green { background: linear-gradient(135deg, #0d1f14, #132918); border: 1px solid rgba(34,197,94,0.25); }
+  .highlight.blue { background: linear-gradient(135deg, #0d1520, #131e2e); border: 1px solid rgba(59,130,246,0.25); }
+  .highlight.purple { background: linear-gradient(135deg, #150d20, #1e132e); border: 1px solid rgba(168,85,247,0.25); }
+  .highlight.orange { background: linear-gradient(135deg, #1f180d, #291e13); border: 1px solid rgba(245,158,11,0.25); }
+  .highlight-title { font-size: 17px; font-weight: 700; margin-bottom: 14px; }
+
+  /* Chart bar */
+  .bar-chart { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; }
+  .bar-label { width: 160px; font-size: 13px; font-weight: 500; text-align: right; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 28px; background: rgba(255,255,255,0.04); border-radius: 6px; position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 10px; font-size: 12px; font-weight: 600; color: #fff; min-width: 40px; transition: width 0.6s ease; }
+  .bar-value { width: 80px; text-align: right; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+
+  /* Table */
+  .data-table { width: 100%; border-collapse: collapse; }
+  .data-table th { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--border); font-weight: 600; }
+  .data-table th.right { text-align: right; }
+  .data-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; }
+  .data-table td.right { text-align: right; font-weight: 600; }
+  .data-table td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .data-table tr:hover { background: rgba(255,255,255,0.02); }
+  .data-table .rank { width: 26px; height: 26px; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+  .rank.gold { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #000; }
+  .rank.silver { background: linear-gradient(135deg, #94a3b8, #64748b); color: #fff; }
+  .rank.bronze { background: linear-gradient(135deg, #d97706, #b45309); color: #fff; }
+  .rank.normal { background: rgba(255,255,255,0.06); color: var(--text-dim); }
+
+  /* Funnel */
+  .funnel { display: flex; flex-direction: column; gap: 2px; margin: 20px 0; }
+  .funnel-step { display: flex; align-items: center; gap: 16px; padding: 14px 20px; border-radius: 10px; }
+  .funnel-step .step-name { width: 120px; font-size: 13px; font-weight: 600; }
+  .funnel-step .step-bar { flex: 1; height: 36px; background: rgba(255,255,255,0.04); border-radius: 8px; overflow: hidden; position: relative; }
+  .funnel-step .step-fill { height: 100%; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; }
+  .funnel-step .step-nums { width: 140px; text-align: right; font-size: 13px; }
+  .funnel-step .step-nums .main { font-weight: 700; }
+  .funnel-step .step-nums .rate { color: var(--text-dim); font-size: 11px; }
+  .funnel-arrow { text-align: center; font-size: 11px; color: var(--text-dim); padding: 4px; }
+
+  /* Daily chart */
+  .daily-chart { display: flex; align-items: flex-end; gap: 3px; height: 180px; padding: 10px 0; }
+  .daily-bar { flex: 1; border-radius: 4px 4px 0 0; position: relative; cursor: pointer; transition: opacity 0.2s; min-width: 20px; }
+  .daily-bar:hover { opacity: 0.8; }
+  .daily-bar .tip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--card2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 11px; white-space: nowrap; z-index: 10; }
+  .daily-bar:hover .tip { display: block; }
+  .daily-labels { display: flex; gap: 3px; margin-top: 6px; }
+  .daily-labels span { flex: 1; text-align: center; font-size: 10px; color: var(--text-dim); min-width: 20px; }
+
+  /* Comparison metric */
+  .compare-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+  .compare-item { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 18px; text-align: center; }
+  .compare-item .period { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .compare-item .val { font-size: 22px; font-weight: 800; }
+  .compare-item .sub { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+
+  /* Insight box */
+  .insight { background: rgba(108,99,255,0.06); border: 1px solid rgba(108,99,255,0.2); border-radius: 12px; padding: 18px 22px; margin: 16px 0; font-size: 13px; line-height: 1.7; }
+  .insight strong { color: var(--accent2); }
+  .insight .tag { display: inline-block; background: rgba(108,99,255,0.15); color: var(--accent2); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 6px; }
+
+  /* Coupon section */
+  .coupon-note { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 12px; padding: 20px; margin: 16px 0; }
+  .coupon-note h4 { color: var(--orange); font-size: 14px; margin-bottom: 8px; }
+  .coupon-note p { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+
+  /* Action items */
+  .action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .action-card { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 22px; border-left: 3px solid var(--accent); }
+  .action-card .num { font-size: 28px; font-weight: 900; color: rgba(108,99,255,0.3); margin-bottom: 6px; }
+  .action-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .action-card p { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 11px; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .container { padding: 16px; }
+    .header-summary { grid-template-columns: repeat(2, 1fr); }
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .action-grid { grid-template-columns: 1fr; }
+    .bar-label { width: 100px; font-size: 11px; }
+    .tabs-inner { padding: 0 16px; }
+    .header-inner { padding: 0 16px; }
+    .header-stat .value { font-size: 20px; }
+    .kpi .val { font-size: 20px; }
+    .funnel-step .step-name { width: 80px; font-size: 11px; }
+    .funnel-step .step-nums { width: 100px; font-size: 11px; }
+    .daily-chart { height: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ▸ HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="logo">
+        <div class="logo-icon">P</div>
+        <div>
+          <h1>POPUP RETROSPECTIVE</h1>
+          <div class="sub">신세계백화점 대구점 &middot; 2026.03.19 - 03.26 &middot; 8일간</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <span class="badge badge-gold">1.17억 달성</span>
+        <span class="badge badge-green">목표 116.9% 달성</span>
+      </div>
+    </div>
+    <div class="header-summary">
+      <div class="header-stat">
+        <div class="label">오프라인 매출 (팝업)</div>
+        <div class="value" style="color:var(--green)">1.17억</div>
+        <div class="note">116,918,060원 &middot; 6,124개 &middot; 1,523건</div>
+      </div>
+      <div class="header-stat">
+        <div class="label">온라인 매출 (자사몰 GA4)</div>
+        <div class="value" style="color:var(--blue)">2,433만</div>
+        <div class="note">24,333,425원 &middot; 419건 구매</div>
+      </div>
+      <div class="header-stat">
+        <div class="label">자사몰 세션 (팝업 기간)</div>
+        <div class="value" style="color:var(--purple)">19,973</div>
+        <div class="note">일평균 2,497 &middot; +61.8% vs 평소</div>
+      </div>
+      <div class="header-stat">
+        <div class="label">신규 유저 (팝업 기간)</div>
+        <div class="value" style="color:var(--pink)">12,334</div>
+        <div class="note">일평균 1,542 &middot; +75.8% vs 평소</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ▸ TABS -->
+<div class="tabs">
+  <div class="tabs-inner">
+    <div class="tab active" data-tab="overview">OVERVIEW</div>
+    <div class="tab" data-tab="traffic">유입 분석</div>
+    <div class="tab" data-tab="channels">채널/소스</div>
+    <div class="tab" data-tab="funnel">전환 퍼널</div>
+    <div class="tab" data-tab="geo">지역 분석</div>
+    <div class="tab" data-tab="coupon">쿠폰/프로모션</div>
+    <div class="tab" data-tab="actions">액션 플랜</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 1: OVERVIEW -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section active" id="overview">
+
+  <!-- Executive Summary -->
+  <div class="highlight green">
+    <div class="highlight-title" style="color:var(--green)">Executive Summary</div>
+    <div style="font-size:14px;line-height:1.8">
+      신세계 대구 팝업 8일간 <strong style="color:var(--green)">오프라인 1.17억</strong> + <strong style="color:var(--blue)">온라인(자사몰) 2,433만</strong> = 총 <strong style="color:var(--gold)">1.41억</strong> 매출을 기록했습니다.<br>
+      팝업 기간 자사몰 일평균 세션은 <strong style="color:var(--purple)">2,497회</strong>로 팝업 전 대비 <strong style="color:var(--green)">+61.8%</strong> 급증했으며,
+      신규 유저는 일평균 <strong style="color:var(--pink)">1,542명</strong>으로 <strong style="color:var(--green)">+75.8%</strong> 증가했습니다.<br>
+      특히 <strong style="color:var(--accent2)">대구 지역 세션이 +248%</strong> 폭증하고, <strong style="color:var(--accent2)">peekabookorea.com 레퍼럴이 28배</strong> 급증한 점이 핵심 성과입니다.
+    </div>
+  </div>
+
+  <!-- Per-Day KPIs -->
+  <div class="card-title"><div class="icon" style="background:var(--blue-bg);color:var(--blue)">D</div>일평균 지표 비교 (팝업 전 vs 팝업 기간 vs 팝업 후)</div>
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="label">일평균 세션</div>
+      <div class="val" style="color:var(--blue)">2,497</div>
+      <div class="change up">+61.8% vs 팝업 전</div>
+      <div class="sub">팝업 전 1,543/일 &middot; 팝업 후 1,719/일</div>
+    </div>
+    <div class="kpi">
+      <div class="label">일평균 사용자</div>
+      <div class="val" style="color:var(--purple)">1,851</div>
+      <div class="change up">+67.6% vs 팝업 전</div>
+      <div class="sub">팝업 전 1,105/일 &middot; 팝업 후 1,326/일</div>
+    </div>
+    <div class="kpi">
+      <div class="label">일평균 신규 유저</div>
+      <div class="val" style="color:var(--pink)">1,542</div>
+      <div class="change up">+75.8% vs 팝업 전</div>
+      <div class="sub">팝업 전 877/일 &middot; 팝업 후 938/일</div>
+    </div>
+    <div class="kpi">
+      <div class="label">일평균 구매</div>
+      <div class="val" style="color:var(--green)">52.4건</div>
+      <div class="change up">+14.4% vs 팝업 전</div>
+      <div class="sub">팝업 전 45.8건/일 &middot; 팝업 후 53건/일</div>
+    </div>
+    <div class="kpi">
+      <div class="label">일평균 매출</div>
+      <div class="val" style="color:var(--gold)">304만</div>
+      <div class="change up">+30.5% vs 팝업 전</div>
+      <div class="sub">팝업 전 233만/일 &middot; 팝업 후 355만/일</div>
+    </div>
+  </div>
+
+  <!-- Period Comparison -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:rgba(168,85,247,0.12);color:var(--purple)">S</div>기간별 핵심 지표</div>
+      <table class="data-table">
+        <tr><th>지표</th><th class="right">팝업 전 14일</th><th class="right">팝업 8일</th><th class="right">팝업 후 3일</th><th class="right">변화</th></tr>
+        <tr><td>세션</td><td class="num">21,600</td><td class="num" style="color:var(--accent2)">19,973</td><td class="num">5,158</td><td class="num" style="color:var(--green)">+61.8%/일</td></tr>
+        <tr><td>사용자</td><td class="num">15,468</td><td class="num" style="color:var(--accent2)">14,807</td><td class="num">3,977</td><td class="num" style="color:var(--green)">+67.6%/일</td></tr>
+        <tr><td>신규 사용자</td><td class="num">12,275</td><td class="num" style="color:var(--accent2)">12,334</td><td class="num">2,815</td><td class="num" style="color:var(--green)">+75.8%/일</td></tr>
+        <tr><td>구매건수</td><td class="num">641</td><td class="num" style="color:var(--accent2)">419</td><td class="num">159</td><td class="num" style="color:var(--green)">+14.4%/일</td></tr>
+        <tr><td>온라인 매출</td><td class="num">3,263만</td><td class="num" style="color:var(--accent2)">2,433만</td><td class="num">1,065만</td><td class="num" style="color:var(--green)">+30.5%/일</td></tr>
+        <tr><td>이탈률</td><td class="num">22.6%</td><td class="num" style="color:var(--orange)">27.0%</td><td class="num">43.8%</td><td class="num" style="color:var(--red)">+4.4%p</td></tr>
+        <tr><td>체류시간</td><td class="num">340.8초</td><td class="num" style="color:var(--orange)">298.7초</td><td class="num">694.1초</td><td class="num" style="color:var(--red)">-12.4%</td></tr>
+        <tr><td>페이지/세션</td><td class="num">9.19</td><td class="num" style="color:var(--orange)">7.96</td><td class="num">9.02</td><td class="num" style="color:var(--red)">-13.4%</td></tr>
+      </table>
+      <div class="insight" style="margin-top:16px">
+        <span class="tag">KEY INSIGHT</span>
+        팝업 기간 트래픽은 <strong>일평균 62%</strong> 증가했지만, 전환율과 체류시간은 하락.
+        <strong>구경 목적의 신규 유입</strong>이 대거 유입되며 이탈률이 올라간 것으로 분석됩니다.
+        다만 팝업 후에도 일평균 세션이 <strong>1,719</strong>로 팝업 전(1,543) 대비 높은 수준이 유지되고 있어 <strong>잔존 효과</strong>가 확인됩니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--green-bg);color:var(--green)">V</div>신규 vs 재방문 비교</div>
+      <div class="compare-grid" style="grid-template-columns:1fr 1fr">
+        <div class="compare-item" style="border-left:3px solid var(--cyan)">
+          <div class="period">신규 방문자 (팝업 기간)</div>
+          <div class="val" style="color:var(--cyan)">12,570명</div>
+          <div class="sub">214건 구매 &middot; 전환율 1.69%</div>
+          <div class="sub">매출 1,031만</div>
+        </div>
+        <div class="compare-item" style="border-left:3px solid var(--orange)">
+          <div class="period">재방문자 (팝업 기간)</div>
+          <div class="val" style="color:var(--orange)">3,715명</div>
+          <div class="sub">205건 구매 &middot; 전환율 3.11%</div>
+          <div class="sub">매출 1,403만</div>
+        </div>
+      </div>
+      <div class="insight">
+        <span class="tag">KEY INSIGHT</span>
+        신규 방문자가 <strong>12,570명</strong>으로 전체 유저의 <strong>77.2%</strong>를 차지.
+        신규 전환율은 <strong>1.69%</strong>로 재방문(3.11%)의 절반 수준이지만,
+        이 신규 유저들이 <strong>향후 재구매 고객으로 전환</strong>될 잠재력이 핵심입니다.
+        팝업 후 3일간 재방문 세션이 유지되고 있어 팝업을 통한 <strong>브랜드 인지도 상승</strong>이 확인됩니다.
+      </div>
+
+      <div class="card-title" style="margin-top:24px"><div class="icon" style="background:var(--blue-bg);color:var(--blue)">M</div>디바이스별</div>
+      <table class="data-table">
+        <tr><th>디바이스</th><th class="right">세션</th><th class="right">비중</th><th class="right">구매</th><th class="right">전환율</th><th class="right">매출</th></tr>
+        <tr><td>Mobile</td><td class="num">17,005</td><td class="num">85.1%</td><td class="num">375</td><td class="num">2.21%</td><td class="num">2,005만</td></tr>
+        <tr><td>Desktop</td><td class="num">2,959</td><td class="num">14.8%</td><td class="num">43</td><td class="num">1.45%</td><td class="num">415만</td></tr>
+        <tr><td>Tablet</td><td class="num">40</td><td class="num">0.2%</td><td class="num">1</td><td class="num">2.50%</td><td class="num">13만</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 2: TRAFFIC ANALYSIS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="traffic">
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--blue-bg);color:var(--blue)">T</div>일별 세션 추이 (3/12 ~ 3/29)</div>
+    <div style="display:flex;gap:16px;margin-bottom:12px">
+      <span style="font-size:11px;color:var(--text-dim)"><span style="display:inline-block;width:10px;height:10px;background:var(--accent);border-radius:2px;margin-right:4px"></span>팝업 전</span>
+      <span style="font-size:11px;color:var(--text-dim)"><span style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:2px;margin-right:4px"></span>팝업 기간</span>
+      <span style="font-size:11px;color:var(--text-dim)"><span style="display:inline-block;width:10px;height:10px;background:var(--orange);border-radius:2px;margin-right:4px"></span>팝업 후</span>
+    </div>
+    <div class="daily-chart" id="sessionsChart"></div>
+    <div class="daily-labels" id="sessionsLabels"></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:rgba(236,72,153,0.12);color:var(--pink)">N</div>일별 신규 사용자 추이</div>
+      <div class="daily-chart" id="newUsersChart" style="height:140px"></div>
+      <div class="daily-labels" id="newUsersLabels"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--green-bg);color:var(--green)">P</div>일별 구매 & 매출 추이</div>
+      <div class="daily-chart" id="purchasesChart" style="height:140px"></div>
+      <div class="daily-labels" id="purchasesLabels"></div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <span class="tag">TRAFFIC INSIGHT</span>
+    <strong>3/19(D1)</strong> 팝업 오픈일에 세션이 <strong>3,308</strong>으로 직전일 대비 <strong>+56.8%</strong> 폭증.
+    이후 주말(3/22-23)에 안정적으로 유지되다가, <strong>3/23(일)</strong>에 매출이 <strong>519만</strong>으로 피크.
+    팝업 종료 후 3/27에도 <strong>2,068세션</strong>으로 높은 수준을 유지하며 잔존 효과가 이어지고 있습니다.
+    특히 <strong>3/27 구매 79건</strong>은 팝업 기간 중 최고치보다 높아, 팝업 후 온라인 전환이 활발했습니다.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 3: CHANNELS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="channels">
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:rgba(168,85,247,0.12);color:var(--purple)">C</div>채널 그룹별 세션 (팝업 기간)</div>
+    <div class="bar-chart" id="channelBars"></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--blue-bg);color:var(--blue)">S</div>소스/매체 TOP 10 (팝업 기간)</div>
+      <table class="data-table">
+        <tr><th>#</th><th>소스/매체</th><th class="right">세션</th><th class="right">구매</th><th class="right">매출</th><th class="right">전환율</th></tr>
+        <tr><td><span class="rank gold">1</span></td><td>(direct) / (none)</td><td class="num">7,443</td><td class="num">107</td><td class="num">540만</td><td class="num">1.44%</td></tr>
+        <tr><td><span class="rank silver">2</span></td><td>m.search.naver.com / referral</td><td class="num">7,171</td><td class="num">169</td><td class="num">846만</td><td class="num">2.36%</td></tr>
+        <tr><td><span class="rank bronze">3</span></td><td style="color:var(--green)">peekabookorea.com / referral</td><td class="num" style="color:var(--green)">2,763</td><td class="num">71</td><td class="num">435만</td><td class="num">2.57%</td></tr>
+        <tr><td><span class="rank normal">4</span></td><td>google / organic</td><td class="num">529</td><td class="num">13</td><td class="num">272만</td><td class="num">2.46%</td></tr>
+        <tr><td><span class="rank normal">5</span></td><td>naver / organic</td><td class="num">518</td><td class="num">21</td><td class="num">95만</td><td class="num">4.05%</td></tr>
+        <tr><td><span class="rank normal">6</span></td><td>m.blog.naver.com / referral</td><td class="num">134</td><td class="num">7</td><td class="num">26만</td><td class="num">5.22%</td></tr>
+        <tr><td><span class="rank normal">7</span></td><td>instagram.com / referral</td><td class="num">129</td><td class="num">4</td><td class="num">33만</td><td class="num">3.10%</td></tr>
+        <tr><td><span class="rank normal">8</span></td><td>l.instagram.com / referral</td><td class="num">91</td><td class="num">3</td><td class="num">8만</td><td class="num">3.30%</td></tr>
+        <tr><td><span class="rank normal">9</span></td><td>msearch.shopping.naver.com</td><td class="num">77</td><td class="num">6</td><td class="num">34만</td><td class="num">7.79%</td></tr>
+        <tr><td><span class="rank normal">10</span></td><td>ig / paid</td><td class="num">71</td><td class="num">2</td><td class="num">5만</td><td class="num">2.82%</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--green-bg);color:var(--green)">D</div>팝업 전 vs 팝업 기간 변화</div>
+      <table class="data-table">
+        <tr><th>소스</th><th class="right">팝업 전</th><th class="right">팝업 기간</th><th class="right">변화</th></tr>
+        <tr style="background:rgba(34,197,94,0.05)">
+          <td style="color:var(--green);font-weight:600">peekabookorea.com</td>
+          <td class="num">98</td><td class="num" style="color:var(--green)">2,763</td>
+          <td class="num" style="color:var(--green);font-weight:700">+2,720%</td>
+        </tr>
+        <tr>
+          <td>m.search.naver.com</td>
+          <td class="num">10,049</td><td class="num">7,171</td>
+          <td class="num" style="color:var(--red)">-28.6%</td>
+        </tr>
+        <tr>
+          <td>(direct)</td>
+          <td class="num">7,877</td><td class="num">7,443</td>
+          <td class="num" style="color:var(--red)">-5.5%</td>
+        </tr>
+        <tr>
+          <td>instagram.com</td>
+          <td class="num">44</td><td class="num">129</td>
+          <td class="num" style="color:var(--green)">+193%</td>
+        </tr>
+        <tr>
+          <td>l.instagram.com</td>
+          <td class="num">204</td><td class="num">91</td>
+          <td class="num" style="color:var(--red)">-55.4%</td>
+        </tr>
+        <tr>
+          <td>naver / organic</td>
+          <td class="num">835</td><td class="num">518</td>
+          <td class="num" style="color:var(--red)">-38.0%</td>
+        </tr>
+        <tr>
+          <td>offline / qr</td>
+          <td class="num">0</td><td class="num" style="color:var(--green)">22</td>
+          <td class="num" style="color:var(--green)">NEW</td>
+        </tr>
+      </table>
+      <div class="insight" style="margin-top:16px">
+        <span class="tag">KEY INSIGHT</span>
+        <strong>peekabookorea.com</strong> 레퍼럴이 98 &rarr; 2,763으로 <strong>28배 폭증</strong>.
+        이 트래픽은 팝업 현장에서 자사몰 연동(QR 코드, 안내장 등)을 통한 유입으로 추정됩니다.
+        <strong>offline/qr</strong> 소스도 22건 신규 등장 &mdash; QR 코드를 통한 직접 유입이 확인됩니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- Referral 채널 분석 -->
+  <div class="highlight purple">
+    <div class="highlight-title" style="color:var(--purple)">Referral 채널 폭증 분석</div>
+    <div style="font-size:13px;line-height:1.8;color:var(--text)">
+      팝업 기간 Referral 세션이 <strong>523 &rarr; 3,145</strong>로 <strong>+501%</strong> 급증한 것이 가장 눈에 띄는 변화입니다.<br>
+      이 중 <strong>88%가 peekabookorea.com</strong>(2,763세션)에서 발생했으며, 이는 팝업 현장에서 고객이 자사몰로 이동한 흐름을 명확히 보여줍니다.<br>
+      Referral의 전환율은 <strong>2.38%</strong>로 Organic Search(2.46%)와 거의 동일하며, 매출은 <strong>490만</strong>을 기록했습니다.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 4: FUNNEL -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="funnel">
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--green-bg);color:var(--green)">F</div>전환 퍼널 (팝업 기간)</div>
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="step-name">상품 조회</div>
+          <div class="step-bar"><div class="step-fill" style="width:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))">7,699명</div></div>
+          <div class="step-nums"><span class="main">7,699명</span><br><span class="rate">35,025회</span></div>
+        </div>
+        <div class="funnel-arrow">&darr; 13.4%</div>
+        <div class="funnel-step">
+          <div class="step-name">장바구니</div>
+          <div class="step-bar"><div class="step-fill" style="width:13.4%;background:linear-gradient(90deg,var(--blue),#60a5fa)">1,033명</div></div>
+          <div class="step-nums"><span class="main">1,033명</span><br><span class="rate">3,222회</span></div>
+        </div>
+        <div class="funnel-arrow">&darr; 24.8%</div>
+        <div class="funnel-step">
+          <div class="step-name">결제정보</div>
+          <div class="step-bar"><div class="step-fill" style="width:3.3%;background:linear-gradient(90deg,var(--purple),#c084fc)">256명</div></div>
+          <div class="step-nums"><span class="main">256명</span><br><span class="rate">304회</span></div>
+        </div>
+        <div class="funnel-arrow">&darr; 145.3%</div>
+        <div class="funnel-step">
+          <div class="step-name" style="color:var(--green)">구매 완료</div>
+          <div class="step-bar"><div class="step-fill" style="width:4.8%;background:linear-gradient(90deg,var(--green),#4ade80)">372명</div></div>
+          <div class="step-nums"><span class="main" style="color:var(--green)">372명</span><br><span class="rate">419건</span></div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text-dim);margin-top:8px">
+        * 전체 전환율: 상품조회 &rarr; 구매 = <strong style="color:var(--green)">4.83%</strong>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:rgba(245,158,11,0.12);color:var(--orange)">C</div>퍼널 비교 (팝업 전 vs 팝업 기간)</div>
+      <table class="data-table">
+        <tr><th>퍼널 단계</th><th class="right">팝업 전 (유저)</th><th class="right">팝업 (유저)</th><th class="right">전환율 변화</th></tr>
+        <tr>
+          <td>상품 조회</td>
+          <td class="num">9,037명</td><td class="num">7,699명</td>
+          <td class="num">-</td>
+        </tr>
+        <tr>
+          <td>장바구니 담기</td>
+          <td class="num">1,357명 (15.0%)</td><td class="num">1,033명 (13.4%)</td>
+          <td class="num" style="color:var(--red)">-1.6%p</td>
+        </tr>
+        <tr>
+          <td>구매 완료</td>
+          <td class="num">558명 (6.2%)</td><td class="num">372명 (4.8%)</td>
+          <td class="num" style="color:var(--red)">-1.4%p</td>
+        </tr>
+      </table>
+      <div class="insight" style="margin-top:16px">
+        <span class="tag">FUNNEL INSIGHT</span>
+        팝업 기간 전환율이 전 단계에서 하락했습니다. 이는 <strong>"구경만 하는" 신규 유입</strong>이 대거 몰린 결과입니다.
+        실제 구매 유저 수(372명)는 팝업 전 일평균(39.9명/일)보다 <strong>일평균 46.5명으로 16.5% 증가</strong>했습니다.
+        전환율 하락은 부정적 신호가 아니라, <strong>상위 퍼널(인지도) 확대</strong>의 자연스러운 결과입니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- Landing Pages -->
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--blue-bg);color:var(--blue)">L</div>랜딩 페이지 TOP 10 (팝업 기간)</div>
+    <table class="data-table">
+      <tr><th>#</th><th>페이지</th><th class="right">세션</th><th class="right">구매</th><th class="right">전환율</th><th class="right">매출</th></tr>
+      <tr><td><span class="rank gold">1</span></td><td>/ (메인)</td><td class="num">1,906</td><td class="num">29</td><td class="num">1.52%</td><td class="num">190만</td></tr>
+      <tr><td><span class="rank silver">2</span></td><td>NEW IN (cate_no=464)</td><td class="num">1,566</td><td class="num">30</td><td class="num">1.92%</td><td class="num">156만</td></tr>
+      <tr><td><span class="rank bronze">3</span></td><td>SPRING (cate_no=442)</td><td class="num">935</td><td class="num">8</td><td class="num">0.86%</td><td class="num">52만</td></tr>
+      <tr><td><span class="rank normal">4</span></td><td>BOTTOM (cate_no=103)</td><td class="num">854</td><td class="num">11</td><td class="num">1.29%</td><td class="num">58만</td></tr>
+      <tr><td><span class="rank normal">5</span></td><td>BEST (cate_no=463)</td><td class="num">808</td><td class="num">25</td><td class="num" style="color:var(--green)">3.09%</td><td class="num">165만</td></tr>
+      <tr><td><span class="rank normal">6</span></td><td>이벤트 페이지</td><td class="num">564</td><td class="num">6</td><td class="num">1.06%</td><td class="num">26만</td></tr>
+      <tr><td><span class="rank normal">7</span></td><td>저널 (cate_no=342)</td><td class="num">378</td><td class="num">6</td><td class="num">1.59%</td><td class="num">49만</td></tr>
+      <tr><td><span class="rank normal">8</span></td><td>SET (cate_no=451)</td><td class="num">318</td><td class="num">13</td><td class="num" style="color:var(--green)">4.09%</td><td class="num">115만</td></tr>
+      <tr><td><span class="rank normal">9</span></td><td>디저트 검색</td><td class="num">224</td><td class="num">7</td><td class="num" style="color:var(--green)">3.12%</td><td class="num">25만</td></tr>
+      <tr><td><span class="rank normal">10</span></td><td>모아 베이비 세트</td><td class="num">143</td><td class="num">12</td><td class="num" style="color:var(--green);font-weight:700">8.39%</td><td class="num">76만</td></tr>
+    </table>
+    <div class="insight" style="margin-top:12px">
+      <span class="tag">LANDING INSIGHT</span>
+      <strong>모아 베이비 세트</strong> 상품 페이지가 전환율 <strong>8.39%</strong>로 최고 효율.
+      <strong>BEST 카테고리</strong>와 <strong>SET 카테고리</strong>도 3~4%대로 양호.
+      반면 SPRING 시즌 카테고리는 세션이 높지만 전환율 0.86%로 낮아 <strong>상세 페이지 개선</strong>이 필요합니다.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 5: GEO -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="geo">
+
+  <div class="highlight blue">
+    <div class="highlight-title" style="color:var(--blue)">대구 지역 유입 변화</div>
+    <div class="compare-grid">
+      <div class="compare-item" style="border-left:3px solid var(--text-dim)">
+        <div class="period">팝업 전 14일</div>
+        <div class="val">963</div>
+        <div class="sub">일평균 69세션 &middot; 전환율 2.39%</div>
+      </div>
+      <div class="compare-item" style="border-left:3px solid var(--green)">
+        <div class="period">팝업 8일</div>
+        <div class="val" style="color:var(--green)">1,922</div>
+        <div class="sub">일평균 240세션 &middot; 전환율 1.40%</div>
+      </div>
+      <div class="compare-item" style="border-left:3px solid var(--accent)">
+        <div class="period">일평균 변화</div>
+        <div class="val" style="color:var(--green)">+248%</div>
+        <div class="sub">69 &rarr; 240세션/일</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:var(--text);margin-top:12px;line-height:1.7">
+      대구 지역에서 일평균 세션이 <strong style="color:var(--green)">69 &rarr; 240</strong>으로 <strong style="color:var(--green)">+248%</strong> 폭증했습니다.
+      팝업 현장 고객이 바로 자사몰에 접속한 것이 확인됩니다. 다만 전환율은 2.39% &rarr; 1.40%로 하락 &mdash;
+      탐색 목적 유입이 많았기 때문이며, 이 고객들의 <strong>향후 재방문/재구매</strong>가 핵심 모니터링 포인트입니다.
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--blue-bg);color:var(--blue)">G</div>도시별 세션 TOP 15 (팝업 기간)</div>
+      <div class="bar-chart" id="cityBars"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--green-bg);color:var(--green)">C</div>주요 도시 변화 (팝업 전 vs 팝업)</div>
+      <table class="data-table">
+        <tr><th>도시</th><th class="right">팝업 전/일</th><th class="right">팝업/일</th><th class="right">변화</th></tr>
+        <tr style="background:rgba(34,197,94,0.05)">
+          <td style="font-weight:600;color:var(--green)">Daegu</td>
+          <td class="num">69</td><td class="num" style="color:var(--green)">240</td>
+          <td class="num" style="color:var(--green);font-weight:700">+248%</td>
+        </tr>
+        <tr>
+          <td>Seoul</td>
+          <td class="num">370</td><td class="num">563</td>
+          <td class="num" style="color:var(--green)">+52.2%</td>
+        </tr>
+        <tr>
+          <td>Busan</td>
+          <td class="num">128</td><td class="num">226</td>
+          <td class="num" style="color:var(--green)">+76.6%</td>
+        </tr>
+        <tr>
+          <td>Pohang-si</td>
+          <td class="num">-</td><td class="num">40</td>
+          <td class="num" style="color:var(--green)">NEW</td>
+        </tr>
+        <tr>
+          <td>Changwon-si</td>
+          <td class="num">36</td><td class="num">56</td>
+          <td class="num" style="color:var(--green)">+55.6%</td>
+        </tr>
+        <tr>
+          <td>Incheon</td>
+          <td class="num">60</td><td class="num">78</td>
+          <td class="num" style="color:var(--green)">+30.0%</td>
+        </tr>
+        <tr>
+          <td>Hwaseong-si</td>
+          <td class="num">-</td><td class="num">48</td>
+          <td class="num" style="color:var(--green)">NEW</td>
+        </tr>
+      </table>
+      <div class="insight" style="margin-top:16px">
+        <span class="tag">GEO INSIGHT</span>
+        대구뿐 아니라 <strong>부산(+76.6%)</strong>, <strong>포항(NEW)</strong>, <strong>창원(+55.6%)</strong> 등
+        <strong>경북/경남 권역</strong> 전체에서 유입이 증가했습니다.
+        6월 <strong>부산 팝업</strong> 기대 수요가 이미 형성되고 있음을 시사합니다.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 6: COUPON -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="coupon">
+
+  <div class="coupon-note">
+    <h4>Cafe24 쿠폰 API 접근 제한</h4>
+    <p>
+      현재 Cafe24 API 권한(scope)에 쿠폰 조회 기능이 포함되어 있지 않아 API를 통한 자동 수집이 불가합니다.<br>
+      아래는 <strong>Cafe24 관리자 페이지에서 직접 확인</strong>해야 할 항목 체크리스트입니다.<br>
+      데이터 확인 후 이 섹션을 업데이트하겠습니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:rgba(245,158,11,0.12);color:var(--orange)">K</div>확인 필요 항목 (Cafe24 관리자 페이지)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:rgba(255,255,255,0.03);border-radius:12px;padding:20px">
+        <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--orange)">1. 무료배송 쿠폰</h4>
+        <ul style="font-size:13px;color:var(--text-dim);line-height:2;list-style:none;padding:0">
+          <li>[ ] 쿠폰명 / 생성일</li>
+          <li>[ ] 총 발급 수량</li>
+          <li>[ ] 사용 수량 / 미사용 수량</li>
+          <li>[ ] 사용률 (%)</li>
+          <li>[ ] 쿠폰 유효기간</li>
+          <li>[ ] 팝업 기간 중 사용 건수</li>
+          <li>[ ] 팝업 후 사용 건수</li>
+        </ul>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border-radius:12px;padding:20px">
+        <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--purple)">2. 이벤트/프로모션 쿠폰</h4>
+        <ul style="font-size:13px;color:var(--text-dim);line-height:2;list-style:none;padding:0">
+          <li>[ ] 할인 쿠폰명 / 할인 금액(비율)</li>
+          <li>[ ] 발급 수량 / 사용 수량</li>
+          <li>[ ] 사용률 (%)</li>
+          <li>[ ] 쿠폰별 매출 기여도</li>
+          <li>[ ] 신규 고객 vs 기존 고객 사용 비율</li>
+          <li>[ ] 팝업 현장 발급 vs 온라인 발급 구분</li>
+          <li>[ ] 재방문 연결 여부</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--green-bg);color:var(--green)">A</div>쿠폰 효과 분석 프레임워크</div>
+    <div style="font-size:13px;color:var(--text);line-height:1.8">
+      <p style="margin-bottom:16px">쿠폰 데이터 입력 후 아래 분석을 진행합니다:</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div style="background:rgba(34,197,94,0.06);border-radius:10px;padding:16px">
+          <div style="font-weight:700;color:var(--green);margin-bottom:8px">ROI 분석</div>
+          <div style="font-size:12px;color:var(--text-dim)">쿠폰 할인 비용 vs 추가 매출<br>객단가 변화 추적</div>
+        </div>
+        <div style="background:rgba(59,130,246,0.06);border-radius:10px;padding:16px">
+          <div style="font-weight:700;color:var(--blue);margin-bottom:8px">재방문 전환</div>
+          <div style="font-size:12px;color:var(--text-dim)">팝업 발급 쿠폰의<br>온라인 사용 전환율</div>
+        </div>
+        <div style="background:rgba(168,85,247,0.06);border-radius:10px;padding:16px">
+          <div style="font-weight:700;color:var(--purple);margin-bottom:8px">부산 팝업 적용</div>
+          <div style="font-size:12px;color:var(--text-dim)">대구 결과 기반<br>6월 부산 쿠폰 전략 수립</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 7: ACTION PLAN -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="actions">
+
+  <div class="highlight green">
+    <div class="highlight-title" style="color:var(--green)">대구 팝업 핵심 성과 요약</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px">
+      <div style="text-align:center;background:rgba(0,0,0,0.2);border-radius:12px;padding:18px">
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:6px">오프라인 + 온라인</div>
+        <div style="font-size:28px;font-weight:900;color:var(--gold)">1.41억</div>
+        <div style="font-size:11px;color:var(--text-dim)">오프라인 1.17억 + 온라인 0.24억</div>
+      </div>
+      <div style="text-align:center;background:rgba(0,0,0,0.2);border-radius:12px;padding:18px">
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:6px">자사몰 트래픽 증가</div>
+        <div style="font-size:28px;font-weight:900;color:var(--green)">+61.8%</div>
+        <div style="font-size:11px;color:var(--text-dim)">일평균 세션 기준</div>
+      </div>
+      <div style="text-align:center;background:rgba(0,0,0,0.2);border-radius:12px;padding:18px">
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:6px">신규 고객 획득</div>
+        <div style="font-size:28px;font-weight:900;color:var(--pink)">12,334명</div>
+        <div style="font-size:11px;color:var(--text-dim)">8일간 신규 유저</div>
+      </div>
+      <div style="text-align:center;background:rgba(0,0,0,0.2);border-radius:12px;padding:18px">
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:6px">대구 지역 세션</div>
+        <div style="font-size:28px;font-weight:900;color:var(--cyan)">+248%</div>
+        <div style="font-size:11px;color:var(--text-dim)">일평균 69 &rarr; 240</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--blue-bg);color:var(--blue)">L</div>Lessons Learned (교훈)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:rgba(34,197,94,0.06);border-radius:12px;padding:20px;border-left:3px solid var(--green)">
+        <h4 style="font-size:14px;font-weight:700;color:var(--green);margin-bottom:10px">GOOD</h4>
+        <ul style="font-size:13px;color:var(--text);line-height:2;padding-left:18px">
+          <li>팝업이 자사몰 트래픽을 <strong>+62%</strong> 견인 &mdash; O2O 시너지 입증</li>
+          <li>peekabookorea.com 레퍼럴 <strong>28배 증가</strong> &mdash; 팝업-자사몰 연동 효과</li>
+          <li>대구 +248%, 경북/경남 권역 전체 성장</li>
+          <li>팝업 후에도 트래픽 유지 &mdash; 잔존 효과 확인</li>
+          <li>모바일 전환율 2.21%로 양호한 수준 유지</li>
+        </ul>
+      </div>
+      <div style="background:rgba(239,68,68,0.06);border-radius:12px;padding:20px;border-left:3px solid var(--red)">
+        <h4 style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:10px">IMPROVE</h4>
+        <ul style="font-size:13px;color:var(--text);line-height:2;padding-left:18px">
+          <li>이탈률 22.6% &rarr; 27.0% 상승 &mdash; 신규 유입 랜딩 페이지 최적화 필요</li>
+          <li>체류시간 341초 &rarr; 299초 하락 &mdash; 콘텐츠 강화</li>
+          <li>전환율 하락(퍼널 전구간) &mdash; 신규 고객 전용 CTA 필요</li>
+          <li>QR 코드 유입 22건만 &mdash; QR 활용 확대 여지</li>
+          <li>Cafe24 쿠폰 API 스코프 미설정 &mdash; 데이터 자동화 필요</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:rgba(108,99,255,0.12);color:var(--accent2)">A</div>부산 팝업(6월) 액션 플랜</div>
+    <div class="action-grid">
+      <div class="action-card">
+        <div class="num">01</div>
+        <h4>QR 코드 고도화</h4>
+        <p>대구에서 22건에 그친 QR 유입을 부산에서는 <strong>전 제품 태그 + 포스터 + 영수증</strong>에 QR 배치. UTM 파라미터 세팅으로 정확한 추적.</p>
+      </div>
+      <div class="action-card">
+        <div class="num">02</div>
+        <h4>신규 고객 전환 강화</h4>
+        <p>팝업 신규 고객 전용 <strong>첫구매 쿠폰 + 무료배송</strong> 조합으로 온라인 전환율 끌어올리기. 랜딩 페이지 A/B 테스트.</p>
+      </div>
+      <div class="action-card">
+        <div class="num">03</div>
+        <h4>경남 권역 사전 마케팅</h4>
+        <p>대구에서 부산/창원 유입이 이미 높았으므로, 부산 팝업 시 <strong>경남 타겟 인스타 광고</strong> + 네이버 블로그 시딩.</p>
+      </div>
+      <div class="action-card">
+        <div class="num">04</div>
+        <h4>쿠폰 전략 데이터화</h4>
+        <p>Cafe24 API 스코프에 <strong>쿠폰 권한 추가</strong>. 무료배송 쿠폰 발급-사용 추적 자동화. ROI 실시간 모니터링.</p>
+      </div>
+      <div class="action-card">
+        <div class="num">05</div>
+        <h4>잔존 고객 리타겟팅</h4>
+        <p>대구 팝업 신규 12,334명에게 <strong>부산 팝업 사전 안내</strong> + 온라인 전용 혜택 발송. 이메일/카카오 채널 활용.</p>
+      </div>
+      <div class="action-card">
+        <div class="num">06</div>
+        <h4>BEST/SET 카테고리 강화</h4>
+        <p>전환율 3~8%의 고효율 카테고리. 팝업 현장에서 <strong>BEST/SET 상품 큐레이션</strong> 강화 + 자사몰 연동.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- container -->
+
+<div class="footer">
+  피카부 x 신세계 대구 팝업 회고록 &middot; GA4 데이터 기반 &middot; 생성일: 2026.03.30 &middot; PEEKABOO Analytics
+</div>
+
+<script>
+// ── Tab Navigation ──
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ── Daily Chart Data ──
+const daily = [
+  {d:"3/12",s:1767,n:1027,p:60,r:2844361,t:"pre"},
+  {d:"3/13",s:1865,n:1136,p:63,r:2869640,t:"pre"},
+  {d:"3/14",s:1125,n:666,p:37,r:1915300,t:"pre"},
+  {d:"3/15",s:1282,n:749,p:37,r:1696138,t:"pre"},
+  {d:"3/16",s:1755,n:929,p:53,r:2501340,t:"pre"},
+  {d:"3/17",s:1793,n:963,p:61,r:3189196,t:"pre"},
+  {d:"3/18",s:2110,n:1286,p:50,r:2417058,t:"pre"},
+  {d:"3/19",s:3308,n:2126,p:50,r:2157470,t:"popup"},
+  {d:"3/20",s:2341,n:1548,p:47,r:2149508,t:"popup"},
+  {d:"3/21",s:2197,n:1440,p:37,r:2024675,t:"popup"},
+  {d:"3/22",s:2123,n:1381,p:38,r:2228066,t:"popup"},
+  {d:"3/23",s:2475,n:1516,p:67,r:5186093,t:"popup"},
+  {d:"3/24",s:2532,n:1539,p:67,r:3972603,t:"popup"},
+  {d:"3/25",s:2483,n:1398,p:50,r:2453437,t:"popup"},
+  {d:"3/26",s:2501,n:1386,p:63,r:4161573,t:"popup"},
+  {d:"3/27",s:2068,n:1093,p:79,r:5398511,t:"post"},
+  {d:"3/28",s:1515,n:861,p:42,r:2855862,t:"post"},
+  {d:"3/29",s:1564,n:861,p:38,r:2398111,t:"post"},
+];
+
+function buildChart(containerId, labelId, key, colors) {
+  const container = document.getElementById(containerId);
+  const labels = document.getElementById(labelId);
+  if (!container) return;
+  const maxVal = Math.max(...daily.map(d => d[key]));
+  container.innerHTML = '';
+  labels.innerHTML = '';
+  daily.forEach(d => {
+    const pct = (d[key] / maxVal) * 100;
+    const color = colors[d.t];
+    const bar = document.createElement('div');
+    bar.className = 'daily-bar';
+    bar.style.height = pct + '%';
+    bar.style.background = `linear-gradient(180deg, ${color}, ${color}aa)`;
+    const val = key === 'r' ? Math.round(d[key]/10000) + '만' : d[key].toLocaleString();
+    bar.innerHTML = `<div class="tip"><strong>${d.d}</strong><br>${val}${key === 'p' ? '건' : key === 'n' ? '명' : ''}</div>`;
+    container.appendChild(bar);
+    const lbl = document.createElement('span');
+    lbl.textContent = d.d;
+    labels.appendChild(lbl);
+  });
+}
+
+const palettes = {
+  sessions: {pre: '#6366f1', popup: '#22c55e', post: '#f59e0b'},
+  newUsers: {pre: '#6366f1', popup: '#ec4899', post: '#f59e0b'},
+  purchases: {pre: '#6366f1', popup: '#22c55e', post: '#f59e0b'},
+};
+
+buildChart('sessionsChart', 'sessionsLabels', 's', palettes.sessions);
+buildChart('newUsersChart', 'newUsersLabels', 'n', palettes.newUsers);
+buildChart('purchasesChart', 'purchasesLabels', 'p', palettes.purchases);
+
+// ── Channel Bars ──
+const channelData = [
+  {name:"Organic Search",v:8298,c:"var(--blue)"},
+  {name:"Direct",v:7443,c:"var(--purple)"},
+  {name:"Referral",v:3145,c:"var(--green)"},
+  {name:"Organic Social",v:483,c:"var(--pink)"},
+  {name:"Organic Shopping",v:233,c:"var(--orange)"},
+  {name:"Unassigned",v:200,c:"var(--text-dim)"},
+  {name:"Paid Social",v:71,c:"var(--cyan)"},
+];
+
+const channelContainer = document.getElementById('channelBars');
+if (channelContainer) {
+  const maxCh = Math.max(...channelData.map(c => c.v));
+  channelData.forEach(ch => {
+    const pct = (ch.v / maxCh) * 100;
+    channelContainer.innerHTML += `
+      <div class="bar-row">
+        <div class="bar-label">${ch.name}</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${pct}%;background:${ch.c}">${ch.v.toLocaleString()}</div>
+        </div>
+        <div class="bar-value">${(ch.v/19973*100).toFixed(1)}%</div>
+      </div>`;
+  });
+}
+
+// ── City Bars ──
+const cityData = [
+  {name:"Seoul",v:4505},{name:"Daegu",v:1922},{name:"Busan",v:1808},
+  {name:"Incheon",v:622},{name:"Daejeon",v:615},{name:"Cheonan",v:545},
+  {name:"Changwon",v:445},{name:"Goyang",v:434},{name:"Hwaseong",v:384},
+  {name:"Suwon",v:343},{name:"Gwangju",v:328},{name:"Pohang",v:317},
+  {name:"Cheongju",v:300},
+];
+
+const cityContainer = document.getElementById('cityBars');
+if (cityContainer) {
+  const maxCity = Math.max(...cityData.map(c => c.v));
+  cityData.forEach((ct, i) => {
+    const pct = (ct.v / maxCity) * 100;
+    const color = ct.name === 'Daegu' ? 'var(--green)' : 'var(--blue)';
+    const highlight = ct.name === 'Daegu' ? 'font-weight:700;color:var(--green)' : '';
+    cityContainer.innerHTML += `
+      <div class="bar-row">
+        <div class="bar-label" style="${highlight}">${ct.name}</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${pct}%;background:${color}">${ct.v.toLocaleString()}</div>
+        </div>
+        <div class="bar-value">${ct.v.toLocaleString()}</div>
+      </div>`;
+  });
+}
+</script>
+</body>
+</html>
