@@ -1,0 +1,184 @@
+// 매출 보고서 데이터 — 주차별 누적
+// 자사몰: Cafe24 셀러센터 CSV (order_amount)
+// 쿠팡: DB 기준 (셀러센터 확인 시 교체)
+// 스마트스토어: 셀러센터 결제금액
+// 카카오선물하기: 카카오 판매현황
+// 롯데온: 셀러센터 판매금액 (결제-취소)
+
+const weeklyReports = [
+  {
+    id: "2026-W10",
+    label: "3월1주 (3/2~3/8)",
+    period: "2026-03-02 ~ 2026-03-08",
+    summary: "전체 매출 6,597만원. 3월 첫 주 기준점.",
+    channels: [
+      { name: "쿠팡", revenue: 43717360, prevWeek: null, prevYear: null, ratio: 66.3 },
+      { name: "자사몰", revenue: 20959796, prevWeek: null, prevYear: null, ratio: 31.8 },
+      { name: "스마트스토어", revenue: 961000, prevWeek: null, prevYear: null, ratio: 1.5 },
+      { name: "카카오선물하기", revenue: 190600, prevWeek: null, prevYear: null, ratio: 0.3 },
+      { name: "롯데온", revenue: 139400, prevWeek: null, prevYear: null, ratio: 0.2 }
+    ],
+    total: { revenue: 65968156, prevWeek: null, prevYear: null },
+    coupangStock: null,
+    cafe24Daily: [
+      { day: "월", date: "3/2", revenue: 1910902 },
+      { day: "화", date: "3/3", revenue: 3895504 },
+      { day: "수", date: "3/4", revenue: 3681015 },
+      { day: "목", date: "3/5", revenue: 3005698 },
+      { day: "금", date: "3/6", revenue: 4082222 },
+      { day: "토", date: "3/7", revenue: 1580540 },
+      { day: "일", date: "3/8", revenue: 2803915 }
+    ],
+    cafe24Top10: [],
+    insights: { good: [], check: [] },
+    status: [],
+    nextWeek: { products: "", issues: [] }
+  },
+  {
+    id: "2026-W11",
+    label: "3월2주 (3/9~3/15)",
+    period: "2026-03-09 ~ 2026-03-15",
+    summary: "전체 매출 6,188만원, 전주 대비 -6.2%.",
+    channels: [
+      { name: "쿠팡", revenue: 41746050, prevWeek: 43717360, prevYear: null, ratio: 67.5 },
+      { name: "자사몰", revenue: 19023081, prevWeek: 20959796, prevYear: null, ratio: 30.7 },
+      { name: "스마트스토어", revenue: 910400, prevWeek: 961000, prevYear: null, ratio: 1.5 },
+      { name: "카카오선물하기", revenue: 155600, prevWeek: 190600, prevYear: null, ratio: 0.3 },
+      { name: "롯데온", revenue: 44200, prevWeek: 139400, prevYear: null, ratio: 0.1 }
+    ],
+    total: { revenue: 61879331, prevWeek: 65968156, prevYear: null },
+    coupangStock: null,
+    cafe24Daily: [
+      { day: "월", date: "3/9", revenue: 2679340 },
+      { day: "화", date: "3/10", revenue: 2931597 },
+      { day: "수", date: "3/11", revenue: 2665405 },
+      { day: "목", date: "3/12", revenue: 3371261 },
+      { day: "금", date: "3/13", revenue: 3268740 },
+      { day: "토", date: "3/14", revenue: 2135500 },
+      { day: "일", date: "3/15", revenue: 1971238 }
+    ],
+    cafe24Top10: [],
+    insights: { good: [], check: [] },
+    status: [],
+    nextWeek: { products: "", issues: [] }
+  },
+  {
+    id: "2026-W12",
+    label: "3월3주 (3/16~3/22)",
+    period: "2026-03-16 ~ 2026-03-22",
+    summary: "전체 매출 6,557만원, 전주 대비 +6.0%.",
+    channels: [
+      { name: "쿠팡", revenue: 43127090, prevWeek: 41746050, prevYear: null, ratio: 65.8 },
+      { name: "자사몰", revenue: 20901113, prevWeek: 19023081, prevYear: null, ratio: 31.9 },
+      { name: "스마트스토어", revenue: 1003600, prevWeek: 910400, prevYear: null, ratio: 1.5 },
+      { name: "카카오선물하기", revenue: 465500, prevWeek: 155600, prevYear: null, ratio: 0.7 },
+      { name: "롯데온", revenue: 71400, prevWeek: 44200, prevYear: null, ratio: 0.1 }
+    ],
+    total: { revenue: 65568703, prevWeek: 61879331, prevYear: null },
+    coupangStock: null,
+    cafe24Daily: [
+      { day: "월", date: "3/16", revenue: 3607840 },
+      { day: "화", date: "3/17", revenue: 4185896 },
+      { day: "수", date: "3/18", revenue: 2831208 },
+      { day: "목", date: "3/19", revenue: 2558520 },
+      { day: "금", date: "3/20", revenue: 2319408 },
+      { day: "토", date: "3/21", revenue: 2911675 },
+      { day: "일", date: "3/22", revenue: 2486566 }
+    ],
+    cafe24Top10: [],
+    insights: { good: [], check: [] },
+    status: [],
+    nextWeek: { products: "", issues: [] }
+  },
+  {
+    id: "2026-W13",
+    label: "3월4주 (3/23~3/29)",
+    period: "2026-03-23 ~ 2026-03-29",
+    summary: "전체 매출 7,826만원, 전주 대비 +19.3%, 전년 동기 대비 +9.2%. 신상 5종 오픈 효과로 자사몰 견인.",
+    channels: [
+      { name: "쿠팡", revenue: 45525000, prevWeek: 43127090, prevYear: null, ratio: 58.2 },
+      { name: "자사몰", revenue: 30741475, prevWeek: 20901113, prevYear: null, ratio: 39.3 },
+      { name: "스마트스토어", revenue: 1232700, prevWeek: 1003600, prevYear: null, ratio: 1.6 },
+      { name: "카카오선물하기", revenue: 624300, prevWeek: 465500, prevYear: null, ratio: 0.8 },
+      { name: "롯데온", revenue: 137700, prevWeek: 71400, prevYear: null, ratio: 0.2 }
+    ],
+    total: { revenue: 78261175, prevWeek: 65568703, prevYear: 71646842 },
+    coupangStock: {
+      current: { sku: 667, qty: 1694, amount: 17783300 },
+      prevWeek: { sku: 803, qty: 2223, amount: 22828300 },
+      prevYear: { sku: 1039, qty: 1816, amount: 20122900 },
+      top5: [
+        { name: "쿨쿨 수트세트 검정 12m", qty: 36, amount: 435600 },
+        { name: "초코 래쉬가드 민트초코 XL", qty: 16, amount: 352000 },
+        { name: "스무드 실내복 세트 아이보리 XS", qty: 15, amount: 247500 },
+        { name: "룰루 곰돌이모자 아이보리 M", qty: 34, amount: 224400 },
+        { name: "쿨쿨세트 크림 M", qty: 20, amount: 198000 }
+      ]
+    },
+    cafe24Daily: [
+      { day: "월", date: "3/23", revenue: 4068993 },
+      { day: "화", date: "3/24", revenue: 5964003 },
+      { day: "수", date: "3/25", revenue: 3209837 },
+      { day: "목", date: "3/26", revenue: 5359033 },
+      { day: "금", date: "3/27", revenue: 6305411 },
+      { day: "토", date: "3/28", revenue: 3192800 },
+      { day: "일", date: "3/29", revenue: 2641398 }
+    ],
+    cafe24Top10: [
+      { rank: 1, name: "피카부X민들레마음 수면안대", qty: 150, amount: 1800000 },
+      { rank: 2, name: "보니 블루머", qty: 49, amount: 1274000 },
+      { rank: 3, name: "쿨쿨 수트세트", qty: 48, amount: 897600 },
+      { rank: 4, name: "쇼콜라 티셔츠", qty: 47, amount: 1034000 },
+      { rank: 5, name: "디저트 수트세트", qty: 33, amount: 924000 },
+      { rank: 6, name: "디저트 보넷", qty: 27, amount: 324000 },
+      { rank: 7, name: "보니 헤어밴드", qty: 27, amount: 432000 },
+      { rank: 8, name: "초코 스윔햇", qty: 23, amount: 234600 },
+      { rank: 9, name: "디저트 반팔 수트세트", qty: 23, amount: 598000 },
+      { rank: 10, name: "밀키 베이비 3종 세트", qty: 22, amount: 1144000 }
+    ],
+    insights: {
+      good: [
+        "자사몰 +47.1%, 신상 오픈이 확실한 매출 견인",
+        "신상품 3종(보니·쇼콜라·밀키) 오픈 4일 만에 TOP 10 진입",
+        "쿠팡 매출 안정 성장, 4,550만원대 돌파",
+        "카카오선물하기 +34.1%, 3월 최고 주간 매출"
+      ],
+      check: [
+        "쿠팡 납품 전주대비 -22.1%, 전년대비 -11.6% 감소",
+        "스마트스토어 환불 32.9% — 루루·이브 래쉬가드 품절 (원인 파악 완료)"
+      ]
+    },
+    status: [
+      { type: "confirmed", text: "5채널 셀러센터 실수치 + 쿠팡 납품 실데이터 기준" },
+      { type: "confirmed", text: "스마트스토어 환불 — 루루·이브 래쉬가드 품절 건" },
+      { type: "judgment", text: "신상 초기 반응 양호, 다음주 추이로 지속성 확인 필요" },
+      { type: "judgment", text: "쿠팡 납품 감소 — S/S 시즌 전환기 영향 가능성" }
+    ],
+    nextWeek: {
+      products: "샤인 · 샌디 · 링고 · 이븐 (4종)",
+      issues: [
+        "가정의 달 이벤트 — \"포밍 입어볼래요\", \"에어 입어볼래요\" 이벤트",
+        "인스타그램 팔로워 10만 달성 이벤트 또는 기획전",
+        "메인 배너 기획 진행 필요"
+      ]
+    }
+  }
+];
+
+// 월별 집계는 weeklyReports에서 자동 계산
+function getMonthlyData() {
+  const monthly = {};
+  weeklyReports.forEach(w => {
+    const month = w.period.substring(0, 7);
+    if (!monthly[month]) {
+      monthly[month] = { label: month, weeks: [], totalRevenue: 0, channels: {} };
+    }
+    monthly[month].weeks.push(w);
+    monthly[month].totalRevenue += w.total.revenue;
+    w.channels.forEach(ch => {
+      if (!monthly[month].channels[ch.name]) monthly[month].channels[ch.name] = 0;
+      monthly[month].channels[ch.name] += ch.revenue;
+    });
+  });
+  return Object.values(monthly).sort((a, b) => b.label.localeCompare(a.label));
+}

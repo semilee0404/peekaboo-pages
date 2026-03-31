@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카부 매출 보고서</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="data.js"></script>
+<style>
+  :root {
+    --primary: #2F5496;
+    --primary-light: #4472C4;
+    --accent: #E67E22;
+    --green: #27AE60;
+    --red: #E74C3C;
+    --bg: #F5F6FA;
+    --card: #FFFFFF;
+    --text: #2C3E50;
+    --text-light: #7F8C8D;
+    --border: #E8ECF1;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; background: var(--bg); color: var(--text); }
+
+  /* 헤더 */
+  .header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white; padding: 24px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; }
+  .header .subtitle { font-size: 13px; opacity: 0.8; margin-top: 4px; }
+
+  /* 탭 네비게이션 */
+  .tab-nav {
+    background: white; border-bottom: 1px solid var(--border);
+    display: flex; gap: 0; overflow-x: auto; padding: 0 24px;
+  }
+  .tab-group { display: flex; gap: 0; align-items: center; }
+  .tab-group-label {
+    font-size: 11px; color: var(--text-light); padding: 12px 12px 12px 0;
+    font-weight: 600; white-space: nowrap; border-right: 1px solid var(--border);
+    margin-right: 8px; padding-right: 16px;
+  }
+  .tab-btn {
+    padding: 12px 16px; font-size: 13px; font-weight: 500;
+    border: none; background: none; cursor: pointer; color: var(--text-light);
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text); background: #f8f9fa; }
+  .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 700; }
+
+  /* 컨테이너 */
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+  /* 카드 */
+  .card {
+    background: var(--card); border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 16px 20px; font-size: 15px; font-weight: 700;
+    background: var(--primary); color: white;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-body { padding: 20px; }
+
+  /* 요약 배너 */
+  .summary-banner {
+    background: linear-gradient(135deg, #2F5496 0%, #4472C4 100%);
+    color: white; border-radius: 12px; padding: 24px 28px; margin-bottom: 20px;
+  }
+  .summary-banner .label { font-size: 12px; opacity: 0.8; margin-bottom: 6px; }
+  .summary-banner .big-number { font-size: 36px; font-weight: 800; }
+  .summary-banner .sub { font-size: 14px; opacity: 0.9; margin-top: 8px; line-height: 1.6; }
+
+  /* KPI 카드 그리드 */
+  .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+  .kpi-card {
+    background: white; border-radius: 10px; padding: 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); text-align: center;
+  }
+  .kpi-card .channel { font-size: 13px; color: var(--text-light); font-weight: 600; }
+  .kpi-card .amount { font-size: 20px; font-weight: 800; margin: 8px 0 4px; color: var(--text); }
+  .kpi-card .change { font-size: 13px; font-weight: 700; }
+  .kpi-card .ratio { font-size: 11px; color: var(--text-light); margin-top: 4px; }
+  .up { color: var(--green); }
+  .down { color: var(--red); }
+
+  /* 테이블 */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #F0F4F8; padding: 10px 12px; text-align: center; font-weight: 700; color: var(--text); border-bottom: 2px solid var(--border); }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.center { text-align: center; }
+  tr:last-child td { border-bottom: none; }
+  tr.total-row { background: #FFF8E1; font-weight: 700; }
+  tr:hover { background: #f8f9fa; }
+
+  /* 배지 */
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 700;
+  }
+  .badge-up { background: #E8F5E9; color: var(--green); }
+  .badge-down { background: #FFEBEE; color: var(--red); }
+
+  /* 인사이트 */
+  .insight-list { list-style: none; }
+  .insight-list li {
+    padding: 10px 14px; margin-bottom: 8px; border-radius: 8px;
+    font-size: 13px; line-height: 1.5;
+  }
+  .insight-list li.good { background: #E8F5E9; border-left: 4px solid var(--green); }
+  .insight-list li.check { background: #FFF3E0; border-left: 4px solid var(--accent); }
+
+  /* 상태 태그 */
+  .status-tag {
+    display: inline-block; padding: 4px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 700; margin-right: 6px;
+  }
+  .status-confirmed { background: #E3F2FD; color: #1565C0; }
+  .status-judgment { background: #FFF8E1; color: #F57F17; }
+  .status-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .status-row:last-child { border-bottom: none; }
+
+  /* 차주 계획 */
+  .plan-item { padding: 8px 0; font-size: 13px; border-bottom: 1px solid var(--border); }
+  .plan-item:last-child { border-bottom: none; }
+  .plan-highlight { font-weight: 700; color: var(--primary); font-size: 15px; margin-bottom: 12px; }
+
+  /* 차트 */
+  .chart-container { position: relative; height: 280px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* 월별 탭 */
+  .month-summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .month-card {
+    background: white; border-radius: 10px; padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .month-card h3 { font-size: 16px; margin-bottom: 12px; color: var(--primary); }
+
+  /* 추이 탭 */
+  .trend-chart-container { position: relative; height: 350px; }
+
+  @media (max-width: 768px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .month-summary { grid-template-columns: 1fr; }
+    .header h1 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>피카부 매출 보고서</h1>
+    <div class="subtitle" id="headerSubtitle"></div>
+  </div>
+</div>
+
+<div class="tab-nav">
+  <div class="tab-group">
+    <span class="tab-group-label">주차별</span>
+    <div id="weeklyTabs"></div>
+  </div>
+  <div class="tab-group" style="margin-left: 8px;">
+    <span class="tab-group-label">월별</span>
+    <div id="monthlyTabs"></div>
+  </div>
+  <div class="tab-group" style="margin-left: 8px;">
+    <span class="tab-group-label">추이</span>
+    <button class="tab-btn" onclick="showTrend()">전체 추이</button>
+  </div>
+</div>
+
+<div class="container" id="content"></div>
+
+<script>
+const fmt = n => n == null ? '-' : n.toLocaleString('ko-KR');
+const fmtM = n => n == null ? '-' : (n / 10000).toFixed(0) + '만';
+const fmtPct = (cur, prev) => {
+  if (!prev || prev === 0) return '-';
+  const pct = ((cur - prev) / prev * 100).toFixed(1);
+  return pct > 0 ? `+${pct}%` : `${pct}%`;
+};
+const isUp = (cur, prev) => prev && cur > prev;
+
+let currentChart1 = null;
+let currentChart2 = null;
+let currentChart3 = null;
+
+function destroyCharts() {
+  [currentChart1, currentChart2, currentChart3].forEach(c => { if (c) c.destroy(); });
+  currentChart1 = currentChart2 = currentChart3 = null;
+}
+
+// 탭 생성
+function initTabs() {
+  const weeklyDiv = document.getElementById('weeklyTabs');
+  const monthlyDiv = document.getElementById('monthlyTabs');
+
+  weeklyReports.slice().reverse().forEach((w, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = w.label;
+    btn.onclick = () => showWeekly(w.id);
+    weeklyDiv.appendChild(btn);
+  });
+
+  const months = getMonthlyData();
+  months.forEach((m, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn';
+    btn.textContent = m.label;
+    btn.onclick = () => showMonthly(m.label);
+    monthlyDiv.appendChild(btn);
+  });
+}
+
+function setActiveTab(label) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if (b.textContent === label) b.classList.add('active');
+  });
+}
+
+// 주차별 보기
+function showWeekly(id) {
+  destroyCharts();
+  const w = weeklyReports.find(r => r.id === id);
+  if (!w) return;
+  setActiveTab(w.label);
+  document.getElementById('headerSubtitle').textContent = w.period;
+
+  const totalWoW = fmtPct(w.total.revenue, w.total.prevWeek);
+  const totalYoY = fmtPct(w.total.revenue, w.total.prevYear);
+
+  let html = `
+    <div class="summary-banner">
+      <div class="label">주간 총매출</div>
+      <div class="big-number">${fmt(w.total.revenue)}원</div>
+      <div class="sub">전주대비 <strong>${totalWoW}</strong> | 전년대비 <strong>${totalYoY}</strong></div>
+    </div>
+
+    <div class="kpi-grid">
+      ${w.channels.map(ch => {
+        const wow = fmtPct(ch.revenue, ch.prevWeek);
+        const cls = isUp(ch.revenue, ch.prevWeek) ? 'up' : 'down';
+        return `<div class="kpi-card">
+          <div class="channel">${ch.name}</div>
+          <div class="amount">${fmtM(ch.revenue)}원</div>
+          <div class="change ${cls}">${wow}</div>
+          <div class="ratio">비중 ${ch.ratio}%</div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header">채널별 매출 비중</div>
+        <div class="card-body"><div class="chart-container"><canvas id="pieChart"></canvas></div></div>
+      </div>
+      <div class="card">
+        <div class="card-header">자사몰 일별 추이</div>
+        <div class="card-body"><div class="chart-container"><canvas id="dailyChart"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">쿠팡 납품 현황</div>
+      <div class="card-body">
+        <table>
+          <tr><th>구분</th><th>SKU건</th><th>수량</th><th>금액</th><th>증감</th></tr>
+          <tr>
+            <td>금주</td><td class="num">${fmt(w.coupangStock.current.sku)}</td>
+            <td class="num">${fmt(w.coupangStock.current.qty)}개</td>
+            <td class="num">${fmt(w.coupangStock.current.amount)}원</td><td></td>
+          </tr>
+          <tr>
+            <td>전주</td><td class="num">${fmt(w.coupangStock.prevWeek.sku)}</td>
+            <td class="num">${fmt(w.coupangStock.prevWeek.qty)}개</td>
+            <td class="num">${fmt(w.coupangStock.prevWeek.amount)}원</td>
+            <td class="center"><span class="badge badge-down">${fmtPct(w.coupangStock.current.amount, w.coupangStock.prevWeek.amount)}</span></td>
+          </tr>
+          <tr>
+            <td>전년</td><td class="num">${fmt(w.coupangStock.prevYear.sku)}</td>
+            <td class="num">${fmt(w.coupangStock.prevYear.qty)}개</td>
+            <td class="num">${fmt(w.coupangStock.prevYear.amount)}원</td>
+            <td class="center"><span class="badge badge-down">${fmtPct(w.coupangStock.current.amount, w.coupangStock.prevYear.amount)}</span></td>
+          </tr>
+        </table>
+        <div style="margin-top:16px">
+          <strong style="font-size:13px; color:var(--text-light);">납품 TOP 5</strong>
+          <table style="margin-top:8px">
+            <tr><th>상품</th><th>수량</th><th>금액</th></tr>
+            ${w.coupangStock.top5.map(p => `<tr><td>${p.name}</td><td class="num">${p.qty}개</td><td class="num">${fmt(p.amount)}원</td></tr>`).join('')}
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">자사몰 판매 TOP 10 (Cafe24 API)</div>
+      <div class="card-body">
+        <table>
+          <tr><th style="width:40px">#</th><th>상품</th><th>수량</th><th>금액</th></tr>
+          ${w.cafe24Top10.map(p => `<tr><td class="center">${p.rank}</td><td>${p.name}</td><td class="num">${p.qty}개</td><td class="num">${fmt(p.amount)}원</td></tr>`).join('')}
+        </table>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header">주요 인사이트</div>
+        <div class="card-body">
+          <ul class="insight-list">
+            ${w.insights.good.map(t => `<li class="good">${t}</li>`).join('')}
+            ${w.insights.check.map(t => `<li class="check">${t}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">확인 / 판단</div>
+        <div class="card-body">
+          ${w.status.map(s => `<div class="status-row">
+            <span class="status-tag ${s.type === 'confirmed' ? 'status-confirmed' : 'status-judgment'}">${s.type === 'confirmed' ? '확인됨' : '판단'}</span>
+            <span>${s.text}</span>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">차주 계획</div>
+      <div class="card-body">
+        <div class="plan-highlight">신상 오픈: ${w.nextWeek.products}</div>
+        ${w.nextWeek.issues.map(i => `<div class="plan-item">${i}</div>`).join('')}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('content').innerHTML = html;
+
+  // 파이 차트
+  currentChart1 = new Chart(document.getElementById('pieChart'), {
+    type: 'doughnut',
+    data: {
+      labels: w.channels.map(c => c.name),
+      datasets: [{ data: w.channels.map(c => c.revenue), backgroundColor: ['#E74C3C','#2F5496','#27AE60','#9B59B6','#F39C12'], borderWidth: 2 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } } }
+  });
+
+  // 일별 차트
+  currentChart2 = new Chart(document.getElementById('dailyChart'), {
+    type: 'bar',
+    data: {
+      labels: w.cafe24Daily.map(d => d.day + '\n' + d.date),
+      datasets: [{ label: '자사몰 매출', data: w.cafe24Daily.map(d => d.revenue), backgroundColor: '#4472C4', borderRadius: 6 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { y: { ticks: { callback: v => (v/10000).toFixed(0) + '만' } } },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => fmt(ctx.raw) + '원' } } }
+    }
+  });
+}
+
+// 월별 보기
+function showMonthly(monthLabel) {
+  destroyCharts();
+  setActiveTab(monthLabel);
+  const months = getMonthlyData();
+  const m = months.find(x => x.label === monthLabel);
+  if (!m) return;
+  document.getElementById('headerSubtitle').textContent = monthLabel + ' 월간 종합';
+
+  let html = `
+    <div class="summary-banner">
+      <div class="label">${monthLabel} 월간 총매출</div>
+      <div class="big-number">${fmt(m.totalRevenue)}원</div>
+      <div class="sub">${m.weeks.length}주간 누적</div>
+    </div>
+    <div class="card">
+      <div class="card-header">채널별 월간 매출</div>
+      <div class="card-body">
+        <table>
+          <tr><th>채널</th><th>매출</th><th>비중</th></tr>
+          ${Object.entries(m.channels).sort((a,b) => b[1]-a[1]).map(([name, rev]) =>
+            `<tr><td>${name}</td><td class="num">${fmt(rev)}원</td><td class="center">${(rev/m.totalRevenue*100).toFixed(1)}%</td></tr>`
+          ).join('')}
+          <tr class="total-row"><td>합계</td><td class="num">${fmt(m.totalRevenue)}원</td><td class="center">100%</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">주차별 매출 추이</div>
+      <div class="card-body"><div class="chart-container"><canvas id="monthlyChart"></canvas></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header">주차별 상세</div>
+      <div class="card-body">
+        <table>
+          <tr><th>주차</th><th>쿠팡</th><th>자사몰</th><th>스마트스토어</th><th>롯데온</th><th>합계</th><th>전주대비</th></tr>
+          ${m.weeks.map(w => `<tr>
+            <td>${w.label}</td>
+            ${w.channels.map(c => `<td class="num">${fmtM(c.revenue)}</td>`).join('')}
+            <td class="num" style="font-weight:700">${fmtM(w.total.revenue)}</td>
+            <td class="center"><span class="badge ${isUp(w.total.revenue, w.total.prevWeek) ? 'badge-up' : 'badge-down'}">${fmtPct(w.total.revenue, w.total.prevWeek)}</span></td>
+          </tr>`).join('')}
+        </table>
+      </div>
+    </div>
+  `;
+  document.getElementById('content').innerHTML = html;
+
+  currentChart1 = new Chart(document.getElementById('monthlyChart'), {
+    type: 'bar',
+    data: {
+      labels: m.weeks.map(w => w.label),
+      datasets: m.weeks[0].channels.map((ch, i) => ({
+        label: ch.name,
+        data: m.weeks.map(w => w.channels[i]?.revenue || 0),
+        backgroundColor: ['#E74C3C','#2F5496','#27AE60','#9B59B6','#F39C12'][i],
+        borderRadius: 4
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { x: { stacked: true }, y: { stacked: true, ticks: { callback: v => (v/10000).toFixed(0)+'만' } } },
+      plugins: { tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + fmt(ctx.raw) + '원' } } }
+    }
+  });
+}
+
+// 전체 추이
+function showTrend() {
+  destroyCharts();
+  setActiveTab('전체 추이');
+  document.getElementById('headerSubtitle').textContent = '주차별 매출 추이';
+
+  const sorted = [...weeklyReports].sort((a,b) => a.period.localeCompare(b.period));
+
+  let html = `
+    <div class="card">
+      <div class="card-header">주간 매출 추이</div>
+      <div class="card-body"><div class="trend-chart-container"><canvas id="trendChart"></canvas></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header">채널별 추이</div>
+      <div class="card-body"><div class="trend-chart-container"><canvas id="channelTrendChart"></canvas></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header">전체 주차 데이터</div>
+      <div class="card-body">
+        <table>
+          <tr><th>주차</th><th>쿠팡</th><th>자사몰</th><th>스마트스토어</th><th>롯데온</th><th>합계</th><th>전주대비</th></tr>
+          ${sorted.map(w => `<tr>
+            <td>${w.label}</td>
+            ${w.channels.map(c => `<td class="num">${fmtM(c.revenue)}</td>`).join('')}
+            <td class="num" style="font-weight:700">${fmtM(w.total.revenue)}</td>
+            <td class="center"><span class="badge ${isUp(w.total.revenue, w.total.prevWeek) ? 'badge-up' : 'badge-down'}">${fmtPct(w.total.revenue, w.total.prevWeek)}</span></td>
+          </tr>`).join('')}
+        </table>
+      </div>
+    </div>
+  `;
+  document.getElementById('content').innerHTML = html;
+
+  currentChart1 = new Chart(document.getElementById('trendChart'), {
+    type: 'line',
+    data: {
+      labels: sorted.map(w => w.label),
+      datasets: [{
+        label: '주간 총매출',
+        data: sorted.map(w => w.total.revenue),
+        borderColor: '#2F5496',
+        backgroundColor: 'rgba(47,84,150,0.1)',
+        fill: true, tension: 0.3, pointRadius: 6, pointBackgroundColor: '#2F5496'
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { y: { ticks: { callback: v => (v/10000).toFixed(0)+'만' } } },
+      plugins: { tooltip: { callbacks: { label: ctx => fmt(ctx.raw) + '원' } } }
+    }
+  });
+
+  const colors = ['#E74C3C','#2F5496','#27AE60','#9B59B6','#F39C12'];
+  const channelNames = sorted[0].channels.map(c => c.name);
+  currentChart2 = new Chart(document.getElementById('channelTrendChart'), {
+    type: 'line',
+    data: {
+      labels: sorted.map(w => w.label),
+      datasets: channelNames.map((name, i) => ({
+        label: name,
+        data: sorted.map(w => w.channels[i]?.revenue || 0),
+        borderColor: colors[i], backgroundColor: colors[i],
+        fill: false, tension: 0.3, pointRadius: 4
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { y: { ticks: { callback: v => (v/10000).toFixed(0)+'만' } } },
+      plugins: { tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + fmt(ctx.raw) + '원' } } }
+    }
+  });
+}
+
+// 초기화
+initTabs();
+showWeekly(weeklyReports[weeklyReports.length - 1].id);
+</script>
+</body>
+</html>
