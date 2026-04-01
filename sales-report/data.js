@@ -124,7 +124,6 @@ const monthlyClosing = {
       current: { sku: 3165, qty: 8474, amount: 91236900 },
       prevMonth: { sku: 2455, qty: 7861, amount: 83556530 },
       prevYear: { sku: 3948, qty: 7031, amount: 79635100 },
-      stockToSalesRatio: { current: 47.6, prevMonth: 53.1, prevYear: 82.6 },
       top5: [
         { name: "룰루 곰돌이모자 아이보리 S", qty: 165, amount: 1089000 },
         { name: "룰루 곰돌이모자 아이보리 M", qty: 144, amount: 950400 },
@@ -137,7 +136,7 @@ const monthlyClosing = {
       good: [
         "전체 매출 전년대비 +54.1% 성장 (1.94억 → 2.99억)",
         "쿠팡 매출 전년대비 +98.6%, 거의 2배 성장",
-        "쿠팡 납품 효율 개선: 납품/매출 비율 82.6% → 47.6%",
+        "쿠팡 납품 전월대비 +9.2%, 전년대비 +14.6% 증가",
         "스마트스토어 전월대비 +214%, 전년대비 +78% 성장세"
       ],
       check: [
