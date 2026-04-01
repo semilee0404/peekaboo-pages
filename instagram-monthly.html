@@ -119,11 +119,11 @@
   </section>
 
   <section>
-    <h2>스토리 링크 비중 추이</h2>
+    <h2>앱 내 링크 클릭 비중 추이</h2>
     <div class="chart-wrap">
       <canvas id="chartStoryRatio"></canvas>
     </div>
-    <p style="font-size:13px;color:#5c554c">스토리/앱 내 링크 비중이 높은 달(11월 98%, 2월 97%)에 방문이 많고, 낮은 달(1월 55%, 3월 56%)에 방문이 적습니다. <strong>스토리 링크 비중과 방문 수는 거의 비례합니다.</strong></p>
+    <p style="font-size:13px;color:#5c554c">앱 내 링크 클릭(스토리 링크 + 피드 인스타숍 태그 + 프로필 링크 등) 비중이 높은 달(11월 98%, 2월 97%)에 방문이 많고, 낮은 달(1월 55%, 3월 56%)에 방문이 적습니다. <strong>앱 내 링크 비중과 방문 수는 거의 비례합니다.</strong></p>
   </section>
 
   <section>
@@ -165,7 +165,7 @@
         <tr><td>게시물</td><td class="r">15건</td><td class="r">9건</td><td class="r">33건</td><td class="r">24건</td><td class="r">21건</td><td class="r">25건</td></tr>
         <tr><td>평균 좋아요</td><td class="r">58</td><td class="r">75</td><td class="r">43</td><td class="r">86</td><td class="r" style="font-weight:700;color:#27864a">163</td><td class="r">103</td></tr>
         <tr><td>평균 댓글</td><td class="r">11</td><td class="r">3</td><td class="r">4</td><td class="r">26</td><td class="r" style="font-weight:700;color:#27864a">58</td><td class="r">22</td></tr>
-        <tr><td>스토리 링크 비중</td><td class="r">81%</td><td class="r">98%</td><td class="r">94%</td><td class="r">55%</td><td class="r">97%</td><td class="r">56%</td></tr>
+        <tr><td>앱 내 링크 비중</td><td class="r">81%</td><td class="r">98%</td><td class="r">94%</td><td class="r">55%</td><td class="r">97%</td><td class="r">56%</td></tr>
         <tr><td>건당 매출</td><td class="r">614원</td><td class="r">785원</td><td class="r">1,785원</td><td class="r">866원</td><td class="r" style="font-weight:700;color:#27864a">1,543원</td><td class="r">1,394원</td></tr>
         <tr><td>팔로워</td><td class="r">-</td><td class="r">-</td><td class="r">-</td><td class="r">-</td><td class="r">-</td><td class="r">99,604</td></tr>
       </tbody>
@@ -178,14 +178,14 @@
     <h2>6개월에서 배운 것</h2>
     <div class="grid2">
       <div class="insight-card">
-        <h4>스토리 링크 = 자사몰 유입의 핵심</h4>
-        <p>스토리 링크 비중이 90% 이상인 달(11월, 2월)에 방문이 가장 많았고, 50%대인 달(1월, 3월)에 가장 적었습니다.</p>
-        <p style="margin-top:6px"><strong>상품 콘텐츠를 올리면서 스토리 링크를 거는 것이 유입의 거의 전부입니다.</strong></p>
+        <h4>앱 내 링크 클릭 = 자사몰 유입의 핵심</h4>
+        <p>앱 내 링크 비중이 90% 이상인 달(11월, 2월)에 방문이 가장 많았고, 50%대인 달(1월, 3월)에 가장 적었습니다.</p>
+        <p style="margin-top:6px"><strong>상품 콘텐츠(피드 인스타숍 태그 + 스토리 링크)를 통해 자사몰로 보내는 것이 유입의 거의 전부입니다.</strong></p>
       </div>
       <div class="insight-card">
         <h4>발행 수 ≠ 방문 수</h4>
         <p>가장 많이 올린 달(12월 33건)이 가장 방문이 많은 달이 아니고, 가장 적게 올린 달(11월 9건)이 두 번째로 방문이 많았습니다.</p>
-        <p style="margin-top:6px"><strong>중요한 건 발행 수가 아니라, 상품 콘텐츠 비중과 스토리 링크입니다.</strong></p>
+        <p style="margin-top:6px"><strong>중요한 건 발행 수가 아니라, 상품 콘텐츠 비중과 자사몰 연결(인스타숍 태그, 스토리 링크)입니다.</strong></p>
       </div>
       <div class="insight-card">
         <h4>구매율은 꾸준히 상승 중</h4>
@@ -213,7 +213,7 @@
 const DATA = [
   {
     id:'2603', label:'26년 3월',
-    oneliner:'대구 팝업에 집중하느라 인스타에서 자사몰로 오는 길이 끊겼습니다. 콘텐츠 반응은 좋았지만, 상품 페이지로 보내는 스토리 링크가 빠지면서 방문이 크게 줄었어요.',
+    oneliner:'대구 팝업에 집중하느라 인스타에서 자사몰로 오는 길이 끊겼습니다. 콘텐츠 반응은 좋았지만, 팝업 콘텐츠 위주로 운영하면서 상품 페이지로 연결되는 링크가 줄었어요.',
     visit:590, buy:13, revenue:822398, rate:2.20, follower:'99,604',
     pVisit:3322, pBuy:93, pRevenue:5126568, pRate:2.80,
     yVisit:2292, yBuy:11, yRevenue:795299, yRate:0.48,
@@ -229,23 +229,23 @@ const DATA = [
     ],
     good:'<tr><td><strong>구매율 2.20%</strong> (전년 0.48%의 4.6배)</td><td style="font-size:13px;color:#5c554c">방문만 늘리면 매출은 따라옵니다.</td></tr><tr><td><strong>팔로워 99,604명</strong></td><td style="font-size:13px;color:#5c554c">10만 돌파 임박.</td></tr><tr><td><strong>프로필 방문 +142%</strong></td><td style="font-size:13px;color:#5c554c">브랜드 관심은 오히려 올라갔어요.</td></tr>',
     action:'이벤트 기간에도 상품 콘텐츠 비중 유지하기',
-    actions:['이벤트 안내는 이벤트당 피드 1건만. 리마인드/마감/발표는 스토리로.','이벤트 피드 사이사이에 상품 소개 피드를 넣어서 연속 이벤트 방지.','신상 오픈일에는 스토리에서 상품 페이지 링크를 집중.','이벤트 스토리 올릴 때도 상품 링크 스토리를 같이 올리기.'],
+    actions:['이벤트 안내는 이벤트당 피드 1건만. 리마인드/마감/발표는 스토리로.','이벤트 피드 사이사이에 상품 소개 피드를 넣어서 연속 이벤트 방지.','신상 오픈일에는 인스타숍 태그 + 스토리 링크로 상품 페이지 연결 집중.','이벤트 콘텐츠 올릴 때도 상품 연결 콘텐츠를 같이 올리기.'],
   },
   {
     id:'2602', label:'26년 2월',
-    oneliner:'상품 콘텐츠 + 스토리 링크 조합이 완벽하게 작동한 달. 두쫀쿠/찹쌀모찌 출시에 맞춰 스토리에서 상품 페이지로 직접 보냈더니 방문과 매출이 폭증했습니다.',
+    oneliner:'상품 콘텐츠와 자사몰 연결이 완벽하게 작동한 달. 두쫀쿠/찹쌀모찌 출시에 맞춰 인스타숍 태그와 스토리 링크로 상품 페이지를 적극 연결하면서 방문과 매출이 폭증했습니다.',
     visit:3322, buy:93, revenue:5126568, rate:2.80, follower:null,
     pVisit:361, pBuy:7, pRevenue:312498, pRate:1.94,
     yVisit:2766, yBuy:17, yRevenue:1129300, yRate:0.61,
     posts:21, pPosts:24, reels:1, image:10, carousel:10,
     avgLike:163, avgComment:58, pAvgLike:86, pAvgComment:26,
     prevLabel:'1월', yearLabel:'25년 2월',
-    why:'<p><strong>신상품 출시에 맞춰 스토리에서 상품 페이지로 직접 보냈습니다.</strong></p><p style="margin-top:8px">두쫀쿠/찹쌀모찌 출시일, 설날 시즌 등 상품 콘텐츠를 올린 날에 스토리 링크를 집중적으로 걸었어요. 그 날들에 방문이 수백 건씩 몰렸습니다.</p><p style="margin-top:8px">특히 2/22에는 하루 663명이 스토리 링크를 타고 자사몰에 왔고, 그 중 33명이 구매 (구매율 5.0%).</p><p style="margin-top:8px"><strong>이 달의 패턴이 앞으로의 기준선입니다.</strong></p>',
+    why:'<p><strong>신상품 출시에 맞춰 인스타에서 상품 페이지로 적극 연결했습니다.</strong></p><p style="margin-top:8px">두쫀쿠/찹쌀모찌 출시일, 설날 시즌 등 상품 콘텐츠를 올리면서 인스타숍 태그와 스토리 링크를 집중적으로 활용했어요. 그 날들에 방문이 수백 건씩 몰렸습니다.</p><p style="margin-top:8px">특히 2/22에는 하루 663명이 인스타 앱 내 링크를 타고 자사몰에 왔고, 그 중 33명이 구매 (구매율 5.0%).</p><p style="margin-top:8px"><strong>이 달의 패턴이 앞으로의 기준선입니다.</strong></p>',
     detail:'<table><thead><tr><th>경로</th><th class="r">방문</th><th class="r">구매</th><th class="r">비중</th></tr></thead><tbody><tr><td>스토리/앱 내 링크</td><td class="r">3,218명</td><td class="r">88건</td><td class="r">96.9%</td></tr><tr><td>프로필 링크</td><td class="r">107명</td><td class="r">5건</td><td class="r">3.2%</td></tr></tbody></table><table><thead><tr><th>날짜</th><th class="r">스토리 링크 방문</th><th class="r">구매</th><th>콘텐츠</th></tr></thead><tbody><tr><td>2/6</td><td class="r">353명</td><td class="r">9건</td><td>두쫀쿠/찹쌀모찌 출시</td></tr><tr><td>2/13</td><td class="r">553명</td><td class="r">16건</td><td>설날 시즌</td></tr><tr><td>2/22</td><td class="r">663명</td><td class="r">33건</td><td>월 최대 (구매율 5.0%)</td></tr></tbody></table>',
     top:null,
     good:null,
     action:'이번 달 공식을 계속 유지하기',
-    actions:['상품 출시/시즌에 맞춰 스토리 링크 집중하는 패턴 유지.','캐러셀 비중을 유지하면서 저장/공유 유도.','릴스도 적절히 섞어 도달 확보 (이번 달은 1건으로 적었음).'],
+    actions:['상품 출시/시즌에 맞춰 인스타숍 태그 + 스토리 링크를 집중하는 패턴 유지.','캐러셀 비중을 유지하면서 저장/공유 유도.','릴스도 적절히 섞어 도달 확보 (이번 달은 1건으로 적었음).'],
   },
   {
     id:'2601', label:'26년 1월',
@@ -256,11 +256,11 @@ const DATA = [
     posts:24, pPosts:33, reels:3, image:15, carousel:6,
     avgLike:86, avgComment:26, pAvgLike:43, pAvgComment:4,
     prevLabel:'25년 12월', yearLabel:'25년 1월',
-    why:'<p><strong>방문은 줄었지만 콘텐츠 반응은 크게 좋아졌습니다.</strong></p><p style="margin-top:8px">12월 대비 발행이 33건→24건으로 줄고, 스토리 링크 경유 방문도 566명→200명으로 줄었어요.</p><p style="margin-top:8px">반면 평균 좋아요는 2배(43→86), 평균 댓글은 6.5배(4→26)로 올랐습니다. 릴스를 줄이고(15건→3건) 피드 이미지 비중을 높인 효과입니다.</p>',
+    why:'<p><strong>방문은 줄었지만 콘텐츠 반응은 크게 좋아졌습니다.</strong></p><p style="margin-top:8px">12월 대비 발행이 33건→24건으로 줄고, 앱 내 링크 경유 방문도 566명→200명으로 줄었어요.</p><p style="margin-top:8px">반면 평균 좋아요는 2배(43→86), 평균 댓글은 6.5배(4→26)로 올랐습니다. 릴스를 줄이고(15건→3건) 피드 이미지 비중을 높인 효과입니다.</p>',
     detail:'<table><thead><tr><th>경로</th><th class="r">12월</th><th class="r">1월</th><th class="r">변화</th></tr></thead><tbody><tr><td>스토리/앱 내 링크</td><td class="r">566명</td><td class="r">200명</td><td class="r dn">-65%</td></tr><tr><td>프로필 링크</td><td class="r">38명</td><td class="r">161명</td><td class="r up">+324%</td></tr></tbody></table>',
     top:null, good:null,
-    action:'스토리 링크를 상품 콘텐츠와 함께 적극 운영하기',
-    actions:['상품 콘텐츠 올리는 날에 스토리에서 상품 페이지 링크를 같이 걸기.','콘텐츠 반응이 좋아지고 있으니 이 흐름 유지하면서 방문 끌어올리기.','캐러셀 비중 늘려보기 (저장/공유 유도에 효과적).'],
+    action:'상품 콘텐츠에 자사몰 연결을 적극 운영하기',
+    actions:['상품 콘텐츠에 인스타숍 태그 + 스토리 링크를 빠짐없이 걸기.','콘텐츠 반응이 좋아지고 있으니 이 흐름 유지하면서 방문 끌어올리기.','캐러셀 비중 늘려보기 (저장/공유 유도에 효과적).'],
   },
   {
     id:'2512', label:'25년 12월',
@@ -275,7 +275,7 @@ const DATA = [
     detail:'<table><thead><tr><th>경로</th><th class="r">11월</th><th class="r">12월</th><th class="r">변화</th></tr></thead><tbody><tr><td>스토리/앱 내 링크</td><td class="r">1,077명</td><td class="r">566명</td><td class="r dn">-47%</td></tr><tr><td>프로필 링크</td><td class="r">23명</td><td class="r">38명</td><td class="r up">+65%</td></tr></tbody></table>',
     top:null, good:null,
     action:'구매율이 높아지고 있으니 방문을 늘릴 방법 찾기',
-    actions:['스토리 링크 운영을 더 적극적으로 — 방문만 늘리면 매출이 바로 오르는 구조.','발행 수를 늘리되, 반응 좋은 콘텐츠 유형에 집중.'],
+    actions:['자사몰 연결(인스타숍 태그 + 스토리 링크)을 더 적극적으로 — 방문만 늘리면 매출이 바로 오르는 구조.','발행 수를 늘리되, 반응 좋은 콘텐츠 유형에 집중.'],
   },
   {
     id:'2511', label:'25년 11월',
@@ -286,11 +286,11 @@ const DATA = [
     posts:9, pPosts:15, reels:6, image:0, carousel:3,
     avgLike:75, avgComment:3, pAvgLike:58, pAvgComment:11,
     prevLabel:'10월', yearLabel:'24년 11월',
-    why:'<p><strong>스토리 링크 경유 방문이 1,077명으로 전체의 98%를 차지.</strong></p><p style="margin-top:8px">스토리에서 상품 링크를 타고 자사몰로 오는 경로가 이 달에 가장 높은 비중을 보였습니다.</p><p style="margin-top:8px">발행은 9건으로 줄었지만 평균 좋아요(58→75)는 올라 콘텐츠 질이 개선되고 있어요. 릴스 6건으로 도달 확보에 집중.</p>',
+    why:'<p><strong>앱 내 링크 경유 방문이 1,077명으로 전체의 98%를 차지.</strong></p><p style="margin-top:8px">인스타숍 태그, 스토리 링크 등 앱 내에서 자사몰로 오는 경로가 이 달에 가장 높은 비중을 보였습니다.</p><p style="margin-top:8px">발행은 9건으로 줄었지만 평균 좋아요(58→75)는 올라 콘텐츠 질이 개선되고 있어요. 릴스 6건으로 도달 확보에 집중.</p>',
     detail:'<table><thead><tr><th>경로</th><th class="r">10월</th><th class="r">11월</th><th class="r">변화</th></tr></thead><tbody><tr><td>스토리/앱 내 링크</td><td class="r">671명</td><td class="r">1,077명</td><td class="r up">+60%</td></tr><tr><td>프로필 링크</td><td class="r">154명</td><td class="r">23명</td><td class="r dn">-85%</td></tr></tbody></table>',
     top:null, good:null,
     action:'성장세 유지하면서 발행 수 늘리기',
-    actions:['9건은 다소 적음. 발행 수를 늘려 노출 기회 확대.','스토리 링크 비중(98%)이 매우 높은 달 — 이 패턴 유지.','피드 이미지 0건이었으므로 유형 균형 맞추기.'],
+    actions:['9건은 다소 적음. 발행 수를 늘려 노출 기회 확대.','앱 내 링크 비중(98%)이 매우 높은 달 — 이 패턴 유지.','피드 이미지 0건이었으므로 유형 균형 맞추기.'],
   },
   {
     id:'2510', label:'25년 10월',
@@ -305,7 +305,7 @@ const DATA = [
     detail:'<table><thead><tr><th>경로</th><th class="r">9월</th><th class="r">10월</th><th class="r">변화</th></tr></thead><tbody><tr><td>스토리/앱 내 링크</td><td class="r">629명</td><td class="r">671명</td><td class="r up">+7%</td></tr><tr><td>프로필 링크</td><td class="r">50명</td><td class="r">154명</td><td class="r up">+208%</td></tr></tbody></table>',
     top:null, good:null,
     action:'양보다 질 전략을 유지하면서 꾸준히 성장시키기',
-    actions:['무리하게 많이 올리기보다, 반응 좋은 콘텐츠에 집중.','캐러셀 비중(47%)이 높았던 달 — 저장/공유에 효과적.','스토리 링크를 더 적극적으로 걸어 방문 수 끌어올리기.'],
+    actions:['무리하게 많이 올리기보다, 반응 좋은 콘텐츠에 집중.','캐러셀 비중(47%)이 높았던 달 — 저장/공유에 효과적.','인스타숍 태그 + 스토리 링크를 더 적극적으로 걸어 방문 수 끌어올리기.'],
   },
 ];
 
@@ -479,7 +479,7 @@ function initCharts(){
     data:{
       labels,
       datasets:[
-        {label:'스토리/앱 내 링크 비중 (%)',data:[81,98,94,55,97,56],backgroundColor:labels.map((_,i)=>[81,98,94,55,97,56][i]>=80?'#1a6b8a':'#c0392b'),borderRadius:4},
+        {label:'앱 내 링크 클릭 비중 (%)',data:[81,98,94,55,97,56],backgroundColor:labels.map((_,i)=>[81,98,94,55,97,56][i]>=80?'#1a6b8a':'#c0392b'),borderRadius:4},
       ]
     },
     options:{...defs,scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{...defs.plugins,legend:{display:false}}}
