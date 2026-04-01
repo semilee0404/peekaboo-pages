@@ -54,9 +54,12 @@
   .checklist { list-style: none; }
   .checklist li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; display: flex; align-items: flex-start; gap: 8px; }
   .checklist li:last-child { border-bottom: none; }
-  .check { width: 18px; height: 18px; border-radius: 4px; border: 2px solid #ccc; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+  .check { width: 18px; height: 18px; border-radius: 4px; border: 2px solid #ccc; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 11px; cursor: pointer; transition: all 0.15s; user-select: none; }
+  .check:hover { border-color: #2e7d32; transform: scale(1.1); }
   .check.done { background: #2e7d32; border-color: #2e7d32; color: white; }
   .check.todo { border-color: #e65100; }
+  .checklist li.checked-item > span:not(.check) { text-decoration: line-through; color: #aaa; }
+  .checklist li.checked-item strong { color: #aaa; }
 
   /* Confirm box */
   .confirm-box { background: #e3f2fd; border-left: 4px solid #1565c0; border-radius: 0 10px 10px 0; padding: 16px; margin: 16px 0; }
@@ -93,10 +96,14 @@
 
 <div class="header">
   <h1>4월 과제 사전 준비 보고서</h1>
-  <div class="date">2026.04.01 (수) 기준 | D-2 신상 오픈</div>
+  <div class="date">2026.04.02 (목) 기준 | D-1 신상 오픈</div>
+  <div style="margin-top:14px; background:rgba(255,255,255,0.1); border-radius:8px; overflow:hidden; height:6px;">
+    <div id="progress-bar" style="height:100%; background:#ffd369; border-radius:8px; width:0%; transition:width 0.3s;"></div>
+  </div>
+  <div id="progress-count" style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:4px; text-align:right;">0 / 0 완료</div>
   <div class="summary">
     <div class="stat"><div class="num">5개</div><div class="label">4월 핵심 과제</div></div>
-    <div class="stat"><div class="num">D-2</div><div class="label">신상 4종 오픈 (4/3 금)</div></div>
+    <div class="stat"><div class="num">D-1</div><div class="label">신상 4종 오픈 (4/3 금)</div></div>
     <div class="stat"><div class="num">99.4K</div><div class="label">인스타 팔로워</div></div>
     <div class="stat"><div class="num">33.5%</div><div class="label">자사몰 비중 (3월)</div></div>
   </div>
@@ -402,6 +409,71 @@ function showTab(id) {
   document.getElementById(id).classList.add('active');
   event.target.classList.add('active');
 }
+
+// Checklist: 클릭 토글 + localStorage 저장
+(function() {
+  const STORAGE_KEY = 'peekaboo-april-checklist';
+
+  function getState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
+  }
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function applyCheck(li, idx, checked) {
+    const box = li.querySelector('.check');
+    if (checked) {
+      box.classList.add('done');
+      box.classList.remove('todo');
+      box.innerHTML = '&#10003;';
+      li.classList.add('checked-item');
+    } else {
+      box.classList.remove('done');
+      box.classList.add('todo');
+      box.innerHTML = '';
+      li.classList.remove('checked-item');
+    }
+  }
+
+  function init() {
+    const state = getState();
+    const items = document.querySelectorAll('.checklist li');
+    items.forEach(function(li, idx) {
+      // 초기 상태 반영 (이미 done인 것도 localStorage 우선)
+      const box = li.querySelector('.check');
+      const isPreDone = box.classList.contains('done');
+      const checked = state[idx] !== undefined ? state[idx] : isPreDone;
+      if (checked) { state[idx] = true; }
+      applyCheck(li, idx, checked);
+
+      // 클릭 이벤트
+      box.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const s = getState();
+        const nowChecked = !s[idx];
+        s[idx] = nowChecked;
+        saveState(s);
+        applyCheck(li, idx, nowChecked);
+        updateProgress();
+      });
+    });
+    saveState(state);
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const state = getState();
+    const total = document.querySelectorAll('.checklist li').length;
+    const done = Object.values(state).filter(Boolean).length;
+    const el = document.getElementById('progress-count');
+    if (el) { el.textContent = done + ' / ' + total + ' 완료'; }
+    const bar = document.getElementById('progress-bar');
+    if (bar) { bar.style.width = (total ? Math.round(done/total*100) : 0) + '%'; }
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
 </script>
 
 </body>
