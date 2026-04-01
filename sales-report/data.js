@@ -7,90 +7,6 @@
 
 const weeklyReports = [
   {
-    id: "2026-W10",
-    label: "3월1주 (3/2~3/8)",
-    period: "2026-03-02 ~ 2026-03-08",
-    summary: "전체 매출 6,597만원. 3월 첫 주 기준점.",
-    channels: [
-      { name: "쿠팡", revenue: 43717360, prevWeek: null, prevYear: null, ratio: 66.3 },
-      { name: "자사몰", revenue: 20959796, prevWeek: null, prevYear: null, ratio: 31.8 },
-      { name: "스마트스토어", revenue: 961000, prevWeek: null, prevYear: null, ratio: 1.5 },
-      { name: "카카오선물하기", revenue: 190600, prevWeek: null, prevYear: null, ratio: 0.3 },
-      { name: "롯데온", revenue: 139400, prevWeek: null, prevYear: null, ratio: 0.2 }
-    ],
-    total: { revenue: 65968156, prevWeek: null, prevYear: null },
-    coupangStock: null,
-    cafe24Daily: [
-      { day: "월", date: "3/2", revenue: 1910902 },
-      { day: "화", date: "3/3", revenue: 3895504 },
-      { day: "수", date: "3/4", revenue: 3681015 },
-      { day: "목", date: "3/5", revenue: 3005698 },
-      { day: "금", date: "3/6", revenue: 4082222 },
-      { day: "토", date: "3/7", revenue: 1580540 },
-      { day: "일", date: "3/8", revenue: 2803915 }
-    ],
-    cafe24Top10: [],
-    insights: { good: [], check: [] },
-    status: [],
-    nextWeek: { products: "", issues: [] }
-  },
-  {
-    id: "2026-W11",
-    label: "3월2주 (3/9~3/15)",
-    period: "2026-03-09 ~ 2026-03-15",
-    summary: "전체 매출 6,188만원, 전주 대비 -6.2%.",
-    channels: [
-      { name: "쿠팡", revenue: 41746050, prevWeek: 43717360, prevYear: null, ratio: 67.5 },
-      { name: "자사몰", revenue: 19023081, prevWeek: 20959796, prevYear: null, ratio: 30.7 },
-      { name: "스마트스토어", revenue: 910400, prevWeek: 961000, prevYear: null, ratio: 1.5 },
-      { name: "카카오선물하기", revenue: 155600, prevWeek: 190600, prevYear: null, ratio: 0.3 },
-      { name: "롯데온", revenue: 44200, prevWeek: 139400, prevYear: null, ratio: 0.1 }
-    ],
-    total: { revenue: 61879331, prevWeek: 65968156, prevYear: null },
-    coupangStock: null,
-    cafe24Daily: [
-      { day: "월", date: "3/9", revenue: 2679340 },
-      { day: "화", date: "3/10", revenue: 2931597 },
-      { day: "수", date: "3/11", revenue: 2665405 },
-      { day: "목", date: "3/12", revenue: 3371261 },
-      { day: "금", date: "3/13", revenue: 3268740 },
-      { day: "토", date: "3/14", revenue: 2135500 },
-      { day: "일", date: "3/15", revenue: 1971238 }
-    ],
-    cafe24Top10: [],
-    insights: { good: [], check: [] },
-    status: [],
-    nextWeek: { products: "", issues: [] }
-  },
-  {
-    id: "2026-W12",
-    label: "3월3주 (3/16~3/22)",
-    period: "2026-03-16 ~ 2026-03-22",
-    summary: "전체 매출 6,557만원, 전주 대비 +6.0%.",
-    channels: [
-      { name: "쿠팡", revenue: 43127090, prevWeek: 41746050, prevYear: null, ratio: 65.8 },
-      { name: "자사몰", revenue: 20901113, prevWeek: 19023081, prevYear: null, ratio: 31.9 },
-      { name: "스마트스토어", revenue: 1003600, prevWeek: 910400, prevYear: null, ratio: 1.5 },
-      { name: "카카오선물하기", revenue: 465500, prevWeek: 155600, prevYear: null, ratio: 0.7 },
-      { name: "롯데온", revenue: 71400, prevWeek: 44200, prevYear: null, ratio: 0.1 }
-    ],
-    total: { revenue: 65568703, prevWeek: 61879331, prevYear: null },
-    coupangStock: null,
-    cafe24Daily: [
-      { day: "월", date: "3/16", revenue: 3607840 },
-      { day: "화", date: "3/17", revenue: 4185896 },
-      { day: "수", date: "3/18", revenue: 2831208 },
-      { day: "목", date: "3/19", revenue: 2558520 },
-      { day: "금", date: "3/20", revenue: 2319408 },
-      { day: "토", date: "3/21", revenue: 2911675 },
-      { day: "일", date: "3/22", revenue: 2486566 }
-    ],
-    cafe24Top10: [],
-    insights: { good: [], check: [] },
-    status: [],
-    nextWeek: { products: "", issues: [] }
-  },
-  {
     id: "2026-W13",
     label: "3월4주 (3/23~3/29)",
     period: "2026-03-23 ~ 2026-03-29",
@@ -231,6 +147,12 @@ const monthlyClosing = {
         "전월대비 전체 -5.9% — 2월 대비 하락"
       ]
     },
+    weeklyTrend: [
+      { label: "1주 (3/2~3/8)", coupang: 43717360, cafe24: 20959796, smartstore: 961000, kakao: 190600, lotteon: 139400, total: 65968156 },
+      { label: "2주 (3/9~3/15)", coupang: 41746050, cafe24: 19023081, smartstore: 910400, kakao: 155600, lotteon: 44200, total: 61879331 },
+      { label: "3주 (3/16~3/22)", coupang: 43127090, cafe24: 20901113, smartstore: 1003600, kakao: 465500, lotteon: 71400, total: 65568703 },
+      { label: "4주 (3/23~3/29)", coupang: 45525000, cafe24: 30741475, smartstore: 1232700, kakao: 624300, lotteon: 137700, total: 78261175 }
+    ],
     nextMonth: {
       products: "샤인 · 샌디 · 링고 · 이븐 (4종) 오픈",
       issues: [

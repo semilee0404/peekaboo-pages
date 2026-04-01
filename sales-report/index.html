@@ -611,6 +611,30 @@ function showClosing(key) {
       </div>
     </div>
 
+    ${c.weeklyTrend ? `
+    <div class="card">
+      <div class="card-header">주차별 매출 추이</div>
+      <div class="card-body">
+        <table>
+          <tr><th>주차</th><th>쿠팡</th><th>자사몰</th><th>스마트스토어</th><th>카카오</th><th>롯데온</th><th>합계</th></tr>
+          ${c.weeklyTrend.map((w, i) => {
+            const prev = i > 0 ? c.weeklyTrend[i-1].total : null;
+            const wow = prev ? fmtPct(w.total, prev) : '-';
+            return `<tr>
+              <td>${w.label}</td>
+              <td class="num">${fmtM(w.coupang)}</td>
+              <td class="num">${fmtM(w.cafe24)}</td>
+              <td class="num">${fmtM(w.smartstore)}</td>
+              <td class="num">${fmtM(w.kakao)}</td>
+              <td class="num">${fmtM(w.lotteon)}</td>
+              <td class="num" style="font-weight:700">${fmtM(w.total)} <span class="badge ${prev && w.total > prev ? 'badge-up' : 'badge-down'}" style="font-size:10px">${wow}</span></td>
+            </tr>`;
+          }).join('')}
+        </table>
+        <div class="chart-container" style="margin-top:16px;"><canvas id="weeklyTrendChart"></canvas></div>
+      </div>
+    </div>` : ''}
+
     ${c.coupangStock ? `
     <div class="card">
       <div class="card-header">쿠팡 납품 현황 (월간)</div>
@@ -667,6 +691,28 @@ function showClosing(key) {
   `;
 
   document.getElementById('content').innerHTML = html;
+
+  // 주차별 추이 차트
+  if (c.weeklyTrend) {
+    new Chart(document.getElementById('weeklyTrendChart'), {
+      type: 'bar',
+      data: {
+        labels: c.weeklyTrend.map(w => w.label),
+        datasets: [
+          { label: '쿠팡', data: c.weeklyTrend.map(w => w.coupang), backgroundColor: '#E74C3C', borderRadius: 4 },
+          { label: '자사몰', data: c.weeklyTrend.map(w => w.cafe24), backgroundColor: '#2F5496', borderRadius: 4 },
+          { label: '스마트스토어', data: c.weeklyTrend.map(w => w.smartstore), backgroundColor: '#27AE60', borderRadius: 4 },
+          { label: '카카오', data: c.weeklyTrend.map(w => w.kakao), backgroundColor: '#9B59B6', borderRadius: 4 },
+          { label: '롯데온', data: c.weeklyTrend.map(w => w.lotteon), backgroundColor: '#F39C12', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        scales: { x: { stacked: true }, y: { stacked: true, ticks: { callback: v => (v/10000).toFixed(0)+'만' } } },
+        plugins: { tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + fmt(ctx.raw) + '원' } } }
+      }
+    });
+  }
 
   // 비중 비교 차트 (전년 vs 금년)
   currentChart1 = new Chart(document.getElementById('ratioChart'), {
