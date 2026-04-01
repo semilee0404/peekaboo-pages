@@ -640,23 +640,20 @@ function showClosing(key) {
       <div class="card-header">쿠팡 납품 현황 (월간)</div>
       <div class="card-body">
         <table>
-          <tr><th>구분</th><th>SKU건</th><th>수량</th><th>금액</th><th>증감</th></tr>
-          <tr>
-            <td>2026.3</td><td class="num">${fmt(c.coupangStock.current.sku)}</td>
-            <td class="num">${fmt(c.coupangStock.current.qty)}개</td>
-            <td class="num">${fmt(c.coupangStock.current.amount)}원</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>2026.2</td><td class="num">${fmt(c.coupangStock.prevMonth.sku)}</td>
-            <td class="num">${fmt(c.coupangStock.prevMonth.qty)}개</td>
-            <td class="num">${fmt(c.coupangStock.prevMonth.amount)}원</td>
+          <tr><th>구분</th><th>SKU건</th><th>수량</th><th>금액</th></tr>
+          <tr><td>2026.3</td><td class="num">${fmt(c.coupangStock.current.sku)}</td><td class="num">${fmt(c.coupangStock.current.qty)}개</td><td class="num">${fmt(c.coupangStock.current.amount)}원</td></tr>
+          <tr><td>2026.2</td><td class="num">${fmt(c.coupangStock.prevMonth.sku)}</td><td class="num">${fmt(c.coupangStock.prevMonth.qty)}개</td><td class="num">${fmt(c.coupangStock.prevMonth.amount)}원</td></tr>
+          <tr><td>2025.3</td><td class="num">${fmt(c.coupangStock.prevYear.sku)}</td><td class="num">${fmt(c.coupangStock.prevYear.qty)}개</td><td class="num">${fmt(c.coupangStock.prevYear.amount)}원</td></tr>
+          <tr class="total-row">
+            <td>전월대비</td>
+            <td class="center"><span class="badge ${isUp(c.coupangStock.current.sku, c.coupangStock.prevMonth.sku) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.sku, c.coupangStock.prevMonth.sku)}</span></td>
+            <td class="center"><span class="badge ${isUp(c.coupangStock.current.qty, c.coupangStock.prevMonth.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.qty, c.coupangStock.prevMonth.qty)}</span></td>
             <td class="center"><span class="badge ${isUp(c.coupangStock.current.amount, c.coupangStock.prevMonth.amount) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.amount, c.coupangStock.prevMonth.amount)}</span></td>
           </tr>
-          <tr>
-            <td>2025.3</td><td class="num">${fmt(c.coupangStock.prevYear.sku)}</td>
-            <td class="num">${fmt(c.coupangStock.prevYear.qty)}개</td>
-            <td class="num">${fmt(c.coupangStock.prevYear.amount)}원</td>
+          <tr class="total-row">
+            <td>전년대비</td>
+            <td class="center"><span class="badge ${isUp(c.coupangStock.current.sku, c.coupangStock.prevYear.sku) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.sku, c.coupangStock.prevYear.sku)}</span></td>
+            <td class="center"><span class="badge ${isUp(c.coupangStock.current.qty, c.coupangStock.prevYear.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.qty, c.coupangStock.prevYear.qty)}</span></td>
             <td class="center"><span class="badge ${isUp(c.coupangStock.current.amount, c.coupangStock.prevYear.amount) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.amount, c.coupangStock.prevYear.amount)}</span></td>
           </tr>
         </table>
