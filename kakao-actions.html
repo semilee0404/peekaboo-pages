@@ -17,12 +17,20 @@
   .panel { display: none; }
   .panel.active { display: block; }
   .section-title { font-size: 0.9em; font-weight: 600; margin: 16px 0 8px; color: #999; border-bottom: 1px solid #222; padding-bottom: 4px; }
-  .item { background: #1a1a1a; border-radius: 8px; padding: 12px 14px; margin-bottom: 6px; border-left: 3px solid #333; }
+  .item { background: #1a1a1a; border-radius: 8px; padding: 12px 14px; margin-bottom: 6px; border-left: 3px solid #333; display: flex; align-items: flex-start; gap: 10px; }
   .item.action, .item.todo { border-left-color: #ff6b6b; }
   .item.reference, .item.knowledge { border-left-color: #74b9ff; }
   .item.done { opacity: 0.4; }
+  .item.checked { display: none; }
+  .item-check { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; accent-color: #51cf66; cursor: pointer; }
+  .item-body { flex: 1; min-width: 0; }
   .item-text { font-size: 0.9em; font-weight: 500; margin-bottom: 4px; }
   .item-text.done { text-decoration: line-through; }
+  .summary-item { display: flex; align-items: flex-start; gap: 10px; }
+  .summary-item.checked { display: none; }
+  .summary-body { flex: 1; min-width: 0; }
+  .done-toggle { display: inline-block; padding: 6px 12px; border-radius: 8px; background: #1a1a1a; border: 1px solid #333; cursor: pointer; font-size: 0.8em; color: #aaa; margin-bottom: 16px; }
+  .done-toggle.active { background: #1e3a1e; border-color: #51cf66; color: #51cf66; }
   .item-meta { font-size: 0.7em; color: #555; }
   .item-source { font-size: 0.72em; color: #444; margin-top: 3px; font-style: italic; }
   .priority { font-size: 0.65em; padding: 1px 5px; border-radius: 3px; margin-right: 4px; }
@@ -30,7 +38,7 @@
   .priority.보통 { background: #3d2e0e; color: #ffd43b; }
   .priority.낮음 { background: #1e3a1e; color: #51cf66; }
   .cat-badge { font-size: 0.65em; padding: 1px 5px; border-radius: 3px; background: #1c3a5e; color: #74b9ff; margin-right: 4px; }
-  .summary-item { background: #1a1a1a; border-radius: 8px; padding: 12px 14px; margin-bottom: 6px; border-left: 3px solid #a29bfe; }
+  .summary-item { background: #1a1a1a; border-radius: 8px; padding: 12px 14px; margin-bottom: 6px; border-left: 3px solid #a29bfe; display: flex; align-items: flex-start; gap: 10px; }
   .summary-item .cat { font-size: 0.65em; padding: 1px 5px; border-radius: 3px; background: #2d1b69; color: #a29bfe; }
   .summary-item a { color: #74b9ff; font-size: 0.8em; }
   .empty { text-align: center; color: #444; padding: 30px; font-size: 0.85em; }
@@ -46,7 +54,7 @@
 </head>
 <body>
 <h1>카톡 액션 트래커</h1>
-<p class="meta">마지막 업데이트: 2026-04-01 17:07</p>
+<p class="meta">마지막 업데이트: 2026-04-01 17:22</p>
 
 <div class="stats-row">
   <div class="stat-box"><div class="stat-num red">17</div><div class="stat-label">할 일</div></div>
@@ -64,392 +72,712 @@
 </div>
 <div class="panel active" id="panel-나와의채팅">
 <div class="section-title">할 일 (3)</div>
-<div class="item action">
-  <div class="item-text"><span class="priority 높음">높음</span>이슈/정치/경제 썰 콘텐츠 채널 운영법: 블로그 타겟 정해놓고 소재 빠르게 수집 → 스크립트 작성</div>
-  <div class="item-meta">2026-03-27 11:32:29~35 | 등록: 2026-03-29 08:52</div>
-  <div class="item-source">"이슈나 정치나 경제 썰같은걸로 풀어내는 채널... 같은 주제 블로그 타겟 몇개 정해놓고 빼먹으면됨"</div>
+<div class="item action" data-id="나와의채팅_20260329085214_0">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>이슈/정치/경제 썰 콘텐츠 채널 운영법: 블로그 타겟 정해놓고 소재 빠르게 수집 → 스크립트 작성</div>
+    <div class="item-meta">2026-03-27 11:32:29~35 | 등록: 2026-03-29 08:52</div>
+    <div class="item-source">"이슈나 정치나 경제 썰같은걸로 풀어내는 채널... 같은 주제 블로그 타겟 몇개 정해놓고 빼먹으면됨"</div>
+  </div>
 </div>
-<div class="item action">
-  <div class="item-text"><span class="priority 높음">높음</span>스레드 자동 포스팅 구현 (jeon_h.jin0101 계정 참고)</div>
-  <div class="item-meta">2026-03-28 21:06:03~08 | 등록: 2026-03-29 08:52</div>
-  <div class="item-source">"https://www.threads.com/@jeon_h.jin0101... 이런 스레드 자동호ㅓ"</div>
+<div class="item action" data-id="나와의채팅_20260329085214_7">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>스레드 자동 포스팅 구현 (jeon_h.jin0101 계정 참고)</div>
+    <div class="item-meta">2026-03-28 21:06:03~08 | 등록: 2026-03-29 08:52</div>
+    <div class="item-source">"https://www.threads.com/@jeon_h.jin0101... 이런 스레드 자동호ㅓ"</div>
+  </div>
 </div>
-<div class="item action">
-  <div class="item-text"><span class="priority 보통">보통</span>이런 스타일의 스레드 자동화 구현하기</div>
-  <div class="item-meta">2026-03-28 21:06:08 | 등록: 2026-03-29 22:51</div>
-  <div class="item-source">"이런 스레드 자동호ㅓ (→ 자동화)"</div>
+<div class="item action" data-id="나와의채팅_20260329225115_10">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 보통">보통</span>이런 스타일의 스레드 자동화 구현하기</div>
+    <div class="item-meta">2026-03-28 21:06:08 | 등록: 2026-03-29 22:51</div>
+    <div class="item-source">"이런 스레드 자동호ㅓ (→ 자동화)"</div>
+  </div>
 </div>
 <div class="section-title">참고사항 (11)</div>
-<div class="item reference">
-  <div class="item-text">Peekaboo Pages 제품 대시보드 URL</div>
-  <div class="item-meta">2026-03-27 11:58:55 | 등록: 2026-03-29 08:52</div>
+<div class="item reference" data-id="나와의채팅_20260329085214_1">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">Peekaboo Pages 제품 대시보드 URL</div>
+    <div class="item-meta">2026-03-27 11:58:55 | 등록: 2026-03-29 08:52</div>
+  </div>
 </div>
-<div class="item reference">
-  <div class="item-text">Facebook/Meta API 액세스 토큰</div>
-  <div class="item-meta">2026-03-27 17:23:34 | 등록: 2026-03-29 08:52</div>
+<div class="item reference" data-id="나와의채팅_20260329085214_2">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">Facebook/Meta API 액세스 토큰</div>
+    <div class="item-meta">2026-03-27 17:23:34 | 등록: 2026-03-29 08:52</div>
+  </div>
 </div>
-<div class="item reference">
-  <div class="item-text">Peekaboo Pages 런칭 대시보드 URL</div>
-  <div class="item-meta">2026-03-27 18:05:22 | 등록: 2026-03-29 08:52</div>
+<div class="item reference" data-id="나와의채팅_20260329085214_3">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">Peekaboo Pages 런칭 대시보드 URL</div>
+    <div class="item-meta">2026-03-27 18:05:22 | 등록: 2026-03-29 08:52</div>
+  </div>
 </div>
-<div class="item reference">
-  <div class="item-text">Peekaboo Pages 세일즈 대시보드 URL</div>
-  <div class="item-meta">2026-03-27 18:15:53 | 등록: 2026-03-29 08:52</div>
+<div class="item reference" data-id="나와의채팅_20260329085214_4">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">Peekaboo Pages 세일즈 대시보드 URL</div>
+    <div class="item-meta">2026-03-27 18:15:53 | 등록: 2026-03-29 08:52</div>
+  </div>
 </div>
-<div class="item reference">
-  <div class="item-text">OpenAI Codex 플러그인 개발자 문서</div>
-  <div class="item-meta">2026-03-27 21:36:11 | 등록: 2026-03-29 08:52</div>
+<div class="item reference" data-id="나와의채팅_20260329085214_5">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">OpenAI Codex 플러그인 개발자 문서</div>
+    <div class="item-meta">2026-03-27 21:36:11 | 등록: 2026-03-29 08:52</div>
+  </div>
 </div>
-<div class="item reference">
-  <div class="item-text">돈 관련 콘텐츠 크리에이터(thisismoney) 링크트리 참고</div>
-  <div class="item-meta">2026-03-28 20:59:42 | 등록: 2026-03-29 08:52</div>
+<div class="item reference" data-id="나와의채팅_20260329085214_6">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">돈 관련 콘텐츠 크리에이터(thisismoney) 링크트리 참고</div>
+    <div class="item-meta">2026-03-28 20:59:42 | 등록: 2026-03-29 08:52</div>
+  </div>
 </div>
-<div class="item reference">
-  <div class="item-text">thisismoney 링크 (재테크/금융 관련 링크인바이오)</div>
-  <div class="item-meta">2026-03-28 20:59:42 | 등록: 2026-03-29 22:51</div>
+<div class="item reference" data-id="나와의채팅_20260329225115_8">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">thisismoney 링크 (재테크/금융 관련 링크인바이오)</div>
+    <div class="item-meta">2026-03-28 20:59:42 | 등록: 2026-03-29 22:51</div>
+  </div>
 </div>
-<div class="item reference">
-  <div class="item-text">스레드 계정 jeon_h.jin0101 참고</div>
-  <div class="item-meta">2026-03-28 21:06:03 | 등록: 2026-03-29 22:51</div>
+<div class="item reference" data-id="나와의채팅_20260329225115_9">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">스레드 계정 jeon_h.jin0101 참고</div>
+    <div class="item-meta">2026-03-28 21:06:03 | 등록: 2026-03-29 22:51</div>
+  </div>
 </div>
-<div class="item reference">
-  <div class="item-text">AI/MCP 관련 스레드 게시물 참고 (@alex_ai_mcp)</div>
-  <div class="item-meta">2026-03-29 13:48:10 | 등록: 2026-03-29 22:51</div>
+<div class="item reference" data-id="나와의채팅_20260329225115_11">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">AI/MCP 관련 스레드 게시물 참고 (@alex_ai_mcp)</div>
+    <div class="item-meta">2026-03-29 13:48:10 | 등록: 2026-03-29 22:51</div>
+  </div>
 </div>
-<div class="item reference">
-  <div class="item-text">200페이지 책 관련 Threads 게시물 링크</div>
-  <div class="item-meta">2026-03-31 00:10:55 | 등록: 2026-04-01 17:04</div>
+<div class="item reference" data-id="나와의채팅_20260401170406_12">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">200페이지 책 관련 Threads 게시물 링크</div>
+    <div class="item-meta">2026-03-31 00:10:55 | 등록: 2026-04-01 17:04</div>
+  </div>
 </div>
-<div class="item reference">
-  <div class="item-text">Threads 게시물 - '200페이지 책을 받았어요' (anamo10182019)</div>
-  <div class="item-meta">2026-03-31 00:10:55 | 등록: 2026-04-01 17:06</div>
+<div class="item reference" data-id="나와의채팅_20260401170656_13">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">Threads 게시물 - '200페이지 책을 받았어요' (anamo10182019)</div>
+    <div class="item-meta">2026-03-31 00:10:55 | 등록: 2026-04-01 17:06</div>
+  </div>
 </div>
 </div>
 <div class="panel " id="panel-에이전트코리아">
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> revfactory/harness — AI 테스트 하네스 도구 (비교 분석 대상으로 언급됨) <a href="https://github.com/revfactory/harness" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 22:49:18</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_23">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> revfactory/harness — AI 테스트 하네스 도구 (비교 분석 대상으로 언급됨) <a href="https://github.com/revfactory/harness" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 22:49:18</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 이기종 LLM 교차검증 워크플로우: 브레인스토밍 → unknown unknowns 제거까지 무한질문 → 관점 다른 LLM 6개로 리뷰 반복. 오토리서치의 과적합 문제 방지에 효과적</div>
-  <div class="item-meta">2026-03-29 17:53:38</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_22">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 이기종 LLM 교차검증 워크플로우: 브레인스토밍 → unknown unknowns 제거까지 무한질문 → 관점 다른 LLM 6개로 리뷰 반복. 오토리서치의 과적합 문제 방지에 효과적</div>
+    <div class="item-meta">2026-03-29 17:53:38</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> cc-channel-mem: Claude Code 채널에서 디스코드 대화 내용을 모두 기억하게 하는 메모리 도구. 오픈클로 대비 부족한 클코 메모리 보완용 <a href="https://github.com/AlexAI-MCP/cc-channel-mem" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 16:50:03</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_21">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> cc-channel-mem: Claude Code 채널에서 디스코드 대화 내용을 모두 기억하게 하는 메모리 도구. 오픈클로 대비 부족한 클코 메모리 보완용 <a href="https://github.com/AlexAI-MCP/cc-channel-mem" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 16:50:03</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> secufi.kr — 바이브코딩으로 만든 사이트 보안 점검 도구 <a href="https://secufi.kr" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 21:33:42</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_20">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> secufi.kr — 바이브코딩으로 만든 사이트 보안 점검 도구 <a href="https://secufi.kr" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 21:33:42</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">트렌드</span> GPT Pro 구독자 대상 선물(펜) 증정 이벤트 — 선착순 4000명 <a href="https://chatgpt.com/pro-subscriber-gift" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 20:39:10</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_19">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">트렌드</span> GPT Pro 구독자 대상 선물(펜) 증정 이벤트 — 선착순 4000명 <a href="https://chatgpt.com/pro-subscriber-gift" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 20:39:10</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 위플래시 플레처 교수 스타일 코드 리뷰 스킬: 서브에이전트 3명(추론 low/medium/high)에게 각각 작업시키고, 오케스트레이터가 첫 리뷰는 무조건 리젝 후 교차비교하며 품질 강화</div>
-  <div class="item-meta">2026-03-29 01:49:13</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_18">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 위플래시 플레처 교수 스타일 코드 리뷰 스킬: 서브에이전트 3명(추론 low/medium/high)에게 각각 작업시키고, 오케스트레이터가 첫 리뷰는 무조건 리젝 후 교차비교하며 품질 강화</div>
+    <div class="item-meta">2026-03-29 01:49:13</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> nanobanana-skill: Claude Code에서 Gemini 이미지 생성 + 워터마크 자동 제거 스킬. 나노바나나 구독 시 API 없이 브라우저 컨트롤로 이미지 생성 <a href="https://github.com/Pandoll-AI/claude-nanobanana-skill" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 21:08:57</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_17">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> nanobanana-skill: Claude Code에서 Gemini 이미지 생성 + 워터마크 자동 제거 스킬. 나노바나나 구독 시 API 없이 브라우저 컨트롤로 이미지 생성 <a href="https://github.com/Pandoll-AI/claude-nanobanana-skill" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 21:08:57</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 실무 워크플로우 팁: 설계는 Opus + Gstack으로, 구현(몸빵)은 Codex로 분담. 오토리서치로 스킬 최적화. Claude Pro + Codex Plus + Gemini Pro 조합이 Max 없이도 충분</div>
-  <div class="item-meta">2026-03-29 22:15:32</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_16">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 실무 워크플로우 팁: 설계는 Opus + Gstack으로, 구현(몸빵)은 Codex로 분담. 오토리서치로 스킬 최적화. Claude Pro + Codex Plus + Gemini Pro 조합이 Max 없이도 충분</div>
+    <div class="item-meta">2026-03-29 22:15:32</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">트렌드</span> 안티그래비티(Windsurf) Opus 사용량 할당량이 급격히 줄어듦. 동일 가격 대비 Claude Code가 10배 제공. 외국 커뮤니티에서도 동일 이슈 다수 보고 <a href="https://discuss.ai.google.dev/t/ultra-dramatic-quota-reduction-after-update-this-needs-an-official-explanation/135526/5" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 16:08:30</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_15">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">트렌드</span> 안티그래비티(Windsurf) Opus 사용량 할당량이 급격히 줄어듦. 동일 가격 대비 Claude Code가 10배 제공. 외국 커뮤니티에서도 동일 이슈 다수 보고 <a href="https://discuss.ai.google.dev/t/ultra-dramatic-quota-reduction-after-update-this-needs-an-official-explanation/135526/5" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 16:08:30</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 구독형 AI(클로드/제미나이 등)를 로컬 CLI에서 OpenAI 호환 API 프록시로 사용하는 방법 — API 비용 절감용 <a href="https://github.com/starhunt/star-cliproxy" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 13:10:49</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_14">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 구독형 AI(클로드/제미나이 등)를 로컬 CLI에서 OpenAI 호환 API 프록시로 사용하는 방법 — API 비용 절감용 <a href="https://github.com/starhunt/star-cliproxy" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 13:10:49</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> Scrapling: 봇 탐지 우회 가능한 웹 스크래핑 라이브러리. 스크래핑 차단도 뚫어서 잘 동작한다는 후기 <a href="https://github.com/D4Vinci/Scrapling?hl=ko-KR" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 13:41:43</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_13">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> Scrapling: 봇 탐지 우회 가능한 웹 스크래핑 라이브러리. 스크래핑 차단도 뚫어서 잘 동작한다는 후기 <a href="https://github.com/D4Vinci/Scrapling?hl=ko-KR" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 13:41:43</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> OpenAI Codex Plugins 공식 출시 — 개발자가 Codex에 플러그인 추가 가능 <a href="https://developers.openai.com/codex/plugins" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 01:17:52</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_12">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> OpenAI Codex Plugins 공식 출시 — 개발자가 Codex에 플러그인 추가 가능 <a href="https://developers.openai.com/codex/plugins" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 01:17:52</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> Codex에서 안티그래비티 브라우저 기능을 베껴와서 Playwright MCP/skill보다 나은 웹 브라우징 스킬을 만듦 (브라우저 띄워서 검색, 글쓰기 등 가능) <a href="https://github.com/tteggu87/antigravity-websearch-skill" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 00:12:46</div>
+<div class="summary-item" data-id="에이전트코리아_20260329225158_11">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> Codex에서 안티그래비티 브라우저 기능을 베껴와서 Playwright MCP/skill보다 나은 웹 브라우징 스킬을 만듦 (브라우저 띄워서 검색, 글쓰기 등 가능) <a href="https://github.com/tteggu87/antigravity-websearch-skill" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 00:12:46</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 다국어화(i18n)로 개인 프로젝트의 사용자/수익 확대에 효과를 본 경험 공유 <a href="https://leanvibe.io/ko/blog/bp-1773683787304-rt40og" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-28 11:55:54</div>
+<div class="summary-item" data-id="에이전트코리아_20260329091633_10">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 다국어화(i18n)로 개인 프로젝트의 사용자/수익 확대에 효과를 본 경험 공유 <a href="https://leanvibe.io/ko/blog/bp-1773683787304-rt40og" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-28 11:55:54</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">트렌드</span> Opus 4.6 사용량 제한이 이전보다 빨리 소진되는 현상 다수 보고 - 낮 시간대 1~2시간 만에 0% 도달</div>
-  <div class="item-meta">2026-03-28 23:46:04</div>
+<div class="summary-item" data-id="에이전트코리아_20260329091633_9">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">트렌드</span> Opus 4.6 사용량 제한이 이전보다 빨리 소진되는 현상 다수 보고 - 낮 시간대 1~2시간 만에 0% 도달</div>
+    <div class="item-meta">2026-03-28 23:46:04</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 온톨로지를 먼저 충실히 구축한 뒤 앱을 만들면 프론트엔드만으로도 풍부한 기능 구현 가능 - PlantOntology 사례 <a href="https://plantontology-production.up.railway.app/" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-28 16:11:21</div>
+<div class="summary-item" data-id="에이전트코리아_20260329091633_8">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 온톨로지를 먼저 충실히 구축한 뒤 앱을 만들면 프론트엔드만으로도 풍부한 기능 구현 가능 - PlantOntology 사례 <a href="https://plantontology-production.up.railway.app/" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-28 16:11:21</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> pptx, xlsx 파일은 확장자를 zip으로 바꿔 압축 해제하면 이미지와 텍스트가 파일 단위로 분리됨 - 문서 파싱 시 유용한 팁</div>
-  <div class="item-meta">2026-03-28 18:08:13</div>
+<div class="summary-item" data-id="에이전트코리아_20260329091633_7">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> pptx, xlsx 파일은 확장자를 zip으로 바꿔 압축 해제하면 이미지와 텍스트가 파일 단위로 분리됨 - 문서 파싱 시 유용한 팁</div>
+    <div class="item-meta">2026-03-28 18:08:13</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> defuddle.md - 유튜브 URL을 넣으면 마크다운(트랜스크립트)으로 변환해주는 웹 도구 <a href="https://defuddle.md/" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 07:05:09</div>
+<div class="summary-item" data-id="에이전트코리아_20260329091633_6">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> defuddle.md - 유튜브 URL을 넣으면 마크다운(트랜스크립트)으로 변환해주는 웹 도구 <a href="https://defuddle.md/" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 07:05:09</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">리소스</span> OpenAI Codex Plugins 공식 문서 공개 <a href="https://developers.openai.com/codex/plugins" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 01:17:52</div>
+<div class="summary-item" data-id="에이전트코리아_20260329091633_5">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">리소스</span> OpenAI Codex Plugins 공식 문서 공개 <a href="https://developers.openai.com/codex/plugins" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 01:17:52</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">리소스</span> Claude Code 웹 버전에서 PR 자동 수정(auto-fix) 기능 문서 공개 <a href="https://code.claude.com/docs/en/claude-code-on-the-web#auto-fix-pull-requests" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 01:17:39</div>
+<div class="summary-item" data-id="에이전트코리아_20260329091633_4">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">리소스</span> Claude Code 웹 버전에서 PR 자동 수정(auto-fix) 기능 문서 공개 <a href="https://code.claude.com/docs/en/claude-code-on-the-web#auto-fix-pull-requests" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 01:17:39</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> Whiplash Loop 스킬 공개 - 코드 리뷰 시 첫 리뷰를 자동 리젝하고 최대 3회까지 증거 기반 재검증을 요구하는 품질 게이트 스킬 <a href="https://github.com/tteggu87/whiplash-loop" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 01:48:37</div>
+<div class="summary-item" data-id="에이전트코리아_20260329091633_3">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> Whiplash Loop 스킬 공개 - 코드 리뷰 시 첫 리뷰를 자동 리젝하고 최대 3회까지 증거 기반 재검증을 요구하는 품질 게이트 스킬 <a href="https://github.com/tteggu87/whiplash-loop" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 01:48:37</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> AntiGravity 브라우저 기능을 Codex용 스킬로 포팅 - Playwright MCP/스킬보다 브라우저 조작(클릭, 이동, 캡처, 글쓰기) 성능이 좋다는 평가 <a href="https://github.com/tteggu87/antigravity-websearch-skill" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-29 00:28:49</div>
+<div class="summary-item" data-id="에이전트코리아_20260329091633_2">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> AntiGravity 브라우저 기능을 Codex용 스킬로 포팅 - Playwright MCP/스킬보다 브라우저 조작(클릭, 이동, 캡처, 글쓰기) 성능이 좋다는 평가 <a href="https://github.com/tteggu87/antigravity-websearch-skill" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-29 00:28:49</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> GPTaku Plugins를 OpenAI Codex용으로 변환한 버전 공개 <a href="https://github.com/sodam-ai/gptaku-plugins-codex" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-28 22:08:52</div>
+<div class="summary-item" data-id="에이전트코리아_20260329091633_1">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> GPTaku Plugins를 OpenAI Codex용으로 변환한 버전 공개 <a href="https://github.com/sodam-ai/gptaku-plugins-codex" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-28 22:08:52</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">리소스</span> 한국어 문서 파싱 종합 라이브러리(pptx, xlsx, pdf 등) 오픈소스 공개 - 반복 작업 없이 재사용 가능 <a href="https://github.com/chrisryugj/kordoc" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-28 17:56:53</div>
+<div class="summary-item" data-id="에이전트코리아_20260329091633_0">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">리소스</span> 한국어 문서 파싱 종합 라이브러리(pptx, xlsx, pdf 등) 오픈소스 공개 - 반복 작업 없이 재사용 가능 <a href="https://github.com/chrisryugj/kordoc" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-28 17:56:53</div>
+  </div>
 </div>
 </div>
 <div class="panel " id="panel-싱크클럽초코방">
-<div class="summary-item">
-  <div class="item-text"><span class="cat">트렌드</span> CAIO(Chief AI Officer) 직함이 스타트업/업계에서 증가 추세</div>
-  <div class="item-meta">2026-03-28 15:16:00</div>
+<div class="summary-item" data-id="싱크클럽초코방_20260329085248_4">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">트렌드</span> CAIO(Chief AI Officer) 직함이 스타트업/업계에서 증가 추세</div>
+    <div class="item-meta">2026-03-28 15:16:00</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">리소스</span> 패스트캠퍼스 Claude 활용 강의 (Cowork, Code, Skills, 자동화, Agent 포함) <a href="https://fastcampus.co.kr/biz_online_claude" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-28 17:01:03</div>
+<div class="summary-item" data-id="싱크클럽초코방_20260329085248_3">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">리소스</span> 패스트캠퍼스 Claude 활용 강의 (Cowork, Code, Skills, 자동화, Agent 포함) <a href="https://fastcampus.co.kr/biz_online_claude" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-28 17:01:03</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">리소스</span> AI 용어집 설명 영상 - 비개발자/입문자용 AI 용어 정리 <a href="https://www.youtube.com/watch?v=ohYhCpOzLLE&t=235s" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-28 15:12:31</div>
+<div class="summary-item" data-id="싱크클럽초코방_20260329085248_2">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">리소스</span> AI 용어집 설명 영상 - 비개발자/입문자용 AI 용어 정리 <a href="https://www.youtube.com/watch?v=ohYhCpOzLLE&t=235s" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-28 15:12:31</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 바이브코딩 입문자는 Antigravity(GUI)로 시작 후 Claude Code(CLI)로 전환하는 루트 추천</div>
-  <div class="item-meta">2026-03-28 17:00:28</div>
+<div class="summary-item" data-id="싱크클럽초코방_20260329085248_1">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 바이브코딩 입문자는 Antigravity(GUI)로 시작 후 Claude Code(CLI)로 전환하는 루트 추천</div>
+    <div class="item-meta">2026-03-28 17:00:28</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> Claude Code에서 이미지를 붙여넣으려면 Mac에서는 Ctrl+V (Cmd+V 아님), 일반적으로는 Alt+V를 사용</div>
-  <div class="item-meta">2026-03-28 17:57:29</div>
+<div class="summary-item" data-id="싱크클럽초코방_20260329085248_0">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> Claude Code에서 이미지를 붙여넣으려면 Mac에서는 Ctrl+V (Cmd+V 아님), 일반적으로는 Alt+V를 사용</div>
+    <div class="item-meta">2026-03-28 17:57:29</div>
+  </div>
 </div>
 </div>
 <div class="panel " id="panel-인쇄물디자인">
 <div class="section-title">할 일 (14)</div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 높음">높음</span>월요일(3/30) 오후 2시 전사 타운홀미팅 - 팝업 관련 논의</div>
-  <div class="item-meta">2026-03-27 13:18:24 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"2시정도로 하죠"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_0">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>월요일(3/30) 오후 2시 전사 타운홀미팅 - 팝업 관련 논의</div>
+    <div class="item-meta">2026-03-27 13:18:24 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"2시정도로 하죠"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 높음">높음</span>주말 동안 샤인(신상예고/커밍순) + 링고(컬러 맞추기 콘텐츠) 피드 제작 및 업로드</div>
-  <div class="item-meta">2026-03-27 16:31:55 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"샤인이랑 링고 올리면서 고민좀 ... 신상예고 설명 적어서 올리는걸로"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_1">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>주말 동안 샤인(신상예고/커밍순) + 링고(컬러 맞추기 콘텐츠) 피드 제작 및 업로드</div>
+    <div class="item-meta">2026-03-27 16:31:55 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"샤인이랑 링고 올리면서 고민좀 ... 신상예고 설명 적어서 올리는걸로"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 높음">높음</span>월요일에 이번주 오픈 제품(쇼콜라&보니, 밀키, 리지, 코이) 소개 피드 업로드</div>
-  <div class="item-meta">2026-03-27 16:31:55 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"오픈했다는거는 월요일에 올려도 되나요"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_2">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>월요일에 이번주 오픈 제품(쇼콜라&보니, 밀키, 리지, 코이) 소개 피드 업로드</div>
+    <div class="item-meta">2026-03-27 16:31:55 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"오픈했다는거는 월요일에 올려도 되나요"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 높음">높음</span>제품별 피드 기획: 쇼콜라보니-코디제안, 밀키-3종세트 어필(가디건/나시바지), 코이-악세서리 다양성 콘텐츠</div>
-  <div class="item-meta">2026-03-27 16:17:55 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"제품 하나하나 올리면 어때요? 각 제품 설명하면서요! 전부 영상 또는 움직이는 사진으로!"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_3">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>제품별 피드 기획: 쇼콜라보니-코디제안, 밀키-3종세트 어필(가디건/나시바지), 코이-악세서리 다양성 콘텐츠</div>
+    <div class="item-meta">2026-03-27 16:17:55 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"제품 하나하나 올리면 어때요? 각 제품 설명하면서요! 전부 영상 또는 움직이는 사진으로!"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 높음">높음</span>다음주 사업팀부터 공여사들 노션 템플릿 진행 (큰 틀부터 빠르게)</div>
-  <div class="item-meta">2026-03-27 18:36:43 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"세미님! 다음주에는 사업팀부터 공여사들 노션 템블릿 진행 빠르게 해주세요!"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_6">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>다음주 사업팀부터 공여사들 노션 템플릿 진행 (큰 틀부터 빠르게)</div>
+    <div class="item-meta">2026-03-27 18:36:43 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"세미님! 다음주에는 사업팀부터 공여사들 노션 템블릿 진행 빠르게 해주세요!"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 높음">높음</span>미송방 채팅내용 확인 후 소매미송 소통 누락 없도록 관리</div>
-  <div class="item-meta">2026-03-27 18:37:21 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"우리 미송방 있죠? 그거 채팅내용좀 보시고 그런 소통부터요"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_7">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>미송방 채팅내용 확인 후 소매미송 소통 누락 없도록 관리</div>
+    <div class="item-meta">2026-03-27 18:37:21 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"우리 미송방 있죠? 그거 채팅내용좀 보시고 그런 소통부터요"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 높음">높음</span>CRM 현재 진행상황 정리 후 대표님께 보고</div>
-  <div class="item-meta">2026-03-27 18:40:22 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"지금 crm 어떤것들 진행되고있는지부터 정리해서 보고드릴게요"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_8">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>CRM 현재 진행상황 정리 후 대표님께 보고</div>
+    <div class="item-meta">2026-03-27 18:40:22 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"지금 crm 어떤것들 진행되고있는지부터 정리해서 보고드릴게요"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 높음">높음</span>월요일 회의 시 미오픈 신상 샘플 전체 리뷰 (회의실에 진열 완료)</div>
-  <div class="item-meta">2026-03-27 16:54:32 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"월요일에 아직 오픈 안한 신상샘플들 다같이 한번 보려고 쭊 회의실에 늘어놨습니다"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_9">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>월요일 회의 시 미오픈 신상 샘플 전체 리뷰 (회의실에 진열 완료)</div>
+    <div class="item-meta">2026-03-27 16:54:32 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"월요일에 아직 오픈 안한 신상샘플들 다같이 한번 보려고 쭊 회의실에 늘어놨습니다"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 높음">높음</span>디어 제품 미출시 상태에서 구매 발생한 건 확인 필요</div>
-  <div class="item-meta">2026-03-28 12:33:43 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"이것도 출시예정인 디어를 어떻게 구매를 하신거죠?"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_11">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>디어 제품 미출시 상태에서 구매 발생한 건 확인 필요</div>
+    <div class="item-meta">2026-03-28 12:33:43 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"이것도 출시예정인 디어를 어떻게 구매를 하신거죠?"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 높음">높음</span>소문내기이벤트 당첨자 중복 혜택 지급 건 후속 조치 확인 및 정리 (신상품 당첨자가 1만/3만/5만원 쿠폰도 중복 수령)</div>
-  <div class="item-meta">2026-03-29 18:18:28 | 등록: 2026-03-29 22:52</div>
-  <div class="item-source">"소문내기이벤트 당첨자 이거 뭐죠? 신상품 당첨자들이 전부 1만원 3만원 5만원 다 받은사람인데"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329225237_22">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 높음">높음</span>소문내기이벤트 당첨자 중복 혜택 지급 건 후속 조치 확인 및 정리 (신상품 당첨자가 1만/3만/5만원 쿠폰도 중복 수령)</div>
+    <div class="item-meta">2026-03-29 18:18:28 | 등록: 2026-03-29 22:52</div>
+    <div class="item-source">"소문내기이벤트 당첨자 이거 뭐죠? 신상품 당첨자들이 전부 1만원 3만원 5만원 다 받은사람인데"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 보통">보통</span>'코디빵점 엄마들' 워딩으로 콘텐츠 기획 (대구 팝업 후기 기반)</div>
-  <div class="item-meta">2026-03-27 16:18:47 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"코디빵점 엄마들 고민해결이라는 후기가 있어서 이거 콘텐츠화 시켜도 재밌을것 같아요"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_4">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 보통">보통</span>'코디빵점 엄마들' 워딩으로 콘텐츠 기획 (대구 팝업 후기 기반)</div>
+    <div class="item-meta">2026-03-27 16:18:47 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"코디빵점 엄마들 고민해결이라는 후기가 있어서 이거 콘텐츠화 시켜도 재밌을것 같아요"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 보통">보통</span>피카부 인스타 블루뱃지(인증배지) 구독 검토 - 첫달 1,300원, 이후 월 18,000원</div>
-  <div class="item-meta">2026-03-27 16:41:47 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"피카부 계정 블루뱃지 달면 어떨까요 요새 갑자기 털리는 경우가 많아서"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_5">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 보통">보통</span>피카부 인스타 블루뱃지(인증배지) 구독 검토 - 첫달 1,300원, 이후 월 18,000원</div>
+    <div class="item-meta">2026-03-27 16:41:47 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"피카부 계정 블루뱃지 달면 어떨까요 요새 갑자기 털리는 경우가 많아서"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 보통">보통</span>인스타 10만 팔로워 달성 임박 - 10만 이벤트 기획 필요</div>
-  <div class="item-meta">2026-03-27 20:44:24 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"10만 이벤트가 필요한시점!"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_10">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 보통">보통</span>인스타 10만 팔로워 달성 임박 - 10만 이벤트 기획 필요</div>
+    <div class="item-meta">2026-03-27 20:44:24 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"10만 이벤트가 필요한시점!"</div>
+  </div>
 </div>
-<div class="item todo">
-  <div class="item-text"><span class="priority 보통">보통</span>리지 제품 바캉스 시즌에 재푸시 계획</div>
-  <div class="item-meta">2026-03-27 19:02:57 | 등록: 2026-03-29 09:15</div>
-  <div class="item-source">"바캉스시즌에 다시한번 밀어봅시다"</div>
+<div class="item todo" data-id="인쇄물디자인_20260329091506_12">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text"><span class="priority 보통">보통</span>리지 제품 바캉스 시즌에 재푸시 계획</div>
+    <div class="item-meta">2026-03-27 19:02:57 | 등록: 2026-03-29 09:15</div>
+    <div class="item-source">"바캉스시즌에 다시한번 밀어봅시다"</div>
+  </div>
 </div>
 <div class="section-title">숙지사항 (12)</div>
-<div class="item knowledge">
-  <div class="item-text">촬영 코디는 반드시 대표님 컨펌 후 진행할 것 - 자체 판단으로 코디 조합하지 말 것</div>
-  <div class="item-meta">2026-03-27 16:53:40 | 등록: 2026-03-29 09:15</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329091506_13">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">촬영 코디는 반드시 대표님 컨펌 후 진행할 것 - 자체 판단으로 코디 조합하지 말 것</div>
+    <div class="item-meta">2026-03-27 16:53:40 | 등록: 2026-03-29 09:15</div>
+  </div>
 </div>
-<div class="item knowledge">
-  <div class="item-text">콘텐츠 제작 시 착샷/제품컷/상세페이지에 급급하지 말고, 고객에게 어떻게 보여질지 고민할 것. 옷을 만든 이유를 릴스로 만드는 것이 효과적</div>
-  <div class="item-meta">2026-03-27 16:54:40 | 등록: 2026-03-29 09:15</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329091506_14">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">콘텐츠 제작 시 착샷/제품컷/상세페이지에 급급하지 말고, 고객에게 어떻게 보여질지 고민할 것. 옷을 만든 이유를 릴스로 만드는 것이 효과적</div>
+    <div class="item-meta">2026-03-27 16:54:40 | 등록: 2026-03-29 09:15</div>
+  </div>
 </div>
-<div class="item knowledge">
-  <div class="item-text">다른 브랜드 레퍼런스를 냉정하게 비교하며 우리 콘텐츠 품질 점검할 것. 회의 아이디어가 기획안에 반영되도록 할 것</div>
-  <div class="item-meta">2026-03-27 16:56:15 | 등록: 2026-03-29 09:15</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329091506_15">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">다른 브랜드 레퍼런스를 냉정하게 비교하며 우리 콘텐츠 품질 점검할 것. 회의 아이디어가 기획안에 반영되도록 할 것</div>
+    <div class="item-meta">2026-03-27 16:56:15 | 등록: 2026-03-29 09:15</div>
+  </div>
 </div>
-<div class="item knowledge">
-  <div class="item-text">인스타 고객 응대 시 '앗!' 표현 사용 금지, 개인 신상 노출 금지 (예: '저도 딸이 8살인데'). 특정인물이 운영하는 느낌 없이 담백하게 응대</div>
-  <div class="item-meta">2026-03-28 12:39:24 | 등록: 2026-03-29 09:15</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329091506_16">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">인스타 고객 응대 시 '앗!' 표현 사용 금지, 개인 신상 노출 금지 (예: '저도 딸이 8살인데'). 특정인물이 운영하는 느낌 없이 담백하게 응대</div>
+    <div class="item-meta">2026-03-28 12:39:24 | 등록: 2026-03-29 09:15</div>
+  </div>
 </div>
-<div class="item knowledge">
-  <div class="item-text">SNS 문구 작성 시 고객이 오해할 수 있는 표현인지 반드시 재검토할 것 (예: '10년도 전에' → 10년 된 옷으로 오해 가능)</div>
-  <div class="item-meta">2026-03-27 19:08:19 | 등록: 2026-03-29 09:15</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329091506_17">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">SNS 문구 작성 시 고객이 오해할 수 있는 표현인지 반드시 재검토할 것 (예: '10년도 전에' → 10년 된 옷으로 오해 가능)</div>
+    <div class="item-meta">2026-03-27 19:08:19 | 등록: 2026-03-29 09:15</div>
+  </div>
 </div>
-<div class="item knowledge">
-  <div class="item-text">부서간 소통 누락 문제 해결이 최우선. 매출 기획/일정 관리보다 기본적인 취합·소통 문제부터 해결</div>
-  <div class="item-meta">2026-03-27 18:38:11 | 등록: 2026-03-29 09:15</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329091506_18">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">부서간 소통 누락 문제 해결이 최우선. 매출 기획/일정 관리보다 기본적인 취합·소통 문제부터 해결</div>
+    <div class="item-meta">2026-03-27 18:38:11 | 등록: 2026-03-29 09:15</div>
+  </div>
 </div>
-<div class="item knowledge">
-  <div class="item-text">신규 유입 고객에 집중 - 기본 패키지, 재구매 회원 관리 등 CRM 강화</div>
-  <div class="item-meta">2026-03-27 18:39:02 | 등록: 2026-03-29 09:15</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329091506_19">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">신규 유입 고객에 집중 - 기본 패키지, 재구매 회원 관리 등 CRM 강화</div>
+    <div class="item-meta">2026-03-27 18:39:02 | 등록: 2026-03-29 09:15</div>
+  </div>
 </div>
-<div class="item knowledge">
-  <div class="item-text">리지 제품 팝업 판매 부진 원인 분석: 끈나시 형태라 편한 옷 선호 고객에게 어필 약함, 키즈 사이즈는 끈나시 기피 경향</div>
-  <div class="item-meta">2026-03-27 18:54:41 | 등록: 2026-03-29 09:15</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329091506_20">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">리지 제품 팝업 판매 부진 원인 분석: 끈나시 형태라 편한 옷 선호 고객에게 어필 약함, 키즈 사이즈는 끈나시 기피 경향</div>
+    <div class="item-meta">2026-03-27 18:54:41 | 등록: 2026-03-29 09:15</div>
+  </div>
 </div>
-<div class="item knowledge">
-  <div class="item-text">링고 = 윙고의 상의만 버전, 베이직 톤다운 컬러 구성. 윙고는 화사한 컬러</div>
-  <div class="item-meta">2026-03-27 16:26:58 | 등록: 2026-03-29 09:15</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329091506_21">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">링고 = 윙고의 상의만 버전, 베이직 톤다운 컬러 구성. 윙고는 화사한 컬러</div>
+    <div class="item-meta">2026-03-27 16:26:58 | 등록: 2026-03-29 09:15</div>
+  </div>
 </div>
-<div class="item knowledge">
-  <div class="item-text">이벤트 랜덤 추첨 시 기존 당첨자(신상품 등 혜택 수령자) 반드시 제외 후 진행할 것. 추첨 결과 발표 전 중복 여부 검토 필수</div>
-  <div class="item-meta">2026-03-29 18:34:29 | 등록: 2026-03-29 22:52</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329225237_23">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">이벤트 랜덤 추첨 시 기존 당첨자(신상품 등 혜택 수령자) 반드시 제외 후 진행할 것. 추첨 결과 발표 전 중복 여부 검토 필수</div>
+    <div class="item-meta">2026-03-29 18:34:29 | 등록: 2026-03-29 22:52</div>
+  </div>
 </div>
-<div class="item knowledge">
-  <div class="item-text">실수/문제 발생 시 임의로 처리하지 말고 반드시 대표님 컨펌을 받은 후 진행할 것 (중복 당첨 건에서 컨펌 없이 임의로 혜택 제공한 사례 발생)</div>
-  <div class="item-meta">2026-03-29 18:46:40 | 등록: 2026-03-29 22:52</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329225237_24">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">실수/문제 발생 시 임의로 처리하지 말고 반드시 대표님 컨펌을 받은 후 진행할 것 (중복 당첨 건에서 컨펌 없이 임의로 혜택 제공한 사례 발생)</div>
+    <div class="item-meta">2026-03-29 18:46:40 | 등록: 2026-03-29 22:52</div>
+  </div>
 </div>
-<div class="item knowledge">
-  <div class="item-text">모든 문서·발표·이벤트 결과물은 게시/발송 전 반드시 검토할 것 (대표님 지적: '어떤 문서든지 검토는 정말 아예 안하는군요')</div>
-  <div class="item-meta">2026-03-29 18:35:09 | 등록: 2026-03-29 22:52</div>
+<div class="item knowledge" data-id="인쇄물디자인_20260329225237_25">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="item-body">
+    <div class="item-text">모든 문서·발표·이벤트 결과물은 게시/발송 전 반드시 검토할 것 (대표님 지적: '어떤 문서든지 검토는 정말 아예 안하는군요')</div>
+    <div class="item-meta">2026-03-29 18:35:09 | 등록: 2026-03-29 22:52</div>
+  </div>
 </div>
 </div>
 <div class="panel " id="panel-빡업방">
-<div class="summary-item">
-  <div class="item-text"><span class="cat">전략</span> 유튜브 경제 채널 레퍼런스 공유 (현명한경제) <a href="https://www.youtube.com/@%ED%98%84%EB%AA%85%ED%95%9C%EA%B2%BD%EC%A0%9C" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-30 21:13</div>
+<div class="summary-item" data-id="빡업방_20260401170721_18">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">전략</span> 유튜브 경제 채널 레퍼런스 공유 (현명한경제) <a href="https://www.youtube.com/@%ED%98%84%EB%AA%85%ED%95%9C%EA%B2%BD%EC%A0%9C" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-30 21:13</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 라이브 방송 세팅: 핸드폰 하나로 충분. 블루투스 마이크 없이도 가능하나 음질 차이는 있음. 공간이 넓거나 울리면 안 됨. 폰 2대 쓰면 하나는 방송용, 하나는 댓글/주문 확인용</div>
-  <div class="item-meta">2026-03-30 19:20~19:22</div>
+<div class="summary-item" data-id="빡업방_20260401170721_17">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 라이브 방송 세팅: 핸드폰 하나로 충분. 블루투스 마이크 없이도 가능하나 음질 차이는 있음. 공간이 넓거나 울리면 안 됨. 폰 2대 쓰면 하나는 방송용, 하나는 댓글/주문 확인용</div>
+    <div class="item-meta">2026-03-30 19:20~19:22</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">전략</span> 쇼츠 다채널 전략: 3개 채널에 하루 1개씩 업로드하는 방식으로 운영 중 (하루 2개씩도 가능한지 논의)</div>
-  <div class="item-meta">2026-03-30 20:42</div>
+<div class="summary-item" data-id="빡업방_20260401170721_16">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">전략</span> 쇼츠 다채널 전략: 3개 채널에 하루 1개씩 업로드하는 방식으로 운영 중 (하루 2개씩도 가능한지 논의)</div>
+    <div class="item-meta">2026-03-30 20:42</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">인사이트</span> 쇼츠 첫 영상 기준: 첫 24시간 내 최소 1만 회 이상 나와야 의미 있음. 1,900회 수준이면 부족하다는 판단 → 아이디(채널)를 더 돌려보라는 조언</div>
-  <div class="item-meta">2026-03-30 20:39~20:54</div>
+<div class="summary-item" data-id="빡업방_20260401170721_15">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">인사이트</span> 쇼츠 첫 영상 기준: 첫 24시간 내 최소 1만 회 이상 나와야 의미 있음. 1,900회 수준이면 부족하다는 판단 → 아이디(채널)를 더 돌려보라는 조언</div>
+    <div class="item-meta">2026-03-30 20:39~20:54</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 유튜브 쇼츠 다채널 운영: 같은 구글 아이디로 채널 여러 개 생성 가능하며, 조회수에 영향 없음. 한 번에 여러 개는 안 되고 한 개씩 늘려야 함</div>
-  <div class="item-meta">2026-03-30 23:24~23:29</div>
+<div class="summary-item" data-id="빡업방_20260401170721_14">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 유튜브 쇼츠 다채널 운영: 같은 구글 아이디로 채널 여러 개 생성 가능하며, 조회수에 영향 없음. 한 번에 여러 개는 안 되고 한 개씩 늘려야 함</div>
+    <div class="item-meta">2026-03-30 23:24~23:29</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> 경제 유튜브 채널 레퍼런스 공유 (현명한경제) <a href="https://www.youtube.com/@%ED%98%84%EB%AA%85%ED%95%9C%EA%B2%BD%EC%A0%9C" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-30 21:13</div>
+<div class="summary-item" data-id="빡업방_20260401170429_13">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> 경제 유튜브 채널 레퍼런스 공유 (현명한경제) <a href="https://www.youtube.com/@%ED%98%84%EB%AA%85%ED%95%9C%EA%B2%BD%EC%A0%9C" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-30 21:13</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">인사이트</span> 3개 채널 운영 중 조회수 편차 큼(150회/540회/1900회). 하루 채널당 1개씩 업로드하는 전략.</div>
-  <div class="item-meta">2026-03-30 20:39~20:42</div>
+<div class="summary-item" data-id="빡업방_20260401170429_12">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">인사이트</span> 3개 채널 운영 중 조회수 편차 큼(150회/540회/1900회). 하루 채널당 1개씩 업로드하는 전략.</div>
+    <div class="item-meta">2026-03-30 20:39~20:42</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">전략</span> 유튜브 다채널 운영: 같은 구글 아이디로 채널 여러 개 생성 가능(한 번에 말고 하나씩). 조회수에 영향 없음. 새 아이디 권장하지만 체감 차이 없다는 경험담.</div>
-  <div class="item-meta">2026-03-30 23:24~23:29</div>
+<div class="summary-item" data-id="빡업방_20260401170429_11">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">전략</span> 유튜브 다채널 운영: 같은 구글 아이디로 채널 여러 개 생성 가능(한 번에 말고 하나씩). 조회수에 영향 없음. 새 아이디 권장하지만 체감 차이 없다는 경험담.</div>
+    <div class="item-meta">2026-03-30 23:24~23:29</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">인사이트</span> 유튜브 쇼츠 조회수 기준: 첫 24시간 내 최소 1만 이상 나와야 의미 있음. 안 되면 아이디(채널) 더 돌려볼 것.</div>
-  <div class="item-meta">2026-03-30 20:50</div>
+<div class="summary-item" data-id="빡업방_20260401170429_10">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">인사이트</span> 유튜브 쇼츠 조회수 기준: 첫 24시간 내 최소 1만 이상 나와야 의미 있음. 안 되면 아이디(채널) 더 돌려볼 것.</div>
+    <div class="item-meta">2026-03-30 20:50</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 쇼핑라이브 세팅: 폰 2대(1대 송출, 1대 댓글/주문확인), 마이크 없어도 가능하나 음질 차이 있음. 공간이 넓거나 울리면 안 됨.</div>
-  <div class="item-meta">2026-03-30 19:20~19:22</div>
+<div class="summary-item" data-id="빡업방_20260401170429_9">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 쇼핑라이브 세팅: 폰 2대(1대 송출, 1대 댓글/주문확인), 마이크 없어도 가능하나 음질 차이 있음. 공간이 넓거나 울리면 안 됨.</div>
+    <div class="item-meta">2026-03-30 19:20~19:22</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">전략</span> 중국향 유튜브 롱폼 콘텐츠 시작한 멤버 있음. 샤오홍수도 병행 운영 중.</div>
-  <div class="item-meta">2026-03-28 19:56~20:54</div>
+<div class="summary-item" data-id="빡업방_20260329232102_8">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">전략</span> 중국향 유튜브 롱폼 콘텐츠 시작한 멤버 있음. 샤오홍수도 병행 운영 중.</div>
+    <div class="item-meta">2026-03-28 19:56~20:54</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">인사이트</span> 수노(Suno AI)로 DJ 클럽음악 만들어서 음원 수익화 시도 중. 가능성 있어 보인다는 반응.</div>
-  <div class="item-meta">2026-03-28 23:10</div>
+<div class="summary-item" data-id="빡업방_20260329232102_7">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">인사이트</span> 수노(Suno AI)로 DJ 클럽음악 만들어서 음원 수익화 시도 중. 가능성 있어 보인다는 반응.</div>
+    <div class="item-meta">2026-03-28 23:10</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">수익화</span> 유튜브 쇼핑 쇼츠 수익 단가: 제품 클릭 10회에 1달러 이상은 운 좋은 케이스. 보통 10클릭이면 0원이 정상. 1,000뷰당 약 1달러 수준.</div>
-  <div class="item-meta">2026-03-29 21:20~21:54</div>
+<div class="summary-item" data-id="빡업방_20260329232102_6">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">수익화</span> 유튜브 쇼핑 쇼츠 수익 단가: 제품 클릭 10회에 1달러 이상은 운 좋은 케이스. 보통 10클릭이면 0원이 정상. 1,000뷰당 약 1달러 수준.</div>
+    <div class="item-meta">2026-03-29 21:20~21:54</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">수익화</span> 유튜브 쇼핑(제휴 프로그램) 제품 클릭수 1,700건 달성 사례. 쿠팡 1주일 방문자보다 많은 수준. 스튜디오 > 분석 > 수익 > 제휴프로그램에서 확인 가능.</div>
-  <div class="item-meta">2026-03-29 20:33~21:20</div>
+<div class="summary-item" data-id="빡업방_20260329232102_5">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">수익화</span> 유튜브 쇼핑(제휴 프로그램) 제품 클릭수 1,700건 달성 사례. 쿠팡 1주일 방문자보다 많은 수준. 스튜디오 > 분석 > 수익 > 제휴프로그램에서 확인 가능.</div>
+    <div class="item-meta">2026-03-29 20:33~21:20</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">도구</span> AI로 쇼츠 영상 제작 + 유튜브 업로드까지 완전 자동화 파이프라인 구축 사례. 시간 지정 예약 업로드 포함. 한 달 테스트 후 검증 예정.</div>
-  <div class="item-meta">2026-03-29 19:51~20:21</div>
+<div class="summary-item" data-id="빡업방_20260329232102_4">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">도구</span> AI로 쇼츠 영상 제작 + 유튜브 업로드까지 완전 자동화 파이프라인 구축 사례. 시간 지정 예약 업로드 포함. 한 달 테스트 후 검증 예정.</div>
+    <div class="item-meta">2026-03-29 19:51~20:21</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 스레드(Threads)에서 광고만 안 쓰면 외부 링크가 그냥 연결된다는 정보. 링크 유도 채널로 활용 가능. <a href="https://www.threads.com/@jinnyplace/post/DWaoDwlmWYL" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-28 20:02</div>
+<div class="summary-item" data-id="빡업방_20260329232102_3">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 스레드(Threads)에서 광고만 안 쓰면 외부 링크가 그냥 연결된다는 정보. 링크 유도 채널로 활용 가능. <a href="https://www.threads.com/@jinnyplace/post/DWaoDwlmWYL" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-28 20:02</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">팁</span> 장동민 웨이브 예능(시작토론 등) 쇼츠 클립 만들면 조회수 폭발 가능성 있음. 티저 영상 참고. <a href="https://youtube.com/shorts/ignFJhRCnOI?si=MElWGvABBrF4Khtz" target="_blank">링크</a></div>
-  <div class="item-meta">2026-03-28 18:10~18:11</div>
+<div class="summary-item" data-id="빡업방_20260329232102_2">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">팁</span> 장동민 웨이브 예능(시작토론 등) 쇼츠 클립 만들면 조회수 폭발 가능성 있음. 티저 영상 참고. <a href="https://youtube.com/shorts/ignFJhRCnOI?si=MElWGvABBrF4Khtz" target="_blank">링크</a></div>
+    <div class="item-meta">2026-03-28 18:10~18:11</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">인사이트</span> 영상이 잘 되고 있을 때 바로 다음 영상 올리면 기존 영상 노출이 죽거나 새 영상이 노출 안 됨. 최소 3일 간격 유지 권장.</div>
-  <div class="item-meta">2026-03-28 21:32~21:47</div>
+<div class="summary-item" data-id="빡업방_20260329232102_1">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">인사이트</span> 영상이 잘 되고 있을 때 바로 다음 영상 올리면 기존 영상 노출이 죽거나 새 영상이 노출 안 됨. 최소 3일 간격 유지 권장.</div>
+    <div class="item-meta">2026-03-28 21:32~21:47</div>
+  </div>
 </div>
-<div class="summary-item">
-  <div class="item-text"><span class="cat">전략</span> 유튜브 쇼츠 새채널 업로드 전략: 초반에 힘주지 말고, 아침 11시 + 저녁 10시 이후 업로드. 새벽 12~1시 틈새시간대 노리기. 첫 1주일은 1일 1영상 유지.</div>
-  <div class="item-meta">2026-03-28 16:19~16:21</div>
+<div class="summary-item" data-id="빡업방_20260329232102_0">
+  <input type="checkbox" class="item-check" onchange="toggleDone(this)">
+  <div class="summary-body">
+    <div class="item-text"><span class="cat">전략</span> 유튜브 쇼츠 새채널 업로드 전략: 초반에 힘주지 말고, 아침 11시 + 저녁 10시 이후 업로드. 새벽 12~1시 틈새시간대 노리기. 첫 1주일은 1일 1영상 유지.</div>
+    <div class="item-meta">2026-03-28 16:19~16:21</div>
+  </div>
 </div>
 </div>
 <div class="panel " id="panel-샤오홍수빡업방">
 <div class="empty">아직 추출된 항목이 없습니다</div>
 </div>
 
+<div class="done-toggle" id="showDoneBtn" onclick="toggleShowDone()">완료 항목 보기 (<span id="doneCount">0</span>개)</div>
+
 <script>
+const STORAGE_KEY = 'kakao-action-done';
+
+function getDoneSet() {
+  try { return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')); }
+  catch(e) { return new Set(); }
+}
+
+function saveDoneSet(s) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify([...s]));
+}
+
+function toggleDone(cb) {
+  const el = cb.closest('[data-id]');
+  const id = el.dataset.id;
+  if (!id) return;
+  const done = getDoneSet();
+  if (cb.checked) {
+    done.add(id);
+    el.classList.add('checked');
+  } else {
+    done.delete(id);
+    el.classList.remove('checked');
+  }
+  saveDoneSet(done);
+  updateDoneCount();
+}
+
+function toggleShowDone() {
+  const btn = document.getElementById('showDoneBtn');
+  const showing = btn.classList.toggle('active');
+  document.querySelectorAll('[data-id]').forEach(el => {
+    if (getDoneSet().has(el.dataset.id)) {
+      el.classList.toggle('checked', !showing);
+    }
+  });
+}
+
+function updateDoneCount() {
+  document.getElementById('doneCount').textContent = getDoneSet().size;
+}
+
+// 초기화: localStorage에서 체크 상태 복원
+(function init() {
+  const done = getDoneSet();
+  document.querySelectorAll('[data-id]').forEach(el => {
+    if (done.has(el.dataset.id)) {
+      el.classList.add('checked');
+      const cb = el.querySelector('.item-check');
+      if (cb) cb.checked = true;
+    }
+  });
+  updateDoneCount();
+})();
+
 function switchTab(key) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
