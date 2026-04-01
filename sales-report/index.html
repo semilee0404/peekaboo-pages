@@ -173,6 +173,10 @@
     <div id="monthlyTabs"></div>
   </div>
   <div class="tab-group" style="margin-left: 8px;">
+    <span class="tab-group-label">마감</span>
+    <div id="closingTabs"></div>
+  </div>
+  <div class="tab-group" style="margin-left: 8px;">
     <span class="tab-group-label">추이</span>
     <button class="tab-btn" onclick="showTrend()">전체 추이</button>
   </div>
@@ -210,6 +214,16 @@ function initTabs() {
     btn.textContent = w.label;
     btn.onclick = () => showWeekly(w.id);
     weeklyDiv.appendChild(btn);
+  });
+
+  // 마감 탭
+  const closingDiv = document.getElementById('closingTabs');
+  Object.keys(monthlyClosing).sort().reverse().forEach(key => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn';
+    btn.textContent = key.substring(5) + '월 마감';
+    btn.onclick = () => showClosing(key);
+    closingDiv.appendChild(btn);
   });
 
   const months = getMonthlyData();
@@ -509,6 +523,194 @@ function showTrend() {
       scales: { y: { ticks: { callback: v => (v/10000).toFixed(0)+'만' } } },
       plugins: { tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + fmt(ctx.raw) + '원' } } }
     }
+  });
+}
+
+// 마감 보고서
+function showClosing(key) {
+  destroyCharts();
+  const c = monthlyClosing[key];
+  if (!c) return;
+  setActiveTab(key.substring(5) + '월 마감');
+  document.getElementById('headerSubtitle').textContent = c.period;
+
+  const colors = ['#E74C3C','#2F5496','#27AE60','#9B59B6','#F39C12'];
+
+  let html = `
+    <div class="summary-banner">
+      <div class="label">${c.label}</div>
+      <div class="big-number">${fmt(c.total.revenue)}원</div>
+      <div class="sub">전월대비 <strong>${fmtPct(c.total.revenue, c.total.prevMonth)}</strong> | 전년대비 <strong>${fmtPct(c.total.revenue, c.total.prevYear)}</strong></div>
+    </div>
+
+    <div class="kpi-grid">
+      ${c.channels.map(ch => {
+        const mom = fmtPct(ch.revenue, ch.prevMonth);
+        const yoy = fmtPct(ch.revenue, ch.prevYear);
+        const ratio = (ch.revenue / c.total.revenue * 100).toFixed(1);
+        const cls = isUp(ch.revenue, ch.prevMonth) ? 'up' : 'down';
+        return `<div class="kpi-card">
+          <div class="channel">${ch.name}</div>
+          <div class="amount">${fmtM(ch.revenue)}원</div>
+          <div class="change ${cls}">전월 ${mom}</div>
+          <div class="ratio">비중 ${ratio}% | 전년 ${yoy}</div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header">채널별 매출 (전월·전년 비교)</div>
+        <div class="card-body">
+          <table>
+            <tr><th>채널</th><th>2026.3</th><th>2026.2</th><th>전월대비</th><th>2025.3</th><th>전년대비</th></tr>
+            ${c.channels.map(ch => `<tr>
+              <td>${ch.name}</td>
+              <td class="num">${fmt(ch.revenue)}</td>
+              <td class="num">${fmt(ch.prevMonth)}</td>
+              <td class="center"><span class="badge ${isUp(ch.revenue, ch.prevMonth) ? 'badge-up' : 'badge-down'}">${fmtPct(ch.revenue, ch.prevMonth)}</span></td>
+              <td class="num">${fmt(ch.prevYear)}</td>
+              <td class="center"><span class="badge ${isUp(ch.revenue, ch.prevYear) ? 'badge-up' : 'badge-down'}">${fmtPct(ch.revenue, ch.prevYear)}</span></td>
+            </tr>`).join('')}
+            <tr class="total-row">
+              <td>합계</td>
+              <td class="num">${fmt(c.total.revenue)}</td>
+              <td class="num">${fmt(c.total.prevMonth)}</td>
+              <td class="center"><span class="badge ${isUp(c.total.revenue, c.total.prevMonth) ? 'badge-up' : 'badge-down'}">${fmtPct(c.total.revenue, c.total.prevMonth)}</span></td>
+              <td class="num">${fmt(c.total.prevYear)}</td>
+              <td class="center"><span class="badge ${isUp(c.total.revenue, c.total.prevYear) ? 'badge-up' : 'badge-down'}">${fmtPct(c.total.revenue, c.total.prevYear)}</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">채널 비중 변화 (전년 → 금년)</div>
+        <div class="card-body">
+          <table>
+            <tr><th>채널</th><th>2025.3</th><th>2026.3</th><th>변화</th></tr>
+            ${c.ratioChange.map(r => `<tr>
+              <td>${r.name}</td>
+              <td class="center">${r.prev.toFixed(1)}%</td>
+              <td class="center">${r.current.toFixed(1)}%</td>
+              <td class="center"><span class="badge ${r.change > 0 ? 'badge-up' : 'badge-down'}">${r.change > 0 ? '+' : ''}${r.change.toFixed(1)}p</span></td>
+            </tr>`).join('')}
+          </table>
+          <div class="chart-container" style="height:220px; margin-top:16px;"><canvas id="ratioChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header">전월·전년 비교 차트</div>
+        <div class="card-body"><div class="chart-container"><canvas id="compareChart"></canvas></div></div>
+      </div>
+      <div class="card">
+        <div class="card-header">채널 비중 (2026.3)</div>
+        <div class="card-body"><div class="chart-container"><canvas id="closingPieChart"></canvas></div></div>
+      </div>
+    </div>
+
+    ${c.coupangStock ? `
+    <div class="card">
+      <div class="card-header">쿠팡 납품 현황 (월간)</div>
+      <div class="card-body">
+        <table>
+          <tr><th>구분</th><th>SKU건</th><th>수량</th><th>금액</th><th>납품/매출 비율</th></tr>
+          <tr>
+            <td>2026.3</td><td class="num">${fmt(c.coupangStock.current.sku)}</td>
+            <td class="num">${fmt(c.coupangStock.current.qty)}개</td>
+            <td class="num">${fmt(c.coupangStock.current.amount)}원</td>
+            <td class="center">${c.coupangStock.stockToSalesRatio.current}%</td>
+          </tr>
+          <tr>
+            <td>2026.2</td><td class="num">${fmt(c.coupangStock.prevMonth.sku)}</td>
+            <td class="num">${fmt(c.coupangStock.prevMonth.qty)}개</td>
+            <td class="num">${fmt(c.coupangStock.prevMonth.amount)}원</td>
+            <td class="center">${c.coupangStock.stockToSalesRatio.prevMonth}%</td>
+          </tr>
+          <tr>
+            <td>2025.3</td><td class="num">${fmt(c.coupangStock.prevYear.sku)}</td>
+            <td class="num">${fmt(c.coupangStock.prevYear.qty)}개</td>
+            <td class="num">${fmt(c.coupangStock.prevYear.amount)}원</td>
+            <td class="center">${c.coupangStock.stockToSalesRatio.prevYear}%</td>
+          </tr>
+        </table>
+        <div style="margin-top:16px">
+          <strong style="font-size:13px; color:var(--text-light);">납품 TOP 5 (금액순)</strong>
+          <table style="margin-top:8px">
+            <tr><th>상품</th><th>수량</th><th>금액</th></tr>
+            ${c.coupangStock.top5.map(p => `<tr><td>${p.name}</td><td class="num">${p.qty}개</td><td class="num">${fmt(p.amount)}원</td></tr>`).join('')}
+          </table>
+        </div>
+      </div>
+    </div>` : ''}
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header">주요 인사이트</div>
+        <div class="card-body">
+          <ul class="insight-list">
+            ${c.insights.good.map(t => `<li class="good">${t}</li>`).join('')}
+            ${c.insights.check.map(t => `<li class="check">${t}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">차월 계획</div>
+        <div class="card-body">
+          <div class="plan-highlight">신상 오픈: ${c.nextMonth.products}</div>
+          ${c.nextMonth.issues.map(i => `<div class="plan-item">${i}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('content').innerHTML = html;
+
+  // 비중 비교 차트 (전년 vs 금년)
+  currentChart1 = new Chart(document.getElementById('ratioChart'), {
+    type: 'bar',
+    data: {
+      labels: c.ratioChange.map(r => r.name),
+      datasets: [
+        { label: '2025.3', data: c.ratioChange.map(r => r.prev), backgroundColor: 'rgba(47,84,150,0.3)', borderColor: '#2F5496', borderWidth: 1 },
+        { label: '2026.3', data: c.ratioChange.map(r => r.current), backgroundColor: 'rgba(47,84,150,0.8)', borderColor: '#2F5496', borderWidth: 1 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { y: { ticks: { callback: v => v + '%' } } },
+      plugins: { tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.raw.toFixed(1) + '%' } } }
+    }
+  });
+
+  // 전월·전년 비교 차트
+  currentChart2 = new Chart(document.getElementById('compareChart'), {
+    type: 'bar',
+    data: {
+      labels: c.channels.map(ch => ch.name),
+      datasets: [
+        { label: '2025.3', data: c.channels.map(ch => ch.prevYear), backgroundColor: '#BDC3C7' },
+        { label: '2026.2', data: c.channels.map(ch => ch.prevMonth), backgroundColor: 'rgba(47,84,150,0.4)' },
+        { label: '2026.3', data: c.channels.map(ch => ch.revenue), backgroundColor: '#2F5496' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { y: { ticks: { callback: v => (v/10000).toFixed(0)+'만' } } },
+      plugins: { tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + fmt(ctx.raw) + '원' } } }
+    }
+  });
+
+  // 비중 파이
+  currentChart3 = new Chart(document.getElementById('closingPieChart'), {
+    type: 'doughnut',
+    data: {
+      labels: c.channels.map(ch => ch.name),
+      datasets: [{ data: c.channels.map(ch => ch.revenue), backgroundColor: colors, borderWidth: 2 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
   });
 }
 

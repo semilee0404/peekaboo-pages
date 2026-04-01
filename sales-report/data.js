@@ -182,3 +182,63 @@ function getMonthlyData() {
   });
   return Object.values(monthly).sort((a, b) => b.label.localeCompare(a.label));
 }
+
+// 월간 마감 보고서 데이터 (셀러센터 확정치)
+const monthlyClosing = {
+  "2026-03": {
+    label: "2026년 3월 마감",
+    period: "2026-03-01 ~ 2026-03-31",
+    summary: "전체 매출 2억 9,897만원, 전월대비 -5.9%, 전년대비 +54.1%. 쿠팡 독주 심화, 자사몰 전월대비 하락.",
+    channels: [
+      { name: "쿠팡", revenue: 191605900, prevMonth: 157439630, prevYear: 96459800 },
+      { name: "자사몰", revenue: 100234085, prevMonth: 156405573, prevYear: 86482892 },
+      { name: "스마트스토어", revenue: 4972500, prevMonth: 1582600, prevYear: 2789190 },
+      { name: "카카오선물하기", revenue: 1690300, prevMonth: 2319200, prevYear: 5992800 },
+      { name: "롯데온", revenue: 469200, prevMonth: 93500, prevYear: 2346000 }
+    ],
+    total: { revenue: 298971985, prevMonth: 317840503, prevYear: 194070682 },
+    ratioChange: [
+      { name: "쿠팡", prev: 49.7, current: 64.1, change: 14.4 },
+      { name: "자사몰", prev: 44.6, current: 33.5, change: -11.0 },
+      { name: "스마트스토어", prev: 1.4, current: 1.7, change: 0.2 },
+      { name: "카카오선물하기", prev: 3.1, current: 0.6, change: -2.5 },
+      { name: "롯데온", prev: 1.2, current: 0.2, change: -1.1 }
+    ],
+    coupangStock: {
+      current: { sku: 3165, qty: 8474, amount: 91236900 },
+      prevMonth: { sku: 2455, qty: 7861, amount: 83556530 },
+      prevYear: { sku: 3948, qty: 7031, amount: 79635100 },
+      stockToSalesRatio: { current: 47.6, prevMonth: 53.1, prevYear: 82.6 },
+      top5: [
+        { name: "룰루 곰돌이모자 아이보리 S", qty: 165, amount: 1089000 },
+        { name: "룰루 곰돌이모자 아이보리 M", qty: 144, amount: 950400 },
+        { name: "루미 알라딘헤어밴드 아이보리 FREE", qty: 210, amount: 924000 },
+        { name: "쿨쿨 수트세트 검정 12m", qty: 66, amount: 798600 },
+        { name: "제제 보넷 블랙 S", qty: 80, amount: 792000 }
+      ]
+    },
+    insights: {
+      good: [
+        "전체 매출 전년대비 +54.1% 성장 (1.94억 → 2.99억)",
+        "쿠팡 매출 전년대비 +98.6%, 거의 2배 성장",
+        "쿠팡 납품 효율 개선: 납품/매출 비율 82.6% → 47.6%",
+        "스마트스토어 전월대비 +214%, 전년대비 +78% 성장세"
+      ],
+      check: [
+        "쿠팡 비중 64.1%로 편중 심화 (전년 49.7%)",
+        "자사몰 전월대비 -35.9% (2월 1.56억 → 3월 1.00억)",
+        "카카오 전년대비 -71.8%, 롯데온 전년대비 -80.0% 축소",
+        "전월대비 전체 -5.9% — 2월 대비 하락"
+      ]
+    },
+    nextMonth: {
+      products: "샤인 · 샌디 · 링고 · 이븐 (4종) 오픈",
+      issues: [
+        "가정의 달 이벤트 — \"포밍 입어볼래요\", \"에어 입어볼래요\"",
+        "인스타그램 팔로워 10만 달성 이벤트 또는 기획전",
+        "메인 배너 기획 진행",
+        "자사몰 비중 회복 방안 검토 필요"
+      ]
+    }
+  }
+};
