@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카부 4월 과제 사전 준비 보고서</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Apple SD Gothic Neo', -apple-system, sans-serif; background: #f8f7f4; color: #2d2d2d; line-height: 1.7; }
+
+  .header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 40px 24px 32px; }
+  .header h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .header .date { font-size: 14px; color: rgba(255,255,255,0.6); }
+  .header .summary { margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+  .header .stat { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 16px; }
+  .header .stat .num { font-size: 22px; font-weight: 700; color: #ffd369; }
+  .header .stat .label { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+  .container { max-width: 800px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  /* Tab navigation */
+  .tabs { display: flex; gap: 8px; overflow-x: auto; padding: 16px 0; -webkit-overflow-scrolling: touch; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { flex-shrink: 0; padding: 8px 18px; border-radius: 20px; border: 1.5px solid #ddd; background: white; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .tab-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Cards */
+  .card { background: white; border-radius: 14px; padding: 24px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .card h2 { font-size: 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .card h3 { font-size: 15px; font-weight: 700; margin: 16px 0 8px; color: #444; }
+
+  /* Status badges */
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 12px; }
+  .badge-done { background: #e8f5e9; color: #2e7d32; }
+  .badge-todo { background: #fff3e0; color: #e65100; }
+  .badge-urgent { background: #ffebee; color: #c62828; }
+  .badge-confirm { background: #e3f2fd; color: #1565c0; }
+  .badge-wait { background: #f3e5f5; color: #7b1fa2; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before { content: ''; position: absolute; left: 7px; top: 4px; bottom: 4px; width: 2px; background: #e0e0e0; }
+  .tl-item { position: relative; margin-bottom: 18px; }
+  .tl-item::before { content: ''; position: absolute; left: -21px; top: 6px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid #1a1a2e; background: white; }
+  .tl-item.done::before { background: #2e7d32; border-color: #2e7d32; }
+  .tl-item.today::before { background: #ffd369; border-color: #e65100; }
+  .tl-date { font-size: 12px; color: #888; font-weight: 600; }
+  .tl-text { font-size: 14px; margin-top: 2px; }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; display: flex; align-items: flex-start; gap: 8px; }
+  .checklist li:last-child { border-bottom: none; }
+  .check { width: 18px; height: 18px; border-radius: 4px; border: 2px solid #ccc; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+  .check.done { background: #2e7d32; border-color: #2e7d32; color: white; }
+  .check.todo { border-color: #e65100; }
+
+  /* Confirm box */
+  .confirm-box { background: #e3f2fd; border-left: 4px solid #1565c0; border-radius: 0 10px 10px 0; padding: 16px; margin: 16px 0; }
+  .confirm-box h4 { font-size: 13px; color: #1565c0; font-weight: 700; margin-bottom: 8px; }
+  .confirm-box ul { list-style: none; font-size: 14px; }
+  .confirm-box li { padding: 4px 0; }
+  .confirm-box li::before { content: '?'; display: inline-block; width: 20px; height: 20px; background: #1565c0; color: white; border-radius: 50%; text-align: center; line-height: 20px; font-size: 11px; font-weight: 700; margin-right: 8px; }
+
+  /* Data table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  th { background: #f5f5f5; padding: 10px 12px; text-align: left; font-weight: 700; border-bottom: 2px solid #e0e0e0; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+  tr:hover td { background: #fafafa; }
+
+  /* Highlight */
+  .highlight { background: linear-gradient(135deg, #fff9e6, #fff3cd); border-radius: 10px; padding: 16px; margin: 12px 0; }
+  .highlight .title { font-size: 13px; font-weight: 700; color: #b8860b; margin-bottom: 6px; }
+
+  /* Idea cards */
+  .idea-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .idea { background: #f9f9f7; border-radius: 10px; padding: 16px; border-left: 3px solid #ffd369; }
+  .idea .name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .idea .desc { font-size: 13px; color: #666; }
+  .idea .impact { font-size: 12px; color: #b8860b; font-weight: 600; margin-top: 6px; }
+
+  @media (max-width: 500px) {
+    .header { padding: 28px 16px 24px; }
+    .header h1 { font-size: 20px; }
+    .card { padding: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>4월 과제 사전 준비 보고서</h1>
+  <div class="date">2026.04.01 (수) 기준 | D-2 신상 오픈</div>
+  <div class="summary">
+    <div class="stat"><div class="num">5개</div><div class="label">4월 핵심 과제</div></div>
+    <div class="stat"><div class="num">D-2</div><div class="label">신상 4종 오픈 (4/3 금)</div></div>
+    <div class="stat"><div class="num">99.4K</div><div class="label">인스타 팔로워</div></div>
+    <div class="stat"><div class="num">33.5%</div><div class="label">자사몰 비중 (3월)</div></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('overview')">전체 타임라인</button>
+    <button class="tab-btn" onclick="showTab('newproduct')">신상 4종 오픈</button>
+    <button class="tab-btn" onclick="showTab('family')">가정의 달</button>
+    <button class="tab-btn" onclick="showTab('insta')">인스타 10만</button>
+    <button class="tab-btn" onclick="showTab('mall')">자사몰 회복</button>
+    <button class="tab-btn" onclick="showTab('confirm')">컨펌 항목</button>
+  </div>
+
+  <!-- ======== 전체 타임라인 ======== -->
+  <div id="overview" class="tab-content active">
+    <div class="card">
+      <h2>4월 전체 타임라인</h2>
+      <div class="timeline">
+        <div class="tl-item today">
+          <div class="tl-date">4/1 (수) — 오늘</div>
+          <div class="tl-text"><strong>신상</strong> 이븐 티저 콘텐츠 준비 + 4종 상세페이지 점검<br><strong>가정의 달</strong> 체험단 모집 공고 준비 + 구글폼 제작<br><strong>인스타</strong> 10만 달성 이벤트 설계안 확정</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4/2 (목)</div>
+          <div class="tl-text"><strong>신상</strong> 이븐 티저 스토리 + 오픈예정 피드 업로드<br><strong>신상</strong> 4종 상세페이지 최종 점검 완료<br><strong>가정의 달</strong> 체험단 모집 공고 최종 검수</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4/3 (금) — 신상 오픈</div>
+          <div class="tl-text"><strong>샤인 / 샌디 / 링고 / 이븐 동시 오픈</strong><br>오픈 당일: 인스타 피드 + 스토리 + 푸시 알림</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4/4 (토)</div>
+          <div class="tl-text"><strong>신상</strong> 오픈 24h 성과 체크</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4/5 (일) ~ 4/7 (화)</div>
+          <div class="tl-text"><strong>가정의 달</strong> 체험단 모집 공고 게시 (인스타 + 자사몰)</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4/8 (수) ~ 4/10 (금)</div>
+          <div class="tl-text"><strong>가정의 달</strong> 체험단 심사 + 선정 DM 발송</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4/11 (토) ~ 4/13 (월)</div>
+          <div class="tl-text"><strong>가정의 달</strong> 체험단 제품 발송</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4월 2~3주</div>
+          <div class="tl-text"><strong>인스타 10만</strong> 달성 예상 구간 — 이벤트 실행 대기<br><strong>자사몰</strong> 리텐션 시책 1차 실행</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4/14 (화) ~ 4/24 (금)</div>
+          <div class="tl-text"><strong>가정의 달</strong> 체험단 촬영 기간</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4/25 (토) ~ 4/27 (월)</div>
+          <div class="tl-text"><strong>가정의 달</strong> 콘텐츠 검수 + 기획전 UGC 반영</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4/28 (화) ~ 4/30 (목)</div>
+          <div class="tl-text"><strong>가정의 달</strong> 체험단 콘텐츠 게시 + 기획전 최종 QA<br><strong>5/1(금) 오픈 준비 완료</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>과제별 현재 상태</h2>
+      <table>
+        <tr><th>과제</th><th>상태</th><th>다음 액션</th></tr>
+        <tr><td>메인 배너 리뉴얼</td><td><span class="badge badge-done">전달완료</span></td><td>-</td></tr>
+        <tr><td>신상 4종 오픈 (4/3 금)</td><td><span class="badge badge-urgent">D-2</span></td><td>이븐 티저 + 오픈예정 피드</td></tr>
+        <tr><td>가정의 달 이벤트</td><td><span class="badge badge-todo">준비중</span></td><td>체험단 모집 공고 + 구글폼</td></tr>
+        <tr><td>인스타 10만 이벤트</td><td><span class="badge badge-wait">대기</span></td><td>이벤트 설계안 사전 확정</td></tr>
+        <tr><td>자사몰 비중 회복</td><td><span class="badge badge-todo">기획중</span></td><td>리텐션 시책 아이디어 선별</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ======== 신상 4종 오픈 ======== -->
+  <div id="newproduct" class="tab-content">
+    <div class="card">
+      <h2>신상 4종 동시 오픈 — 4/3(금)</h2>
+      <p style="font-size:14px; color:#666; margin-bottom:16px;">샤인 / 샌디 / 링고 / 이븐</p>
+
+      <h3>인스타 사전 노출 현황</h3>
+      <table>
+        <tr><th>제품</th><th>피드 오픈예정</th><th>스토리 티저</th><th>남은 작업</th></tr>
+        <tr><td>샤인</td><td><span class="badge badge-done">완료</span></td><td><span class="badge badge-done">완료</span></td><td>-</td></tr>
+        <tr><td>샌디</td><td><span class="badge badge-done">완료</span></td><td><span class="badge badge-done">완료</span></td><td>-</td></tr>
+        <tr><td>링고</td><td><span class="badge badge-done">완료</span></td><td><span class="badge badge-done">완료</span></td><td>-</td></tr>
+        <tr><td>이븐</td><td><span class="badge badge-urgent">미완</span></td><td><span class="badge badge-urgent">미완</span></td><td>티저 스토리 + 오픈예정 피드</td></tr>
+      </table>
+
+      <h3>D-2 ~ D-Day 체크리스트</h3>
+      <ul class="checklist">
+        <li><span class="check done">&#10003;</span><strong>4/1 (수)</strong> 링고 오픈예정 피드 업로드</li>
+        <li><span class="check todo"></span><strong>4/2 (목)</strong> 이븐 티저 스토리 + 오픈예정 피드 업로드</li>
+        <li><span class="check todo"></span><strong>4/2 (목)</strong> 4종 상세페이지 최종 점검 (사이즈/가격/이미지)</li>
+        <li><span class="check todo"></span><strong>4/2 (목)</strong> 자사몰 메인 배너에 4종 오픈 예고 반영</li>
+        <li><span class="check todo"></span><strong>4/3 (금)</strong> 오전: 4종 동시 판매 오픈</li>
+        <li><span class="check todo"></span><strong>4/3 (금)</strong> 인스타 피드 "오늘 오픈" 게시 (4종 한번에 or 2+2)</li>
+        <li><span class="check todo"></span><strong>4/3 (금)</strong> 스토리 "지금 오픈" + 자사몰 링크</li>
+        <li><span class="check todo"></span><strong>4/3 (금)</strong> 카카오 알림톡 or 푸시 발송</li>
+        <li><span class="check todo"></span><strong>4/4 (토)</strong> 오픈 24h 판매 현황 체크 (대시보드)</li>
+      </ul>
+
+      <div class="highlight">
+        <div class="title">3월 오픈 성과 참고</div>
+        <p style="font-size:13px;">3월 4주차 신상 5종 오픈 → 주간 매출 +47.1% (3,074만). 4종 동시 오픈도 비슷한 견인 효과 기대. 오픈 당일 인스타 노출이 자사몰 직접 유입의 핵심.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 가정의 달 ======== -->
+  <div id="family" class="tab-content">
+    <div class="card">
+      <h2>가정의 달 "포밍 입어볼래요"</h2>
+      <p style="font-size:14px; color:#666; margin-bottom:16px;">5/1(금) 기획전 오픈 목표 | 4월 전체가 준비 기간</p>
+
+      <h3>캠페인 구조 요약</h3>
+      <table>
+        <tr><th>구분</th><th>내용</th></tr>
+        <tr><td>기획전 콘셉트</td><td>"우리 가족의 첫 피카부" — 3가지 가족 유형별 세트</td></tr>
+        <tr><td>세트 A</td><td>곧 만날 아기에게 (예비맘 뉴본) — 142,000원</td></tr>
+        <tr><td>세트 B</td><td>우리 가족 한 컷 (홈스냅 패밀리룩) — 150,000원</td></tr>
+        <tr><td>세트 C</td><td>닮은 듯 다른 우리 (다둥이 시블링룩) — 135,000~180,000원</td></tr>
+        <tr><td>체험단</td><td>3유형 x 3~5가족 = 총 9~15가족</td></tr>
+        <tr><td>예산</td><td>180만원 | BEP: 26세트</td></tr>
+      </table>
+
+      <h3>이번 주 (4/1~5) 실행 항목</h3>
+      <ul class="checklist">
+        <li><span class="check todo"></span>체험단 모집 공고 카피 작성</li>
+        <li><span class="check todo"></span>신청 구글폼 제작</li>
+        <li><span class="check todo"></span>모집 공고 인스타 피드 이미지 준비</li>
+        <li><span class="check todo"></span><strong>4/5(일)~7(화)</strong> 모집 공고 게시 (인스타 + 자사몰 팝업)</li>
+        <li><span class="check todo"></span>기획전 페이지 와이어프레임 착수 (Cafe24)</li>
+        <li><span class="check todo"></span>기프트 박싱/출생카드 발주</li>
+        <li><span class="check todo"></span>코디 가이드 PDF 디자인 착수</li>
+      </ul>
+
+      <h3>3월 미완 체크리스트 (밀린 항목)</h3>
+      <ul class="checklist">
+        <li><span class="check urgent"></span>세트 구성 확정 (재고/사이즈 확인)</li>
+        <li><span class="check urgent"></span>촬영 가이드라인 문서 작성</li>
+      </ul>
+
+      <div class="confirm-box">
+        <h4>대표님 컨펌 필요</h4>
+        <ul>
+          <li>세트 구성 SKU + 가격 최종 확정 (할인 없이 단품 합산 그대로 — 기획안 기준)</li>
+          <li>체험단 모집 인원 규모 (9~15가족 범위 내)</li>
+          <li>"에어 입어볼래요"는 별도 캠페인? 포밍과 통합?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 인스타 10만 ======== -->
+  <div id="insta" class="tab-content">
+    <div class="card">
+      <h2>인스타그램 10만 팔로워 이벤트</h2>
+      <p style="font-size:14px; color:#666; margin-bottom:16px;">현재 99,406명 (3/24 기준) | 600명 남음</p>
+
+      <div class="highlight">
+        <div class="title">달성 예상 시점</div>
+        <p style="font-size:13px;">3월 일평균 증가분 약 20~30명 기준, 4/4 신상 오픈 효과 감안 시 <strong>4월 2~3주차 달성 가능성 높음</strong>. 신상 오픈 당일 팔로워 유입이 가속될 수 있음.</p>
+      </div>
+
+      <h3>사전 설계안: 자사몰 전용 혜택</h3>
+      <div class="idea-grid">
+        <div class="idea">
+          <div class="name">A안: 10만 감사 쿠폰</div>
+          <div class="desc">자사몰 전용 10% 쿠폰 (구제품 한정, 신상 제외). 인스타 스토리 "10만 감사" 공개 + 프로필 링크 → 자사몰 쿠폰 발급 페이지</div>
+          <div class="impact">기대효과: 자사몰 유입 + 재고 소진 촉진 | 마진 영향: 구제품만이라 제한적</div>
+        </div>
+        <div class="idea">
+          <div class="name">B안: 10만 한정 구성</div>
+          <div class="desc">자사몰에서만 구매 가능한 "10만 감사 한정 세트" (인기 제품 조합). 수량 100세트 한정. 할인 없이 구성의 희소성으로 승부</div>
+          <div class="impact">기대효과: 자사몰 전용감 + 객단가 상승 | 브랜드 이미지: 프리미엄 유지</div>
+        </div>
+        <div class="idea">
+          <div class="name">C안: 팔로워 참여형 이벤트</div>
+          <div class="desc">"10만번째 팔로워를 찾습니다" — 팔로워 인증 스크린샷 + 댓글 이벤트. 당첨자에게 피카부 세트 증정. 자사몰 추가 구매 시 무료배송</div>
+          <div class="impact">기대효과: 바이럴 + 참여율 | 비용: 세트 1~3개 (원가 5~15만)</div>
+        </div>
+      </div>
+
+      <h3>추천: B안 + C안 결합</h3>
+      <p style="font-size:14px; margin-top:8px;">한정 세트(B)로 자사몰 매출 견인 + 참여 이벤트(C)로 바이럴. 신상 할인 금지 원칙 유지. A안은 쿠팡과 가격 비교될 수 있어 프리미엄 이미지에 불리.</p>
+
+      <div class="confirm-box">
+        <h4>대표님 컨펌 필요</h4>
+        <ul>
+          <li>이벤트 방향 (A/B/C 중 선택 또는 조합)</li>
+          <li>한정 세트 구성할 경우 제품 선정</li>
+          <li>이벤트 예산 범위</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 자사몰 회복 ======== -->
+  <div id="mall" class="tab-content">
+    <div class="card">
+      <h2>자사몰 비중 회복 (33.5% → 40%+)</h2>
+
+      <h3>현황 진단</h3>
+      <table>
+        <tr><th>지표</th><th>수치</th><th>해석</th></tr>
+        <tr><td>3월 자사몰 매출</td><td>1억 234만</td><td>전월대비 -35.9%</td></tr>
+        <tr><td>기저 주간 매출 (1~3주)</td><td>1,900~2,100만</td><td>신상 오픈 없는 주간</td></tr>
+        <tr><td>오픈 주간 (4주)</td><td>3,074만</td><td>+47% — 오픈 효과 명확</td></tr>
+        <tr><td>재구매율</td><td>30% 미만</td><td>업계 평균 53% 대비 크게 낮음</td></tr>
+        <tr><td>쿠팡 비중</td><td>64.1%</td><td>전월 49.7% → 편중 심화</td></tr>
+      </table>
+
+      <h3>핵심 문제</h3>
+      <p style="font-size:14px; margin-bottom:16px;">신상 오픈 주간 외에는 주간 2천만 수준으로 떨어짐. <strong>오픈 사이 기저 매출을 올리는 것</strong>이 핵심. 타채널 관리 강화보다 자사몰 자체 리텐션이 답.</p>
+
+      <h3>시책 아이디어 (우선순위순)</h3>
+      <div class="idea-grid">
+        <div class="idea">
+          <div class="name">1. 신상 4종 오픈 + 가정의 달 = 4월 오픈 2회</div>
+          <div class="desc">4/4 신상 오픈 + 5/1 가정의 달 기획전. 오픈 주간을 월 2회로 만들어 매출 골짜기를 줄임</div>
+          <div class="impact">이미 확정된 과제 → 추가 비용 없음</div>
+        </div>
+        <div class="idea">
+          <div class="name">2. 10만 팔로워 이벤트 → 자사몰 전용</div>
+          <div class="desc">인스타 10만 달성 이벤트를 자사몰 전용으로 설계. 쿠팡이 아닌 자사몰로 트래픽 유도</div>
+          <div class="impact">인스타 과제와 시너지</div>
+        </div>
+        <div class="idea">
+          <div class="name">3. 구매 후 재구매 알림톡 (가정의 달 캠페인 내)</div>
+          <div class="desc">구매 30일 후 "어울리는 신상" 알림톡 발송. 가정의 달 기획안에 이미 포함된 재구매 장치 활용</div>
+          <div class="impact">재구매율 30% → 40% 목표</div>
+        </div>
+        <div class="idea">
+          <div class="name">4. 무료배송 기준 활용 객단가 상승</div>
+          <div class="desc">현재 무료배송 게이지바 운영 중. 장바구니에서 "N원 더 담으면 무료배송" 강조로 객단가 유도</div>
+          <div class="impact">AOV 50~80K → 100K+ 견인</div>
+        </div>
+      </div>
+
+      <div class="highlight">
+        <div class="title">방향 요약</div>
+        <p style="font-size:13px;">별도 시책보다 <strong>이미 진행 중인 4월 과제들(신상 오픈, 가정의 달, 인스타 10만)을 전부 자사몰 중심으로 설계</strong>하는 것이 가장 효율적. 각 과제가 자사몰 비중 회복의 수단이 되도록 연결.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 컨펌 항목 ======== -->
+  <div id="confirm" class="tab-content">
+    <div class="card">
+      <h2>대표님 컨펌 필요 항목 모음</h2>
+      <p style="font-size:14px; color:#666; margin-bottom:16px;">각 과제에서 대표님 결정이 필요한 것만 모았습니다.</p>
+
+      <h3>긴급 (이번 주 내)</h3>
+      <ul class="checklist">
+        <li><span class="check todo"></span><strong>가정의 달</strong> 세트 구성 SKU 확정 (기획안 3세트 기준 OK 여부)</li>
+        <li><span class="check todo"></span><strong>가정의 달</strong> 체험단 규모 (9~15가족 범위)</li>
+        <li><span class="check todo"></span><strong>가정의 달</strong> "에어 입어볼래요"는 별도 vs 통합?</li>
+        <li><span class="check todo"></span><strong>가정의 달</strong> 체험단 모집 공고 카피 검수</li>
+      </ul>
+
+      <h3>4월 중 (2주차 전)</h3>
+      <ul class="checklist">
+        <li><span class="check todo"></span><strong>인스타 10만</strong> 이벤트 방향 (B+C안 추천 드린 것 기준)</li>
+        <li><span class="check todo"></span><strong>인스타 10만</strong> 한정 세트 구성 제품 선정</li>
+        <li><span class="check todo"></span><strong>가정의 달</strong> 기획전 페이지 와이어프레임 확인</li>
+      </ul>
+
+      <h3>확인 완료 항목</h3>
+      <ul class="checklist">
+        <li><span class="check done">&#10003;</span>메인 배너 리뉴얼 — 전달 완료</li>
+        <li><span class="check done">&#10003;</span>신상 4종 오픈일: 4/3(금) 확정</li>
+        <li><span class="check done">&#10003;</span>샤인/샌디 피드 오픈예정 완료</li>
+        <li><span class="check done">&#10003;</span>샤인/샌디/링고 스토리 티저 완료</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>세미님 자율 진행 가능 항목</h2>
+      <p style="font-size:14px; color:#666; margin-bottom:16px;">대표님 컨펌 없이 진행 가능한 것들</p>
+      <ul class="checklist">
+        <li><span class="check done">&#10003;</span>링고 오픈예정 피드 업로드</li>
+        <li><span class="check todo"></span>이븐 티저 스토리 + 오픈예정 피드</li>
+        <li><span class="check todo"></span>4종 상세페이지 최종 점검</li>
+        <li><span class="check todo"></span>구글폼 제작 (체험단 신청용)</li>
+        <li><span class="check todo"></span>촬영 가이드라인 문서 작성</li>
+        <li><span class="check todo"></span>기프트 박싱/출생카드 발주 진행</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
