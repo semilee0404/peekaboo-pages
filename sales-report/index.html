@@ -165,20 +165,16 @@
 
 <div class="tab-nav">
   <div class="tab-group">
-    <span class="tab-group-label">주차별</span>
-    <div id="weeklyTabs"></div>
-  </div>
-  <div class="tab-group" style="margin-left: 8px;">
-    <span class="tab-group-label">월별</span>
-    <div id="monthlyTabs"></div>
-  </div>
-  <div class="tab-group" style="margin-left: 8px;">
     <span class="tab-group-label">마감</span>
     <div id="closingTabs"></div>
   </div>
   <div class="tab-group" style="margin-left: 8px;">
+    <span class="tab-group-label">주차별</span>
+    <div id="weeklyTabs"></div>
+  </div>
+  <div class="tab-group" style="margin-left: 8px;">
     <span class="tab-group-label">추이</span>
-    <button class="tab-btn" onclick="showTrend()">전체 추이</button>
+    <button class="tab-btn" onclick="showTrend()">월별 추이</button>
   </div>
 </div>
 
@@ -206,16 +202,6 @@ function destroyCharts() {
 // 탭 생성
 function initTabs() {
   const weeklyDiv = document.getElementById('weeklyTabs');
-  const monthlyDiv = document.getElementById('monthlyTabs');
-
-  weeklyReports.slice().reverse().forEach((w, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
-    btn.textContent = w.label;
-    btn.onclick = () => showWeekly(w.id);
-    weeklyDiv.appendChild(btn);
-  });
-
   // 마감 탭
   const closingDiv = document.getElementById('closingTabs');
   Object.keys(monthlyClosing).sort().reverse().forEach(key => {
@@ -226,13 +212,12 @@ function initTabs() {
     closingDiv.appendChild(btn);
   });
 
-  const months = getMonthlyData();
-  months.forEach((m, i) => {
+  weeklyReports.slice().reverse().forEach((w, i) => {
     const btn = document.createElement('button');
     btn.className = 'tab-btn';
-    btn.textContent = m.label;
-    btn.onclick = () => showMonthly(m.label);
-    monthlyDiv.appendChild(btn);
+    btn.textContent = w.label;
+    btn.onclick = () => showWeekly(w.id);
+    weeklyDiv.appendChild(btn);
   });
 }
 
@@ -452,75 +437,103 @@ function showMonthly(monthLabel) {
   });
 }
 
-// 전체 추이
+// 월별 추이
 function showTrend() {
   destroyCharts();
-  setActiveTab('전체 추이');
-  document.getElementById('headerSubtitle').textContent = '주차별 매출 추이';
+  setActiveTab('월별 추이');
+  document.getElementById('headerSubtitle').textContent = '2026년 월별 매출 추이';
 
-  const sorted = [...weeklyReports].sort((a,b) => a.period.localeCompare(b.period));
+  const colors = ['#E74C3C','#2F5496','#27AE60','#9B59B6','#F39C12'];
+  const channelNames = monthlyTrend[0].channels.map(c => c.name);
 
   let html = `
     <div class="card">
-      <div class="card-header">주간 매출 추이</div>
+      <div class="card-header">월별 총매출 추이</div>
       <div class="card-body"><div class="trend-chart-container"><canvas id="trendChart"></canvas></div></div>
     </div>
     <div class="card">
-      <div class="card-header">채널별 추이</div>
+      <div class="card-header">채널별 월매출 추이</div>
       <div class="card-body"><div class="trend-chart-container"><canvas id="channelTrendChart"></canvas></div></div>
     </div>
     <div class="card">
-      <div class="card-header">전체 주차 데이터</div>
+      <div class="card-header">월별 상세</div>
       <div class="card-body">
         <table>
-          <tr><th>주차</th><th>쿠팡</th><th>자사몰</th><th>스마트스토어</th><th>롯데온</th><th>합계</th><th>전주대비</th></tr>
-          ${sorted.map(w => `<tr>
-            <td>${w.label}</td>
-            ${w.channels.map(c => `<td class="num">${fmtM(c.revenue)}</td>`).join('')}
-            <td class="num" style="font-weight:700">${fmtM(w.total.revenue)}</td>
-            <td class="center"><span class="badge ${isUp(w.total.revenue, w.total.prevWeek) ? 'badge-up' : 'badge-down'}">${fmtPct(w.total.revenue, w.total.prevWeek)}</span></td>
-          </tr>`).join('')}
+          <tr><th>월</th><th>쿠팡</th><th>자사몰</th><th>스마트스토어</th><th>카카오</th><th>롯데온</th><th>합계</th><th>전월대비</th></tr>
+          ${monthlyTrend.map((m, i) => {
+            const prev = i > 0 ? monthlyTrend[i-1].total : null;
+            return `<tr>
+              <td>${m.month.substring(5)}월</td>
+              ${m.channels.map(c => `<td class="num">${fmtM(c.revenue)}</td>`).join('')}
+              <td class="num" style="font-weight:700">${fmtM(m.total)}</td>
+              <td class="center">${prev ? `<span class="badge ${isUp(m.total, prev) ? 'badge-up' : 'badge-down'}">${fmtPct(m.total, prev)}</span>` : '-'}</td>
+            </tr>`;
+          }).join('')}
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">채널 비중 변화</div>
+      <div class="card-body">
+        <table>
+          <tr><th>채널</th>${monthlyTrend.map(m => `<th>${m.month.substring(5)}월</th>`).join('')}<th>변화(1→3월)</th></tr>
+          ${channelNames.map(name => {
+            const ratios = monthlyTrend.map(m => {
+              const ch = m.channels.find(c => c.name === name);
+              return ch ? (ch.revenue / m.total * 100) : 0;
+            });
+            const diff = ratios[ratios.length-1] - ratios[0];
+            return `<tr>
+              <td>${name}</td>
+              ${ratios.map(r => `<td class="center">${r.toFixed(1)}%</td>`).join('')}
+              <td class="center"><span class="badge ${diff > 0 ? 'badge-up' : 'badge-down'}">${diff > 0 ? '+' : ''}${diff.toFixed(1)}p</span></td>
+            </tr>`;
+          }).join('')}
         </table>
       </div>
     </div>
   `;
   document.getElementById('content').innerHTML = html;
 
+  // 총매출 추이
   currentChart1 = new Chart(document.getElementById('trendChart'), {
     type: 'line',
     data: {
-      labels: sorted.map(w => w.label),
+      labels: monthlyTrend.map(m => m.month.substring(5) + '월'),
       datasets: [{
-        label: '주간 총매출',
-        data: sorted.map(w => w.total.revenue),
+        label: '월간 총매출',
+        data: monthlyTrend.map(m => m.total),
         borderColor: '#2F5496',
         backgroundColor: 'rgba(47,84,150,0.1)',
-        fill: true, tension: 0.3, pointRadius: 6, pointBackgroundColor: '#2F5496'
+        fill: true, tension: 0.3, pointRadius: 8, pointBackgroundColor: '#2F5496',
+        borderWidth: 3
       }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      scales: { y: { ticks: { callback: v => (v/10000).toFixed(0)+'만' } } },
-      plugins: { tooltip: { callbacks: { label: ctx => fmt(ctx.raw) + '원' } } }
+      scales: { y: { ticks: { callback: v => (v/100000000).toFixed(1)+'억' } } },
+      plugins: {
+        tooltip: { callbacks: { label: ctx => fmt(ctx.raw) + '원' } },
+        legend: { display: false }
+      }
     }
   });
 
-  const colors = ['#E74C3C','#2F5496','#27AE60','#9B59B6','#F39C12'];
-  const channelNames = sorted[0].channels.map(c => c.name);
+  // 채널별 추이 (스택 바)
   currentChart2 = new Chart(document.getElementById('channelTrendChart'), {
-    type: 'line',
+    type: 'bar',
     data: {
-      labels: sorted.map(w => w.label),
+      labels: monthlyTrend.map(m => m.month.substring(5) + '월'),
       datasets: channelNames.map((name, i) => ({
         label: name,
-        data: sorted.map(w => w.channels[i]?.revenue || 0),
-        borderColor: colors[i], backgroundColor: colors[i],
-        fill: false, tension: 0.3, pointRadius: 4
+        data: monthlyTrend.map(m => m.channels[i]?.revenue || 0),
+        backgroundColor: colors[i],
+        borderRadius: 4
       }))
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      scales: { y: { ticks: { callback: v => (v/10000).toFixed(0)+'만' } } },
+      scales: { x: { stacked: true }, y: { stacked: true, ticks: { callback: v => (v/100000000).toFixed(1)+'억' } } },
       plugins: { tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + fmt(ctx.raw) + '원' } } }
     }
   });
@@ -759,7 +772,13 @@ function showClosing(key) {
 
 // 초기화
 initTabs();
-showWeekly(weeklyReports[weeklyReports.length - 1].id);
+// 마감 탭이 있으면 최신 마감으로, 없으면 최신 주차로
+const closingKeys = Object.keys(monthlyClosing).sort().reverse();
+if (closingKeys.length > 0) {
+  showClosing(closingKeys[0]);
+} else {
+  showWeekly(weeklyReports[weeklyReports.length - 1].id);
+}
 </script>
 </body>
 </html>

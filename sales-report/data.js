@@ -163,3 +163,40 @@ const monthlyClosing = {
     }
   }
 };
+
+// 월별 추이 데이터 (2026년 1월~)
+const monthlyTrend = [
+  {
+    month: "2026-01",
+    channels: [
+      { name: "쿠팡", revenue: 188825700 },
+      { name: "자사몰", revenue: 107295673 },
+      { name: "스마트스토어", revenue: 1195030 },
+      { name: "카카오선물하기", revenue: 2347900 },
+      { name: "롯데온", revenue: 761600 }
+    ],
+    total: 300425903
+  },
+  {
+    month: "2026-02",
+    channels: [
+      { name: "쿠팡", revenue: 157439630 },
+      { name: "자사몰", revenue: 156405573 },
+      { name: "스마트스토어", revenue: 1582600 },
+      { name: "카카오선물하기", revenue: 2319200 },
+      { name: "롯데온", revenue: 93500 }
+    ],
+    total: 317840503
+  },
+  {
+    month: "2026-03",
+    channels: [
+      { name: "쿠팡", revenue: 191605900 },
+      { name: "자사몰", revenue: 100234085 },
+      { name: "스마트스토어", revenue: 4972500 },
+      { name: "카카오선물하기", revenue: 1690300 },
+      { name: "롯데온", revenue: 469200 }
+    ],
+    total: 298971985
+  }
+];
