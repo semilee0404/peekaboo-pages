@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카부 인스타그램 월간 리포트</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:#f8f6f3;color:#2d2a26;line-height:1.75;font-size:15px}
+  .ct{max-width:820px;margin:0 auto;padding:32px 24px 80px}
+  .hd{text-align:center;padding:40px 0 20px;border-bottom:2px solid #2d2a26;margin-bottom:28px}
+  .hd .br{font-size:11px;letter-spacing:4px;color:#9c8b7a;margin-bottom:10px}
+  .hd h1{font-size:22px;font-weight:700}
+  .tabs{display:flex;gap:0;border-bottom:2px solid #d6cfc6;margin-bottom:28px;overflow-x:auto}
+  .tab{padding:11px 18px;font-size:13px;font-weight:600;color:#8a8279;cursor:pointer;border:1px solid transparent;border-bottom:none;border-radius:6px 6px 0 0;transition:all .2s;position:relative;bottom:-2px;white-space:nowrap}
+  .tab:hover{color:#4a443c;background:#f2eeea}
+  .tab.active{color:#2d2a26;background:#f8f6f3;border-color:#d6cfc6;border-bottom:2px solid #f8f6f3}
+  .tc{display:none}.tc.active{display:block}
+  section{margin-bottom:36px}
+  h2{font-size:16px;font-weight:700;padding-bottom:8px;border-bottom:1px solid #d6cfc6;margin-bottom:14px;color:#4a443c}
+  p{margin:6px 0;font-size:14px}
+  .ol{background:#2d2a26;color:#f8f6f3;padding:22px 26px;border-radius:10px;margin-bottom:24px;font-size:15px;line-height:1.9}
+  .ol strong{color:#f0c674}
+  .kr{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
+  .k{background:#fff;border:1px solid #d6cfc6;border-radius:10px;padding:16px 12px;text-align:center}
+  .k .lb{font-size:12px;color:#8a8279;margin-bottom:6px}
+  .k .nm{font-size:24px;font-weight:700;letter-spacing:-0.5px}
+  .k .sb{font-size:11px;margin-top:6px;display:flex;justify-content:center;gap:10px}
+  .up{color:#27864a;font-weight:600}.dn{color:#c0392b;font-weight:600}.nt{color:#8a8279}
+  .bs{margin:16px 0 24px}
+  .br2{display:flex;align-items:center;margin:8px 0;font-size:13px}
+  .bl{width:70px;flex-shrink:0;font-weight:500}
+  .bt{flex:1;height:22px;background:#ebe6df;border-radius:4px;overflow:hidden}
+  .bf{height:100%;border-radius:4px;display:flex;align-items:center;padding:0 8px;font-size:11px;font-weight:600;color:#fff;min-width:30px}
+  .bf.c{background:#2d2a26}.bf.p{background:#c4b8a8}
+  .bv{width:80px;text-align:right;flex-shrink:0;font-weight:600;font-size:13px}
+  .wb{background:#fff;border:1px solid #d6cfc6;border-radius:10px;padding:20px 24px;margin:12px 0}
+  .wb p{font-size:14px;line-height:1.8}
+  details{margin:12px 0}
+  summary{font-size:13px;color:#8a8279;cursor:pointer;padding:6px 0}
+  summary:hover{color:#4a443c}
+  table{width:100%;border-collapse:collapse;margin:10px 0 16px;font-size:13px}
+  thead th{background:#ebe6df;font-weight:600;text-align:left;padding:8px 10px;border-bottom:2px solid #d6cfc6;font-size:12px;color:#5c554c}
+  thead th.r{text-align:right}
+  tbody td{padding:7px 10px;border-bottom:1px solid #ebe6df}
+  tbody td.r{text-align:right;font-variant-numeric:tabular-nums}
+  tbody tr:hover{background:#f2eeea}
+  .tl{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+  .ti{background:#fff;border:1px solid #d6cfc6;border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:14px}
+  .rk{width:28px;height:28px;background:#2d2a26;color:#f8f6f3;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+  .tb{flex:1;min-width:0}
+  .tt{font-size:13px;font-weight:500;margin-bottom:4px}
+  .tp{font-size:11px;color:#8a8279}
+  .ts{display:flex;gap:14px;font-size:12px;color:#5c554c;margin-top:4px;flex-wrap:wrap}
+  .ts span{white-space:nowrap}
+  .ab{background:#eef5f0;border:1px solid #b8d4c2;border-radius:10px;padding:20px 24px}
+  .ab h3{font-size:14px;font-weight:700;color:#27864a;margin-bottom:10px}
+  .ab ul{padding-left:18px}.ab li{font-size:14px;margin:6px 0;line-height:1.7}
+  .chart-wrap{background:#fff;border:1px solid #d6cfc6;border-radius:10px;padding:20px;margin:16px 0}
+  .chart-wrap canvas{max-height:280px}
+  .chart-title{font-size:14px;font-weight:600;margin-bottom:12px;color:#4a443c}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+  .insight-card{background:#fff;border:1px solid #d6cfc6;border-radius:10px;padding:16px 20px}
+  .insight-card h4{font-size:13px;font-weight:600;color:#8a8279;margin-bottom:6px}
+  .insight-card .big{font-size:28px;font-weight:700;margin-bottom:4px}
+  .insight-card p{font-size:13px;color:#5c554c;margin:4px 0}
+  .summary-table{margin:16px 0}
+  .summary-table td{font-size:13px}
+  .ft{margin-top:40px;padding-top:14px;border-top:1px solid #d6cfc6;font-size:11px;color:#a09889;text-align:center;line-height:1.7}
+  @media(max-width:600px){.ct{padding:20px 14px 60px}.kr{grid-template-columns:repeat(2,1fr)}.k .nm{font-size:20px}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="ct">
+
+<div class="hd">
+  <div class="br">PEEKABOO INSTAGRAM</div>
+  <h1>인스타그램 월간 리포트</h1>
+</div>
+
+<div class="tabs" id="tabs"></div>
+
+<!-- ===== 전체 흐름 탭 ===== -->
+<div id="tab-total" class="tc active">
+
+  <div class="ol">
+    <strong>6개월 전체 흐름:</strong> 10월부터 꾸준히 성장하다 2월에 폭발. 3월 팝업으로 일시 하락. 구매율은 6개월간 꾸준히 상승 중 — 인스타에서 오는 사람의 질이 점점 좋아지고 있습니다.
+  </div>
+
+  <div class="kr">
+    <div class="k"><div class="lb">6개월 총 방문</div><div class="nm">6,802</div><div class="sb"><span class="nt">월평균 1,134</span></div></div>
+    <div class="k"><div class="lb">6개월 총 구매</div><div class="nm">146건</div><div class="sb"><span class="nt">월평균 24건</span></div></div>
+    <div class="k"><div class="lb">6개월 총 매출</div><div class="nm">871만</div><div class="sb"><span class="nt">월평균 145만</span></div></div>
+    <div class="k"><div class="lb">현재 팔로워</div><div class="nm">99,604</div><div class="sb"><span class="nt">10만 임박 (3월 말 기준)</span></div></div>
+  </div>
+
+  <section>
+    <h2>방문 & 매출 추이</h2>
+    <div class="chart-wrap">
+      <canvas id="chartVisitRevenue"></canvas>
+    </div>
+  </section>
+
+  <section>
+    <h2>구매율 추이</h2>
+    <div class="chart-wrap">
+      <canvas id="chartRate"></canvas>
+    </div>
+    <p style="font-size:13px;color:#5c554c">구매율은 10월 1.21% → 2월 2.80%까지 꾸준히 상승. 3월(2.20%)도 전년(0.48%) 대비 4.6배 높은 수준입니다.</p>
+  </section>
+
+  <section>
+    <h2>게시물 수 & 평균 반응</h2>
+    <div class="chart-wrap">
+      <canvas id="chartContent"></canvas>
+    </div>
+  </section>
+
+  <section>
+    <h2>스토리 링크 비중 추이</h2>
+    <div class="chart-wrap">
+      <canvas id="chartStoryRatio"></canvas>
+    </div>
+    <p style="font-size:13px;color:#5c554c">스토리/앱 내 링크 비중이 높은 달(11월 98%, 2월 97%)에 방문이 많고, 낮은 달(1월 55%, 3월 56%)에 방문이 적습니다. <strong>스토리 링크 비중과 방문 수는 거의 비례합니다.</strong></p>
+  </section>
+
+  <section>
+    <h2>콘텐츠 유형별 효과 (6개월 합산)</h2>
+    <div class="grid2">
+      <div class="insight-card">
+        <h4>유형별 발행 비중</h4>
+        <canvas id="chartTypeCount" style="max-height:200px"></canvas>
+      </div>
+      <div class="insight-card">
+        <h4>유형별 평균 좋아요</h4>
+        <p>6개월간 유형별로 어떤 콘텐츠가 반응이 좋았는지는 게시물별 데이터 수집이 필요합니다. 현재는 월 단위 평균만 확인 가능.</p>
+        <table class="summary-table">
+          <thead><tr><th>월</th><th class="r">평균 좋아요</th><th class="r">릴스 비중</th></tr></thead>
+          <tbody>
+            <tr><td>10월</td><td class="r">58</td><td class="r">33%</td></tr>
+            <tr><td>11월</td><td class="r">75</td><td class="r">67%</td></tr>
+            <tr><td>12월</td><td class="r">43</td><td class="r">45%</td></tr>
+            <tr><td>1월</td><td class="r">86</td><td class="r">13%</td></tr>
+            <tr><td style="font-weight:600">2월</td><td class="r" style="font-weight:600">163</td><td class="r">5%</td></tr>
+            <tr><td>3월</td><td class="r">103</td><td class="r">36%</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:12px;color:#8a8279;margin-top:8px">릴스 비중이 낮을수록(1월 13%, 2월 5%) 평균 좋아요가 높은 경향.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>월별 전체 비교표</h2>
+    <div style="overflow-x:auto">
+    <table>
+      <thead><tr><th>지표</th><th class="r">10월</th><th class="r">11월</th><th class="r">12월</th><th class="r">1월</th><th class="r">2월</th><th class="r">3월</th></tr></thead>
+      <tbody>
+        <tr><td>방문</td><td class="r">825</td><td class="r">1,100</td><td class="r">604</td><td class="r">361</td><td class="r" style="font-weight:700;color:#27864a">3,322</td><td class="r">590</td></tr>
+        <tr><td>구매</td><td class="r">10건</td><td class="r">11건</td><td class="r">12건</td><td class="r">7건</td><td class="r" style="font-weight:700;color:#27864a">93건</td><td class="r">13건</td></tr>
+        <tr><td>매출</td><td class="r">51만</td><td class="r">86만</td><td class="r">108만</td><td class="r">31만</td><td class="r" style="font-weight:700;color:#27864a">513만</td><td class="r">82만</td></tr>
+        <tr><td>구매율</td><td class="r">1.21%</td><td class="r">1.00%</td><td class="r">1.99%</td><td class="r">1.94%</td><td class="r" style="font-weight:700;color:#27864a">2.80%</td><td class="r">2.20%</td></tr>
+        <tr><td>게시물</td><td class="r">15건</td><td class="r">9건</td><td class="r">33건</td><td class="r">24건</td><td class="r">21건</td><td class="r">25건</td></tr>
+        <tr><td>평균 좋아요</td><td class="r">58</td><td class="r">75</td><td class="r">43</td><td class="r">86</td><td class="r" style="font-weight:700;color:#27864a">163</td><td class="r">103</td></tr>
+        <tr><td>평균 댓글</td><td class="r">11</td><td class="r">3</td><td class="r">4</td><td class="r">26</td><td class="r" style="font-weight:700;color:#27864a">58</td><td class="r">22</td></tr>
+        <tr><td>스토리 링크 비중</td><td class="r">81%</td><td class="r">98%</td><td class="r">94%</td><td class="r">55%</td><td class="r">97%</td><td class="r">56%</td></tr>
+        <tr><td>건당 매출</td><td class="r">614원</td><td class="r">785원</td><td class="r">1,785원</td><td class="r">866원</td><td class="r" style="font-weight:700;color:#27864a">1,543원</td><td class="r">1,394원</td></tr>
+        <tr><td>팔로워</td><td class="r">-</td><td class="r">-</td><td class="r">-</td><td class="r">-</td><td class="r">-</td><td class="r">99,604</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:12px;color:#8a8279">건당 매출 = 매출 ÷ 방문. 높을수록 구매 의향이 높은 방문자가 온다는 뜻. 팔로워는 수집 시작(3/23)부터 기록.</p>
+  </section>
+
+  <section>
+    <h2>6개월에서 배운 것</h2>
+    <div class="grid2">
+      <div class="insight-card">
+        <h4>스토리 링크 = 자사몰 유입의 핵심</h4>
+        <p>스토리 링크 비중이 90% 이상인 달(11월, 2월)에 방문이 가장 많았고, 50%대인 달(1월, 3월)에 가장 적었습니다.</p>
+        <p style="margin-top:6px"><strong>상품 콘텐츠를 올리면서 스토리 링크를 거는 것이 유입의 거의 전부입니다.</strong></p>
+      </div>
+      <div class="insight-card">
+        <h4>발행 수 ≠ 방문 수</h4>
+        <p>가장 많이 올린 달(12월 33건)이 가장 방문이 많은 달이 아니고, 가장 적게 올린 달(11월 9건)이 두 번째로 방문이 많았습니다.</p>
+        <p style="margin-top:6px"><strong>중요한 건 발행 수가 아니라, 상품 콘텐츠 비중과 스토리 링크입니다.</strong></p>
+      </div>
+      <div class="insight-card">
+        <h4>구매율은 꾸준히 상승 중</h4>
+        <p>전년 대비 2~5배 높은 구매율을 유지하고 있어요. 인스타에서 오는 사람의 질이 계속 좋아지고 있다는 뜻입니다.</p>
+        <p style="margin-top:6px"><strong>방문만 늘리면 매출은 따라옵니다.</strong></p>
+      </div>
+      <div class="insight-card">
+        <h4>이벤트/팝업 기간 주의</h4>
+        <p>3월에 팝업 콘텐츠가 피드를 점령하면서 유입이 -82% 급감했습니다.</p>
+        <p style="margin-top:6px"><strong>이벤트 기간에도 상품 콘텐츠 비중을 절반 이상 유지해야 합니다.</strong></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="tab-container"></div>
+
+<div class="ft">
+  데이터: Instagram Graph API + GA4<br>
+  방문 = GA4 기준 인스타 경유 자사몰 방문 수. 실제의 60~70% 수준으로 잡힙니다 (인앱 브라우저 → 직접방문 분류).
+</div>
+
+</div>
+<script>
+const DATA = [
+  {
+    id:'2603', label:'26년 3월',
+    oneliner:'대구 팝업에 집중하느라 인스타에서 자사몰로 오는 길이 끊겼습니다. 콘텐츠 반응은 좋았지만, 상품 페이지로 보내는 스토리 링크가 빠지면서 방문이 크게 줄었어요.',
+    visit:590, buy:13, revenue:822398, rate:2.20, follower:'99,604',
+    pVisit:3322, pBuy:93, pRevenue:5126568, pRate:2.80,
+    yVisit:2292, yBuy:11, yRevenue:795299, yRate:0.48,
+    posts:25, pPosts:21, reels:9, image:7, carousel:9,
+    avgLike:103, avgComment:22, pAvgLike:163, pAvgComment:58,
+    prevLabel:'2월', yearLabel:'25년 3월',
+    why:'<p><strong>대구 팝업 콘텐츠가 피드와 스토리를 다 채웠습니다.</strong></p><p style="margin-top:8px">25건 중 약 15건이 팝업 관련이었고, 스토리도 팝업 현장 위주였어요. 팝업 콘텐츠에는 자사몰 상품 링크를 걸 이유가 없었기 때문에, 스토리에서 자사몰로 오는 방문이 거의 사라졌습니다.</p><p style="margin-top:8px">반면 프로필 방문은 오히려 늘었어요 (107명→259명). 피카부에 관심은 많았는데, 상품 페이지로 가는 길이 없었던 거예요.</p>',
+    detail:'<table><thead><tr><th>경로</th><th class="r">2월</th><th class="r">3월</th><th class="r">변화</th></tr></thead><tbody><tr><td>스토리/앱 내 링크</td><td class="r">3,218명</td><td class="r">333명</td><td class="r dn">-90%</td></tr><tr><td>프로필 링크</td><td class="r">107명</td><td class="r">259명</td><td class="r up">+142%</td></tr></tbody></table>',
+    top:[
+      {rank:1,title:'쇼콜라&보니 신상 소개',type:'캐러셀',reach:'16,346',like:383,save:149,share:87},
+      {rank:2,title:'Pick your flavor 디저트',type:'이미지',reach:'19,334',like:512,save:115,share:27},
+      {rank:3,title:'대구 팝업 공지',type:'이미지',reach:'11,691',like:205,save:27,share:150},
+    ],
+    good:'<tr><td><strong>구매율 2.20%</strong> (전년 0.48%의 4.6배)</td><td style="font-size:13px;color:#5c554c">방문만 늘리면 매출은 따라옵니다.</td></tr><tr><td><strong>팔로워 99,604명</strong></td><td style="font-size:13px;color:#5c554c">10만 돌파 임박.</td></tr><tr><td><strong>프로필 방문 +142%</strong></td><td style="font-size:13px;color:#5c554c">브랜드 관심은 오히려 올라갔어요.</td></tr>',
+    action:'이벤트 기간에도 상품 콘텐츠 비중 유지하기',
+    actions:['이벤트 안내는 이벤트당 피드 1건만. 리마인드/마감/발표는 스토리로.','이벤트 피드 사이사이에 상품 소개 피드를 넣어서 연속 이벤트 방지.','신상 오픈일에는 스토리에서 상품 페이지 링크를 집중.','이벤트 스토리 올릴 때도 상품 링크 스토리를 같이 올리기.'],
+  },
+  {
+    id:'2602', label:'26년 2월',
+    oneliner:'상품 콘텐츠 + 스토리 링크 조합이 완벽하게 작동한 달. 두쫀쿠/찹쌀모찌 출시에 맞춰 스토리에서 상품 페이지로 직접 보냈더니 방문과 매출이 폭증했습니다.',
+    visit:3322, buy:93, revenue:5126568, rate:2.80, follower:null,
+    pVisit:361, pBuy:7, pRevenue:312498, pRate:1.94,
+    yVisit:2766, yBuy:17, yRevenue:1129300, yRate:0.61,
+    posts:21, pPosts:24, reels:1, image:10, carousel:10,
+    avgLike:163, avgComment:58, pAvgLike:86, pAvgComment:26,
+    prevLabel:'1월', yearLabel:'25년 2월',
+    why:'<p><strong>신상품 출시에 맞춰 스토리에서 상품 페이지로 직접 보냈습니다.</strong></p><p style="margin-top:8px">두쫀쿠/찹쌀모찌 출시일, 설날 시즌 등 상품 콘텐츠를 올린 날에 스토리 링크를 집중적으로 걸었어요. 그 날들에 방문이 수백 건씩 몰렸습니다.</p><p style="margin-top:8px">특히 2/22에는 하루 663명이 스토리 링크를 타고 자사몰에 왔고, 그 중 33명이 구매 (구매율 5.0%).</p><p style="margin-top:8px"><strong>이 달의 패턴이 앞으로의 기준선입니다.</strong></p>',
+    detail:'<table><thead><tr><th>경로</th><th class="r">방문</th><th class="r">구매</th><th class="r">비중</th></tr></thead><tbody><tr><td>스토리/앱 내 링크</td><td class="r">3,218명</td><td class="r">88건</td><td class="r">96.9%</td></tr><tr><td>프로필 링크</td><td class="r">107명</td><td class="r">5건</td><td class="r">3.2%</td></tr></tbody></table><table><thead><tr><th>날짜</th><th class="r">스토리 링크 방문</th><th class="r">구매</th><th>콘텐츠</th></tr></thead><tbody><tr><td>2/6</td><td class="r">353명</td><td class="r">9건</td><td>두쫀쿠/찹쌀모찌 출시</td></tr><tr><td>2/13</td><td class="r">553명</td><td class="r">16건</td><td>설날 시즌</td></tr><tr><td>2/22</td><td class="r">663명</td><td class="r">33건</td><td>월 최대 (구매율 5.0%)</td></tr></tbody></table>',
+    top:null,
+    good:null,
+    action:'이번 달 공식을 계속 유지하기',
+    actions:['상품 출시/시즌에 맞춰 스토리 링크 집중하는 패턴 유지.','캐러셀 비중을 유지하면서 저장/공유 유도.','릴스도 적절히 섞어 도달 확보 (이번 달은 1건으로 적었음).'],
+  },
+  {
+    id:'2601', label:'26년 1월',
+    oneliner:'방문은 줄었지만 구매율(1.94%)은 전년(0.73%)의 2.7배. 오는 사람의 질이 좋아지고 있다는 신호입니다.',
+    visit:361, buy:7, revenue:312498, rate:1.94, follower:null,
+    pVisit:604, pBuy:12, pRevenue:1078359, pRate:1.99,
+    yVisit:8581, yBuy:63, yRevenue:3423600, yRate:0.73,
+    posts:24, pPosts:33, reels:3, image:15, carousel:6,
+    avgLike:86, avgComment:26, pAvgLike:43, pAvgComment:4,
+    prevLabel:'25년 12월', yearLabel:'25년 1월',
+    why:'<p><strong>방문은 줄었지만 콘텐츠 반응은 크게 좋아졌습니다.</strong></p><p style="margin-top:8px">12월 대비 발행이 33건→24건으로 줄고, 스토리 링크 경유 방문도 566명→200명으로 줄었어요.</p><p style="margin-top:8px">반면 평균 좋아요는 2배(43→86), 평균 댓글은 6.5배(4→26)로 올랐습니다. 릴스를 줄이고(15건→3건) 피드 이미지 비중을 높인 효과입니다.</p>',
+    detail:'<table><thead><tr><th>경로</th><th class="r">12월</th><th class="r">1월</th><th class="r">변화</th></tr></thead><tbody><tr><td>스토리/앱 내 링크</td><td class="r">566명</td><td class="r">200명</td><td class="r dn">-65%</td></tr><tr><td>프로필 링크</td><td class="r">38명</td><td class="r">161명</td><td class="r up">+324%</td></tr></tbody></table>',
+    top:null, good:null,
+    action:'스토리 링크를 상품 콘텐츠와 함께 적극 운영하기',
+    actions:['상품 콘텐츠 올리는 날에 스토리에서 상품 페이지 링크를 같이 걸기.','콘텐츠 반응이 좋아지고 있으니 이 흐름 유지하면서 방문 끌어올리기.','캐러셀 비중 늘려보기 (저장/공유 유도에 효과적).'],
+  },
+  {
+    id:'2512', label:'25년 12월',
+    oneliner:'방문은 줄었지만 매출(108만)은 전월(86만)보다 올랐고, 구매율(1.99%)은 이 시기 최고치를 기록했습니다.',
+    visit:604, buy:12, revenue:1078359, rate:1.99, follower:null,
+    pVisit:1100, pBuy:11, pRevenue:863599, pRate:1.00,
+    yVisit:20891, yBuy:273, yRevenue:17138409, yRate:1.31,
+    posts:33, pPosts:9, reels:15, image:9, carousel:9,
+    avgLike:43, avgComment:4, pAvgLike:75, pAvgComment:3,
+    prevLabel:'11월', yearLabel:'24년 12월',
+    why:'<p><strong>방문은 줄었지만 구매율이 크게 올랐습니다.</strong></p><p style="margin-top:8px">방문 604명으로 전월(1,100명) 대비 -45%이지만, 구매율이 1.00%→1.99%로 거의 2배가 되면서 매출은 오히려 108만원(전월 86만)으로 증가했어요.</p><p style="margin-top:8px">발행은 33건으로 전월(9건) 대비 크게 늘었지만 평균 좋아요는 75→43으로 하락. 양은 늘었지만 건당 반응은 줄어든 시기입니다.</p>',
+    detail:'<table><thead><tr><th>경로</th><th class="r">11월</th><th class="r">12월</th><th class="r">변화</th></tr></thead><tbody><tr><td>스토리/앱 내 링크</td><td class="r">1,077명</td><td class="r">566명</td><td class="r dn">-47%</td></tr><tr><td>프로필 링크</td><td class="r">23명</td><td class="r">38명</td><td class="r up">+65%</td></tr></tbody></table>',
+    top:null, good:null,
+    action:'구매율이 높아지고 있으니 방문을 늘릴 방법 찾기',
+    actions:['스토리 링크 운영을 더 적극적으로 — 방문만 늘리면 매출이 바로 오르는 구조.','발행 수를 늘리되, 반응 좋은 콘텐츠 유형에 집중.'],
+  },
+  {
+    id:'2511', label:'25년 11월',
+    oneliner:'3개월 연속 성장. 방문 1,100명으로 전월(825) 대비 +33%, 매출 86만원으로 전월(51만) 대비 +70%.',
+    visit:1100, buy:11, revenue:863599, rate:1.00, follower:null,
+    pVisit:825, pBuy:10, pRevenue:506648, pRate:1.21,
+    yVisit:24787, yBuy:282, yRevenue:18177870, yRate:1.14,
+    posts:9, pPosts:15, reels:6, image:0, carousel:3,
+    avgLike:75, avgComment:3, pAvgLike:58, pAvgComment:11,
+    prevLabel:'10월', yearLabel:'24년 11월',
+    why:'<p><strong>스토리 링크 경유 방문이 1,077명으로 전체의 98%를 차지.</strong></p><p style="margin-top:8px">스토리에서 상품 링크를 타고 자사몰로 오는 경로가 이 달에 가장 높은 비중을 보였습니다.</p><p style="margin-top:8px">발행은 9건으로 줄었지만 평균 좋아요(58→75)는 올라 콘텐츠 질이 개선되고 있어요. 릴스 6건으로 도달 확보에 집중.</p>',
+    detail:'<table><thead><tr><th>경로</th><th class="r">10월</th><th class="r">11월</th><th class="r">변화</th></tr></thead><tbody><tr><td>스토리/앱 내 링크</td><td class="r">671명</td><td class="r">1,077명</td><td class="r up">+60%</td></tr><tr><td>프로필 링크</td><td class="r">154명</td><td class="r">23명</td><td class="r dn">-85%</td></tr></tbody></table>',
+    top:null, good:null,
+    action:'성장세 유지하면서 발행 수 늘리기',
+    actions:['9건은 다소 적음. 발행 수를 늘려 노출 기회 확대.','스토리 링크 비중(98%)이 매우 높은 달 — 이 패턴 유지.','피드 이미지 0건이었으므로 유형 균형 맞추기.'],
+  },
+  {
+    id:'2510', label:'25년 10월',
+    oneliner:'방문 825명, 전월(679) 대비 +21%. 구매율 1.21%로 전월(0.44%)의 2.8배. 방문과 구매율 모두 성장한 달.',
+    visit:825, buy:10, revenue:506648, rate:1.21, follower:null,
+    pVisit:679, pBuy:3, pRevenue:329999, pRate:0.44,
+    yVisit:16594, yBuy:223, yRevenue:14505593, yRate:1.34,
+    posts:15, pPosts:66, reels:5, image:3, carousel:7,
+    avgLike:58, avgComment:11, pAvgLike:37, pAvgComment:1,
+    prevLabel:'9월', yearLabel:'24년 10월',
+    why:'<p><strong>발행은 크게 줄었지만(66건→15건) 방문과 구매율은 모두 올랐습니다.</strong></p><p style="margin-top:8px">9월에 66건을 대량 발행했던 것에서 15건으로 줄이면서, 건당 반응이 좋아졌어요. 평균 좋아요 37→58, 평균 댓글 1→11로 개선.</p><p style="margin-top:8px">구매율이 0.44%→1.21%로 크게 올라, 양보다 질이 중요하다는 것을 보여준 달입니다.</p>',
+    detail:'<table><thead><tr><th>경로</th><th class="r">9월</th><th class="r">10월</th><th class="r">변화</th></tr></thead><tbody><tr><td>스토리/앱 내 링크</td><td class="r">629명</td><td class="r">671명</td><td class="r up">+7%</td></tr><tr><td>프로필 링크</td><td class="r">50명</td><td class="r">154명</td><td class="r up">+208%</td></tr></tbody></table>',
+    top:null, good:null,
+    action:'양보다 질 전략을 유지하면서 꾸준히 성장시키기',
+    actions:['무리하게 많이 올리기보다, 반응 좋은 콘텐츠에 집중.','캐러셀 비중(47%)이 높았던 달 — 저장/공유에 효과적.','스토리 링크를 더 적극적으로 걸어 방문 수 끌어올리기.'],
+  },
+];
+
+// Render
+const tabsEl = document.getElementById('tabs');
+const containerEl = document.getElementById('tab-container');
+
+// Total tab button first
+const totalTab = document.createElement('div');
+totalTab.className = 'tab active';
+totalTab.textContent = '전체 흐름';
+totalTab.onclick = () => showTab('total');
+tabsEl.appendChild(totalTab);
+
+DATA.forEach((d,i) => {
+  // Tab button
+  const tab = document.createElement('div');
+  tab.className = 'tab';
+  tab.textContent = d.label;
+  tab.onclick = () => showTab(d.id);
+  tabsEl.appendChild(tab);
+
+  // Content
+  const div = document.createElement('div');
+  div.id = 'tab-'+d.id;
+  div.className = 'tc' + (i===0?' active':'');
+
+  const momVisit = pct(d.visit, d.pVisit);
+  const yoyVisit = pct(d.visit, d.yVisit);
+  const momBuy = pct(d.buy, d.pBuy);
+  const yoyBuy = pct(d.buy, d.yBuy);
+  const momRev = pct(d.revenue, d.pRevenue);
+  const yoyRev = pct(d.revenue, d.yRevenue);
+  const momRate = (d.rate - d.pRate).toFixed(2);
+  const yoyRateX = d.yRate > 0 ? (d.rate / d.yRate).toFixed(1) : '-';
+  const momPosts = d.posts - d.pPosts;
+
+  const barMaxVisit = Math.max(d.visit, d.pVisit);
+  const barMaxRev = Math.max(d.revenue, d.pRevenue);
+  const barMaxPost = Math.max(d.posts, d.pPosts);
+
+  let html = `
+  <div class="ol"><strong>${d.label}, 한마디:</strong> ${d.oneliner}</div>
+
+  <div class="kr">
+    <div class="k"><div class="lb">방문</div><div class="nm">${fmt(d.visit)}</div>
+      <div class="sb"><span class="${cls(momVisit)}">전월 ${sign(momVisit)}%</span></div>
+      <div class="sb"><span class="${cls(yoyVisit)}">전년 ${sign(yoyVisit)}%</span></div></div>
+    <div class="k"><div class="lb">구매</div><div class="nm">${d.buy}건</div>
+      <div class="sb"><span class="${cls(momBuy)}">전월 ${sign(momBuy)}%</span></div>
+      <div class="sb"><span class="${cls(yoyBuy)}">전년 ${sign(yoyBuy)}%</span></div></div>
+    <div class="k"><div class="lb">매출</div><div class="nm">${won(d.revenue)}</div>
+      <div class="sb"><span class="${cls(momRev)}">전월 ${sign(momRev)}%</span></div>
+      <div class="sb"><span class="${cls(yoyRev)}">전년 ${sign(yoyRev)}%</span></div></div>
+    <div class="k"><div class="lb">${d.follower?'팔로워':'구매율'}</div><div class="nm">${d.follower||d.rate+'%'}</div>
+      ${d.follower?`<div class="sb"><span class="nt">10만 임박</span></div>`:`<div class="sb"><span class="${Number(momRate)>=0?'up':'dn'}">전월 ${Number(momRate)>=0?'+':''}${momRate}%p</span></div><div class="sb"><span class="up">전년 ${yoyRateX}배</span></div>`}</div>
+  </div>
+
+  <section>
+    <h2>전월 비교</h2>
+    <div class="bs">
+      ${bar('방문', d.prevLabel, d.pVisit, d.label.slice(-2), d.visit, barMaxVisit, momVisit)}
+      <div style="height:12px"></div>
+      ${bar('매출', d.prevLabel, won(d.pRevenue), d.label.slice(-2), won(d.revenue), barMaxRev, momRev, d.pRevenue, d.revenue)}
+      <div style="height:12px"></div>
+      ${bar('게시물', d.prevLabel, d.pPosts+'건', d.label.slice(-2), d.posts+'건', barMaxPost, momPosts>0?'+'+momPosts+'건':momPosts+'건', d.pPosts, d.posts)}
+    </div>
+  </section>
+
+  <section>
+    <h2>${Number(momVisit)>=0?'왜 올랐나요?':'왜 떨어졌나요?'}</h2>
+    <div class="wb">${d.why}</div>
+    ${d.detail?`<details><summary>상세 데이터 보기</summary><div style="margin-top:8px">${d.detail}</div></details>`:''}
+  </section>
+
+  <section>
+    <h2>콘텐츠 성적표</h2>
+    <p>이번 달 <strong>${d.posts}건</strong> 발행 (전월 ${d.pPosts}건). 릴스 ${d.reels}건 / 피드 이미지 ${d.image}건 / 캐러셀 ${d.carousel}건.</p>
+    <p>평균 좋아요 ${d.avgLike}개 (전월 ${d.pAvgLike}개, <span class="${d.avgLike>=d.pAvgLike?'up':'dn'}">${pctSign(d.avgLike,d.pAvgLike)}%</span>) · 평균 댓글 ${d.avgComment}개 (전월 ${d.pAvgComment}개, <span class="${d.avgComment>=d.pAvgComment?'up':'dn'}">${pctSign(d.avgComment,d.pAvgComment)}%</span>)</p>
+  `;
+
+  if(d.top){
+    html += `<h3 style="font-size:14px;margin-top:20px">반응 좋았던 게시물 TOP 3</h3><div class="tl">`;
+    d.top.forEach(t => {
+      html += `<div class="ti"><div class="rk">${t.rank}</div><div class="tb"><div class="tt">${t.title}</div><div class="tp">${t.type}</div><div class="ts"><span>도달 ${t.reach}</span><span>좋아요 ${t.like}</span><span>저장 ${t.save}</span><span>공유 ${t.share}</span></div></div></div>`;
+    });
+    html += `</div>`;
+  }
+  html += `</section>`;
+
+  if(d.good){
+    html += `<section><h2>좋은 신호</h2><table><tbody>${d.good}</tbody></table></section>`;
+  }
+
+  html += `
+  <section>
+    <h2>다음 달에는 이렇게</h2>
+    <div class="ab"><h3>${d.action}</h3><ul>${d.actions.map(a=>'<li>'+a+'</li>').join('')}</ul></div>
+  </section>`;
+
+  div.innerHTML = html;
+  containerEl.appendChild(div);
+});
+
+function showTab(id){
+  document.querySelectorAll('.tc').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  if(id==='total'){
+    document.querySelectorAll('.tab')[0].classList.add('active');
+    initCharts();
+  } else {
+    const idx = DATA.findIndex(d=>d.id===id);
+    document.querySelectorAll('.tab')[idx+1].classList.add('active');
+  }
+}
+
+// Charts
+const chartColors = {visit:'#2d2a26',revenue:'#c4b8a8',rate:'#27864a',posts:'#2d2a26',likes:'#e67e22',story:'#1a6b8a'};
+const labels = ['10월','11월','12월','1월','2월','3월'];
+let chartsInit = false;
+
+function initCharts(){
+  if(chartsInit) return;
+  chartsInit = true;
+  const defs = {responsive:true, plugins:{legend:{position:'bottom',labels:{font:{family:'Noto Sans KR',size:12}}}}};
+
+  // Visit & Revenue
+  new Chart(document.getElementById('chartVisitRevenue'),{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        {label:'방문 (명)',data:[825,1100,604,361,3322,590],backgroundColor:'#2d2a26',borderRadius:4,yAxisID:'y'},
+        {label:'매출 (만원)',data:[51,86,108,31,513,82],backgroundColor:'#d6cfc6',borderRadius:4,yAxisID:'y2'},
+      ]
+    },
+    options:{...defs,scales:{y:{position:'left',title:{display:true,text:'방문',font:{size:11}},grid:{display:false}},y2:{position:'right',title:{display:true,text:'매출(만)',font:{size:11}},grid:{drawOnChartArea:false}}}}
+  });
+
+  // Rate
+  new Chart(document.getElementById('chartRate'),{
+    type:'line',
+    data:{
+      labels,
+      datasets:[{
+        label:'구매율 (%)',data:[1.21,1.00,1.99,1.94,2.80,2.20],
+        borderColor:chartColors.rate,backgroundColor:chartColors.rate+'20',
+        fill:true,tension:0.3,pointRadius:5,pointBackgroundColor:chartColors.rate
+      }]
+    },
+    options:{...defs,scales:{y:{min:0,max:3.5,ticks:{callback:v=>v+'%'}}}}
+  });
+
+  // Content: posts + avg likes
+  new Chart(document.getElementById('chartContent'),{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        {label:'평균 좋아요',data:[58,75,43,86,163,103],type:'line',borderColor:'#e67e22',backgroundColor:'transparent',pointRadius:6,pointBackgroundColor:'#e67e22',pointHoverRadius:9,tension:0.3,yAxisID:'y2',order:0},
+        {label:'게시물 수',data:[15,9,33,24,21,25],backgroundColor:'#2d2a26',borderRadius:4,yAxisID:'y',order:1},
+      ]
+    },
+    options:{...defs,scales:{y:{position:'left',title:{display:true,text:'게시물',font:{size:11}},grid:{display:false}},y2:{position:'right',title:{display:true,text:'평균 좋아요',font:{size:11}},grid:{drawOnChartArea:false}}}}
+  });
+
+  // Story ratio
+  new Chart(document.getElementById('chartStoryRatio'),{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        {label:'스토리/앱 내 링크 비중 (%)',data:[81,98,94,55,97,56],backgroundColor:labels.map((_,i)=>[81,98,94,55,97,56][i]>=80?'#1a6b8a':'#c0392b'),borderRadius:4},
+      ]
+    },
+    options:{...defs,scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{...defs.plugins,legend:{display:false}}}
+  });
+
+  // Type count pie
+  new Chart(document.getElementById('chartTypeCount'),{
+    type:'doughnut',
+    data:{
+      labels:['릴스','이미지','캐러셀'],
+      datasets:[{data:[39,50,38],backgroundColor:['#2d2a26','#c4b8a8','#8a8279']}]
+    },
+    options:{responsive:true,plugins:{legend:{position:'bottom',labels:{font:{family:'Noto Sans KR',size:11}}}}}
+  });
+}
+
+// Init charts on load (total tab is default)
+setTimeout(initCharts, 100);
+
+function pct(cur,prev){ return prev>0 ? Math.round((cur-prev)/prev*100) : 0; }
+function sign(v){ return Number(v)>=0?'+'+v:v; }
+function pctSign(cur,prev){ const v=pct(cur,prev); return v>=0?'+'+v:v; }
+function cls(v){ return Number(v)>=0?'up':'dn'; }
+function fmt(n){ return n.toLocaleString('ko-KR'); }
+function won(n){ return n>=10000000?(n/10000000).toFixed(1)+'천만':n>=10000?(Math.round(n/10000))+'만':fmt(n)+'원'; }
+
+function bar(label, prevLabel, prevVal, curLabel, curVal, max, change, prevNum, curNum){
+  const pN = prevNum!==undefined?prevNum:(typeof prevVal==='number'?prevVal:parseInt(String(prevVal).replace(/[^0-9]/g,'')));
+  const cN = curNum!==undefined?curNum:(typeof curVal==='number'?curVal:parseInt(String(curVal).replace(/[^0-9]/g,'')));
+  const pW = max>0?Math.max(pN/max*100,8):50;
+  const cW = max>0?Math.max(cN/max*100,8):50;
+  const isUp = cN >= pN;
+  return `
+    <div class="br2"><div class="bl">${label}</div><div class="bt"><div class="bf p" style="width:${pW}%">${prevLabel} ${typeof prevVal==='number'?fmt(prevVal):prevVal}</div></div><div class="bv"></div></div>
+    <div class="br2"><div class="bl"></div><div class="bt"><div class="bf c" style="width:${cW}%">${curLabel} ${typeof curVal==='number'?fmt(curVal):curVal}</div></div><div class="bv ${isUp?'up':'dn'}">${change}</div></div>`;
+}
+</script>
+</body>
+</html>
