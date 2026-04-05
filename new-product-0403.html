@@ -387,6 +387,74 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border
 </div>
 </div>
 
+<!-- ========== 섹션 7.5: 인스타 간접 효과 ========== -->
+<div class="sec">
+<div class="sec-t"><span class="n" style="background:#E91E63">7+</span> 인스타가 실제로 얼마나 영향을 줬나 — 간접 효과 추정</div>
+
+<p style="font-size:13px;color:var(--sub);margin-bottom:16px">
+인스타에서 직접 구매는 1건뿐이지만, "인스타에서 보고 → 나중에 알아서 찾아와서 산" 간접 효과는 상당합니다.<br>
+현재 추적 코드(UTM)가 없어서 정확한 수치는 알 수 없지만, <b>인스타 게시 시점과 사이트 내 검색 변화</b>로 유추할 수 있습니다.
+</p>
+
+<h4 style="font-size:13px;font-weight:700;margin-bottom:10px">인스타 게시 → 사이트 내 검색 변화 (일별)</h4>
+<table>
+<tr><th>날짜</th><th>인스타 게시</th><th class="num">샤인 검색</th><th class="num">링고 검색</th><th class="num">샌디 검색</th><th class="num">합계</th></tr>
+<tr style="color:var(--muted)"><td>4/1</td><td>없음</td><td class="num">1</td><td class="num">0</td><td class="num">1</td><td class="num">2</td></tr>
+<tr style="color:var(--muted)"><td>4/2</td><td>없음</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">3</td></tr>
+<tr><td>4/3</td><td>자사몰 오픈 (피드 없음)</td><td class="num"><b>53</b></td><td class="num">36</td><td class="num">11</td><td class="num">100</td></tr>
+<tr style="background:#FFF0F3"><td><b>4/4</b></td><td><b>샤인 OPEN 피드 (14시)</b></td><td class="num">46</td><td class="num">15</td><td class="num">8</td><td class="num">69</td></tr>
+<tr style="background:#FFF0F3"><td><b>4/5</b></td><td><b>링고 OPEN (01시) + 샌디 OPEN (10시)</b></td><td class="num" style="color:var(--pink);font-weight:800">302</td><td class="num" style="color:var(--pink);font-weight:800">59</td><td class="num" style="color:var(--pink);font-weight:800">55</td><td class="num" style="color:var(--pink);font-weight:800">416</td></tr>
+</table>
+
+<div class="chart-wrap">
+<h4>인스타 게시 전 vs 후 — 사이트 내 제품명 검색 변화</h4>
+<canvas id="searchCorrelationChart" height="220"></canvas>
+</div>
+
+<div class="row row-3" style="margin-top:16px">
+<div class="kpi hl">
+<div class="l">게시 전 (4/1~2)</div>
+<div class="v">하루 2~3건</div>
+<div class="c">아무도 검색 안 함</div>
+</div>
+<div class="kpi" style="border-color:var(--orange);background:#FFFCF5">
+<div class="l">오픈일 (4/3)</div>
+<div class="v">100건</div>
+<div class="c">피드 없이 오픈만으로 +50배</div>
+</div>
+<div class="kpi" style="border-color:var(--pink);background:var(--pink-l)">
+<div class="l">피드 게시 후 (4/5)</div>
+<div class="v">416건</div>
+<div class="c">피드 효과로 +4배 추가 폭발</div>
+</div>
+</div>
+
+<div class="insight">
+<strong>읽는 법:</strong> 4/3에 자사몰에 올리기만 하고 인스타 피드를 안 올렸을 때 검색 100건. 4/4에 샤인 피드를 올리고, 4/5에 링고+샌디 피드까지 올린 뒤 416건으로 4배 뛰었습니다.<br><br>
+<strong>즉, 자사몰에 제품을 올려놓는 것만으로는 부족합니다. 인스타 피드가 올라가야 사람들이 찾아옵니다.</strong><br><br>
+특히 샤인은 4/4에 피드를 올렸는데 검색 폭발은 4/5에 일어남 — 인스타 게시 효과가 <b>하루 뒤에 터지는 패턴</b>입니다. 피드를 보고 바로 사는 게 아니라, 보고 기억해뒀다가 다음날 검색하는 겁니다.<br><br>
+<b>다만 이 검색이 전부 인스타 때문이라고 단정할 수는 없습니다.</b> 카톡 공유, 지인 추천 등 다른 경로도 있을 수 있습니다. 현재는 인스타 링크에 추적 코드(UTM)가 없어서 정확한 비중을 모릅니다. <b>앞으로 UTM을 붙이면 이 부분이 숫자로 나옵니다.</b>
+</div>
+
+<div style="background:#F3E5F5;border:1px solid #CE93D8;border-radius:8px;padding:14px;margin-top:12px">
+<h4 style="font-size:13px;font-weight:700;color:#7B1FA2;margin-bottom:6px">참고: 지금 알 수 있는 것과 없는 것</h4>
+<table style="font-size:12px">
+<tr><td style="width:50%;vertical-align:top;padding-right:12px">
+<b style="color:#7B1FA2">알 수 있는 것 (확인됨)</b><br>
+- 인스타 피드 도달/저장/좋아요 수<br>
+- 피드 게시 후 사이트 검색량 변화<br>
+- GA4에 "instagram"으로 잡힌 유입 수<br>
+- 전체 매출, 제품별/사이즈별 판매
+</td><td style="vertical-align:top">
+<b style="color:var(--muted)">아직 모르는 것 (UTM 붙이면 알 수 있음)</b><br>
+- 인스타 스토리 링크 클릭 → 구매까지 정확한 수<br>
+- 어떤 콘텐츠(티저 vs 오픈)가 더 많은 유입을 만들었는지<br>
+- 인스타 인앱 브라우저 유입 중 실제 구매 비율
+</td></tr>
+</table>
+</div>
+</div>
+
 <!-- ========== 섹션 8: 종합 판단 ========== -->
 <div class="sec">
 <div class="sec-t"><span class="n" style="background:var(--text)">8</span> 종합 — 이번 론칭에서 배운 것</div>
@@ -452,6 +520,30 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border
 </div><!-- .wrap -->
 
 <script>
+// 인스타 게시 vs 검색량 상관관계 차트
+new Chart(document.getElementById('searchCorrelationChart'),{
+type:'bar',
+data:{
+labels:['4/1\n게시없음','4/2\n게시없음','4/3\n자사몰만 오픈','4/4\n샤인 피드','4/5\n링고+샌디 피드'],
+datasets:[
+{label:'샤인',data:[1,1,53,46,302],backgroundColor:'#FF6B8A',borderRadius:4,barPercentage:0.8},
+{label:'링고',data:[0,1,36,15,59],backgroundColor:'#4ECDC4',borderRadius:4,barPercentage:0.8},
+{label:'샌디',data:[1,1,11,8,55],backgroundColor:'#4A90D9',borderRadius:4,barPercentage:0.8}
+]
+},
+options:{
+responsive:true,
+plugins:{
+legend:{position:'bottom',labels:{font:{size:12},padding:16}},
+tooltip:{callbacks:{label:ctx=>ctx.dataset.label+' '+ctx.parsed.y+'건'}}
+},
+scales:{
+y:{beginAtZero:true,title:{display:true,text:'사이트 내 검색 수',font:{size:11,weight:'bold'}},grid:{color:'#E8EBF0'},ticks:{font:{size:11}}},
+x:{grid:{display:false},ticks:{font:{size:11}}}
+}
+}
+});
+
 // 사이즈 분포 차트
 new Chart(document.getElementById('sizeChart'),{
 type:'bar',
