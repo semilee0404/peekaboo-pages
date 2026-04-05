@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4/3 신상 3종 성적표 | 피카부</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+:root{--pink:#FF6B8A;--pink-l:#FFF0F3;--teal:#4ECDC4;--blue:#4A90D9;--green:#27AE60;--red:#E74C3C;--orange:#F5A623;--bg:#FAFBFC;--card:#fff;--text:#1A1D26;--sub:#5A6070;--muted:#8E95A5;--border:#E8EBF0;--r:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 60px}
+.hero{background:linear-gradient(135deg,var(--pink) 0%,#E84B6A 100%);color:#fff;padding:32px 24px 24px;margin-bottom:28px;border-radius:0 0 var(--r) var(--r)}
+.hero h1{font-size:22px;font-weight:700}
+.hero .sub{font-size:13px;opacity:.8;margin-top:4px}
+.hero .summary{margin-top:14px;font-size:14px;line-height:1.8;opacity:.95}
+.sec{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.sec-t{font-size:17px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sec-t .n{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.row{display:grid;gap:12px}
+.row-4{grid-template-columns:repeat(4,1fr)}
+.row-3{grid-template-columns:repeat(3,1fr)}
+.row-2{grid-template-columns:1fr 1fr}
+@media(max-width:640px){.row-4,.row-3{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.kpi.hl{border-color:var(--pink);background:var(--pink-l)}
+.kpi .l{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.3px}
+.kpi .v{font-size:22px;font-weight:800;margin:2px 0}
+.kpi .c{font-size:11px;color:var(--sub)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--bg);font-weight:600;text-align:left;padding:8px 10px;border-bottom:2px solid var(--border);font-size:11px;color:var(--muted);letter-spacing:.3px}
+td{padding:8px 10px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.total td{font-weight:700;background:var(--pink-l);border-top:2px solid var(--pink)}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.b-grn{background:#E8F8EF;color:var(--green)}
+.b-red{background:#FDECEB;color:var(--red)}
+.b-org{background:#FFF6E8;color:var(--orange)}
+.b-blue{background:#EBF3FC;color:var(--blue)}
+.b-pink{background:var(--pink-l);color:var(--pink)}
+.insight{background:#F8F9FB;border-left:3px solid var(--pink);padding:14px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:13px;line-height:1.8}
+.insight strong{color:var(--pink)}
+.confirm-box{background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:16px;margin:12px 0}
+.confirm-box h4{font-size:13px;font-weight:700;color:#F57F17;margin-bottom:8px}
+.confirm-box ul{padding-left:18px;font-size:13px;line-height:1.8}
+.action-box{background:#E8F5E9;border:1px solid #A5D6A7;border-radius:8px;padding:16px;margin:12px 0}
+.action-box h4{font-size:13px;font-weight:700;color:var(--green);margin-bottom:8px}
+.action-box ul{padding-left:18px;font-size:13px;line-height:1.8}
+.chart-wrap{background:var(--bg);border-radius:8px;padding:16px;margin:16px 0}
+.chart-wrap h4{font-size:12px;color:var(--sub);margin-bottom:12px;font-weight:600}
+.note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:12px;padding:12px;background:var(--bg);border-radius:8px;border:1px dashed var(--border)}
+.flow{display:flex;align-items:center;justify-content:center;gap:0;margin:20px 0;flex-wrap:wrap}
+.flow-box{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;text-align:center;min-width:120px}
+.flow-box .fl{font-size:10px;color:var(--muted);font-weight:600}
+.flow-box .fv{font-size:18px;font-weight:800;margin:2px 0}
+.flow-box .fs{font-size:11px;color:var(--sub)}
+.flow-arrow{font-size:18px;color:var(--muted);padding:0 6px}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+@media(max-width:640px){.compare-row{grid-template-columns:1fr}.flow{flex-direction:column}.flow-arrow{transform:rotate(90deg)}}
+.compare-card{border:1px solid var(--border);border-radius:8px;padding:16px}
+.compare-card h4{font-size:13px;font-weight:700;margin-bottom:10px}
+.compare-card.good{border-color:var(--green);background:#F6FDF8}
+.compare-card.weak{border-color:var(--orange);background:#FFFCF5}
+.tag-line{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.tag{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:2px 10px;font-size:11px;color:var(--sub)}
+footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border-top:1px solid var(--border);margin-top:40px}
+</style>
+</head>
+<body>
+
+<div class="hero">
+<div class="wrap">
+<h1>4/3 신상 3종 성적표</h1>
+<div class="sub">샤인 / 샌디 / 링고 — 론칭 3일 (4/3~4/5) | Cafe24 + GA4 + Instagram API</div>
+<div class="summary">
+3월 신상(보니, 쇼콜라, 밀키) 대비 매출 -62%.<br>
+원인은 두 가지 — <b>베이직 라인의 한계</b>와 <b>콘텐츠 공백</b>.<br>
+피카부 고객의 70+80 사이즈 비중 57%. 베이비맘이 핵심 고객임이 데이터로 확인됨.
+</div>
+</div>
+</div>
+
+<div class="wrap">
+
+<!-- ========== 섹션 1: 핵심 숫자 ========== -->
+<div class="sec">
+<div class="sec-t"><span class="n" style="background:var(--pink)">1</span> 핵심 숫자</div>
+
+<div class="row row-4" style="margin-bottom:16px">
+<div class="kpi hl">
+<div class="l">신상 3종 매출</div>
+<div class="v">140만</div>
+<div class="c">3일 합계</div>
+</div>
+<div class="kpi">
+<div class="l">주문</div>
+<div class="v">40건</div>
+<div class="c">60개 판매</div>
+</div>
+<div class="kpi">
+<div class="l">3월 대비</div>
+<div class="v" style="color:var(--red)">-62%</div>
+<div class="c">3월 371만 → 4월 140만</div>
+</div>
+<div class="kpi">
+<div class="l">전체 매출 중 비중</div>
+<div class="v">12%</div>
+<div class="c">3월은 25%였음</div>
+</div>
+</div>
+
+<table>
+<tr><th>제품</th><th>성격</th><th class="num">주문</th><th class="num">수량</th><th class="num">매출</th><th>상태</th></tr>
+<tr><td><b>샤인</b></td><td>수트세트 + 키즈세트</td><td class="num">26건</td><td class="num">39개</td><td class="num">988,000원</td><td><span class="badge b-org">보통</span></td></tr>
+<tr><td><b>샌디</b></td><td>베이비세트 + 키즈세트</td><td class="num">11건</td><td class="num">16개</td><td class="num">352,000원</td><td><span class="badge b-org">부진</span></td></tr>
+<tr><td><b>링고</b></td><td>민소매 단품</td><td class="num">3건</td><td class="num">5개</td><td class="num">62,000원</td><td><span class="badge b-red">매우 부진</span></td></tr>
+<tr class="total"><td>합계</td><td></td><td class="num">40건</td><td class="num">60개</td><td class="num">1,402,000원</td><td></td></tr>
+</table>
+
+<div class="insight">
+참고로 같은 기간(4/3~5) <strong>3월 신상이 4월 신상보다 2.3배 더 팔렸습니다.</strong><br>
+보니+쇼콜라+밀키+코이+리지 = 326만원 vs 샤인+샌디+링고 = 140만원.<br>
+새 제품이 나왔는데 이전 제품이 더 팔린 건, 제품 자체의 매력 차이가 있다는 뜻입니다.
+</div>
+</div>
+
+<!-- ========== 섹션 2: 3월 vs 4월 비교 ========== -->
+<div class="sec">
+<div class="sec-t"><span class="n" style="background:var(--blue)">2</span> 3월 신상 vs 4월 신상 — 뭐가 달랐나</div>
+
+<div class="compare-row">
+<div class="compare-card good">
+<h4>3월 — 보니, 쇼콜라, 밀키</h4>
+<table>
+<tr><td>제품 성격</td><td><b>귀여운 베이비 라인</b></td></tr>
+<tr><td>블루머, 3종세트, 헤어밴드</td><td>피카부다운 디자인</td></tr>
+<tr><td>론칭 3일 매출</td><td><b>371만원</b></td></tr>
+<tr><td>인스타 최고 저장</td><td><b>152개</b></td></tr>
+<tr><td>베이비 사이즈 비중</td><td><b>82~100%</b></td></tr>
+</table>
+</div>
+<div class="compare-card weak">
+<h4>4월 — 샤인, 샌디, 링고</h4>
+<table>
+<tr><td>제품 성격</td><td><b>베이직 실내복/이너</b></td></tr>
+<tr><td>수트세트, 민소매 단품</td><td>범용 디자인</td></tr>
+<tr><td>론칭 3일 매출</td><td><b>140만원</b></td></tr>
+<tr><td>인스타 최고 저장</td><td><b>112개</b></td></tr>
+<tr><td>베이비 사이즈 비중</td><td><b>41~81%</b> (샤인은 41%)</td></tr>
+</table>
+</div>
+</div>
+
+<div class="insight">
+<strong>차이의 핵심: "피카부에서 꼭 사야 하는 제품"인지 아닌지.</strong><br><br>
+보니 블루머, 밀키 3종세트는 피카부가 아니면 못 사는 제품입니다. 귀엽고, 베이비 사이즈이고, 인스타에 올리고 싶은 제품.<br><br>
+샤인 수트세트, 링고 민소매는 좋은 품질이지만, 비슷한 제품을 다른 곳에서도 살 수 있습니다. "여기서 꼭 사야 해"가 약했습니다.<br><br>
+<b>다만 이건 실패가 아니라, 피카부의 제품 폭을 넓히는 과정입니다.</b> 귀여운 라인만으로는 키즈 고객을 잡을 수 없고, 계절마다 기본 아이템도 필요합니다. 판매 방식을 다르게 가져가면 됩니다.
+</div>
+</div>
+
+<!-- ========== 섹션 3: 사이즈 분석 ========== -->
+<div class="sec">
+<div class="sec-t"><span class="n" style="background:var(--teal)">3</span> 우리 고객은 누구인가 — 사이즈 데이터</div>
+
+<div class="chart-wrap">
+<h4>4/3~4/5 전체 주문 사이즈 분포 (숫자 사이즈 기준)</h4>
+<canvas id="sizeChart" height="200"></canvas>
+</div>
+
+<div class="row row-3" style="margin-top:16px">
+<div class="kpi hl">
+<div class="l">70+80 사이즈</div>
+<div class="v">57%</div>
+<div class="c">6~18개월 아기</div>
+</div>
+<div class="kpi">
+<div class="l">90~110 사이즈</div>
+<div class="v">28%</div>
+<div class="c">키즈</div>
+</div>
+<div class="kpi">
+<div class="l">120+ 사이즈</div>
+<div class="v">7%</div>
+<div class="c">주니어</div>
+</div>
+</div>
+
+<div style="margin-top:16px">
+<h4 style="font-size:13px;font-weight:700;margin-bottom:10px">제품별 베이비 vs 키즈 비중</h4>
+<table>
+<tr><th>제품</th><th class="num">베이비(~80)</th><th class="num">키즈(90~110)</th><th class="num">주니어(120+)</th><th>판단</th></tr>
+<tr><td>보니</td><td class="num"><b>88%</b></td><td class="num">8%</td><td class="num">4%</td><td><span class="badge b-pink">완전 베이비</span></td></tr>
+<tr><td>밀키</td><td class="num"><b>100%</b></td><td class="num">-</td><td class="num">-</td><td><span class="badge b-pink">완전 베이비</span></td></tr>
+<tr><td>코이</td><td class="num"><b>84%</b></td><td class="num">15%</td><td class="num">1%</td><td><span class="badge b-pink">베이비 중심</span></td></tr>
+<tr><td>쇼콜라</td><td class="num"><b>82%</b></td><td class="num">18%</td><td class="num">-</td><td><span class="badge b-pink">베이비 중심</span></td></tr>
+<tr><td>샌디</td><td class="num"><b>81%</b></td><td class="num">19%</td><td class="num">-</td><td><span class="badge b-blue">베이비 중심</span></td></tr>
+<tr style="background:#FFFCF5"><td><b>샤인</b></td><td class="num"><b>41%</b></td><td class="num"><b>41%</b></td><td class="num">8%</td><td><span class="badge b-org">반반</span></td></tr>
+<tr><td>링고</td><td class="num">60%</td><td class="num">40%</td><td class="num">-</td><td><span class="badge b-blue">약간 베이비</span></td></tr>
+</table>
+</div>
+
+<div class="insight">
+<strong>잘 팔리는 제품일수록 베이비 비중이 높습니다.</strong><br>
+보니(88%), 밀키(100%), 코이(84%), 쇼콜라(82%) — 전부 80% 이상.<br>
+샤인만 유일하게 41:41. 키즈 고객까지 들어오긴 했지만, 그 키즈 고객의 구매력은 베이비 고객에 비해 약합니다.<br><br>
+<b>즉, 피카부의 핵심 고객은 6~18개월 아기 엄마.</b> 이 고객이 "귀엽다, 사야 해"라고 느끼는 제품이 잘 팔립니다.
+</div>
+</div>
+
+<!-- ========== 섹션 4: 콘텐츠 영향 ========== -->
+<div class="sec">
+<div class="sec-t"><span class="n" style="background:var(--orange)">4</span> 콘텐츠 운영은 어땠나</div>
+
+<p style="font-size:13px;color:var(--sub);margin-bottom:16px">
+제품 성격이 가장 큰 원인이지만, 콘텐츠 운영에서 아쉬운 점도 있었습니다.
+</p>
+
+<div class="compare-row">
+<div class="compare-card good">
+<h4>3월 론칭 콘텐츠</h4>
+<table>
+<tr><td>티저 시작</td><td>오픈 <b>8일 전</b></td></tr>
+<tr><td>티저~오픈 사이</td><td><b>매일 포스팅</b> (팝업 콘텐츠 포함)</td></tr>
+<tr><td>론칭 주 포스팅</td><td><b>9개</b></td></tr>
+<tr><td>첫 공개 방식</td><td>보니+쇼콜라 <b>동시 공개</b></td></tr>
+<tr><td>첫 공개 도달</td><td><b>17,709</b></td></tr>
+</table>
+</div>
+<div class="compare-card weak">
+<h4>4월 론칭 콘텐츠</h4>
+<table>
+<tr><td>티저 시작</td><td>오픈 <b>5일 전</b></td></tr>
+<tr><td>티저~오픈 사이</td><td>3일 티저 → <b>4일 공백</b></td></tr>
+<tr><td>론칭 주 포스팅</td><td><b>3개</b></td></tr>
+<tr><td>오픈 방식</td><td>제품별 <b>개별 오픈</b></td></tr>
+<tr><td>최고 도달</td><td><b>12,353</b> (샤인)</td></tr>
+</table>
+</div>
+</div>
+
+<div class="insight">
+<strong>3월에는 대구 팝업 콘텐츠가 매일 올라가면서 자연스럽게 신상이 노출됐습니다.</strong><br>
+4월에는 팝업 같은 "끼워넣을 이벤트"가 없어서, 티저 3개 올리고 4일을 쉰 셈입니다.<br><br>
+이 공백 때문에 론칭 직전 사이트 방문자가 3월보다 28% 적었습니다.<br>
+사람이 적은 상태에서 오픈한 거라, 제품 성격 차이에 더해서 초반 판매에 영향을 줬습니다.
+</div>
+</div>
+
+<!-- ========== 섹션 5: 구매 경로 ========== -->
+<div class="sec">
+<div class="sec-t"><span class="n" style="background:var(--blue)">5</span> 고객은 어떻게 사고 있나</div>
+
+<div class="flow">
+<div class="flow-box">
+<div class="fl">인스타 피드/스토리</div>
+<div class="fv">12,353</div>
+<div class="fs">샤인 도달수</div>
+</div>
+<div class="flow-arrow">&rarr;</div>
+<div class="flow-box">
+<div class="fl">제품 이름 기억</div>
+<div class="fv">"샤인"</div>
+<div class="fs">인지 형성</div>
+</div>
+<div class="flow-arrow">&rarr;</div>
+<div class="flow-box">
+<div class="fl">네이버에서 피카부 검색</div>
+<div class="fv">1,884</div>
+<div class="fs">모바일 네이버 세션</div>
+</div>
+<div class="flow-arrow">&rarr;</div>
+<div class="flow-box">
+<div class="fl">사이트에서 제품명 검색</div>
+<div class="fv">397건</div>
+<div class="fs">샤인 검색</div>
+</div>
+<div class="flow-arrow">&rarr;</div>
+<div class="flow-box" style="border-color:var(--pink);background:var(--pink-l)">
+<div class="fl">구매</div>
+<div class="fv">26건</div>
+<div class="fs">988,000원</div>
+</div>
+</div>
+
+<table style="margin-top:16px">
+<tr><th>사이트 내 검색어</th><th class="num">검색 수</th><th>의미</th></tr>
+<tr><td><b>샤인</b></td><td class="num"><b>397건</b></td><td>제품명을 알고 찾아옴</td></tr>
+<tr><td><b>링고</b></td><td class="num"><b>106건</b></td><td>제품명을 알고 찾아옴</td></tr>
+<tr><td><b>샌디</b></td><td class="num"><b>74건</b></td><td>제품명을 알고 찾아옴</td></tr>
+</table>
+
+<div class="row row-3" style="margin-top:16px">
+<div class="kpi">
+<div class="l">네이버 검색 매출</div>
+<div class="v">301만</div>
+<div class="c">전체의 44%</div>
+</div>
+<div class="kpi">
+<div class="l">인스타 직접 구매</div>
+<div class="v" style="color:var(--red)">1건</div>
+<div class="c">56,000원</div>
+</div>
+<div class="kpi">
+<div class="l">인스타 역할</div>
+<div class="v">인지</div>
+<div class="c">구매가 아닌 알리는 역할</div>
+</div>
+</div>
+
+<div class="insight">
+<strong>인스타는 "사게 하는 채널"이 아니라 "알게 하는 채널"입니다.</strong><br>
+고객은 인스타에서 제품을 보고 → 네이버에서 "피카부"를 검색하고 → 자사몰에서 제품명을 검색해서 삽니다.<br><br>
+그래서 인스타 콘텐츠에서 <b>제품 이름이 확실히 기억되는 것</b>이 중요합니다.
+</div>
+</div>
+
+<!-- ========== 섹션 6: 신규 vs 재구매 ========== -->
+<div class="sec">
+<div class="sec-t"><span class="n" style="background:var(--green)">6</span> 어떤 고객이 샀나</div>
+
+<div class="row row-2">
+<div>
+<h4 style="font-size:13px;font-weight:700;margin-bottom:10px">4월 신상 구매 고객</h4>
+<table>
+<tr><th>제품</th><th class="num">첫 구매</th><th class="num">재구매</th><th class="num">비회원</th></tr>
+<tr><td>샤인</td><td class="num">9건 (35%)</td><td class="num">7건 (27%)</td><td class="num">10건 (38%)</td></tr>
+<tr><td>샌디</td><td class="num">6건 (55%)</td><td class="num">3건 (27%)</td><td class="num">2건 (18%)</td></tr>
+<tr><td>링고</td><td class="num">1건</td><td class="num">1건</td><td class="num">1건</td></tr>
+<tr class="total"><td>합계</td><td class="num"><b>16건 (40%)</b></td><td class="num">11건 (28%)</td><td class="num">13건 (33%)</td></tr>
+</table>
+</div>
+<div>
+<h4 style="font-size:13px;font-weight:700;margin-bottom:10px">사이트 전체 (GA4 기준)</h4>
+<table>
+<tr><th>고객 유형</th><th class="num">매출</th><th class="num">구매 비율</th></tr>
+<tr><td>다시 온 고객</td><td class="num">412만</td><td class="num"><b>3.9%</b></td></tr>
+<tr><td>처음 온 고객</td><td class="num">193만</td><td class="num">1.0%</td></tr>
+</table>
+</div>
+</div>
+
+<div class="insight">
+<strong>샌디는 첫 구매 고객이 55%로 가장 높았습니다.</strong> 새로운 고객을 데려오는 데는 효과가 있었습니다.<br>
+다만 전체적으로 <b>다시 찾아온 고객의 구매율이 처음 온 고객의 4배</b>. 기존 고객이 신상 구매의 핵심입니다.
+</div>
+</div>
+
+<!-- ========== 섹션 7: 인스타 콘텐츠 성과 ========== -->
+<div class="sec">
+<div class="sec-t"><span class="n" style="background:#9C27B0">7</span> 인스타 콘텐츠 성과</div>
+
+<table>
+<tr><th>콘텐츠</th><th>날짜</th><th>종류</th><th class="num">도달</th><th class="num">좋아요</th><th class="num">저장</th><th class="num">공유</th></tr>
+<tr><td><b>샤인 OPEN</b></td><td>4/4</td><td>캐러셀</td><td class="num"><b>12,353</b></td><td class="num">138</td><td class="num"><b>112</b></td><td class="num">31</td></tr>
+<tr><td>링고 OPEN</td><td>4/5</td><td>캐러셀</td><td class="num">3,340</td><td class="num">43</td><td class="num">10</td><td class="num">0</td></tr>
+<tr><td>샌디 OPEN</td><td>4/5</td><td>캐러셀</td><td class="num">1,815</td><td class="num">12</td><td class="num">2</td><td class="num">0</td></tr>
+<tr style="background:var(--bg)"><td colspan="7" style="font-size:11px;color:var(--muted);padding:6px 10px">티저 (오픈 전)</td></tr>
+<tr><td>링고 컬러퀴즈</td><td>3/28</td><td>릴스</td><td class="num">6,211</td><td class="num">115</td><td class="num">23</td><td class="num">19</td></tr>
+<tr><td>샤인 예고</td><td>3/29</td><td>이미지</td><td class="num">6,365</td><td class="num">47</td><td class="num">5</td><td class="num">0</td></tr>
+<tr><td>샌디 예고</td><td>3/30</td><td>캐러셀</td><td class="num">6,399</td><td class="num">100</td><td class="num">22</td><td class="num">6</td></tr>
+</table>
+
+<div class="compare-row" style="margin-top:16px">
+<div class="compare-card" style="text-align:center">
+<h4>참고: 3월 최고 성과</h4>
+<p style="font-size:12px;color:var(--sub);margin-bottom:8px">보니+쇼콜라 동시 공개 (3/18)</p>
+<div style="font-size:28px;font-weight:800;color:var(--green)">17,709</div>
+<div style="font-size:11px;color:var(--muted)">도달</div>
+<div style="font-size:28px;font-weight:800;color:var(--green);margin-top:4px">152</div>
+<div style="font-size:11px;color:var(--muted)">저장</div>
+</div>
+<div class="compare-card" style="text-align:center">
+<h4>4월 최고 성과</h4>
+<p style="font-size:12px;color:var(--sub);margin-bottom:8px">샤인 OPEN (4/4)</p>
+<div style="font-size:28px;font-weight:800;color:var(--orange)">12,353</div>
+<div style="font-size:11px;color:var(--muted)">도달</div>
+<div style="font-size:28px;font-weight:800;color:var(--orange);margin-top:4px">112</div>
+<div style="font-size:11px;color:var(--muted)">저장</div>
+</div>
+</div>
+
+<div class="insight">
+샤인 오픈 콘텐츠 자체는 나쁘지 않았습니다. 저장 112개면 사이트 검색으로 연결되는 수치입니다.<br>
+문제는 <strong>샌디 오픈(도달 1,815)이 링고와 같은 날 올라가면서 묻힌 것</strong>. 하루에 오픈 포스트 2개는 서로를 깎아먹습니다.
+</div>
+</div>
+
+<!-- ========== 섹션 8: 종합 판단 ========== -->
+<div class="sec">
+<div class="sec-t"><span class="n" style="background:var(--text)">8</span> 종합 — 이번 론칭에서 배운 것</div>
+
+<table>
+<tr><th style="width:40%">확인된 것</th><th>의미</th></tr>
+<tr><td>피카부 핵심 고객은 70~80 사이즈 (57%)</td><td>6~18개월 베이비맘이 메인. 이 고객이 좋아하는 제품이 잘 팔림</td></tr>
+<tr><td>귀여운 라인 > 베이직 라인 (2.3배 차이)</td><td>"피카부에서만 살 수 있는 것"이 구매를 만듦</td></tr>
+<tr><td>인스타는 알리는 채널, 파는 채널은 네이버</td><td>인스타 저장 → 네이버 검색 → 사이트 내 검색 → 구매</td></tr>
+<tr><td>콘텐츠 공백은 방문자를 줄임</td><td>4일 공백 → 론칭일 방문자 28% 감소</td></tr>
+<tr><td>하루에 오픈 포스트 2개는 묻힘</td><td>샌디 도달 1,815 (링고와 같은 날)</td></tr>
+<tr><td>베이직도 인지는 됨 (검색 397건)</td><td>알기는 하는데 "지금 사야 해"가 약했음</td></tr>
+</table>
+</div>
+
+<!-- ========== 섹션 9: 다음에 이렇게 ========== -->
+<div class="sec">
+<div class="sec-t"><span class="n" style="background:var(--green)">9</span> 앞으로 이렇게</div>
+
+<div class="action-box">
+<h4>바로 할 수 있는 것</h4>
+<ul>
+<li><b>베이직 라인은 단독 피드 대신, 인기 제품과 코디로 보여주기</b> — "보니 블루머 + 샤인 이너" 세트 착장. 베이직은 주인공이 아니라 좋은 짝꿍 역할</li>
+<li><b>오픈 포스트는 하루에 1개만</b> — 2개 이상 올리면 서로 묻힘</li>
+<li><b>티저부터 오픈까지 매일 1개</b> — 중간에 쉬면 관심이 꺼짐</li>
+<li><b>인스타 프로필/스토리 링크에 추적 코드(UTM) 붙이기</b> — 지금은 인스타에서 얼마나 왔는지 정확히 모름</li>
+</ul>
+</div>
+
+<div class="action-box" style="background:#E3F2FD;border-color:#90CAF9">
+<h4 style="color:var(--blue)">제품 기획에 참고할 것</h4>
+<ul>
+<li><b>신상 중 1개는 반드시 "피카부다운" 베이비 아이템</b> — 블루머, 세트, 헤어밴드처럼 인스타에 올리고 싶은 디자인</li>
+<li><b>베이직 라인은 인기 제품의 코디 파트너로 기획</b> — 처음부터 "보니랑 같이 입히면 예뻐요"를 전제로</li>
+<li><b>2~3개 동시 오픈 시, 성격이 다른 제품을 섞기</b> — 베이직끼리 묶으면 피드 전체가 무난해짐</li>
+</ul>
+</div>
+
+<div class="confirm-box">
+<h4>대표님 확인 필요</h4>
+<ul>
+<li><b>에어(4/9)는 어떤 성격의 제품인가?</b> — 귀여운 라인이면 보니처럼 단독 피드, 베이직이면 코디 중심으로 콘텐츠 방향이 달라짐</li>
+<li><b>링고 추가 콘텐츠 투자 여부</b> — 현재 62,000원/3일. 별도 푸시 vs 코디에서 자연 노출로 충분한지</li>
+<li><b>베이직 라인 콘텐츠 방식 변경</b> — 기존 "OPEN!" 단독 피드 → 인기 제품과 코디로 보여주는 방식으로 바꿔도 되는지</li>
+</ul>
+</div>
+</div>
+
+<!-- ========== 데이터 출처 ========== -->
+<div class="note">
+<b>데이터 출처와 주의사항</b><br>
+- 매출: Cafe24 API (items 합산 방식). 셀러센터 실수치와 약 0.1% 오차 가능. 최종 확정은 셀러센터 기준<br>
+- 사이즈 분석: Cafe24 주문 아이템의 옵션 텍스트에서 추출. "기타"(양말, 보넷, 배냇 등 숫자 사이즈가 아닌 제품) 제외 후 계산<br>
+- 방문/검색: Google Analytics 4 (GA4). 인스타 인앱 브라우저 유입은 일부 "(not set)"으로 잡혀 인스타 기여가 과소평가될 수 있음<br>
+- 인스타: Instagram Graph API v21.0. 4/3 스토리는 24시간 후 만료되어 데이터 없음<br>
+- 분석 기간: 4/3(금)~4/5(일) 3일간. 4/5 GA4 데이터는 처리 지연으로 일부 변동 가능
+</div>
+
+<footer>
+피카부 신상 오픈 성적표 | 2026.04.06 작성 | Cafe24 + GA4 + Instagram API
+</footer>
+
+</div><!-- .wrap -->
+
+<script>
+// 사이즈 분포 차트
+new Chart(document.getElementById('sizeChart'),{
+type:'bar',
+data:{
+labels:['60','70','80','90','100','110','120+'],
+datasets:[{
+label:'수량',
+data:[22,67,88,31,21,17,20],
+backgroundColor:['#FFB3C1','#FF6B8A','#FF6B8A','#4A90D9','#4A90D9','#4A90D9','#8E95A5'],
+borderRadius:6,
+barPercentage:0.7
+}]
+},
+options:{
+responsive:true,
+plugins:{
+legend:{display:false},
+tooltip:{callbacks:{label:ctx=>ctx.parsed.y+'개'}}
+},
+scales:{
+y:{beginAtZero:true,grid:{color:'#E8EBF0'},ticks:{font:{size:11}}},
+x:{grid:{display:false},ticks:{font:{size:12,weight:'bold'}}}
+}
+}
+});
+</script>
+
+</body>
+</html>
