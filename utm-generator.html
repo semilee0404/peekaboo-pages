@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카부 UTM 링크 생성기</title>
+<style>
+:root{--pink:#FF6B8A;--pink-l:#FFF0F3;--bg:#FAFBFC;--card:#fff;--text:#1A1D26;--sub:#5A6070;--muted:#8E95A5;--border:#E8EBF0;--green:#27AE60;--blue:#4A90D9;--r:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.wrap{max-width:600px;margin:0 auto;padding:20px}
+.hero{background:linear-gradient(135deg,var(--pink) 0%,#E84B6A 100%);color:#fff;padding:24px;border-radius:var(--r);margin-bottom:24px}
+.hero h1{font-size:20px;font-weight:700}
+.hero p{font-size:13px;opacity:.85;margin-top:4px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.card h3{font-size:14px;font-weight:700;margin-bottom:12px}
+label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px;margin-top:12px}
+label:first-child{margin-top:0}
+select,input[type="text"]{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:var(--text);-webkit-appearance:none}
+select:focus,input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,107,138,.15)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{padding:6px 14px;border-radius:20px;font-size:13px;border:1px solid var(--border);background:#fff;cursor:pointer;transition:all .15s}
+.chip:hover{border-color:var(--pink);background:var(--pink-l)}
+.chip.active{background:var(--pink);color:#fff;border-color:var(--pink)}
+.result-box{background:#F0F7FF;border:2px solid var(--blue);border-radius:var(--r);padding:16px;margin-top:20px;display:none}
+.result-box.show{display:block}
+.result-box h4{font-size:12px;color:var(--blue);font-weight:700;margin-bottom:8px}
+.url-display{background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px;font-size:13px;word-break:break-all;font-family:'SF Mono',monospace;line-height:1.6;position:relative}
+.url-display .highlight{color:var(--pink);font-weight:600}
+.btn-row{display:flex;gap:8px;margin-top:12px}
+.btn{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-pink{background:var(--pink);color:#fff}
+.btn-pink:hover{background:#E84B6A}
+.btn-outline{background:#fff;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{background:var(--bg)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;padding:10px 24px;border-radius:20px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99}
+.toast.show{opacity:1}
+.history{margin-top:20px}
+.history h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--sub)}
+.history-item{background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-bottom:6px;font-size:12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.history-item .hi-info{flex:1;min-width:0}
+.history-item .hi-label{font-weight:600;color:var(--text)}
+.history-item .hi-url{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.history-item .hi-copy{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid var(--border);background:#fff;cursor:pointer;flex-shrink:0}
+.history-item .hi-copy:hover{background:var(--pink-l);border-color:var(--pink);color:var(--pink)}
+.help{background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:14px;margin-top:16px;font-size:12px;line-height:1.8;color:#5D4037}
+.help b{color:#F57F17}
+.empty{text-align:center;color:var(--muted);font-size:13px;padding:20px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<div class="hero">
+<h1>피카부 UTM 링크 생성기</h1>
+<p>인스타/카톡 링크에 추적 코드를 붙여서, 어디서 온 고객인지 GA4에서 정확히 확인</p>
+</div>
+
+<!-- 1단계: 어디에 쓸 건지 -->
+<div class="card">
+<h3>1. 어디에 쓸 링크인가요?</h3>
+<div class="chips" id="channelChips">
+<div class="chip" data-source="instagram" data-medium="profile" onclick="selectChannel(this)">인스타 프로필</div>
+<div class="chip" data-source="instagram" data-medium="story" onclick="selectChannel(this)">인스타 스토리</div>
+<div class="chip" data-source="instagram" data-medium="feed" onclick="selectChannel(this)">인스타 피드 (DM용)</div>
+<div class="chip" data-source="kakaotalk" data-medium="social" onclick="selectChannel(this)">카카오톡</div>
+<div class="chip" data-source="naver_blog" data-medium="social" onclick="selectChannel(this)">네이버 블로그</div>
+</div>
+</div>
+
+<!-- 2단계: 어떤 콘텐츠인지 -->
+<div class="card">
+<h3>2. 어떤 콘텐츠인가요?</h3>
+
+<label>제품명 (선택하거나 직접 입력)</label>
+<div class="chips" id="productChips">
+<div class="chip" data-val="shine" onclick="selectProduct(this)">샤인</div>
+<div class="chip" data-val="sandy" onclick="selectProduct(this)">샌디</div>
+<div class="chip" data-val="ringo" onclick="selectProduct(this)">링고</div>
+<div class="chip" data-val="air" onclick="selectProduct(this)">에어</div>
+<div class="chip" data-val="forming" onclick="selectProduct(this)">포밍</div>
+<div class="chip" data-val="boni" onclick="selectProduct(this)">보니</div>
+<div class="chip" data-val="chocolat" onclick="selectProduct(this)">쇼콜라</div>
+<div class="chip" data-val="milky" onclick="selectProduct(this)">밀키</div>
+<div class="chip" data-val="koi" onclick="selectProduct(this)">코이</div>
+</div>
+<input type="text" id="customProduct" placeholder="목록에 없으면 직접 입력 (영문, 예: dessert)" style="margin-top:8px">
+
+<label>콘텐츠 종류</label>
+<div class="chips" id="typeChips">
+<div class="chip" data-val="open" onclick="selectType(this)">신상 오픈</div>
+<div class="chip" data-val="teaser" onclick="selectType(this)">티저/예고</div>
+<div class="chip" data-val="coord" onclick="selectType(this)">코디/착장</div>
+<div class="chip" data-val="event" onclick="selectType(this)">이벤트</div>
+<div class="chip" data-val="restock" onclick="selectType(this)">재입고</div>
+<div class="chip" data-val="daily" onclick="selectType(this)">일상/브랜드</div>
+</div>
+</div>
+
+<!-- 3단계: 도착 URL -->
+<div class="card">
+<h3>3. 어디로 보낼 건가요?</h3>
+<div class="chips" id="destChips">
+<div class="chip active" data-val="https://www.peekabookorea.com" onclick="selectDest(this)">자사몰 메인</div>
+<div class="chip" data-val="https://www.peekabookorea.com/product/list.html?cate_no=52" onclick="selectDest(this)">신상품 카테고리</div>
+</div>
+<label>또는 제품 상세 URL 직접 입력</label>
+<input type="text" id="customUrl" placeholder="https://www.peekabookorea.com/product/..." oninput="updateResult()">
+</div>
+
+<!-- 결과 -->
+<div class="result-box" id="resultBox">
+<h4>완성된 링크</h4>
+<div class="url-display" id="urlDisplay"></div>
+<div class="btn-row">
+<button class="btn btn-pink" onclick="copyUrl()">복사하기</button>
+<button class="btn btn-outline" onclick="shortenUrl()">단축 URL 만들기</button>
+<button class="btn btn-outline" onclick="saveToHistory()">저장</button>
+</div>
+</div>
+
+<div class="help">
+<b>이렇게 쓰면 됩니다</b><br>
+1. 위에서 채널, 제품, 콘텐츠 종류를 선택<br>
+2. "복사하기" 눌러서 링크 복사<br>
+3. 인스타 프로필 링크 / 스토리 링크 스티커 / 카톡 메시지에 붙여넣기<br>
+4. GA4에서 "소스/매체" 보면 어디서 왔는지 정확히 나옴<br><br>
+<b>주의:</b> 콘텐츠가 바뀔 때마다 새 링크를 만들어야 의미가 있어요. 같은 링크를 계속 쓰면 어떤 콘텐츠가 효과 있었는지 구분이 안 됩니다.
+</div>
+
+<!-- 저장 이력 -->
+<div class="history" id="historySection" style="display:none">
+<h4>저장된 링크</h4>
+<div id="historyList"></div>
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let state = {
+  source: '', medium: '', product: '', type: '', destUrl: 'https://www.peekabookorea.com'
+};
+
+function selectChannel(el) {
+  document.querySelectorAll('#channelChips .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  state.source = el.dataset.source;
+  state.medium = el.dataset.medium;
+  updateResult();
+}
+
+function selectProduct(el) {
+  document.querySelectorAll('#productChips .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  state.product = el.dataset.val;
+  document.getElementById('customProduct').value = '';
+  updateResult();
+}
+
+function selectType(el) {
+  document.querySelectorAll('#typeChips .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  state.type = el.dataset.val;
+  updateResult();
+}
+
+function selectDest(el) {
+  document.querySelectorAll('#destChips .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  state.destUrl = el.dataset.val;
+  document.getElementById('customUrl').value = '';
+  updateResult();
+}
+
+document.getElementById('customProduct').addEventListener('input', function() {
+  if (this.value) {
+    document.querySelectorAll('#productChips .chip').forEach(c => c.classList.remove('active'));
+    state.product = this.value.toLowerCase().replace(/\s+/g, '_');
+  }
+  updateResult();
+});
+
+document.getElementById('customUrl').addEventListener('input', function() {
+  if (this.value) {
+    document.querySelectorAll('#destChips .chip').forEach(c => c.classList.remove('active'));
+    state.destUrl = this.value;
+  }
+  updateResult();
+});
+
+function updateResult() {
+  const box = document.getElementById('resultBox');
+  const display = document.getElementById('urlDisplay');
+
+  if (!state.source) { box.classList.remove('show'); return; }
+
+  let base = state.destUrl || 'https://www.peekabookorea.com';
+  if (base && !base.startsWith('http')) base = 'https://' + base;
+
+  const params = new URLSearchParams();
+  params.set('utm_source', state.source);
+  params.set('utm_medium', state.medium);
+
+  if (state.product && state.type) {
+    params.set('utm_campaign', state.product + '_' + state.type);
+  } else if (state.product) {
+    params.set('utm_campaign', state.product);
+  } else if (state.type) {
+    params.set('utm_campaign', state.type);
+  }
+
+  // 날짜 자동 추가
+  const today = new Date();
+  const dateStr = today.getFullYear().toString().slice(2) +
+    String(today.getMonth()+1).padStart(2,'0') +
+    String(today.getDate()).padStart(2,'0');
+  params.set('utm_content', dateStr);
+
+  const separator = base.includes('?') ? '&' : '?';
+  const fullUrl = base + separator + params.toString();
+
+  // 하이라이트 표시
+  display.innerHTML = base + '<span class="highlight">' + separator + decodeURIComponent(params.toString()).replace(/&/g, '&amp;') + '</span>';
+  display.dataset.url = fullUrl;
+
+  box.classList.add('show');
+}
+
+function copyUrl() {
+  const url = document.getElementById('urlDisplay').dataset.url;
+  navigator.clipboard.writeText(url).then(() => showToast('링크가 복사되었습니다'));
+}
+
+function shortenUrl() {
+  const url = document.getElementById('urlDisplay').dataset.url;
+  // TinyURL API (무료, 회원가입 불필요)
+  window.open('https://tinyurl.com/create.php?url=' + encodeURIComponent(url), '_blank');
+  showToast('단축 URL 사이트가 열립니다');
+}
+
+function saveToHistory() {
+  const url = document.getElementById('urlDisplay').dataset.url;
+  const label = [
+    state.source === 'instagram' ? '인스타' : state.source === 'kakaotalk' ? '카톡' : state.source,
+    state.medium,
+    state.product,
+    state.type
+  ].filter(Boolean).join(' / ');
+
+  let history = JSON.parse(localStorage.getItem('peekaboo_utm_history') || '[]');
+  history.unshift({ label, url, date: new Date().toLocaleDateString('ko-KR') });
+  if (history.length > 20) history = history.slice(0, 20);
+  localStorage.setItem('peekaboo_utm_history', JSON.stringify(history));
+
+  renderHistory();
+  showToast('저장되었습니다');
+}
+
+function renderHistory() {
+  const history = JSON.parse(localStorage.getItem('peekaboo_utm_history') || '[]');
+  const section = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+
+  if (history.length === 0) { section.style.display = 'none'; return; }
+
+  section.style.display = 'block';
+  list.innerHTML = history.map((h, i) => `
+    <div class="history-item">
+      <div class="hi-info">
+        <div class="hi-label">${h.label} <span style="color:var(--muted);font-weight:400">${h.date}</span></div>
+        <div class="hi-url">${h.url}</div>
+      </div>
+      <button class="hi-copy" onclick="copyHistoryItem(${i})">복사</button>
+    </div>
+  `).join('');
+}
+
+function copyHistoryItem(index) {
+  const history = JSON.parse(localStorage.getItem('peekaboo_utm_history') || '[]');
+  navigator.clipboard.writeText(history[index].url).then(() => showToast('복사되었습니다'));
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// 초기 렌더
+renderHistory();
+</script>
+
+</body>
+</html>
