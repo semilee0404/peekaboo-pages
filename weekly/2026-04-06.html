@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카부 위클리 — 2026년 4월 1주차</title>
+<style>
+  :root {
+    --pink: #d4a0a0;
+    --pink-light: #f7eded;
+    --pink-dark: #b07878;
+    --text: #3a3232;
+    --text-sub: #7d6b6b;
+    --bg: #faf8f8;
+    --white: #ffffff;
+    --green: #6ba07a;
+    --green-light: #eef5f0;
+    --border: #ede6e6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 15.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 헤더 ── */
+  .report-header {
+    background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
+    color: white;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+  .report-header .brand {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 12px;
+  }
+  .report-header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .report-header .date {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+  .back-link {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 13px;
+    transition: opacity 0.2s;
+  }
+  .back-link:hover { opacity: 1; }
+
+  /* ── 한줄 요약 배너 ── */
+  .headline-banner {
+    max-width: 740px;
+    margin: -28px auto 0;
+    padding: 24px 28px;
+    background: var(--white);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(180, 140, 140, 0.12);
+    position: relative;
+    z-index: 1;
+  }
+  .headline-banner .label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--pink-dark);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .headline-banner p {
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ── 본문 ── */
+  .content {
+    max-width: 740px;
+    margin: 32px auto 60px;
+    padding: 0 20px;
+  }
+
+  /* ── 섹션 카드 ── */
+  .section-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 32px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 8px rgba(180, 140, 140, 0.06);
+  }
+  .section-card h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--pink-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-card h2 .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--pink);
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .section-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 24px 0 10px;
+  }
+  .section-card h3:first-of-type {
+    margin-top: 0;
+  }
+  .section-card p {
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+  .section-card hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+
+  /* ── 테이블 ── */
+  .section-card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .section-card thead th {
+    background: var(--pink);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+  .section-card thead th:first-child {
+    border-radius: 8px 0 0 0;
+  }
+  .section-card thead th:last-child {
+    border-radius: 0 8px 0 0;
+  }
+  .section-card tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .section-card tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .section-card tbody tr:hover {
+    background: var(--pink-light);
+  }
+
+  /* ── 인용문 (고객 목소리) ── */
+  .section-card blockquote {
+    border-left: 3px solid var(--pink);
+    background: var(--pink-light);
+    margin: 12px 0;
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    font-size: 14.5px;
+    color: var(--text-sub);
+    line-height: 1.75;
+  }
+  .section-card blockquote p {
+    margin-bottom: 0;
+  }
+
+  /* ── 시사점 박스 ── */
+  .insight-box {
+    background: var(--green-light);
+    border-left: 3px solid var(--green);
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    margin: 14px 0;
+    font-size: 14.5px;
+  }
+  .insight-box strong {
+    color: var(--green);
+  }
+
+  /* ── 전략 질문 박스 ── */
+  .strategy-box {
+    background: linear-gradient(135deg, var(--pink-light) 0%, #f5eef5 100%);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .strategy-box strong {
+    color: var(--pink-dark);
+  }
+
+  /* ── 리스트 ── */
+  .section-card ul, .section-card ol {
+    padding-left: 20px;
+    margin-bottom: 14px;
+  }
+  .section-card li {
+    margin-bottom: 6px;
+  }
+
+  /* ── strong 색상 ── */
+  .section-card strong {
+    color: var(--pink-dark);
+    font-weight: 700;
+  }
+
+  /* ── 푸터 ── */
+  .report-footer {
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 13px;
+    color: var(--text-sub);
+    border-top: 1px solid var(--border);
+    max-width: 740px;
+    margin: 0 auto;
+  }
+  .report-footer a {
+    color: var(--pink-dark);
+    text-decoration: none;
+  }
+
+  /* ── 네비게이션 ── */
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    max-width: 740px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+    font-size: 13px;
+  }
+  .nav-bar a {
+    color: var(--pink-dark);
+    text-decoration: none;
+    padding: 8px 16px;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    transition: all 0.2s;
+  }
+  .nav-bar a:hover {
+    box-shadow: 0 2px 8px rgba(180,140,140,0.15);
+  }
+
+  /* ── 반응형 ── */
+  @media (max-width: 640px) {
+    .report-header { padding: 36px 16px 32px; }
+    .report-header h1 { font-size: 21px; }
+    .headline-banner { margin: -20px 12px 0; padding: 20px; }
+    .content { padding: 0 12px; }
+    .section-card { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+  <div style="position:relative;">
+    <a href="index.html" class="back-link">&larr; All Reports</a>
+  </div>
+  <header class="report-header">
+    <div class="brand">Peekaboo Weekly Intelligence</div>
+    <h1>2026년 4월 1주차</h1>
+    <div class="date">2026년 4월 1주차 리포트</div>
+  </header>
+
+  <div class="headline-banner">
+    <div class="label">This Week</div>
+    <p>수영 시즌이 열렸고, 고객들은 이미 피카부 스윔라인에 반응하고 있습니다. 동시에 "아이당 지출이 늘어나는" 골드키즈 트렌드가 프리미엄 아동복 시장 전체를 키우고 있어, 피카부가 지금 방향대로 계속 가면 됩니다.</p>
+  </div>
+
+  <div class="content">
+    <div class="nav-bar">
+      <a href="2026-03-30.html">&larr; 2026-03-30</a>
+      <span></span>
+    </div>
+    <div class="section-card">
+  <h2><span class="num">1</span>고객이 말하는 피카부</h2>
+  <p>이번 주 자사몰 리뷰 게시판을 직접 확인했습니다. 최근 2주(2026-03-23 ~ 2026-04-05) 내 작성된 리뷰는 전 항목 5점이었으며, 칭찬이 주를 이뤘습니다.</p>
+<h3>고객이 좋아하는 것 (칭찬 Top 3)</h3>
+<p><strong>① "요즘 최애 옷" — 디저트 라인에 대한 강한 애착 반응</strong></p>
+<p>"최애"라는 단어와 함께 "나갈 때마다 입힌다"는 반복 착용 언급이 등장했습니다. 신상 한 가지에 팬이 생기는 신호입니다.</p>
+<blockquote>
+<p>"너~~~무 귀여워여 요즘 저의 최애 옷이 돼서 나갈때마다 입히고있어요" — 디저트 방울보넷, <strong>2026-04-05</strong></p>
+<p>"너~~~무 예뻐요 요즘 저의 최애 옷이에요" — 디저트 수트세트, <strong>2026-04-05</strong></p>
+</blockquote>
+<p><strong>② 스윔웨어 첫 인상 — 순수하게 "귀엽다"</strong></p>
+<p>4월 첫 주, 초코 스윔라인에 대한 첫 리뷰들이 올라오기 시작했습니다. 수영 시즌 개막과 함께 긍정적인 첫인상이 쌓이고 있습니다.</p>
+<blockquote>
+<p>"아기 수영복 입히니까 너무 귀여워요오" — 초코 원피스수트(스윔웨어), <strong>2026-04-03</strong></p>
+</blockquote>
+<p><strong>③ 소재와 색감 — 시즌을 넘나드는 꾸준한 신뢰</strong></p>
+<p>계절이 바뀌어도 반복되는 칭찬 포인트입니다. 소재와 색감이 재구매로 이어지는 패턴이 이어지고 있습니다.</p>
+<blockquote>
+<p>"소재가 좋고 시원해서 태열이 덜 오를 것 같아요." — 쿨쿨 수트세트, <strong>2025-04-23</strong></p>
+</blockquote>
+<hr />
+<h3>고객이 아쉬워하는 것</h3>
+<p>이번 2주 내 자사몰 리뷰에서 명시적인 불만은 확인되지 않았습니다. 다만 고객 행동에서 읽히는 구조적 신호 2가지를 정리합니다.</p>
+<p><strong>① 스윔웨어 인지도 — 아직 피카부를 "액세서리 브랜드"로만 아는 고객이 있다</strong></p>
+<p>수영복은 쿠팡에서 사고, 피카부에는 모자만 구매하러 온 고객이 있었습니다. 피카부에 스윔웨어 풀라인이 있다는 사실을 몰랐거나, 비교 구매 후 분리 구매한 것으로 보입니다. 리뷰 원문 → 이번 주 눈에 띄는 목소리 섹션 참고.</p>
+<p><strong>② 사이즈 예측 어려움 — 통통한 아기는 주의 필요 (구조적 반복 시그널)</strong></p>
+<p>직접적인 불만은 아니지만, 반복적으로 등장하는 피팅 관련 언급입니다. 최근 2주 내 해당 리뷰는 없었으나, 상품 기획 시 참고할 패턴입니다.</p>
+<blockquote>
+<p>"블랙 너무 귀여워요 어른같아요 ㅋㅋㅋ저희아기 날씬이 아기라 맞지 통통하면 팔이 안들어갈것같아요" — 쁘띠 baby티셔츠, <strong>2024-10-04</strong> <em>(2주 외 리뷰, 구조적 패턴으로 포함)</em></p>
+</blockquote>
+<p><strong>③ 외부 후기(맘카페·네이버 블로그) — 이번 주 수집 불가</strong></p>
+<p>웹 검색 접근 한계로 최신 맘카페·블로그 후기를 수집하지 못했습니다. 내부 CS팀에서 직접 모니터링하여 다음 리포트에 반영을 권장합니다.</p>
+<hr />
+<h3>이번 주 눈에 띄는 목소리</h3>
+<blockquote>
+<p>"넘 귀엽습니당 쿠팡에서 수영복 샀는데 모자가 없어서 구매했네요" — 초코 스윔햇, <strong>2026-04-04</strong></p>
+</blockquote>
+<p>피카부를 "코디 마무리 브랜드"로 인식하고 찾아온 고객입니다. 역설적으로, 이 고객이 피카부 초코 원피스수트의 존재를 알았다면 세트 구매를 했을 가능성이 높습니다. 스윔 시즌 초입에 "피카부 수영복 하나면 토탈룩이 완성된다"는 메시지를 강화할 기회가 지금입니다.</p>
+<hr />
+</div>
+<div class="section-card">
+  <h2><span class="num">2</span>시장 시그널</h2>
+  <h3>시그널 1: 베네베네 — "아동복 브랜드"에서 "라이프스타일 브랜드"로의 선명한 이동</h3>
+<p>이번 시즌 베네베네는 세 가지 사업을 동시에 전개했습니다. 메인 컬렉션 SS26 "Whispers from the Shore"(일본 바닷가 마을 일상 영감), 스킨케어 라인 Bon Daisy(샴푸·로션·오일 등), 홈 &amp; 기프트 라인 "메종본" 신규 런칭. 전국 39개 매장을 보유한 브랜드가 "옷만 파는 곳"에서 "가족 라이프스타일 전체를 파는 곳"으로 확장하는 방향이 명확합니다.</p>
+<div class="insight-box"><strong>→ 피카부 라면:</strong> "가족의 일상을 디자인하는"이라는 슬로건이 이미 이 방향을 내포하고 있습니다. 지금 당장 확장하지 않더라도, 피카부의 브랜드 언어가 라이프스타일 확장의 씨앗을 이미 심어두었다는 점은 큰 자산입니다.</div>
+<hr />
+<h3>시그널 2: 이키(ikii) — "오가닉" 포지셔닝 경쟁 진입</h3>
+<p>이키가 "오가닉데이"라는 전용 기획전 카테고리를 만들며 유기농 라인을 전면에 내세웠습니다. 가격대는 피카부보다 낮지만, "오가닉"이라는 키워드가 대중화되는 속도가 빨라지고 있습니다.</p>
+<div class="insight-box"><strong>→ 피카부 라면:</strong> 오가닉 단어 자체는 이제 여러 브랜드가 쓰기 시작했습니다. 피카부는 "오가닉 소재 + 내추럴 감성 디자인 + 브랜드 스토리"라는 결합을 더 선명하게 보여주는 것이 차별화 포인트입니다.</div>
+<hr />
+</div>
+<div class="section-card">
+  <h2><span class="num">3</span>2-1. 경쟁사 기획전 & 행사</h2>
+  <table>
+<thead>
+<tr>
+<th>브랜드</th>
+<th>자사몰 기획전</th>
+<th>오프라인 행사</th>
+<th>CRM 특징</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>베네베네</td>
+<td>SS26 신상 전면 전개, 룩북 제공</td>
+<td>해외 팝업 준비 중</td>
+<td>회원가입 시 전 상품 무료배송</td>
+</tr>
+<tr>
+<td>이키</td>
+<td>오가닉데이 기획전, 타임세일 상시 운영</td>
+<td>확인 불가</td>
+<td>리뷰 게시판 운영</td>
+</tr>
+<tr>
+<td>아림클로젯</td>
+<td>신상 10% 할인 (~4월 11일 오전 11시)</td>
+<td>확인 불가</td>
+<td>시간 한정 할인으로 즉시 구매 유도</td>
+</tr>
+<tr>
+<td>아오스타</td>
+<td>확인 불가</td>
+<td>확인 불가</td>
+<td>확인 불가</td>
+</tr>
+<tr>
+<td>몽베베</td>
+<td>확인 불가</td>
+<td>확인 불가</td>
+<td>확인 불가</td>
+</tr>
+</tbody>
+</table>
+<h3>브랜드별 상세</h3>
+<p><strong>베네베네</strong>
+- 기획전: SS26 "Whispers from the Shore" 전 카테고리 신상 전개. Baby·Girl·Boy 각 12개 룩 스타일링 제안. → <a href="https://www.benebene.co.kr/">공식 사이트</a>
+- 신규 사업: Bon Daisy 스킨케어 라인(샴푸·바디로션·세럼·크림·오일), 홈 &amp; 기프트 "메종본" 런칭
+- CRM: 회원가입 시 전 상품 무료배송</p>
+<p><strong>이키</strong>
+- 기획전: "오가닉데이" 유기농 아동복 기획전, "잘자요 수면템" 기획전 동시 진행 → <a href="https://ikii.kr/">이키 공식 사이트</a>
+- 타임세일: 수면조끼 ₩23,630 → ₩18,900 상시 할인
+- CRM: 리뷰 게시판 별점 기반 운영</p>
+<p><strong>아림클로젯</strong>
+- 기획전: 신상 10% 한시 할인 (4월 11일 오전 11시까지) → <a href="https://www.arimcloset.com/">아림클로젯 공식 사이트</a>
+- 구성: W Best 150, NEW/ReStock, Premium, SALE 카테고리 구분 운영</p>
+<p><strong>→ 피카부 참고 포인트:</strong> 베네베네의 "12개 룩 스타일링 제안" 방식은 고객에게 "이렇게 입히면 된다"는 구매 확신을 주는 역할을 합니다. 피카부도 봄 스윔 시즌에 맞춰 초코 스윔라인 풀룩 콘텐츠를 자사몰에 추가하면 전환에 도움이 될 수 있습니다.</p>
+<hr />
+</div>
+<div class="section-card">
+  <h2><span class="num">3</span>이번 주 트렌드 & 영감</h2>
+  <h3>수영 시즌 개막 — 스윔웨어 토탈룩 수요</h3>
+<p>4월 첫 주부터 피카부 스윔웨어 리뷰가 올라오기 시작했습니다. 키즈 수영복 시장의 피크 시즌은 4월~6월이며, 부모들은 "사진 찍기 좋은, 브랜드 감성 있는" 수영복을 찾습니다. 이번 주 리뷰에서 "모자가 없어서 피카부에서 구매했다"는 사례도 나왔는데, 이는 세트 구매 기회가 아직 열려 있다는 신호입니다.</p>
+<div class="insight-box"><strong>→ 피카부 답게 풀면:</strong> "초코 스윔 세트 + 여름 나들이 가족룩" 콘텐츠로 묶어서 보여주는 것이 자연스럽습니다. 수건, 모자, 수영복이 하나의 감성으로 연결되는 이미지가 피카부 톤에 잘 맞습니다.</div>
+<hr />
+<h3>미샤앤퍼프 SS26 — 소프트 미스티 톤 × 자연 모티프</h3>
+<p>미샤앤퍼프 2026 봄 컬렉션은 피마 코튼 소재에 Dove·Marzipan·Sky 같은 소프트 미스티 컬러를 사용하고, 고양이·말 등 동물 모티프를 포인트로 활용했습니다. 70년대 노스탤지어 감성의 스트라이프가 시그니처로 유지되며, 장인 수공예 + 타임리스 디자인 철학을 일관되게 유지하고 있습니다. 가격대는 $30~$178.</p>
+<div class="insight-box"><strong>→ 피카부 답게 풀면:</strong> 피카부의 기존 뉴트럴/파스텔 팔레트가 이 방향과 이미 겹칩니다. "마가린 바디수트"처럼 반응 좋은 베이지 계열을 유지하면서, 자연 모티프를 피카부 감성(단순하고 담백하게)으로 풀어낸 시즌 에디션을 고려해볼 수 있습니다.</div>
+<hr />
+<h3>보보쇼즈 SS26 "Pickles" — 캐릭터 IP × 오가닉 소재의 조합</h3>
+<p>보보쇼즈의 2026 봄여름 컬렉션 테마는 강아지 캐릭터 "Pickles"입니다. 유기농 면 100%를 유지하면서도 뚜렷한 캐릭터 스토리로 시즌 콘텐츠를 만드는 전략입니다. 주목할 점은 "지속가능성 + 브랜드 세계관"의 결합인데, 둘 다 지키면서 시즌마다 이야기를 만들어낸다는 것입니다.</p>
+<div class="insight-box"><strong>→ 피카부 답게 풀면:</strong> "피카부(까꿍)"라는 이름 자체가 놀이에서 온 브랜드입니다. 언젠가 브랜드 세계관을 담은 시즌 캐릭터나 패턴을 만든다면, 그것이 피카부의 자연스러운 언어일 수 있습니다. 단, 피카부답게 하면 화려하지 않고 "조용하고 귀여운" 방식이어야 합니다.</div>
+<hr />
+<h3>미니로디니 SS26 "Alien Affairs" — 지속가능성은 유지, 이야기는 계속 새롭게</h3>
+<p>미니로디니의 2026 봄여름 컬렉션은 우주 탐험 테마입니다. 행성·외계인·스페이스 투어 모티프로 시즌마다 뚜렷한 이야기를 만들면서도, 창립부터 이어온 지속가능성 원칙을 훼손하지 않습니다. 이 브랜드의 일관성이 신뢰를 만드는 방식을 보여줍니다.</p>
+<div class="insight-box"><strong>→ 피카부 답게 풀면:</strong> 브랜드 철학(오가닉, 내추럴, 가족 중심)은 흔들리지 않으면서, 시즌마다 다른 이야기 옷을 입히는 방식은 피카부도 참고할 수 있는 구조입니다.</div>
+<hr />
+</div>
+<div class="section-card">
+  <h2><span class="num">4</span>브랜드 전략 체크</h2>
+  <p><strong>국내 아동복 시장 — 아이는 줄어도 아이당 지출은 늘고 있다</strong></p>
+<p>국내 유아동복 시장은 2020년 1조8410억원에서 2024년 2조5390억원으로 38% 성장했습니다. 같은 기간 0~14세 인구는 9.5% 줄었습니다. "골드키즈"와 "VIB(Very Important Baby)" 트렌드가 자리 잡았고, 인스타그램 "#등원룩" 게시글이 663만 개에 달합니다. 이 환경에서 프리미엄 포지셔닝은 거스를 흐름이 아닙니다.</p>
+<p><strong>이번 주 생각해볼 질문:</strong></p>
+<blockquote>
+<p><strong>Q. 피카부에서 "수영복을 살 수 있다"는 걸 모르는 고객이 아직 많지 않을까요?</strong></p>
+<p>이번 주 고객 리뷰에서 수영복은 쿠팡에서 사고, 피카부에는 모자만 사러 왔다는 사례가 직접 등장했습니다. 스윔 시즌이 시작된 지금, 피카부 스윔라인의 인지도는 아직 충분하지 않을 수 있습니다. 해당 고객이 피카부 초코 원피스수트의 존재를 알았다면 세트 구매 가능성이 높았습니다.</p>
+<p><strong>피카부다운 방향:</strong> 스윔웨어를 "단품 상품"이 아니라 "여름 나들이 풀룩"으로 보여주는 콘텐츠를 인스타그램(@hi.peekaboo)에 올리고, 자사몰 링크로 연결하는 흐름이 자연스럽습니다. "이 한 벌이면 여름 나들이가 완성된다"는 메시지입니다.</p>
+</blockquote>
+<hr />
+<p><em>본 리포트는 2026-04-06 기준 웹 검색 및 자사몰 공개 리뷰 데이터를 바탕으로 작성되었습니다. 네이버 맘카페·블로그 최신 후기는 이번 주 크롤링 범위 한계로 포함되지 않았으며, 다음 리포트에서 보완 예정입니다.</em></p>
+</div>
+  </div>
+
+  <div class="report-footer">
+    <p>본 리포트는 2026-04-06 기준 웹 검색 및 자사몰 공개 리뷰 데이터를 바탕으로 작성되었습니다. 네이버 맘카페·블로그 최신 후기는 이번 주 크롤링 범위 한계로 포함되지 않았으며, 다음 리포트에서 보완 예정입니다.</p>
+    <p style="margin-top: 8px;"><a href="index.html">&larr; All Reports</a></p>
+  </div>
+</body>
+</html>
