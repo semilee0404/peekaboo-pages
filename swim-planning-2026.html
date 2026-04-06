@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 SS 수영복 상품기획 회의자료 | 피카부</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans KR', -apple-system, sans-serif; background: #f8f6f3; color: #2d2a26; line-height: 1.7; }
+  .page { max-width: 960px; margin: 0 auto; background: #fff; min-height: 100vh; }
+  .header { background: linear-gradient(135deg, #1a6b8a 0%, #2d9cb8 50%, #48b8d0 100%); color: #fff; padding: 48px 48px 40px; position: relative; }
+  .header-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+  .header h1 { font-size: 26px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
+  .header-sub { font-size: 14px; color: rgba(255,255,255,0.8); }
+  .header-meta { margin-top: 20px; display: flex; gap: 24px; font-size: 12px; color: rgba(255,255,255,0.65); flex-wrap: wrap; }
+
+  /* Tabs */
+  .tab-bar { display: flex; background: #f5f3f0; border-bottom: 2px solid #e0dcd6; overflow-x: auto; position: sticky; top: 0; z-index: 100; }
+  .tab-btn { padding: 12px 20px; font-size: 13px; font-weight: 600; color: #8a8580; cursor: pointer; border: none; background: none; white-space: nowrap; border-bottom: 3px solid transparent; transition: all .2s; }
+  .tab-btn:hover { color: #1a6b8a; background: rgba(26,107,138,0.05); }
+  .tab-btn.active { color: #1a6b8a; border-bottom-color: #1a6b8a; background: #fff; }
+  .tab-panel { display: none; padding: 40px 48px 60px; }
+  .tab-panel.active { display: block; }
+
+  .content { padding: 40px 48px 20px; }
+  .section { margin-bottom: 40px; }
+  .section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8e4de; }
+  .section h3 { font-size: 16px; font-weight: 600; color: #3d3529; margin: 24px 0 12px; }
+  p { margin-bottom: 12px; font-size: 14.5px; color: #4a4540; }
+  .sub-note { font-size: 12px; color: #8a8580; margin-top: 4px; }
+
+  .summary-box { background: linear-gradient(135deg, #f0f8fb, #e8f4f8); border-left: 4px solid #1a6b8a; padding: 20px 24px; border-radius: 0 8px 8px 0; margin-bottom: 28px; }
+  .summary-box p { margin: 0; font-size: 15px; color: #1a5a6e; font-weight: 500; line-height: 1.8; }
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+  .stat-card { background: #fafaf8; border: 1px solid #e8e4de; border-radius: 10px; padding: 16px; text-align: center; }
+  .stat-card .label { font-size: 11px; color: #8a8580; margin-bottom: 4px; }
+  .stat-card .value { font-size: 22px; font-weight: 700; color: #1a6b8a; }
+  .stat-card .sub { font-size: 11px; color: #a09a94; margin-top: 2px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 13px; }
+  thead th { background: #f5f3f0; padding: 10px 12px; text-align: left; font-weight: 600; color: #5a5550; border-bottom: 2px solid #e0dcd6; font-size: 12px; white-space: nowrap; position: sticky; top: 48px; z-index: 10; }
+  tbody td { padding: 10px 12px; border-bottom: 1px solid #f0ece6; color: #4a4540; }
+  tbody tr:hover { background: #fafaf8; }
+  .text-right { text-align: right; }
+  .text-center { text-align: center; }
+  .highlight-row { background: #f0f8fb !important; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-hot { background: #fee2e2; color: #dc2626; }
+  .badge-active { background: #dcfce7; color: #16a34a; }
+  .badge-legacy { background: #f3f4f6; color: #6b7280; }
+  .badge-warn { background: #fef3c7; color: #d97706; }
+  .badge-new { background: #dbeafe; color: #2563eb; }
+
+  .info-box { background: #f0f8fb; border: 1px solid #b8e0ec; border-radius: 10px; padding: 20px 24px; margin: 20px 0; }
+  .info-box h4 { font-size: 13px; font-weight: 700; color: #1a5a6e; margin-bottom: 10px; }
+  .info-box li { font-size: 13.5px; color: #1a4a5e; margin-bottom: 6px; line-height: 1.6; }
+  .decision-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 10px; padding: 20px 24px; margin: 20px 0; }
+  .decision-box h4 { font-size: 13px; font-weight: 700; color: #92400e; margin-bottom: 10px; }
+  .decision-box li { font-size: 13.5px; color: #78350f; margin-bottom: 6px; line-height: 1.6; }
+  .confirm-box { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 10px; padding: 20px 24px; margin: 20px 0; }
+  .confirm-box h4 { font-size: 13px; font-weight: 700; color: #991b1b; margin-bottom: 10px; }
+  .confirm-box li { font-size: 13.5px; color: #7f1d1d; margin-bottom: 6px; line-height: 1.6; }
+
+  .color-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin: 8px 0 16px; }
+  .color-bar div { display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.3); min-width: 30px; }
+
+  .voc-card { background: #fafaf8; border: 1px solid #e8e4de; border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; }
+  .voc-card .quote { font-size: 14px; color: #4a4540; font-style: italic; margin-bottom: 8px; }
+  .voc-card .meta { font-size: 11px; color: #a09a94; }
+  .voc-type { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; margin-right: 6px; }
+  .voc-positive { background: #dcfce7; color: #16a34a; }
+  .voc-insight { background: #fef3c7; color: #d97706; }
+  .voc-concern { background: #fee2e2; color: #dc2626; }
+
+  .agenda-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #f0ece6; }
+  .agenda-num { width: 32px; height: 32px; background: #1a6b8a; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+  .agenda-content { flex: 1; }
+  .agenda-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .agenda-desc { font-size: 13px; color: #6a6560; }
+  .agenda-time { font-size: 11px; color: #a09a94; }
+
+  /* Product Detail Tab */
+  .product-select { padding: 10px 16px; font-size: 14px; border: 1px solid #d0ccc6; border-radius: 8px; background: #fff; color: #2d2a26; width: 100%; max-width: 400px; margin-bottom: 20px; }
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .detail-card { background: #fafaf8; border: 1px solid #e8e4de; border-radius: 10px; padding: 16px; }
+  .detail-card h4 { font-size: 12px; color: #8a8580; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .mini-bar { display: flex; align-items: center; margin: 4px 0; }
+  .mini-bar-label { width: 60px; font-size: 12px; color: #6a6560; text-align: right; margin-right: 8px; }
+  .mini-bar-track { flex: 1; height: 18px; background: #f0ece6; border-radius: 3px; overflow: hidden; }
+  .mini-bar-fill { height: 100%; border-radius: 3px; display: flex; align-items: center; padding-left: 6px; font-size: 10px; color: #fff; font-weight: 600; min-width: 20px; }
+  .month-chart { display: flex; align-items: flex-end; gap: 4px; height: 120px; margin: 16px 0; }
+  .month-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .month-bar { width: 100%; background: #1a6b8a; border-radius: 3px 3px 0 0; min-height: 2px; transition: height .3s; }
+  .month-label { font-size: 10px; color: #8a8580; margin-top: 4px; }
+  .month-val { font-size: 10px; color: #1a6b8a; font-weight: 600; margin-bottom: 2px; }
+
+  .footer { padding: 24px 48px; background: #f5f3f0; font-size: 11px; color: #a09a94; text-align: center; }
+  @media (max-width: 640px) {
+    .header, .content, .tab-panel { padding-left: 20px; padding-right: 20px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .detail-grid { grid-template-columns: 1fr; }
+    table { font-size: 11px; }
+    thead th, tbody td { padding: 8px 6px; }
+    .tab-btn { padding: 10px 14px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-label">PRODUCT PLANNING MEETING</div>
+    <h1>2026 SS 수영복 상품기획 회의자료</h1>
+    <div class="header-sub">2025년 소매 실판매 데이터 기반 분석 + 26SS 기획 방향</div>
+    <div class="header-meta">
+      <span>2026. 04. 06</span>
+      <span>참석: 대표님 / 세미님 / 디자인팀</span>
+      <span>소매 중심 (도매 종료, 참고용만)</span>
+    </div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('overview')">종합 분석</button>
+    <button class="tab-btn" onclick="showTab('ranking')">제품별 순위</button>
+    <button class="tab-btn" onclick="showTab('color-size')">컬러 & 사이즈</button>
+    <button class="tab-btn" onclick="showTab('product-detail')">제품별 상세</button>
+    <button class="tab-btn" onclick="showTab('channel')">채널별 분석</button>
+    <button class="tab-btn" onclick="showTab('baby-plan')">26SS 베이비 기획</button>
+    <button class="tab-btn" onclick="showTab('planning')">기획 판단</button>
+    <button class="tab-btn" onclick="showTab('agenda')">회의 안건</button>
+  </div>
+
+  <!-- Tab 1: 종합 분석 -->
+  <div id="tab-overview" class="tab-panel active">
+    <div class="summary-box">
+      <p>
+        2025년 수영복 <strong>소매 총 32,369개</strong> 판매 (65개 제품).<br>
+        초코 1개 라인이 소매의 <strong>49%</strong>를 차지하는 극단적 쏠림.<br>
+        7월이 전 제품 피크. <strong>컬러: 베이지(35%) vs 핑크(32%) 양강</strong>, <strong>사이즈: 스윔햇 S(64%)</strong>.<br>
+        <span style="color:#92400e">도매는 종료. 이하 모든 판매 데이터는 소매 기준.</span>
+      </p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="label">소매 총 판매</div>
+        <div class="value">32,369</div>
+        <div class="sub">65개 제품</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">소매 추정매출</div>
+        <div class="value">7.1억</div>
+        <div class="sub">스윔햇+원피스 비중 높음</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">1위 초코 비중</div>
+        <div class="value">49%</div>
+        <div class="sub">16,002개 / 32,369개</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">피크 시즌</div>
+        <div class="value">7월</div>
+        <div class="sub">4~6월 빌드업</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>품목군별 판매 구조</h2>
+      <table>
+        <thead><tr><th>품목군</th><th class="text-right">판매수량</th><th class="text-right">비중</th><th>역할</th><th>핵심 인사이트</th></tr></thead>
+        <tbody>
+          <tr><td><strong>스윔햇</strong></td><td class="text-right">13,753</td><td class="text-right">42.5%</td><td>유입 트리거</td><td>단가 낮고 수량 압도적. 세트 구매의 시작점</td></tr>
+          <tr><td><strong>원피스수트</strong></td><td class="text-right">7,057</td><td class="text-right">21.8%</td><td>엔트리 상품</td><td>바닐라+딸기 투톱. 18M 사이즈 최다</td></tr>
+          <tr><td><strong>래쉬가드</strong></td><td class="text-right">4,690</td><td class="text-right">14.5%</td><td>고단가 메인</td><td>민트가 1위인 유일한 품목</td></tr>
+          <tr><td><strong>바디수트</strong></td><td class="text-right">4,413</td><td class="text-right">13.6%</td><td>프리미엄</td><td>바닐라 독주. 가장 높은 객단가</td></tr>
+          <tr><td><strong>플랩캡</strong></td><td class="text-right">1,430</td><td class="text-right">4.4%</td><td>부가 아이템</td><td>베이직/주스만 보유. 베이지/핑크</td></tr>
+          <tr><td><strong>가운</strong></td><td class="text-right">536</td><td class="text-right">1.7%</td><td>시즌 보조</td><td>곰곰가운 1위, 품절 상태</td></tr>
+          <tr><td><strong>주니어</strong></td><td class="text-right">490</td><td class="text-right">1.5%</td><td>연령 확장</td><td>키즈→주니어 전환 수요</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>라인별 소매 판매</h2>
+      <table>
+        <thead><tr><th>라인</th><th class="text-right">총 판매</th><th class="text-right">비중</th><th class="text-right">제품 수</th><th>강점</th><th class="text-center">판단</th></tr></thead>
+        <tbody>
+          <tr class="highlight-row"><td><strong>초코</strong></td><td class="text-right"><strong>16,002</strong></td><td class="text-right"><strong>49.4%</strong></td><td class="text-right">5</td><td>베이지/핑크/민트</td><td class="text-center"><span class="badge badge-hot">핵심 확장</span></td></tr>
+          <tr><td><strong>베이직</strong></td><td class="text-right">4,190</td><td class="text-right">12.9%</td><td class="text-right">7</td><td>베이지/핑크, 가장 다양한 품목</td><td class="text-center"><span class="badge badge-active">확장</span></td></tr>
+          <tr><td><strong>주스</strong></td><td class="text-right">3,334</td><td class="text-right">10.3%</td><td class="text-right">5</td><td>노랑/민트, 하반기 강세</td><td class="text-center"><span class="badge badge-active">확장</span></td></tr>
+          <tr><td><strong>모노</strong></td><td class="text-right">2,506</td><td class="text-right">7.7%</td><td class="text-right">4</td><td>핑크/베이지, 안정적</td><td class="text-center"><span class="badge badge-active">유지</span></td></tr>
+          <tr><td><strong>크리스</strong></td><td class="text-right">1,553</td><td class="text-right">4.8%</td><td class="text-right">5</td><td>레드, 11월 피크(크리스마스)</td><td class="text-center"><span class="badge badge-warn">겨울 한정</span></td></tr>
+          <tr><td><strong>에떼</strong></td><td class="text-right">1,429</td><td class="text-right">4.4%</td><td class="text-right">6</td><td>핑크/블루, 25.06 출시(7개월)</td><td class="text-center"><span class="badge badge-warn">검토</span></td></tr>
+          <tr><td><strong>샬롯+스윔햇</strong></td><td class="text-right">1,183+679</td><td class="text-right">5.7%</td><td class="text-right">4</td><td>핑크</td><td class="text-center"><span class="badge badge-active">보완</span></td></tr>
+          <tr><td><strong>이브</strong></td><td class="text-right">865</td><td class="text-right">2.7%</td><td class="text-right">6</td><td>레드, 11월 피크</td><td class="text-center"><span class="badge badge-warn">겨울 한정</span></td></tr>
+          <tr><td><strong>브레드</strong></td><td class="text-right">605</td><td class="text-right">1.9%</td><td class="text-right">7</td><td>브라운/베이지, 25.06 출시</td><td class="text-center"><span class="badge badge-warn">검토</span></td></tr>
+          <tr><td><strong>루루</strong></td><td class="text-right">273</td><td class="text-right">0.8%</td><td class="text-right">6</td><td>브라운, 전 품목 부진</td><td class="text-center"><span class="badge badge-legacy">정리</span></td></tr>
+        </tbody>
+      </table>
+      <p class="sub-note">* 가운(곰곰/베이직/베일리/이태리) 별도: 합계 536개. 곰곰 가운 1위(270개, 품절)</p>
+    </div>
+
+    <div class="section">
+      <h2>고객 목소리</h2>
+      <div class="voc-card">
+        <span class="voc-type voc-positive">긍정</span>
+        <div class="quote">"아기 수영복 입히니까 너무 귀여워요오"</div>
+        <div class="meta">초코 원피스수트 — 2026.04.03</div>
+      </div>
+      <div class="voc-card">
+        <span class="voc-type voc-insight">인사이트</span>
+        <div class="quote">"쿠팡에서 수영복 샀는데 모자가 없어서 구매했네요"</div>
+        <div class="meta">초코 스윔햇 — 2026.04.04 / 피카부=수영복 인지도 부족</div>
+      </div>
+      <div class="voc-card">
+        <span class="voc-type voc-concern">구조적 이슈</span>
+        <div class="quote">통통한 아기 사이즈 피팅 어려움 반복 등장</div>
+        <div class="meta">체형별 사이즈 가이드 보강 필요</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 2: 제품별 순위 -->
+  <div id="tab-ranking" class="tab-panel">
+    <h2 style="margin-bottom:20px">2025 소매 판매 순위 (전체 65개)</h2>
+    <p class="sub-note" style="margin-bottom:12px">참고: 도매 수량은 과거 참고용. 앞으로는 소매 판매가 유일한 기준.</p>
+    <table id="ranking-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>상품명</th>
+          <th>라인</th>
+          <th>품목</th>
+          <th class="text-right">소매수량</th>
+          <th class="text-right">추정매출</th>
+          <th>피크월</th>
+          <th>대표컬러</th>
+          <th class="text-right">현재고</th>
+          <th class="text-right" style="color:#999;font-size:11px">도매(참고)</th>
+        </tr>
+      </thead>
+      <tbody id="ranking-body"></tbody>
+    </table>
+  </div>
+
+  <!-- Tab 3: 컬러 & 사이즈 -->
+  <div id="tab-color-size" class="tab-panel">
+    <div class="section">
+      <h2>소매 전체 컬러 판매 순위</h2>
+      <p class="sub-note" style="margin-bottom:8px">* 라인별 고유 컬러명을 표준 컬러로 통합 (바닐라/크림/진베이지→베이지, 딸기→핑크, 코코아/모카→브라운)</p>
+      <div class="color-bar">
+        <div style="width:34.9%; background:#d4c4a0;">베이지 11,295</div>
+        <div style="width:31.7%; background:#e898a8;">핑크 10,245</div>
+        <div style="width:13.7%; background:#8ecfc0;">민트 4,447</div>
+        <div style="width:4.7%; background:#e8c840;">노랑 1,533</div>
+        <div style="width:4.3%; background:#8b6e50;">브라운 1,378</div>
+        <div style="width:4.3%; background:#cc3333;">레드 1,376</div>
+        <div style="width:3.2%; background:#5aaa70; font-size:9px">그린</div>
+        <div style="width:3.2%; background:#5888b0; font-size:9px">기타</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>품목군별 인기 컬러 Top 3</h2>
+      <table>
+        <thead><tr><th>품목군</th><th>1위</th><th>2위</th><th>3위</th><th>시사점</th></tr></thead>
+        <tbody>
+          <tr><td><strong>스윔햇</strong></td><td>베이지(5,011) 36%</td><td>핑크(4,738) 35%</td><td>민트(1,730) 13%</td><td>베이지/핑크 양강, 거의 동률</td></tr>
+          <tr><td><strong>원피스수트</strong></td><td>베이지(2,860) 41%</td><td>핑크(2,609) 37%</td><td>민트(757) 11%</td><td>베이지 살짝 우위</td></tr>
+          <tr><td><strong>래쉬가드</strong></td><td>핑크(1,204) 26%</td><td>베이지(1,160) 25%</td><td><strong>민트(870) 19%</strong></td><td>핑크 1위, 민트 강세</td></tr>
+          <tr><td><strong>바디수트</strong></td><td>베이지(1,457) 33%</td><td>핑크(1,103) 25%</td><td>민트(846) 19%</td><td>베이지 > 핑크 > 민트</td></tr>
+          <tr><td><strong>플랩캡</strong></td><td>베이지(461) 32%</td><td>핑크(440) 31%</td><td>민트(167) 12%</td><td>베이지/핑크 양강</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>품목군별 사이즈 분포</h2>
+      <table>
+        <thead><tr><th>품목군</th><th>1위</th><th>2위</th><th>3위</th><th>시사점</th></tr></thead>
+        <tbody>
+          <tr><td><strong>스윔햇</strong></td><td><strong>S (8,793) — 64%</strong></td><td>M (3,554)</td><td>L (1,406)</td><td>S 압도적. L 재고 주의</td></tr>
+          <tr><td><strong>원피스수트</strong></td><td>18M (2,751)</td><td>12M (2,667)</td><td>06M (1,163)</td><td>12~18개월 메인</td></tr>
+          <tr><td><strong>바디수트</strong></td><td>18M (1,927)</td><td>12M (1,525)</td><td>06M (704)</td><td>18M > 12M</td></tr>
+          <tr><td><strong>래쉬가드</strong></td><td>S (1,008)</td><td>M (1,002)</td><td>L (785)</td><td>S~M 비슷, 고른 분포</td></tr>
+          <tr><td><strong>주니어</strong></td><td>JL (194)</td><td>JS (156)</td><td>JM (140)</td><td>JL 살짝 우위</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box">
+      <h4>컬러/사이즈 핵심 시사점</h4>
+      <ul>
+        <li><strong>베이지 35% vs 핑크 32% — 양강 구도.</strong> 어떤 라인이든 이 두 컬러가 기본</li>
+        <li><strong>민트가 전 품목 3위 (14%).</strong> 래쉬가드에서는 19%로 특히 강세</li>
+        <li><strong>베이지/핑크/민트 3색이면 전체의 80%를 커버.</strong> 신규 라인 컬러 최소 구성</li>
+        <li><strong>원피스/바디수트는 18M이 핵심.</strong> 12~18개월 아기가 메인 구매층</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>스윔햇 S 쏠림 분석 — 수영복 특유의 현상</h2>
+
+      <h3>스윔햇 vs 일반 보넷 S사이즈 비중 비교</h3>
+      <table>
+        <thead><tr><th>제품군</th><th class="text-right">S 비중</th><th class="text-right">M 비중</th><th class="text-right">기타</th><th>판단</th></tr></thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td><strong>스윔햇</strong></td>
+            <td class="text-right"><strong>63.9%</strong></td>
+            <td class="text-right">25.8%</td>
+            <td class="text-right">L 10.2%</td>
+            <td><span class="badge badge-hot">S 극단 쏠림</span></td>
+          </tr>
+          <tr>
+            <td><strong>일반 보넷/꼭지모자</strong></td>
+            <td class="text-right">32.2%</td>
+            <td class="text-right">20.1%</td>
+            <td class="text-right">FREE 12%, 기타</td>
+            <td>S/M 비교적 고른 분포</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>스윔햇의 S 비중(64%)은 일반 보넷(32%)의 <strong>정확히 2배</strong>. 이것은 수영복 특유의 현상.</p>
+
+      <h3>왜 스윔햇만 S가 64%인가?</h3>
+      <div class="info-box">
+        <h4>교차구매 데이터 분석 결과</h4>
+        <ul>
+          <li><strong>수영복 18M를 사면서 스윔햇은 S를 사는 비율: 68%</strong></li>
+          <li>수영복 12M를 사면서 스윔햇 S를 사는 비율: 72%</li>
+          <li>수영복의 핵심 구매층이 <strong>12~18개월 베이비</strong> → 이 월령의 머리둘레는 S 사이즈</li>
+          <li>일반 보넷은 사계절 구매 → 성장하면서 M도 사게 됨 → 분포가 고름</li>
+          <li>스윔햇은 <strong>여름 시즌 집중 구매</strong> → 아기가 아직 작은 시기에 한꺼번에 삼 → S 집중</li>
+        </ul>
+      </div>
+
+      <table>
+        <thead><tr><th>수영복 사이즈</th><th class="text-right">스윔햇 S 비율</th><th class="text-right">스윔햇 M 비율</th><th class="text-right">스윔햇 L 비율</th></tr></thead>
+        <tbody>
+          <tr><td>수영복 18M</td><td class="text-right"><strong>68%</strong></td><td class="text-right">10%</td><td class="text-right">2%</td></tr>
+          <tr><td>수영복 12M</td><td class="text-right"><strong>72%</strong></td><td class="text-right">9%</td><td class="text-right">2%</td></tr>
+          <tr><td>수영복 06M</td><td class="text-right"><strong>69%</strong></td><td class="text-right">15%</td><td class="text-right">3%</td></tr>
+        </tbody>
+      </table>
+      <p class="sub-note">* 같은 날 동일 채널 기준 교차구매 매칭. 사이즈 미표기(~20%) 제외 시 S 비율은 더 높아짐.</p>
+    </div>
+
+    <div class="section">
+      <h2>26SS 발주 사이즈 배분 추천</h2>
+
+      <div class="decision-box">
+        <h4>데이터 기반 발주 비율 가이드</h4>
+        <ul>
+          <li>스윔햇 S 판매 비중 64% → <strong>S를 M의 약 2배 이상</strong>으로 발주</li>
+          <li>원피스/바디수트는 18M과 12M이 비슷 → <strong>18M을 약간 많게</strong></li>
+        </ul>
+      </div>
+
+      <table>
+        <thead><tr><th>품목</th><th class="text-center">추천 발주 비율</th><th>근거</th></tr></thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td><strong>스윔햇</strong></td>
+            <td class="text-center"><strong>S 60% : M 25% : L 15%</strong></td>
+            <td>실판매 S 64% / M 26% / L 10%. L은 약간 여유</td>
+          </tr>
+          <tr>
+            <td><strong>원피스수트</strong></td>
+            <td class="text-center"><strong>18M 35% : 12M 35% : 06M 17% : 70 8% : 80 5%</strong></td>
+            <td>실판매 18M 39% / 12M 38% / 06M 16% / 70·80 7%</td>
+          </tr>
+          <tr>
+            <td><strong>바디수트</strong></td>
+            <td class="text-center"><strong>18M 40% : 12M 33% : 06M 17% : 70 5% : 80 5%</strong></td>
+            <td>실판매 18M 46% / 12M 37% / 06M 17%. 18M 중심</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="sub-note" style="margin-top:12px">
+        예시) 스윔햇 100장 발주 시: <strong>S 60장 / M 25장 / L 15장</strong><br>
+        예시) 원피스수트 100장 발주 시: <strong>18M 35장 / 12M 35장 / 06M 17장 / 70 8장 / 80 5장</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- Tab 4: 제품별 상세 (Interactive) -->
+  <div id="tab-product-detail" class="tab-panel">
+    <h2 style="margin-bottom:16px">제품별 컬러/사이즈 상세 분석</h2>
+    <select id="product-selector" class="product-select" onchange="showProductDetail()">
+      <option value="">제품을 선택하세요</option>
+    </select>
+
+    <div id="product-info" style="display:none">
+      <div class="stat-grid" id="product-stats"></div>
+
+      <h3>월별 판매 추이</h3>
+      <div class="month-chart" id="month-chart"></div>
+
+      <div class="detail-grid">
+        <div class="detail-card">
+          <h4>컬러별 판매</h4>
+          <div id="color-bars"></div>
+        </div>
+        <div class="detail-card">
+          <h4>사이즈별 판매</h4>
+          <div id="size-bars"></div>
+        </div>
+      </div>
+
+      <h3>옵션별 상세 (컬러 x 사이즈)</h3>
+      <table>
+        <thead><tr><th>컬러</th><th>사이즈</th><th class="text-right">연간 판매</th><th class="text-right">상반기</th><th class="text-right">하반기</th><th class="text-right">현재고</th><th class="text-right">추정매출</th></tr></thead>
+        <tbody id="option-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tab: 채널별 분석 -->
+  <div id="tab-channel" class="tab-panel">
+    <div class="section">
+      <h2>소매 채널 구성 — 쿠팡이 63%</h2>
+      <div class="decision-box">
+        <h4>주의: 엑셀 "소매 32,369개"는 전 소매 채널 합산</h4>
+        <ul>
+          <li>쿠팡 로켓배송이 소매의 <strong>약 63%</strong>, 자사몰(카페24)이 <strong>약 36%</strong></li>
+          <li>스마트스토어/롯데ON/카카오는 합산 ~1%</li>
+          <li>수영복 소매의 2/3가 쿠팡 → <strong>쿠팡에서 잘 팔리는 제품과 자사몰에서 잘 팔리는 제품이 다를 수 있음</strong></li>
+        </ul>
+      </div>
+
+      <p class="sub-note">* 채널별 비중은 전체 소매 기준 (product-dashboard 데이터). 수영복만의 채널 비중은 별도 분리 필요.</p>
+
+      <table>
+        <thead><tr><th>채널</th><th class="text-right">전체 소매 수량</th><th class="text-right">비중</th><th>특징</th></tr></thead>
+        <tbody>
+          <tr class="highlight-row"><td><strong>쿠팡 로켓배송</strong></td><td class="text-right"><strong>25,363</strong></td><td class="text-right"><strong>63.3%</strong></td><td>납품 형태. 재고 관리 필요, 객단가 주도권 제한</td></tr>
+          <tr class="highlight-row"><td><strong>카페24 (자사몰)</strong></td><td class="text-right"><strong>14,381</strong></td><td class="text-right"><strong>35.9%</strong></td><td>브랜드 경험. 세트 구매, 충성 고객</td></tr>
+          <tr><td>스마트스토어</td><td class="text-right">소량</td><td class="text-right">~0.5%</td><td>보조 채널</td></tr>
+          <tr><td>롯데ON / 카카오</td><td class="text-right">소량</td><td class="text-right">~0.3%</td><td>보조 채널</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>채널 전략 시사점</h2>
+      <div class="info-box">
+        <h4>자사몰 중심 전략과의 관계</h4>
+        <ul>
+          <li><strong>쿠팡 63% 의존</strong> — 수영복은 쿠팡 비중이 높지만, 자사몰 중심 전략 방향상 자사몰 비중 확대가 필요</li>
+          <li><strong>초코 스윔햇이 쿠팡에서 강함:</strong> 낮은 단가(10,200원) + 검색 유입 = 쿠팡에서 잘 팔리는 구조</li>
+          <li><strong>자사몰에서는 세트 구매 유도가 핵심:</strong> 스윔햇 단품 → 수영복 세트로 전환</li>
+          <li>신규 베이비라인은 <strong>자사몰 우선 오픈</strong> → 브랜드 경험 강화 → 이후 쿠팡 납품 검토</li>
+          <li>부산 팝업(6월)에서 수영복 풀라인 노출 → 자사몰 유입 기대</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: 26SS 베이비 기획 -->
+  <div id="tab-baby-plan" class="tab-panel">
+    <div class="summary-box">
+      <p>
+        수영복 베이비 제품(원피스수트+바디수트)은 2025년 <strong>11,470개</strong> 판매 (소매의 35.4%).<br>
+        검증된 품목군에 집중하여 26SS 신규 베이비라인 1개를 추가하는 방향.<br>
+        <strong>부산 팝업(6월)</strong>에서 첫 선을 보이고, 자사몰 우선 오픈.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>베이비 제품 현황 (검증된 품목군)</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="label">원피스수트</div>
+          <div class="value">7,057</div>
+          <div class="sub">8개 제품 / 평균 882개</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">바디수트</div>
+          <div class="value">4,413</div>
+          <div class="sub">10개 제품 / 평균 441개</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">베이비 합계</div>
+          <div class="value">11,470</div>
+          <div class="sub">전체 소매의 35.4%</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">핵심 사이즈</div>
+          <div class="value">18M</div>
+          <div class="sub">12M, 06M 순</div>
+        </div>
+      </div>
+
+      <h3>베이비 판매 Top 10 (원피스수트 + 바디수트)</h3>
+      <table>
+        <thead>
+          <tr><th>#</th><th>상품명</th><th>라인</th><th>품목</th><th class="text-right">판매</th><th class="text-right">매출</th><th>대표컬러</th><th>대표사이즈</th><th class="text-right">재고</th></tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row"><td>1</td><td><strong>초코 원피스수트</strong></td><td>초코</td><td>원피스수트</td><td class="text-right"><strong>5,113</strong></td><td class="text-right">1.13억</td><td>바닐라</td><td>18M</td><td class="text-right">1,211</td></tr>
+          <tr class="highlight-row"><td>2</td><td><strong>초코 바디수트</strong></td><td>초코</td><td>바디수트</td><td class="text-right"><strong>2,234</strong></td><td class="text-right">8,355만</td><td>바닐라</td><td>18M</td><td class="text-right">1,280</td></tr>
+          <tr><td>3</td><td>주스 바디수트</td><td>주스</td><td>바디수트</td><td class="text-right">690</td><td class="text-right">2,463만</td><td>민트</td><td>18M</td><td class="text-right">716</td></tr>
+          <tr><td>4</td><td>모노 원피스수트</td><td>모노</td><td>원피스수트</td><td class="text-right">578</td><td class="text-right">1,179만</td><td>핑크</td><td>18M</td><td class="text-right">1,279</td></tr>
+          <tr><td>5</td><td>베이직 원피스수트</td><td>베이직</td><td>원피스수트</td><td class="text-right">379</td><td class="text-right">902만</td><td>핑크</td><td>12M</td><td class="text-right">1,060</td></tr>
+          <tr><td>6</td><td>에떼 원피스수트</td><td>에떼</td><td>원피스수트</td><td class="text-right">365</td><td class="text-right">949만</td><td>핑크</td><td>80</td><td class="text-right">111</td></tr>
+          <tr><td>7</td><td>모노 바디수트</td><td>모노</td><td>바디수트</td><td class="text-right">327</td><td class="text-right">1,112만</td><td>베이지</td><td>18M</td><td class="text-right">1,413</td></tr>
+          <tr><td>8</td><td>베이직 바디수트</td><td>베이직</td><td>바디수트</td><td class="text-right">264</td><td class="text-right">1,032만</td><td>베이지</td><td>18M</td><td class="text-right">1,116</td></tr>
+          <tr><td>9</td><td>샬롯 바디수트</td><td>샬롯</td><td>바디수트</td><td class="text-right">249</td><td class="text-right">804만</td><td>핑크</td><td>12M</td><td class="text-right">1,240</td></tr>
+          <tr><td>10</td><td>크리스 원피스수트</td><td>크리스</td><td>원피스수트</td><td class="text-right">276</td><td class="text-right">657만</td><td>레드</td><td>12M</td><td class="text-right">251</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box">
+        <h4>베이비 제품 핵심 패턴</h4>
+        <ul>
+          <li><strong>원피스수트 > 바디수트:</strong> 원피스수트가 제품당 평균 2배 잘 팔림 (882 vs 441)</li>
+          <li><strong>18M이 핵심 사이즈:</strong> 원피스/바디수트 모두 18M 1위. 12~18개월 아기가 메인</li>
+          <li><strong>성공 컬러 패턴:</strong> 베이지계(35%) / 핑크계(32%) / 민트(14%) — 3색이면 80% 커버</li>
+          <li><strong>원피스수트가 엔트리 상품:</strong> 2만원대 진입 → 바디수트(3만원대)로 업셀</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>에떼/브레드 출시 당시 분석 (Cafe24 API 실데이터)</h2>
+
+      <p>25년 6월 5일 인스타 커밍순 시작, 15개 피드 연속 (모델컷, 조회 1.3~2.3만). 6월 24일 비치백 증정 행사.</p>
+
+      <h3>자사몰 주차별 수영복 판매 (2025년 6월)</h3>
+      <table>
+        <thead><tr><th>기간</th><th>이벤트</th><th class="text-right">수영복 합계</th><th class="text-right">초코</th><th class="text-right">에떼</th><th class="text-right">브레드</th><th class="text-right">기타</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>6/1~8</td><td>커밍순 직후</td>
+            <td class="text-right">32</td><td class="text-right">20</td>
+            <td class="text-right"><strong>0</strong></td><td class="text-right">0</td><td class="text-right">12</td>
+          </tr>
+          <tr>
+            <td>6/9~15</td><td>에떼 피드 연속 게시</td>
+            <td class="text-right">43</td><td class="text-right">19</td>
+            <td class="text-right"><strong>7</strong></td><td class="text-right">0</td><td class="text-right">17</td>
+          </tr>
+          <tr class="highlight-row">
+            <td>6/16~23</td><td>판매 빌드업</td>
+            <td class="text-right">80</td><td class="text-right">31</td>
+            <td class="text-right"><strong>24</strong></td><td class="text-right">3</td><td class="text-right">22</td>
+          </tr>
+          <tr class="highlight-row">
+            <td>6/24~30</td><td><strong>비치백 증정 행사</strong></td>
+            <td class="text-right">88</td><td class="text-right"><strong>45</strong></td>
+            <td class="text-right">20</td><td class="text-right">8</td><td class="text-right">15</td>
+          </tr>
+          <tr style="font-weight:700; border-top:2px solid #ccc">
+            <td>6월 합계</td><td></td>
+            <td class="text-right">243</td><td class="text-right">115 (47%)</td>
+            <td class="text-right">51 (21%)</td><td class="text-right">11 (5%)</td><td class="text-right">66 (27%)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>에떼 제품별 6월 자사몰 판매</h3>
+      <table>
+        <thead><tr><th>제품</th><th class="text-right">6/9~15</th><th class="text-right">6/16~23</th><th class="text-right">6/24~30</th><th class="text-right">6월 합계</th></tr></thead>
+        <tbody>
+          <tr><td>키즈 래쉬가드</td><td class="text-right">3</td><td class="text-right">6</td><td class="text-right">5</td><td class="text-right">14</td></tr>
+          <tr><td>원피스수트</td><td class="text-right">0</td><td class="text-right">5</td><td class="text-right">3</td><td class="text-right">8</td></tr>
+          <tr><td>리본 스윔햇</td><td class="text-right">1</td><td class="text-right">4</td><td class="text-right">4</td><td class="text-right">9</td></tr>
+          <tr><td>스윔햇</td><td class="text-right">1</td><td class="text-right">6</td><td class="text-right">3</td><td class="text-right">10</td></tr>
+          <tr><td>바디수트</td><td class="text-right">2</td><td class="text-right">3</td><td class="text-right">5</td><td class="text-right">10</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box">
+        <h4>출시 당시 분석 결과</h4>
+        <ul>
+          <li><strong>에떼는 출시 당시에도 판매가 있었음.</strong> 6월 자사몰 51개 (수영복의 21%)</li>
+          <li>인스타 15개 피드 연속 + 모델컷 → 조회수 1.3~2.3만 → <strong>6/16~23주 24개로 급성장</strong></li>
+          <li>그러나 <strong>비치백 행사(6/24~) 수혜는 초코에 집중</strong> — 초코 +45% vs 에떼 -17%</li>
+          <li>행사가 "수영복 구매" 조건이라 <strong>이미 인지도 있는 초코로 몰린 것</strong></li>
+          <li>브레드는 6월 전체 11개 — 에떼(51)의 1/5 수준. 브라운 컬러 한계 가능성</li>
+          <li><strong>7월 이후 에떼 판매 급감</strong> — 콘텐츠가 6월에 집중되고 이후 끊김</li>
+        </ul>
+      </div>
+
+      <div class="decision-box">
+        <h4>에떼/브레드 핵심 교훈 (26SS 신규 라인 참고)</h4>
+        <ul>
+          <li>인스타 피드 15개 연속은 <strong>초기 반응을 만들어냈음</strong> (0→24개/주 성장)</li>
+          <li>하지만 <strong>6월 이후 콘텐츠가 끊기면서 판매도 끊김</strong> — 7월 피크를 놓침</li>
+          <li>프로모션(비치백)은 <strong>인지도 높은 제품에 유리</strong> — 신규 라인은 별도 노출 필요</li>
+          <li>브레드는 에떼의 1/5 → <strong>베이지/브라운 vs 핑크/블루 컬러 차이가 판매에 영향</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>26SS 신규 베이비라인 기획안</h2>
+
+      <h3>기본 방향: 검증된 품목 3종 세트</h3>
+      <table>
+        <thead><tr><th style="width:22%">항목</th><th>내용</th><th>근거</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>핵심 구성</strong></td>
+            <td>원피스수트 + 바디수트 + 스윔햇 (3종)</td>
+            <td>이 3품목이 베이비 매출의 95%+ 차지</td>
+          </tr>
+          <tr>
+            <td><strong>타깃 사이즈</strong></td>
+            <td>06M / 12M / 18M (+ 70, 80 옵션)</td>
+            <td>18M이 핵심. 06M~18M이 전체의 95%</td>
+          </tr>
+          <tr>
+            <td><strong>컬러 제안</strong></td>
+            <td>베이지 + 핑크 + 민트 (3색 기본) + 포인트 1색 가능</td>
+            <td>3색이면 판매의 80% 커버. 디자인팀 제안으로 포인트 컬러 추가</td>
+          </tr>
+          <tr>
+            <td><strong>가격대</strong></td>
+            <td>원피스 22,000~26,000 / 바디 35,000~39,000 / 햇 10,000~18,000</td>
+            <td>기존 라인 가격대 유지</td>
+          </tr>
+          <tr>
+            <td><strong>오픈 채널</strong></td>
+            <td>자사몰 우선 → 부산 팝업 → 이후 쿠팡 검토</td>
+            <td>자사몰 비중 확대 전략과 일치</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>포함하지 않는 것 (검증 후 확장)</h3>
+      <table>
+        <thead><tr><th>품목</th><th>사유</th></tr></thead>
+        <tbody>
+          <tr><td>래쉬가드</td><td>키즈/주니어 타깃. 베이비에게는 원피스/바디수트가 대안</td></tr>
+          <tr><td>플랩캡</td><td>베이직/주스만 보유. 별도 검증 후</td></tr>
+          <tr><td>스윔가운</td><td>현재 536개/년 (전체 1.7%). 곰곰가운 품절이지만, 신규 라인과 동시 진행보다는 곰곰가운 리오더가 우선</td></tr>
+          <tr><td>주니어 래쉬가드</td><td>베이비와 다른 연령대. 별도 기획</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>스윔가운 검토</h2>
+
+      <table>
+        <thead><tr><th>가운</th><th class="text-right">2025 소매</th><th class="text-right">현재고</th><th>상태</th><th>판단</th></tr></thead>
+        <tbody>
+          <tr class="highlight-row"><td><strong>곰곰가운</strong></td><td class="text-right">270</td><td class="text-right"><strong>0</strong></td><td><span class="badge badge-hot">품절</span></td><td>리오더 우선 검토</td></tr>
+          <tr><td>베이직가운</td><td class="text-right">98</td><td class="text-right">401</td><td><span class="badge badge-active">재고 있음</span></td><td>유지</td></tr>
+          <tr><td>베일리가운</td><td class="text-right">96</td><td class="text-right">193</td><td><span class="badge badge-active">재고 있음</span></td><td>유지</td></tr>
+          <tr><td>이태리가운</td><td class="text-right">15</td><td class="text-right">354</td><td><span class="badge badge-legacy">과잉재고</span></td><td>정리 검토</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box">
+        <h4>스윔가운 결론</h4>
+        <ul>
+          <li>가운은 전체 1.7%로 작은 카테고리. 신규 라인에 가운을 포함시키기보다 <strong>곰곰가운 리오더</strong>가 현실적</li>
+          <li>부산 팝업에서 가운 수요 체크 후, 올해 하반기에 신규 가운 여부 판단해도 늦지 않음</li>
+          <li>콘텐츠로 "수영복 + 곰곰가운" 세트 촬영하면 가운의 존재를 알릴 수 있음</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>부산 팝업 연계 (6월)</h2>
+      <div class="info-box">
+        <h4>팝업 × 수영복 시너지</h4>
+        <ul>
+          <li><strong>6월 = 수영 시즌 빌드업 마지막 달, 7월 피크 직전</strong></li>
+          <li>대구 팝업(3월) 매출 1.41억 — 부산은 여름이라 수영복 비중 더 높을 것</li>
+          <li>팝업에서 26SS 신규 베이비라인 <strong>첫 공개</strong> → 자사몰 사전 오픈과 연계</li>
+          <li>초코 스윔 풀라인 + 신규 라인 나란히 디스플레이 → "피카부 = 수영복" 인식</li>
+          <li>팝업 전용 세트(수영복 + 햇 + 가운) 구성 → 객단가 극대화</li>
+          <li>현장 사진/영상 = 최고의 인스타 콘텐츠 소스</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="section">
+      <h2>이브/크리스/루루 포지셔닝</h2>
+      <div class="info-box">
+        <h4>확정 방향</h4>
+        <ul>
+          <li><strong>이브/크리스:</strong> 크리스마스 겨냥 겨울 한정 라인으로 포지셔닝. 11월 피크 데이터가 이를 뒷받침</li>
+          <li><strong>루루:</strong> 전 품목 소매 35~80개. 정리 검토 (브라운 컬러 = 수영복과 부조화)</li>
+          <li>여름 수영복은 초코/베이직/주스/모노 + 26SS 신규 베이비로 집중</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 5: 기획 판단 -->
+  <div id="tab-planning" class="tab-panel">
+    <div class="section">
+      <h2>기획 논의 포인트</h2>
+
+      <h3>A. 확인된 것 (데이터 사실)</h3>
+      <div class="info-box">
+        <h4></h4>
+        <ul>
+          <li>초코 1개 라인이 소매의 절반</li>
+          <li>베이지(35%) vs 핑크(32%) 양강 구도. 민트(14%) 3위 안정</li>
+          <li>래쉬가드에서는 핑크가 1위, 민트가 19%로 특히 강세</li>
+          <li>7월 피크, 4~6월 빌드업</li>
+          <li>스윔햇이 유입 트리거 — 전체의 42.5%를 차지</li>
+          <li>에떼/브레드는 출시 7개월, 인스타 노출이 부재했을 가능성</li>
+          <li>63개 SKU 중 33개가 축소/교체 대상 → 라인 정리 필요</li>
+        </ul>
+      </div>
+
+      <h3>B. 세미님과 논의할 사항</h3>
+      <div class="decision-box">
+        <h4></h4>
+        <ul>
+          <li>에떼/브레드 7개월 성적 — 시간이 더 필요한 건지, 구조적 문제인지</li>
+          <li>루루 라인 정리 여부 — 전 제품 소매 35~80개, 브라운 컬러 한계</li>
+          <li>이브/크리스 = 크리스마스 전용 포지셔닝 or 정리</li>
+          <li>곰곰가운 품절 — 리오더 여부</li>
+        </ul>
+      </div>
+
+      <h3>C. 대표님 컨펌 필요</h3>
+      <div class="confirm-box">
+        <h4></h4>
+        <ul>
+          <li><strong>라인 축소:</strong> 현 11개 → 핵심 4~5개(초코/베이직/주스/모노 + 1)로 집중할지</li>
+          <li><strong>26SS 신규 베이비라인:</strong> 검증된 3종(원피스+바디+햇)으로 신규 1개 라인 추가 승인</li>
+          <li><strong>컬러 방향:</strong> 베이지/핑크/민트 3색 기본 + 26SS 포인트 컬러 (디자인팀 제안)</li>
+          <li><strong>부산 팝업(6월) 수영복 전시 규모:</strong> 신규 라인 첫 공개 장소로 활용할지</li>
+          <li><strong>곰곰가운 리오더:</strong> 270개/년 판매인데 품절 — 팝업 전 입고 가능한지</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>기획 방향 추천</h2>
+      <h3>초코 강화 + 신규 베이비 + 라인 정리</h3>
+      <table>
+        <thead><tr><th style="width:25%">항목</th><th>내용</th></tr></thead>
+        <tbody>
+          <tr><td><strong>핵심 유지</strong></td><td>초코 / 베이직 / 주스 / 모노 (4개 = 소매 80% 커버)</td></tr>
+          <tr><td><strong>신규 베이비라인</strong></td><td>원피스수트 + 바디수트 + 스윔햇 3종. 검증된 형태만</td></tr>
+          <tr><td><strong>컬러</strong></td><td>베이지/핑크/민트 3색 기본 (80% 커버) + 포인트 컬러 (디자인팀)</td></tr>
+          <tr><td><strong>라인 정리</strong></td><td>루루 종료, 이브/크리스 겨울 한정, 에떼/브레드 콘텐츠 보강 후 재판단</td></tr>
+          <tr><td><strong>부산 팝업</strong></td><td>6월 팝업에서 신규 라인 첫 공개 + 수영복 풀라인 전시</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tab 6: 회의 안건 -->
+  <div id="tab-agenda" class="tab-panel">
+    <h2 style="margin-bottom:24px">회의 안건 (권장 순서)</h2>
+    <div class="agenda-item">
+      <div class="agenda-num">1</div>
+      <div class="agenda-content">
+        <div class="agenda-title">2025 소매 판매 데이터 리뷰</div>
+        <div class="agenda-desc">Top 10, 초코 49% 쏠림, 품목군별 구조 — 종합 분석 탭 참고</div>
+        <div class="agenda-time">15분</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">2</div>
+      <div class="agenda-content">
+        <div class="agenda-title">컬러 & 사이즈 인사이트</div>
+        <div class="agenda-desc">바닐라 시그니처, 딸기 부상, 래쉬가드 민트 — 26SS 컬러 방향 결정</div>
+        <div class="agenda-time">10분</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">3</div>
+      <div class="agenda-content">
+        <div class="agenda-title">라인 정리 논의</div>
+        <div class="agenda-desc">루루/이브/크리스/에떼/브레드 — 유지/축소/종료 결정</div>
+        <div class="agenda-time">20분</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">4</div>
+      <div class="agenda-content">
+        <div class="agenda-title">26SS 신규 베이비라인 기획</div>
+        <div class="agenda-desc">원피스+바디+햇 3종 구성, 컬러/패턴 방향, 디자인팀 의견 수렴</div>
+        <div class="agenda-time">20분</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    피카부 상품기획 | 2026.04.06 | 소매 중심 분석 (도매 종료) | 데이터: 수영복_상품기획분석_2025_도매분리_입고반영.xlsx
+  </div>
+</div>
+
+<script>
+// === DATA ===
+const DATA = {"options":{"[P]스윔햇_모노":[{"c":"카키","s":"L","p":0,"st":13,"m":[0,1,2,0,1,2,0,2,1,0,0,0],"t":9,"r":0}],"곰곰가운":[{"c":"크림","s":"S","p":30600.0,"st":0,"m":[0,10,9,16,11,20,3,0,0,0,0,0],"t":69,"r":2111400.0},{"c":"크림","s":"M","p":30600.0,"st":0,"m":[3,2,3,7,2,18,18,0,0,0,0,1],"t":54,"r":1652400.0},{"c":"크림","s":"L","p":30600.0,"st":0,"m":[0,1,2,5,2,12,1,1,12,0,0,0],"t":36,"r":1101600.0},{"c":"브라운","s":"M","p":30600.0,"st":0,"m":[0,0,0,9,2,7,1,0,0,0,0,0],"t":19,"r":581400.0},{"c":"브라운","s":"L","p":30600.0,"st":0,"m":[0,0,9,0,0,7,0,1,0,0,0,0],"t":17,"r":520200.0},{"c":"진베이지","s":"S","p":30600.0,"st":0,"m":[0,3,0,4,1,5,1,1,0,0,0,0],"t":15,"r":459000.0},{"c":"브라운","s":"S","p":30600.0,"st":0,"m":[0,1,0,1,2,7,1,0,0,0,0,0],"t":12,"r":367200.0},{"c":"진베이지","s":"L","p":30600.0,"st":0,"m":[0,0,2,0,0,5,2,0,2,0,1,0],"t":12,"r":367200.0},{"c":"진베이지","s":"XL","p":30600.0,"st":0,"m":[0,1,0,0,0,4,6,0,0,0,1,0],"t":12,"r":367200.0},{"c":"진베이지","s":"M","p":30600.0,"st":0,"m":[0,1,0,0,2,6,1,0,0,0,0,0],"t":10,"r":306000.0},{"c":"크림","s":"XL","p":30600.0,"st":0,"m":[0,0,1,1,1,6,0,0,0,0,0,0],"t":9,"r":275400.0},{"c":"브라운","s":"XL","p":30600.0,"st":0,"m":[0,0,0,0,0,3,2,0,0,0,0,0],"t":5,"r":153000.0}],"곰곰가운_mom":[{"c":"크림","s":"FREE","p":35700.0,"st":1,"m":[0,0,0,0,0,5,2,1,0,0,0,0],"t":8,"r":285600.0},{"c":"브라운","s":"FREE","p":35700.0,"st":5,"m":[0,0,0,0,0,3,0,0,1,0,0,0],"t":4,"r":142800.0},{"c":"진베이지","s":"FREE","p":35700.0,"st":4,"m":[0,0,0,0,0,3,0,0,0,0,0,0],"t":3,"r":107100.0}],"루루_루돌프스윔햇":[{"c":"브라운","s":"S","p":18700.0,"st":4,"m":[0,0,1,1,1,4,2,0,5,0,9,2],"t":25,"r":467500.0},{"c":"브라운","s":"L","p":18700.0,"st":0,"m":[0,0,0,0,1,0,0,1,0,0,17,6],"t":25,"r":467500.0},{"c":"브라운","s":"M","p":18700.0,"st":0,"m":[0,3,1,1,3,3,0,0,2,0,4,2],"t":19,"r":355300.0}],"루루_바디수트":[{"c":"브라운","s":"18M","p":37400.0,"st":5,"m":[0,2,1,0,2,2,1,0,1,2,5,0],"t":16,"r":598400.0},{"c":"브라운","s":"12M","p":37400.0,"st":7,"m":[0,1,0,1,1,2,1,0,0,2,7,0],"t":15,"r":561000.0},{"c":"브라운","s":"06M","p":37400.0,"st":3,"m":[0,0,0,1,1,1,2,0,0,0,6,0],"t":11,"r":411400.0}],"루루_원피스수트":[{"c":"브라운","s":"18M","p":23800.0,"st":0,"m":[0,0,0,1,1,3,2,2,0,2,5,1],"t":17,"r":404600.0},{"c":"브라운","s":"06M","p":23800.0,"st":12,"m":[0,0,0,0,1,0,0,0,1,2,12,0],"t":16,"r":380800.0},{"c":"브라운","s":"12M","p":23800.0,"st":1,"m":[0,1,0,1,3,1,5,0,0,0,3,0],"t":14,"r":333200.0}],"루루_주니어":[{"c":"브라운","s":"JS","p":37400.0,"st":0,"m":[1,1,1,0,1,1,2,4,0,0,3,0],"t":14,"r":523600.0},{"c":"브라운","s":"JL","p":37400.0,"st":9,"m":[0,0,0,0,0,0,1,0,0,0,11,0],"t":12,"r":448800.0},{"c":"브라운","s":"JM","p":37400.0,"st":0,"m":[0,0,1,1,1,0,0,3,0,1,2,0],"t":9,"r":336600.0}],"루루래쉬가드":[{"c":"브라운","s":"M","p":34000.0,"st":0,"m":[0,0,1,1,2,4,7,0,0,1,5,2],"t":23,"r":782000.0},{"c":"브라운","s":"S","p":34000.0,"st":1,"m":[0,0,0,0,3,6,6,0,0,0,4,0],"t":19,"r":646000.0},{"c":"브라운","s":"XS","p":34000.0,"st":2,"m":[0,0,0,0,2,5,0,0,0,0,6,0],"t":13,"r":442000.0},{"c":"브라운","s":"L","p":34000.0,"st":2,"m":[0,0,1,0,3,1,2,1,0,0,5,0],"t":13,"r":442000.0},{"c":"브라운","s":"XL","p":34000.0,"st":0,"m":[0,0,2,0,3,1,6,0,0,0,0,0],"t":12,"r":408000.0}],"모노_래쉬가드":[{"c":"베이지","s":"L","p":34000.0,"st":0,"m":[0,4,1,7,6,6,16,14,1,0,1,0],"t":56,"r":1904000.0},{"c":"핑크","s":"L","p":34000.0,"st":9,"m":[0,4,2,4,3,5,15,5,0,3,5,1],"t":47,"r":1598000.0},{"c":"베이지","s":"M","p":34000.0,"st":18,"m":[1,1,2,8,4,4,17,3,0,0,0,6],"t":46,"r":1564000.0},{"c":"핑크","s":"M","p":34000.0,"st":14,"m":[0,1,0,3,3,6,16,2,0,0,0,8],"t":39,"r":1326000.0},{"c":"베이지","s":"S","p":34000.0,"st":36,"m":[0,1,4,4,2,5,16,5,0,0,0,1],"t":38,"r":1292000.0},{"c":"핑크","s":"XL","p":34000.0,"st":11,"m":[0,3,0,4,1,4,13,1,0,0,1,2],"t":29,"r":986000.0},{"c":"카키","s":"XL","p":34000.0,"st":16,"m":[0,1,3,2,1,4,13,0,1,0,1,3],"t":29,"r":986000.0},{"c":"베이지","s":"JS","p":34000.0,"st":4,"m":[0,1,3,0,2,2,6,2,1,0,2,6],"t":25,"r":850000.0},{"c":"카키","s":"M","p":34000.0,"st":15,"m":[0,1,0,2,4,8,4,4,1,0,0,1],"t":25,"r":850000.0},{"c":"핑크","s":"S","p":34000.0,"st":25,"m":[1,0,2,3,3,5,8,0,0,0,0,1],"t":23,"r":782000.0},{"c":"베이지","s":"XL","p":34000.0,"st":5,"m":[0,0,1,3,1,4,5,6,0,1,0,0],"t":21,"r":714000.0},{"c":"핑크","s":"JS","p":34000.0,"st":6,"m":[0,2,1,0,2,3,6,2,0,1,2,0],"t":19,"r":646000.0},{"c":"카키","s":"L","p":34000.0,"st":10,"m":[0,1,0,2,5,2,7,1,0,0,0,0],"t":18,"r":612000.0},{"c":"카키","s":"S","p":34000.0,"st":20,"m":[0,0,2,4,2,1,8,0,0,0,1,0],"t":18,"r":612000.0},{"c":"베이지","s":"XS","p":34000.0,"st":12,"m":[0,0,1,1,2,3,6,1,0,1,0,2],"t":17,"r":578000.0},{"c":"핑크","s":"XS","p":34000.0,"st":29,"m":[0,3,0,1,3,7,0,0,1,1,0,0],"t":16,"r":544000.0},{"c":"카키","s":"JS","p":34000.0,"st":16,"m":[0,0,0,0,1,1,9,0,1,0,1,2],"t":15,"r":510000.0},{"c":"베이지","s":"JM","p":34000.0,"st":0,"m":[0,1,1,0,1,2,4,4,0,1,0,0],"t":14,"r":476000.0},{"c":"핑크","s":"JM","p":34000.0,"st":9,"m":[0,0,0,0,1,2,6,1,1,1,0,1],"t":13,"r":442000.0},{"c":"베이지","s":"JL","p":34000.0,"st":5,"m":[0,2,0,1,1,0,4,2,0,0,0,1],"t":11,"r":374000.0},{"c":"카키","s":"XS","p":34000.0,"st":4,"m":[0,1,0,2,1,2,3,0,0,0,1,1],"t":11,"r":374000.0},{"c":"핑크","s":"JL","p":34000.0,"st":9,"m":[0,0,1,1,1,0,3,3,1,0,0,0],"t":10,"r":340000.0},{"c":"카키","s":"JL","p":34000.0,"st":0,"m":[0,0,0,2,3,0,1,1,0,0,0,0],"t":7,"r":238000.0},{"c":"카키","s":"JM","p":34000.0,"st":4,"m":[0,0,0,0,2,0,1,3,0,0,0,0],"t":6,"r":204000.0}],"모노_바디수트":[{"c":"베이지","s":"18M","p":34000.0,"st":25,"m":[0,8,7,22,4,11,19,7,2,1,0,0],"t":81,"r":2754000.0},{"c":"베이지","s":"12M","p":34000.0,"st":25,"m":[0,5,11,9,5,8,5,7,4,1,1,2],"t":58,"r":1972000.0},{"c":"핑크","s":"18M","p":34000.0,"st":14,"m":[1,6,6,2,7,4,9,2,1,0,1,2],"t":41,"r":1394000.0},{"c":"핑크","s":"12M","p":34000.0,"st":20,"m":[0,4,5,2,3,3,4,4,2,3,0,3],"t":33,"r":1122000.0},{"c":"카키","s":"12M","p":34000.0,"st":10,"m":[0,1,4,5,2,3,12,2,1,1,0,2],"t":33,"r":1122000.0},{"c":"카키","s":"18M","p":34000.0,"st":7,"m":[1,3,4,4,1,6,14,0,0,0,0,0],"t":33,"r":1122000.0},{"c":"핑크","s":"06M","p":34000.0,"st":18,"m":[0,0,4,2,3,3,2,1,4,1,1,2],"t":23,"r":782000.0},{"c":"베이지","s":"06M","p":34000.0,"st":13,"m":[0,1,4,2,2,3,1,2,0,0,0,1],"t":16,"r":544000.0},{"c":"카키","s":"06M","p":34000.0,"st":18,"m":[0,1,2,0,1,1,1,0,1,0,0,2],"t":9,"r":306000.0}],"모노_스윔햇":[{"c":"핑크","s":"S","p":10200.0,"st":9,"m":[3,33,39,26,44,46,62,22,20,7,8,19],"t":329,"r":3355800.0},{"c":"베이지","s":"S","p":10200.0,"st":7,"m":[1,30,39,45,18,57,48,21,10,3,3,8],"t":283,"r":2886600.0},{"c":"카키","s":"S","p":10200.0,"st":51,"m":[1,15,14,10,13,11,27,6,5,2,3,3],"t":110,"r":1122000.0},{"c":"베이지","s":"M","p":10200.0,"st":13,"m":[0,20,11,11,8,10,29,7,2,0,0,6],"t":104,"r":1060800.0},{"c":"핑크","s":"M","p":10200.0,"st":10,"m":[0,10,8,4,14,15,25,5,4,1,3,8],"t":97,"r":989400.0},{"c":"베이지","s":"L","p":10200.0,"st":4,"m":[0,11,4,4,2,12,17,4,0,0,1,6],"t":61,"r":622200.0},{"c":"핑크","s":"L","p":10200.0,"st":29,"m":[0,2,2,4,2,6,13,6,0,1,0,3],"t":39,"r":397800.0},{"c":"카키","s":"M","p":10200.0,"st":17,"m":[0,8,6,3,2,3,1,0,0,0,0,1],"t":24,"r":244800.0},{"c":"카키","s":"L","p":10200.0,"st":49,"m":[0,0,0,0,0,0,1,0,0,0,0,0],"t":1,"r":10200.0}],"모노_원피스수트":[{"c":"핑크","s":"18M","p":20400.0,"st":10,"m":[1,21,11,19,21,22,29,19,4,0,0,4],"t":151,"r":3080400.0},{"c":"핑크","s":"12M","p":20400.0,"st":6,"m":[0,11,18,13,14,25,14,15,9,1,3,5],"t":128,"r":2611200.0},{"c":"베이지","s":"12M","p":20400.0,"st":20,"m":[0,13,15,5,4,11,8,9,0,0,0,0],"t":65,"r":1326000.0},{"c":"베이지","s":"18M","p":20400.0,"st":23,"m":[0,10,5,11,3,7,14,7,0,0,0,2],"t":59,"r":1203600.0},{"c":"핑크","s":"06M","p":20400.0,"st":13,"m":[1,6,13,3,5,6,10,4,7,1,2,0],"t":58,"r":1183200.0},{"c":"카키","s":"18M","p":20400.0,"st":19,"m":[0,3,6,1,6,8,10,3,0,2,1,2],"t":42,"r":856800.0},{"c":"베이지","s":"06M","p":20400.0,"st":30,"m":[0,2,12,2,1,4,5,5,2,0,0,0],"t":33,"r":673200.0},{"c":"카키","s":"12M","p":20400.0,"st":10,"m":[0,4,2,4,2,5,7,2,1,1,0,0],"t":28,"r":571200.0},{"c":"카키","s":"06M","p":20400.0,"st":18,"m":[0,3,3,0,3,1,1,2,1,0,0,0],"t":14,"r":285600.0}],"베이직_래쉬가드":[{"c":"베이지","s":"S","p":35700.0,"st":3,"m":[2,1,3,7,3,16,19,1,1,1,0,2],"t":56,"r":1999200.0},{"c":"베이지","s":"M","p":35700.0,"st":2,"m":[0,1,2,7,9,16,12,2,1,1,0,0],"t":51,"r":1820700.0},{"c":"핑크","s":"S","p":35700.0,"st":1,"m":[1,1,3,2,1,11,8,1,1,2,1,1],"t":33,"r":1178100.0},{"c":"베이지","s":"L","p":35700.0,"st":4,"m":[0,2,1,2,5,4,12,1,0,1,0,0],"t":28,"r":999600.0},{"c":"핑크","s":"L","p":35700.0,"st":13,"m":[0,1,1,5,3,8,5,0,0,0,1,0],"t":24,"r":856800.0},{"c":"베이지","s":"XS","p":35700.0,"st":4,"m":[0,3,1,1,2,8,5,1,0,0,0,0],"t":21,"r":749700.0},{"c":"코코아","s":"M","p":35700.0,"st":9,"m":[0,0,1,3,2,9,5,0,0,0,0,1],"t":21,"r":749700.0},{"c":"코코아","s":"S","p":35700.0,"st":12,"m":[0,1,0,2,2,9,4,1,0,0,0,1],"t":20,"r":714000.0},{"c":"핑크","s":"M","p":35700.0,"st":23,"m":[0,2,1,1,3,6,5,0,1,0,0,1],"t":20,"r":714000.0},{"c":"베이지","s":"XL","p":35700.0,"st":2,"m":[0,0,1,2,2,6,4,3,1,0,0,0],"t":19,"r":678300.0},{"c":"핑크","s":"XS","p":35700.0,"st":34,"m":[0,0,1,0,2,6,5,1,2,0,0,0],"t":17,"r":606900.0},{"c":"핑크","s":"XL","p":35700.0,"st":1,"m":[0,0,0,0,0,4,4,3,0,1,1,1],"t":14,"r":499800.0},{"c":"코코아","s":"L","p":35700.0,"st":12,"m":[0,0,2,2,2,7,1,0,0,0,0,0],"t":14,"r":499800.0},{"c":"코코아","s":"XL","p":35700.0,"st":0,"m":[0,0,0,0,2,4,3,1,1,0,0,0],"t":11,"r":392700.0},{"c":"코코아","s":"XS","p":35700.0,"st":10,"m":[0,0,0,0,0,8,0,0,0,0,0,0],"t":8,"r":285600.0}],"베이직_리본스윔햇":[{"c":"핑크","s":"S","p":17000.0,"st":12,"m":[1,10,13,19,19,26,55,10,4,1,3,4],"t":165,"r":2805000.0},{"c":"베이지","s":"S","p":17000.0,"st":10,"m":[0,6,5,11,13,23,45,8,3,3,1,1],"t":119,"r":2023000.0},{"c":"핑크","s":"M","p":17000.0,"st":22,"m":[0,8,3,10,13,22,42,9,0,0,3,2],"t":112,"r":1904000.0},{"c":"베이지","s":"M","p":17000.0,"st":23,"m":[0,1,4,10,9,13,63,6,2,0,0,0],"t":108,"r":1836000.0},{"c":"핑크","s":"L","p":17000.0,"st":25,"m":[0,3,2,5,9,11,29,5,0,0,1,1],"t":66,"r":1122000.0},{"c":"코코아","s":"S","p":17000.0,"st":12,"m":[0,2,1,3,8,14,13,4,1,0,0,0],"t":46,"r":782000.0},{"c":"코코아","s":"M","p":17000.0,"st":26,"m":[0,0,2,2,3,12,9,2,0,0,0,0],"t":30,"r":510000.0},{"c":"베이지","s":"L","p":17000.0,"st":38,"m":[0,0,0,2,1,9,13,0,0,0,0,1],"t":26,"r":442000.0},{"c":"코코아","s":"L","p":17000.0,"st":9,"m":[0,2,0,2,0,5,5,2,0,0,0,0],"t":16,"r":272000.0}],"베이직_바디수트(스윔)":[{"c":"베이지","s":"18M","p":39100.0,"st":12,"m":[5,5,2,11,5,16,12,4,0,3,1,0],"t":64,"r":2502400.0},{"c":"핑크","s":"18M","p":39100.0,"st":12,"m":[0,4,3,5,3,11,9,3,2,1,5,0],"t":46,"r":1798600.0},{"c":"베이지","s":"12M","p":39100.0,"st":24,"m":[1,3,3,6,7,12,5,0,2,0,0,0],"t":39,"r":1524900.0},{"c":"코코아","s":"18M","p":39100.0,"st":18,"m":[2,0,2,4,5,10,7,1,0,1,2,0],"t":34,"r":1329400.0},{"c":"핑크","s":"12M","p":39100.0,"st":16,"m":[1,1,3,4,1,5,1,1,0,0,1,2],"t":20,"r":782000.0},{"c":"핑크","s":"06M","p":39100.0,"st":4,"m":[0,0,3,0,2,5,3,4,2,0,0,0],"t":19,"r":742900.0},{"c":"베이지","s":"06M","p":39100.0,"st":7,"m":[0,2,3,3,1,4,2,0,0,1,0,0],"t":16,"r":625600.0},{"c":"코코아","s":"12M","p":39100.0,"st":28,"m":[0,0,1,1,1,5,1,2,1,1,0,0],"t":13,"r":508300.0},{"c":"코코아","s":"06M","p":39100.0,"st":13,"m":[3,0,2,0,0,6,1,0,1,0,0,0],"t":13,"r":508300.0}],"베이직_스윔햇":[{"c":"베이지","s":"S","p":13600.0,"st":0,"m":[6,17,28,40,40,57,111,9,19,6,1,9],"t":343,"r":4664800.0},{"c":"베이지","s":"M","p":13600.0,"st":11,"m":[27,17,30,44,19,30,78,7,25,0,0,23],"t":300,"r":4080000.0},{"c":"핑크","s":"S","p":13600.0,"st":0,"m":[13,26,15,20,27,19,49,15,29,4,0,16],"t":233,"r":3168800.0},{"c":"핑크","s":"M","p":13600.0,"st":0,"m":[18,8,13,25,8,30,62,7,11,0,0,0],"t":182,"r":2475200.0},{"c":"베이지","s":"L","p":13600.0,"st":5,"m":[17,8,9,12,15,16,38,2,12,0,0,1],"t":130,"r":1768000.0},{"c":"코코아","s":"S","p":13600.0,"st":0,"m":[18,5,10,12,6,16,19,12,22,1,1,1],"t":123,"r":1672800.0},{"c":"핑크","s":"L","p":13600.0,"st":13,"m":[3,9,9,6,17,18,36,1,13,0,0,0],"t":112,"r":1523200.0},{"c":"코코아","s":"M","p":13600.0,"st":12,"m":[2,4,4,11,11,14,13,9,5,0,1,0],"t":74,"r":1006400.0},{"c":"코코아","s":"L","p":13600.0,"st":13,"m":[4,5,6,0,3,12,6,3,0,0,0,1],"t":40,"r":544000.0}],"베이직_원피스수트(스윔)":[{"c":"핑크","s":"18M","p":23800.0,"st":27,"m":[1,5,3,10,13,15,10,9,1,2,1,3],"t":73,"r":1737400.0},{"c":"핑크","s":"12M","p":23800.0,"st":12,"m":[0,6,5,10,9,16,9,5,3,3,0,0],"t":66,"r":1570800.0},{"c":"베이지","s":"12M","p":23800.0,"st":4,"m":[0,2,3,7,6,16,10,5,2,2,0,2],"t":55,"r":1309000.0},{"c":"베이지","s":"18M","p":23800.0,"st":37,"m":[0,1,3,5,8,14,7,2,7,0,0,0],"t":47,"r":1118600.0},{"c":"코코아","s":"18M","p":23800.0,"st":6,"m":[0,2,2,2,9,12,7,2,0,0,0,0],"t":36,"r":856800.0},{"c":"코코아","s":"12M","p":23800.0,"st":9,"m":[0,1,0,5,6,12,5,6,0,0,0,0],"t":35,"r":833000.0},{"c":"핑크","s":"06M","p":23800.0,"st":10,"m":[0,4,5,1,1,9,6,4,0,0,0,0],"t":30,"r":714000.0},{"c":"베이지","s":"06M","p":23800.0,"st":15,"m":[0,1,0,3,6,10,4,0,2,0,0,0],"t":26,"r":618800.0},{"c":"코코아","s":"06M","p":23800.0,"st":9,"m":[0,0,0,2,3,5,1,0,0,0,0,0],"t":11,"r":261800.0}],"베이직_주니어":[{"c":"베이지","s":"JL","p":39100.0,"st":-1,"m":[0,1,1,2,1,6,0,1,0,0,0,1],"t":13,"r":508300.0},{"c":"베이지","s":"JM","p":39100.0,"st":4,"m":[0,1,1,1,0,6,3,0,0,0,0,0],"t":12,"r":469200.0},{"c":"베이지","s":"JS","p":39100.0,"st":0,"m":[0,0,0,2,0,4,5,0,1,0,0,0],"t":12,"r":469200.0},{"c":"코코아","s":"JL","p":39100.0,"st":1,"m":[0,0,0,1,0,3,3,2,1,0,0,1],"t":11,"r":430100.0},{"c":"코코아","s":"JS","p":39100.0,"st":6,"m":[0,1,0,0,0,3,4,0,0,0,0,0],"t":8,"r":312800.0},{"c":"핑크","s":"JS","p":39100.0,"st":0,"m":[0,0,0,0,0,4,4,0,0,0,0,0],"t":8,"r":312800.0},{"c":"핑크","s":"JL","p":39100.0,"st":-1,"m":[0,1,1,1,0,4,0,1,0,0,0,0],"t":8,"r":312800.0},{"c":"코코아","s":"JM","p":39100.0,"st":-2,"m":[0,0,2,0,1,3,1,0,0,0,0,0],"t":7,"r":273700.0},{"c":"핑크","s":"JM","p":39100.0,"st":0,"m":[0,0,0,0,0,3,2,0,0,0,0,1],"t":6,"r":234600.0}],"베이직_플랩캡":[{"c":"베이지","s":"M","p":18700.0,"st":1,"m":[3,16,6,25,6,32,73,17,1,1,0,1],"t":181,"r":3384700.0},{"c":"베이지","s":"S","p":18700.0,"st":12,"m":[1,4,30,11,9,27,68,17,6,0,1,0],"t":174,"r":3253800.0},{"c":"핑크","s":"S","p":18700.0,"st":33,"m":[2,6,6,10,10,22,38,3,4,2,0,0],"t":103,"r":1926100.0},{"c":"핑크","s":"M","p":18700.0,"st":37,"m":[0,3,3,9,6,16,37,9,0,0,1,1],"t":85,"r":1589500.0},{"c":"베이지","s":"L","p":18700.0,"st":45,"m":[0,0,3,6,5,13,33,2,1,0,0,1],"t":64,"r":1196800.0},{"c":"코코아","s":"S","p":18700.0,"st":46,"m":[0,0,2,2,7,12,24,3,0,0,0,0],"t":50,"r":935000.0},{"c":"핑크","s":"L","p":18700.0,"st":46,"m":[0,1,2,2,0,8,23,7,0,0,0,0],"t":43,"r":804100.0},{"c":"코코아","s":"L","p":18700.0,"st":31,"m":[0,1,2,2,2,9,14,5,0,0,0,0],"t":35,"r":654500.0},{"c":"코코아","s":"M","p":18700.0,"st":20,"m":[0,3,0,2,3,12,5,3,0,1,0,0],"t":29,"r":542300.0}],"베이직가운":[{"c":"코코아","s":"S","p":35700.0,"st":7,"m":[0,1,5,5,3,5,4,3,2,0,3,0],"t":31,"r":1106700.0},{"c":"베이지","s":"M","p":35700.0,"st":0,"m":[0,1,2,0,3,5,0,0,0,0,0,0],"t":11,"r":392700.0},{"c":"베이지","s":"S","p":35700.0,"st":0,"m":[0,4,0,1,0,5,0,0,0,0,0,0],"t":10,"r":357000.0},{"c":"베이지","s":"L","p":35700.0,"st":0,"m":[0,1,1,0,1,6,0,0,0,0,0,0],"t":9,"r":321300.0},{"c":"코코아","s":"M","p":35700.0,"st":35,"m":[0,0,1,0,2,5,0,0,1,0,0,0],"t":9,"r":321300.0},{"c":"먹색","s":"L","p":35700.0,"st":0,"m":[0,0,0,0,0,5,3,0,0,0,0,0],"t":8,"r":285600.0},{"c":"코코아","s":"L","p":35700.0,"st":0,"m":[1,0,1,0,1,5,0,0,0,0,0,0],"t":8,"r":285600.0},{"c":"먹색","s":"S","p":35700.0,"st":83,"m":[0,0,0,0,0,5,1,0,0,0,0,0],"t":6,"r":214200.0},{"c":"먹색","s":"M","p":35700.0,"st":16,"m":[0,0,0,0,1,5,0,0,0,0,0,0],"t":6,"r":214200.0}],"베이직가운_MOM":[{"c":"베이지","s":"FREE","p":39100.0,"st":0,"m":[0,0,0,0,0,4,2,0,0,0,0,1],"t":7,"r":273700.0},{"c":"먹색","s":"FREE","p":39100.0,"st":7,"m":[1,0,0,0,0,3,1,0,0,0,0,1],"t":6,"r":234600.0},{"c":"코코아","s":"FREE","p":39100.0,"st":17,"m":[0,0,0,0,0,3,0,1,0,0,0,1],"t":5,"r":195500.0}],"베일리가운":[{"c":"연베이지","s":"S","p":35700.0,"st":5,"m":[0,1,0,1,0,6,8,0,0,0,0,0],"t":16,"r":571200.0},{"c":"핑크","s":"S","p":35700.0,"st":0,"m":[0,1,2,2,1,6,3,0,0,0,0,1],"t":16,"r":571200.0},{"c":"핑크","s":"M","p":35700.0,"st":0,"m":[0,1,1,2,0,5,4,0,0,0,1,0],"t":14,"r":499800.0},{"c":"연베이지","s":"M","p":35700.0,"st":19,"m":[0,0,0,1,0,5,1,0,0,0,0,0],"t":7,"r":249900.0},{"c":"모카","s":"S","p":35700.0,"st":12,"m":[0,0,0,1,0,5,1,0,0,0,0,0],"t":7,"r":249900.0},{"c":"모카","s":"M","p":35700.0,"st":18,"m":[0,0,0,0,0,5,0,0,0,0,1,0],"t":6,"r":214200.0},{"c":"연베이지","s":"L","p":35700.0,"st":8,"m":[0,0,0,1,0,5,0,0,0,0,0,0],"t":6,"r":214200.0},{"c":"핑크","s":"L","p":35700.0,"st":1,"m":[0,0,0,0,1,5,0,0,0,0,0,0],"t":6,"r":214200.0},{"c":"모카","s":"L","p":35700.0,"st":3,"m":[0,0,0,0,0,5,0,0,0,0,0,0],"t":5,"r":178500.0},{"c":"핑크","s":"XL","p":35700.0,"st":3,"m":[0,0,1,0,0,3,0,0,0,0,1,0],"t":5,"r":178500.0},{"c":"모카","s":"XL","p":35700.0,"st":5,"m":[0,0,0,0,0,3,1,0,0,0,0,0],"t":4,"r":142800.0},{"c":"연베이지","s":"XL","p":35700.0,"st":4,"m":[0,0,0,0,0,4,0,0,0,0,0,0],"t":4,"r":142800.0}],"베일리가운_mom":[{"c":"연베이지","s":"FREE","p":40800.0,"st":0,"m":[1,0,0,1,0,4,3,1,0,0,1,0],"t":11,"r":448800.0},{"c":"핑크","s":"FREE","p":40800.0,"st":0,"m":[0,0,0,0,0,3,2,0,0,0,0,0],"t":5,"r":204000.0},{"c":"모카","s":"FREE","p":40800.0,"st":8,"m":[0,0,0,0,0,3,0,0,0,0,0,0],"t":3,"r":122400.0}],"브레드 리본 스윔햇":[{"c":"베이지","s":"S","p":18000.0,"st":3,"m":[0,0,0,0,0,10,11,2,0,0,0,1],"t":24,"r":432000.0},{"c":"브라운","s":"S","p":18000.0,"st":8,"m":[0,0,0,0,0,6,9,1,0,1,0,1],"t":18,"r":324000.0},{"c":"베이지","s":"M","p":18000.0,"st":1,"m":[0,0,0,0,0,6,3,1,0,0,0,0],"t":10,"r":180000.0},{"c":"브라운","s":"M","p":18000.0,"st":-1,"m":[0,0,0,0,0,6,1,2,1,0,0,0],"t":10,"r":180000.0},{"c":"베이지","s":"L","p":18000.0,"st":8,"m":[0,0,0,0,0,5,0,2,1,0,0,0],"t":8,"r":144000.0},{"c":"브라운","s":"L","p":18000.0,"st":6,"m":[0,0,0,0,0,5,1,0,0,0,0,0],"t":6,"r":108000.0}],"브레드 바디수트(스윔웨어)":[{"c":"베이지","s":"80","p":39000.0,"st":7,"m":[0,0,0,0,0,9,7,3,0,0,2,1],"t":22,"r":858000.0},{"c":"베이지","s":"70","p":39000.0,"st":14,"m":[0,0,0,0,0,6,4,0,3,0,0,1],"t":14,"r":546000.0},{"c":"브라운","s":"80","p":39000.0,"st":17,"m":[0,0,0,0,0,6,5,0,0,0,0,0],"t":11,"r":429000.0},{"c":"브라운","s":"70","p":39000.0,"st":22,"m":[0,0,0,0,0,5,2,0,1,1,0,0],"t":9,"r":351000.0},{"c":"베이지","s":"60","p":39000.0,"st":9,"m":[0,0,0,0,0,6,1,0,0,0,0,0],"t":7,"r":273000.0},{"c":"브라운","s":"60","p":39000.0,"st":11,"m":[0,0,0,0,0,6,0,0,0,0,0,0],"t":6,"r":234000.0}],"브레드 스윔햇":[{"c":"베이지","s":"S","p":13000.0,"st":38,"m":[0,0,0,0,0,14,4,4,4,0,3,2],"t":31,"r":403000.0},{"c":"브라운","s":"S","p":13000.0,"st":13,"m":[0,0,0,0,0,14,6,3,4,0,0,1],"t":28,"r":364000.0},{"c":"브라운","s":"M","p":13000.0,"st":20,"m":[0,0,0,0,0,10,10,5,1,0,0,0],"t":26,"r":338000.0},{"c":"베이지","s":"M","p":13000.0,"st":23,"m":[0,0,0,0,0,11,1,2,1,0,0,0],"t":15,"r":195000.0},{"c":"브라운","s":"L","p":13000.0,"st":33,"m":[0,0,0,0,0,6,1,1,0,0,0,0],"t":8,"r":104000.0},{"c":"베이지","s":"L","p":13000.0,"st":48,"m":[0,0,0,0,0,6,0,1,0,0,0,0],"t":7,"r":91000.0}],"브레드 원피스수트":[{"c":"베이지","s":"80","p":26000.0,"st":1,"m":[0,0,0,0,0,9,18,4,2,0,0,0],"t":33,"r":858000.0},{"c":"브라운","s":"80","p":26000.0,"st":5,"m":[0,0,0,0,0,7,11,5,2,0,0,0],"t":25,"r":650000.0},{"c":"베이지","s":"70","p":26000.0,"st":11,"m":[0,0,0,0,0,8,7,5,1,0,0,0],"t":21,"r":546000.0},{"c":"브라운","s":"70","p":26000.0,"st":20,"m":[0,0,0,0,0,5,3,2,1,0,0,2],"t":13,"r":338000.0},{"c":"베이지","s":"60","p":26000.0,"st":8,"m":[0,0,0,0,0,7,0,2,1,0,0,0],"t":10,"r":260000.0},{"c":"브라운","s":"60","p":26000.0,"st":7,"m":[0,0,0,0,0,6,0,1,2,0,0,0],"t":9,"r":234000.0}],"브레드 주니어 반팔래쉬가드":[{"c":"베이지","s":"130","p":42000.0,"st":1,"m":[0,0,0,0,0,8,0,1,0,0,0,0],"t":9,"r":378000.0},{"c":"브라운","s":"130","p":42000.0,"st":3,"m":[0,0,0,0,0,7,0,0,0,0,0,0],"t":7,"r":294000.0},{"c":"브라운","s":"140","p":42000.0,"st":5,"m":[0,0,0,0,0,5,1,0,0,0,0,0],"t":6,"r":252000.0},{"c":"베이지","s":"140","p":42000.0,"st":5,"m":[0,0,0,0,0,6,0,0,0,0,0,0],"t":6,"r":252000.0},{"c":"베이지","s":"150","p":42000.0,"st":5,"m":[0,0,0,0,0,6,0,0,0,0,0,0],"t":6,"r":252000.0},{"c":"브라운","s":"150","p":42000.0,"st":7,"m":[0,0,0,0,0,5,0,0,0,0,0,0],"t":5,"r":210000.0}],"브레드 키즈 반팔래쉬가드":[{"c":"브라운","s":"90","p":36000.0,"st":12,"m":[0,0,0,0,0,11,8,2,0,0,0,0],"t":21,"r":756000.0},{"c":"베이지","s":"90","p":36000.0,"st":12,"m":[0,0,0,0,0,10,5,2,0,1,0,0],"t":18,"r":648000.0},{"c":"브라운","s":"110","p":36000.0,"st":0,"m":[0,0,0,0,0,9,5,1,2,1,0,0],"t":18,"r":648000.0},{"c":"브라운","s":"100","p":36000.0,"st":17,"m":[0,0,0,0,0,12,2,3,0,0,0,0],"t":17,"r":612000.0},{"c":"베이지","s":"100","p":36000.0,"st":18,"m":[0,0,0,0,0,8,0,4,1,1,0,0],"t":14,"r":504000.0},{"c":"베이지","s":"120","p":36000.0,"st":9,"m":[0,0,0,0,0,7,2,1,1,1,0,0],"t":12,"r":432000.0},{"c":"베이지","s":"110","p":36000.0,"st":6,"m":[0,0,0,0,0,9,1,0,0,0,1,0],"t":11,"r":396000.0},{"c":"브라운","s":"120","p":36000.0,"st":11,"m":[0,0,0,0,0,9,2,0,0,0,0,0],"t":11,"r":396000.0}],"브레드 플랩캡":[{"c":"베이지","s":"S","p":20000.0,"st":3,"m":[0,0,0,0,0,7,7,4,2,0,0,0],"t":20,"r":400000.0},{"c":"베이지","s":"M","p":20000.0,"st":6,"m":[0,0,0,0,0,7,6,0,0,0,0,0],"t":13,"r":260000.0},{"c":"브라운","s":"M","p":20000.0,"st":8,"m":[0,0,0,0,0,6,4,2,0,0,0,0],"t":12,"r":240000.0},{"c":"브라운","s":"L","p":20000.0,"st":13,"m":[0,0,0,0,0,9,2,0,0,0,0,0],"t":11,"r":220000.0},{"c":"베이지","s":"L","p":20000.0,"st":12,"m":[0,0,0,0,0,8,0,0,0,1,0,0],"t":9,"r":180000.0},{"c":"브라운","s":"S","p":20000.0,"st":15,"m":[0,0,0,0,0,7,0,0,1,0,0,0],"t":8,"r":160000.0}],"샬롯_래쉬가드":[{"c":"핑크","s":"S","p":37400.0,"st":20,"m":[0,4,2,2,2,3,17,2,0,0,0,5],"t":37,"r":1383800.0},{"c":"노랑","s":"S","p":37400.0,"st":43,"m":[1,1,1,0,1,3,12,2,0,2,0,1],"t":24,"r":897600.0},{"c":"핑크","s":"XS","p":37400.0,"st":18,"m":[0,6,2,2,3,1,6,3,0,0,0,1],"t":24,"r":897600.0},{"c":"핑크","s":"L","p":37400.0,"st":6,"m":[0,1,3,3,3,1,4,1,0,0,0,2],"t":18,"r":673200.0},{"c":"민트","s":"S","p":37400.0,"st":51,"m":[1,2,1,1,2,0,8,1,1,0,0,1],"t":18,"r":673200.0},{"c":"핑크","s":"M","p":37400.0,"st":12,"m":[0,1,2,2,1,1,3,5,0,2,0,0],"t":17,"r":635800.0},{"c":"노랑","s":"XS","p":37400.0,"st":49,"m":[0,1,1,3,2,2,7,0,0,0,0,0],"t":16,"r":598400.0},{"c":"민트","s":"XS","p":37400.0,"st":40,"m":[1,0,1,1,2,1,6,0,0,0,0,1],"t":13,"r":486200.0},{"c":"노랑","s":"M","p":37400.0,"st":49,"m":[0,0,0,2,1,0,5,0,0,2,0,0],"t":10,"r":374000.0},{"c":"민트","s":"M","p":37400.0,"st":33,"m":[0,0,3,0,1,0,5,1,0,0,0,0],"t":10,"r":374000.0},{"c":"핑크","s":"XL","p":37400.0,"st":6,"m":[0,1,1,0,1,1,5,0,0,0,0,0],"t":9,"r":336600.0},{"c":"민트","s":"L","p":37400.0,"st":24,"m":[0,0,1,1,1,0,3,1,0,1,0,0],"t":8,"r":299200.0},{"c":"노랑","s":"L","p":37400.0,"st":21,"m":[0,1,2,0,1,2,0,0,0,0,0,1],"t":7,"r":261800.0},{"c":"민트","s":"XL","p":37400.0,"st":26,"m":[0,0,0,0,1,0,6,0,0,0,0,0],"t":7,"r":261800.0},{"c":"노랑","s":"XL","p":37400.0,"st":30,"m":[0,0,0,0,1,0,0,0,0,2,0,0],"t":3,"r":112200.0}],"샬롯_바디수트":[{"c":"노랑","s":"12M","p":32300.0,"st":-1,"m":[1,8,7,6,3,5,12,1,0,2,3,1],"t":49,"r":1582700.0},{"c":"핑크","s":"18M","p":32300.0,"st":4,"m":[1,12,6,4,6,1,4,8,2,0,0,1],"t":45,"r":1453500.0},{"c":"핑크","s":"12M","p":32300.0,"st":29,"m":[0,10,9,5,4,2,5,6,0,3,0,1],"t":45,"r":1453500.0},{"c":"노랑","s":"18M","p":32300.0,"st":16,"m":[0,6,3,2,1,2,10,1,0,3,0,2],"t":30,"r":969000.0},{"c":"민트","s":"12M","p":32300.0,"st":43,"m":[0,4,5,4,2,0,6,2,1,0,0,0],"t":24,"r":775200.0},{"c":"핑크","s":"06M","p":32300.0,"st":0,"m":[0,1,3,0,2,1,5,0,3,1,0,0],"t":16,"r":516800.0},{"c":"민트","s":"18M","p":32300.0,"st":27,"m":[0,0,0,2,2,0,4,6,0,1,0,0],"t":15,"r":484500.0},{"c":"민트","s":"06M","p":32300.0,"st":40,"m":[0,1,1,0,1,3,7,1,0,0,0,0],"t":14,"r":452200.0},{"c":"노랑","s":"06M","p":32300.0,"st":26,"m":[0,0,1,0,1,1,5,3,0,0,0,0],"t":11,"r":355300.0}],"샬롯_주니어":[{"c":"민트","s":"JS","p":40800.0,"st":4,"m":[0,0,0,0,1,0,7,0,0,0,0,0],"t":8,"r":326400.0},{"c":"노랑","s":"JL","p":40800.0,"st":0,"m":[0,0,0,0,1,0,6,0,0,0,0,0],"t":7,"r":285600.0},{"c":"민트","s":"JL","p":40800.0,"st":2,"m":[0,0,1,0,1,0,3,2,0,0,0,0],"t":7,"r":285600.0},{"c":"핑크","s":"JL","p":40800.0,"st":1,"m":[0,1,1,0,1,0,2,1,0,0,0,0],"t":6,"r":244800.0},{"c":"노랑","s":"JM","p":40800.0,"st":2,"m":[0,0,0,0,1,0,1,2,0,0,0,0],"t":4,"r":163200.0},{"c":"민트","s":"JM","p":40800.0,"st":8,"m":[0,0,0,0,2,0,0,0,0,2,0,0],"t":4,"r":163200.0},{"c":"핑크","s":"JM","p":40800.0,"st":0,"m":[0,0,1,0,1,0,1,0,0,0,0,1],"t":4,"r":163200.0},{"c":"노랑","s":"JS","p":40800.0,"st":0,"m":[0,0,0,0,1,0,1,0,0,0,0,0],"t":2,"r":81600.0},{"c":"핑크","s":"JS","p":40800.0,"st":5,"m":[0,0,0,0,0,0,1,0,0,0,0,0],"t":1,"r":40800.0}],"스윔햇_샬롯":[{"c":"핑크","s":"S","p":17000.0,"st":8,"m":[2,21,29,20,19,20,46,14,9,4,4,4],"t":192,"r":3264000.0},{"c":"핑크","s":"M","p":17000.0,"st":7,"m":[0,18,15,11,8,18,35,13,7,2,0,0],"t":127,"r":2159000.0},{"c":"노랑","s":"S","p":17000.0,"st":21,"m":[1,15,10,16,4,11,30,11,0,4,0,4],"t":106,"r":1802000.0},{"c":"핑크","s":"L","p":17000.0,"st":12,"m":[0,6,7,10,2,5,29,11,3,2,0,1],"t":76,"r":1292000.0},{"c":"민트","s":"S","p":17000.0,"st":11,"m":[1,7,4,11,5,8,28,7,1,0,1,0],"t":73,"r":1241000.0},{"c":"노랑","s":"M","p":17000.0,"st":32,"m":[1,7,2,8,1,4,14,3,0,1,0,1],"t":42,"r":714000.0},{"c":"민트","s":"M","p":17000.0,"st":49,"m":[0,1,4,3,3,2,10,1,3,0,1,0],"t":28,"r":476000.0},{"c":"노랑","s":"L","p":17000.0,"st":1,"m":[0,0,0,4,1,3,11,1,1,0,0,0],"t":21,"r":357000.0},{"c":"민트","s":"L","p":17000.0,"st":43,"m":[0,1,0,0,1,0,0,3,0,0,0,0],"t":5,"r":85000.0}],"에떼 리본 스윔햇":[{"c":"핑크","s":"S","p":18000.0,"st":0,"m":[0,0,0,0,0,37,49,28,16,4,8,6],"t":148,"r":2664000.0},{"c":"핑크","s":"M","p":18000.0,"st":1,"m":[0,0,0,0,0,30,17,5,4,3,1,2],"t":62,"r":1116000.0},{"c":"블루","s":"S","p":18000.0,"st":34,"m":[0,0,0,0,0,10,7,16,11,1,2,1],"t":48,"r":864000.0},{"c":"블루","s":"M","p":18000.0,"st":17,"m":[0,0,0,0,0,10,6,3,0,1,0,0],"t":20,"r":360000.0},{"c":"핑크","s":"L","p":18000.0,"st":20,"m":[0,0,0,0,0,6,6,2,1,0,0,0],"t":15,"r":270000.0},{"c":"블루","s":"L","p":18000.0,"st":32,"m":[0,0,0,0,0,6,0,0,0,0,0,0],"t":6,"r":108000.0}],"에떼 바디수트(스윔웨어)":[{"c":"블루","s":"80","p":39000.0,"st":12,"m":[0,0,0,0,0,15,12,9,6,3,4,4],"t":53,"r":2067000.0},{"c":"블루","s":"70","p":39000.0,"st":14,"m":[0,0,0,0,0,11,11,3,8,4,7,4],"t":48,"r":1872000.0},{"c":"핑크","s":"80","p":39000.0,"st":1,"m":[0,0,0,0,0,20,8,4,4,1,5,0],"t":42,"r":1638000.0},{"c":"핑크","s":"70","p":39000.0,"st":8,"m":[0,0,0,0,0,11,3,2,1,0,1,1],"t":19,"r":741000.0},{"c":"블루","s":"60","p":39000.0,"st":35,"m":[0,0,0,0,0,8,5,0,0,0,2,0],"t":15,"r":585000.0},{"c":"핑크","s":"60","p":39000.0,"st":24,"m":[0,0,0,0,0,8,0,1,1,0,1,0],"t":11,"r":429000.0}],"에떼 스윔햇":[{"c":"블루","s":"S","p":13000.0,"st":10,"m":[0,0,0,0,0,20,20,16,12,8,10,7],"t":93,"r":1209000.0},{"c":"핑크","s":"S","p":13000.0,"st":8,"m":[0,0,0,0,0,23,17,10,7,2,7,1],"t":67,"r":871000.0},{"c":"블루","s":"M","p":13000.0,"st":24,"m":[0,0,0,0,0,11,6,8,1,1,1,0],"t":28,"r":364000.0},{"c":"핑크","s":"M","p":13000.0,"st":12,"m":[0,0,0,0,0,15,6,0,1,0,3,0],"t":25,"r":325000.0},{"c":"블루","s":"L","p":13000.0,"st":29,"m":[0,0,0,0,0,5,1,1,0,0,0,0],"t":7,"r":91000.0},{"c":"핑크","s":"L","p":13000.0,"st":30,"m":[0,0,0,0,0,5,1,1,0,0,0,0],"t":7,"r":91000.0}],"에떼 원피스수트":[{"c":"핑크","s":"80","p":26000.0,"st":-1,"m":[0,0,0,0,0,41,63,19,6,3,2,3],"t":137,"r":3562000.0},{"c":"핑크","s":"70","p":26000.0,"st":2,"m":[0,0,0,0,0,35,22,13,12,4,5,3],"t":94,"r":2444000.0},{"c":"블루","s":"80","p":26000.0,"st":14,"m":[0,0,0,0,0,12,12,19,6,3,2,0],"t":54,"r":1404000.0},{"c":"블루","s":"70","p":26000.0,"st":5,"m":[0,0,0,0,0,12,8,9,5,1,1,2],"t":38,"r":988000.0},{"c":"핑크","s":"60","p":26000.0,"st":-3,"m":[0,0,0,0,0,15,4,3,3,0,0,2],"t":27,"r":702000.0},{"c":"블루","s":"60","p":26000.0,"st":0,"m":[0,0,0,0,0,8,1,1,3,1,1,0],"t":15,"r":390000.0}],"에떼 주니어 래쉬가드":[{"c":"블루","s":"130","p":45000.0,"st":5,"m":[0,0,0,0,0,6,0,2,0,0,1,2],"t":11,"r":495000.0},{"c":"핑크","s":"130","p":45000.0,"st":6,"m":[0,0,0,0,0,5,5,0,0,0,0,0],"t":10,"r":450000.0},{"c":"블루","s":"140","p":45000.0,"st":9,"m":[0,0,0,0,0,7,0,0,0,0,0,0],"t":7,"r":315000.0},{"c":"블루","s":"150","p":45000.0,"st":12,"m":[0,0,0,0,0,7,0,0,0,0,0,0],"t":7,"r":315000.0},{"c":"핑크","s":"140","p":45000.0,"st":8,"m":[0,0,0,0,0,5,0,0,0,0,0,1],"t":6,"r":270000.0},{"c":"핑크","s":"150","p":45000.0,"st":4,"m":[0,0,0,0,0,5,0,0,0,0,0,0],"t":5,"r":225000.0}],"에떼 키즈 래쉬가드":[{"c":"핑크","s":"100","p":38000.0,"st":0,"m":[0,0,0,0,0,16,19,2,0,0,1,3],"t":41,"r":1558000.0},{"c":"핑크","s":"90","p":38000.0,"st":-1,"m":[0,0,0,0,0,16,10,3,0,0,2,1],"t":32,"r":1216000.0},{"c":"블루","s":"90","p":38000.0,"st":-1,"m":[0,0,0,0,0,13,13,1,0,1,1,0],"t":29,"r":1102000.0},{"c":"블루","s":"100","p":38000.0,"st":8,"m":[0,0,0,0,0,10,3,4,1,0,2,1],"t":21,"r":798000.0},{"c":"핑크","s":"110","p":38000.0,"st":5,"m":[0,0,0,0,0,12,6,2,0,0,0,1],"t":21,"r":798000.0},{"c":"블루","s":"110","p":38000.0,"st":2,"m":[0,0,0,0,0,8,5,2,0,0,0,0],"t":15,"r":570000.0},{"c":"핑크","s":"120","p":38000.0,"st":5,"m":[0,0,0,0,0,9,1,1,0,0,0,0],"t":11,"r":418000.0},{"c":"블루","s":"120","p":38000.0,"st":6,"m":[0,0,0,0,0,10,1,0,0,0,0,0],"t":11,"r":418000.0}],"에떼 플랩캡":[{"c":"핑크","s":"M","p":20000.0,"st":5,"m":[0,0,0,0,0,13,13,4,0,0,0,2],"t":32,"r":640000.0},{"c":"블루","s":"M","p":20000.0,"st":0,"m":[0,0,0,0,0,17,7,1,1,0,1,1],"t":28,"r":560000.0},{"c":"블루","s":"S","p":20000.0,"st":0,"m":[0,0,0,0,0,11,5,1,1,0,0,0],"t":18,"r":360000.0},{"c":"핑크","s":"S","p":20000.0,"st":5,"m":[0,0,0,0,0,12,4,1,0,0,0,0],"t":17,"r":340000.0},{"c":"블루","s":"L","p":20000.0,"st":0,"m":[0,0,0,0,0,11,0,3,0,0,1,0],"t":15,"r":300000.0},{"c":"핑크","s":"L","p":20000.0,"st":2,"m":[0,0,0,0,0,8,4,0,0,0,0,1],"t":13,"r":260000.0}],"이브_래쉬가드":[{"c":"레드","s":"XS","p":32300.0,"st":33,"m":[0,0,0,0,1,1,3,1,1,0,34,0],"t":41,"r":1324300.0},{"c":"레드","s":"S","p":32300.0,"st":11,"m":[1,0,0,2,3,1,2,1,1,2,18,1],"t":32,"r":1033600.0},{"c":"그린","s":"L","p":32300.0,"st":5,"m":[1,1,0,1,1,4,2,0,0,0,13,9],"t":32,"r":1033600.0},{"c":"그린","s":"XL","p":32300.0,"st":0,"m":[0,0,0,0,1,0,3,1,0,1,8,8],"t":22,"r":710600.0},{"c":"그린","s":"XS","p":32300.0,"st":16,"m":[0,0,0,0,1,0,0,0,0,0,20,0],"t":21,"r":678300.0},{"c":"그린","s":"M","p":32300.0,"st":4,"m":[0,0,2,0,1,1,3,0,0,0,9,1],"t":17,"r":549100.0},{"c":"레드","s":"M","p":32300.0,"st":0,"m":[0,0,1,2,2,2,7,0,0,0,1,2],"t":17,"r":549100.0},{"c":"그린","s":"S","p":32300.0,"st":8,"m":[0,0,0,0,1,0,5,0,0,0,8,0],"t":14,"r":452200.0},{"c":"레드","s":"XL","p":32300.0,"st":1,"m":[0,0,0,1,1,1,2,0,0,1,5,0],"t":11,"r":355300.0},{"c":"레드","s":"L","p":32300.0,"st":0,"m":[0,1,0,0,2,0,3,2,0,0,0,0],"t":8,"r":258400.0}],"이브_루돌프스윔햇":[{"c":"레드","s":"M","p":17000.0,"st":20,"m":[0,1,0,0,0,3,0,0,0,0,27,1],"t":32,"r":544000.0},{"c":"그린","s":"M","p":17000.0,"st":15,"m":[0,0,0,0,0,3,0,0,0,0,19,0],"t":22,"r":374000.0},{"c":"레드","s":"S","p":17000.0,"st":0,"m":[0,0,0,1,1,3,6,0,0,0,2,1],"t":14,"r":238000.0},{"c":"그린","s":"L","p":17000.0,"st":4,"m":[0,0,0,0,1,0,4,0,0,0,8,0],"t":13,"r":221000.0},{"c":"레드","s":"L","p":17000.0,"st":11,"m":[0,0,0,0,0,0,0,0,1,0,11,0],"t":12,"r":204000.0},{"c":"그린","s":"S","p":17000.0,"st":0,"m":[0,0,0,0,1,3,0,0,0,0,1,1],"t":6,"r":102000.0}],"이브_바디수트(스윔)":[{"c":"레드","s":"06M","p":35700.0,"st":31,"m":[0,0,1,0,1,2,0,0,0,0,31,0],"t":35,"r":1249500.0},{"c":"레드","s":"12M","p":35700.0,"st":7,"m":[0,1,1,0,3,4,2,0,0,0,14,2],"t":27,"r":963900.0},{"c":"레드","s":"18M","p":35700.0,"st":7,"m":[1,2,1,0,1,2,0,1,0,2,10,2],"t":22,"r":785400.0},{"c":"그린","s":"06M","p":35700.0,"st":6,"m":[0,0,0,1,2,2,0,2,0,0,11,0],"t":18,"r":642600.0},{"c":"그린","s":"18M","p":35700.0,"st":1,"m":[0,2,4,0,1,2,1,1,0,0,2,1],"t":14,"r":499800.0},{"c":"그린","s":"12M","p":35700.0,"st":0,"m":[0,1,2,1,2,2,1,0,0,1,1,1],"t":12,"r":428400.0}],"이브_원피스수트(스윔)":[{"c":"레드","s":"12M","p":22100.0,"st":1,"m":[2,3,5,3,6,4,5,0,2,6,19,8],"t":63,"r":1392300.0},{"c":"그린","s":"12M","p":22100.0,"st":16,"m":[0,1,1,1,3,1,9,4,0,1,19,0],"t":40,"r":884000.0},{"c":"그린","s":"18M","p":22100.0,"st":6,"m":[0,0,1,0,3,3,10,2,0,2,7,0],"t":28,"r":618800.0},{"c":"레드","s":"06M","p":22100.0,"st":0,"m":[0,5,1,1,2,10,2,0,0,0,0,0],"t":21,"r":464100.0},{"c":"그린","s":"06M","p":22100.0,"st":0,"m":[0,2,0,0,1,0,3,0,0,0,9,5],"t":20,"r":442000.0},{"c":"레드","s":"18M","p":22100.0,"st":0,"m":[0,10,5,0,1,0,0,0,0,0,0,0],"t":16,"r":353600.0}],"이브_주니어":[{"c":"그린","s":"JL","p":35700.0,"st":0,"m":[0,0,0,0,1,0,1,1,0,1,7,1],"t":12,"r":428400.0},{"c":"그린","s":"JS","p":35700.0,"st":0,"m":[0,0,0,1,1,0,1,0,0,0,5,1],"t":9,"r":321300.0},{"c":"레드","s":"JL","p":35700.0,"st":4,"m":[0,0,0,0,1,1,1,0,0,0,5,0],"t":8,"r":285600.0},{"c":"레드","s":"JS","p":35700.0,"st":0,"m":[0,0,0,0,1,1,2,0,0,0,3,1],"t":8,"r":285600.0},{"c":"레드","s":"JM","p":35700.0,"st":0,"m":[0,0,0,0,1,2,1,0,0,1,1,2],"t":8,"r":285600.0},{"c":"그린","s":"JM","p":35700.0,"st":0,"m":[0,0,0,0,3,0,0,0,0,1,0,0],"t":4,"r":142800.0}],"이브_캡스윔햇":[{"c":"레드","s":"S","p":13600.0,"st":0,"m":[4,12,6,8,5,12,7,1,0,0,0,0],"t":55,"r":748000.0},{"c":"그린","s":"S","p":13600.0,"st":0,"m":[0,3,3,1,2,1,5,2,0,0,9,5],"t":31,"r":421600.0},{"c":"그린","s":"M","p":13600.0,"st":15,"m":[0,1,1,4,2,1,0,0,0,0,21,0],"t":30,"r":408000.0},{"c":"그린","s":"L","p":13600.0,"st":25,"m":[0,1,0,2,0,0,0,0,0,0,26,0],"t":29,"r":394400.0},{"c":"레드","s":"M","p":13600.0,"st":0,"m":[0,3,1,6,4,0,4,1,2,0,3,2],"t":26,"r":353600.0},{"c":"레드","s":"L","p":13600.0,"st":4,"m":[0,1,0,1,1,1,1,1,0,0,9,0],"t":15,"r":204000.0}],"이태리가운":[{"c":"노랑","s":"M","p":35700.0,"st":44,"m":[0,0,2,1,0,0,0,0,0,0,0,0],"t":3,"r":107100.0},{"c":"노랑","s":"S","p":35700.0,"st":53,"m":[0,0,0,0,1,0,1,0,0,0,0,0],"t":2,"r":71400.0},{"c":"초록","s":"S","p":35700.0,"st":18,"m":[0,0,0,1,0,0,0,0,0,0,0,1],"t":2,"r":71400.0},{"c":"초록","s":"M","p":35700.0,"st":7,"m":[0,1,0,0,0,0,1,0,0,0,0,0],"t":2,"r":71400.0},{"c":"핑크","s":"S","p":35700.0,"st":45,"m":[0,0,0,0,0,0,2,0,0,0,0,0],"t":2,"r":71400.0},{"c":"노랑","s":"L","p":35700.0,"st":12,"m":[0,0,0,0,0,0,0,1,0,0,0,0],"t":1,"r":35700.0},{"c":"초록","s":"L","p":35700.0,"st":13,"m":[0,0,0,0,0,1,0,0,0,0,0,0],"t":1,"r":35700.0},{"c":"핑크","s":"M","p":35700.0,"st":28,"m":[0,0,1,0,0,0,0,0,0,0,0,0],"t":1,"r":35700.0},{"c":"핑크","s":"L","p":35700.0,"st":12,"m":[0,0,0,0,0,0,1,0,0,0,0,0],"t":1,"r":35700.0}],"이태리가운_MOM":[{"c":"초록","s":"FREE","p":39100.0,"st":5,"m":[0,2,0,0,0,1,0,0,0,0,0,0],"t":3,"r":117300.0},{"c":"핑크","s":"FREE","p":39100.0,"st":10,"m":[0,0,1,0,0,1,0,0,0,0,0,0],"t":2,"r":78200.0}],"주스_바디수트":[{"c":"민트","s":"18M","p":35700.0,"st":2,"m":[3,15,18,17,15,20,40,11,9,4,5,8],"t":165,"r":5890500.0},{"c":"노랑","s":"18M","p":35700.0,"st":10,"m":[2,21,17,18,13,12,23,9,8,5,3,2],"t":133,"r":4748100.0},{"c":"민트","s":"12M","p":35700.0,"st":9,"m":[1,16,8,14,5,14,19,9,1,4,5,5],"t":101,"r":3605700.0},{"c":"노랑","s":"12M","p":35700.0,"st":1,"m":[0,6,23,10,6,9,14,10,4,3,1,3],"t":89,"r":3177300.0},{"c":"핑크","s":"18M","p":35700.0,"st":1,"m":[0,7,9,8,4,7,21,8,1,0,4,1],"t":70,"r":2499000.0},{"c":"핑크","s":"12M","p":35700.0,"st":16,"m":[0,4,9,3,3,6,14,9,1,5,3,2],"t":59,"r":2106300.0},{"c":"민트","s":"06M","p":35700.0,"st":8,"m":[1,2,6,0,4,4,5,4,6,0,1,0],"t":33,"r":1178100.0},{"c":"노랑","s":"06M","p":35700.0,"st":6,"m":[0,4,3,0,2,4,6,0,4,2,0,1],"t":26,"r":928200.0},{"c":"핑크","s":"06M","p":35700.0,"st":21,"m":[0,1,4,2,0,2,3,1,0,0,0,1],"t":14,"r":499800.0}],"주스_스윔햇":[{"c":"민트","s":"S","p":11900.0,"st":2,"m":[5,21,18,23,23,28,31,21,16,3,10,22],"t":221,"r":2629900.0},{"c":"노랑","s":"S","p":11900.0,"st":25,"m":[1,26,27,26,18,16,38,11,20,2,5,9],"t":199,"r":2368100.0},{"c":"핑크","s":"S","p":11900.0,"st":2,"m":[0,8,6,14,8,20,33,12,21,13,4,22],"t":161,"r":1915900.0},{"c":"핑크","s":"M","p":11900.0,"st":5,"m":[0,5,3,6,7,10,10,5,13,0,7,59],"t":125,"r":1487500.0},{"c":"노랑","s":"M","p":11900.0,"st":3,"m":[2,4,12,7,5,10,21,5,20,0,6,15],"t":107,"r":1273300.0},{"c":"민트","s":"M","p":11900.0,"st":6,"m":[0,3,6,7,9,6,13,6,14,0,2,37],"t":103,"r":1225700.0},{"c":"노랑","s":"L","p":11900.0,"st":13,"m":[0,4,1,4,0,5,4,2,16,20,12,21],"t":89,"r":1059100.0},{"c":"핑크","s":"L","p":11900.0,"st":2,"m":[0,0,4,2,11,6,8,3,13,0,0,16],"t":63,"r":749700.0},{"c":"민트","s":"L","p":11900.0,"st":11,"m":[1,3,1,5,3,2,6,0,12,0,1,0],"t":34,"r":404600.0}],"주스_주니어":[{"c":"핑크","s":"JL","p":37400.0,"st":0,"m":[0,0,1,1,0,3,13,7,2,1,0,1],"t":29,"r":1084600.0},{"c":"노랑","s":"JL","p":37400.0,"st":0,"m":[0,0,2,2,0,2,7,10,0,0,0,0],"t":23,"r":860200.0},{"c":"민트","s":"JL","p":37400.0,"st":0,"m":[0,0,1,1,2,1,7,5,1,0,1,2],"t":21,"r":785400.0},{"c":"민트","s":"JS","p":37400.0,"st":4,"m":[1,0,3,2,3,3,2,5,0,0,0,1],"t":20,"r":748000.0},{"c":"핑크","s":"JM","p":37400.0,"st":4,"m":[0,1,1,2,0,3,4,2,2,2,1,1],"t":19,"r":710600.0},{"c":"핑크","s":"JS","p":37400.0,"st":0,"m":[0,0,1,0,0,4,7,4,1,0,0,1],"t":18,"r":673200.0},{"c":"민트","s":"JM","p":37400.0,"st":4,"m":[0,1,4,0,2,2,4,4,0,0,0,0],"t":17,"r":635800.0},{"c":"노랑","s":"JS","p":37400.0,"st":0,"m":[0,0,1,0,0,3,6,2,1,0,0,1],"t":14,"r":523600.0},{"c":"노랑","s":"JM","p":37400.0,"st":9,"m":[0,0,1,0,1,1,2,3,2,0,0,2],"t":12,"r":448800.0}],"주스_플랩캡":[{"c":"핑크","s":"S","p":18700.0,"st":18,"m":[0,3,9,5,7,9,38,18,2,1,1,1],"t":94,"r":1757800.0},{"c":"노랑","s":"S","p":18700.0,"st":21,"m":[1,5,9,8,8,10,35,10,1,3,0,0],"t":90,"r":1683000.0},{"c":"민트","s":"S","p":18700.0,"st":12,"m":[2,5,8,10,5,12,24,11,3,1,0,1],"t":82,"r":1533400.0},{"c":"민트","s":"M","p":18700.0,"st":6,"m":[0,5,5,2,6,6,30,11,0,1,0,0],"t":66,"r":1234200.0},{"c":"노랑","s":"M","p":18700.0,"st":0,"m":[0,5,4,5,4,10,20,3,2,1,1,0],"t":55,"r":1028500.0},{"c":"핑크","s":"M","p":18700.0,"st":16,"m":[0,3,2,3,3,3,26,3,1,0,0,0],"t":44,"r":822800.0},{"c":"민트","s":"L","p":18700.0,"st":45,"m":[0,2,1,4,1,3,3,3,1,0,0,1],"t":19,"r":355300.0},{"c":"노랑","s":"L","p":18700.0,"st":18,"m":[0,1,1,1,0,4,3,0,1,0,0,0],"t":11,"r":205700.0},{"c":"핑크","s":"L","p":18700.0,"st":25,"m":[0,0,0,1,0,1,4,1,1,0,0,1],"t":9,"r":168300.0}],"주스래쉬가드":[{"c":"노랑","s":"M","p":34000.0,"st":18,"m":[0,1,7,3,7,7,44,21,24,0,1,3],"t":118,"r":4012000.0},{"c":"민트","s":"S","p":34000.0,"st":10,"m":[0,3,12,7,5,10,33,8,15,0,2,11],"t":106,"r":3604000.0},{"c":"민트","s":"L","p":34000.0,"st":8,"m":[0,3,1,3,7,10,30,12,13,0,3,1],"t":83,"r":2822000.0},{"c":"민트","s":"M","p":34000.0,"st":12,"m":[0,2,4,9,4,2,21,15,6,1,1,3],"t":68,"r":2312000.0},{"c":"노랑","s":"S","p":34000.0,"st":18,"m":[0,5,10,6,2,3,18,15,5,1,0,2],"t":67,"r":2278000.0},{"c":"민트","s":"XL","p":34000.0,"st":10,"m":[0,3,2,5,3,4,22,13,2,5,1,0],"t":60,"r":2040000.0},{"c":"핑크","s":"L","p":34000.0,"st":0,"m":[0,1,6,4,3,5,17,13,6,0,0,1],"t":56,"r":1904000.0},{"c":"노랑","s":"XL","p":34000.0,"st":13,"m":[0,1,4,1,2,0,11,10,22,1,1,3],"t":56,"r":1904000.0},{"c":"핑크","s":"S","p":34000.0,"st":13,"m":[0,0,5,2,8,8,19,7,0,3,1,3],"t":56,"r":1904000.0},{"c":"노랑","s":"L","p":34000.0,"st":12,"m":[0,1,1,2,3,6,20,11,11,0,0,0],"t":55,"r":1870000.0},{"c":"노랑","s":"XS","p":34000.0,"st":5,"m":[0,0,5,1,10,3,16,4,8,0,0,4],"t":51,"r":1734000.0},{"c":"핑크","s":"XL","p":34000.0,"st":0,"m":[0,1,1,1,5,0,9,9,7,0,1,9],"t":43,"r":1462000.0},{"c":"핑크","s":"XS","p":34000.0,"st":9,"m":[0,0,1,1,2,3,8,8,5,1,0,1],"t":30,"r":1020000.0},{"c":"핑크","s":"M","p":34000.0,"st":19,"m":[0,3,3,2,3,3,7,2,2,0,0,1],"t":26,"r":884000.0},{"c":"민트","s":"XS","p":34000.0,"st":16,"m":[0,0,6,0,4,3,4,3,1,0,1,2],"t":24,"r":816000.0}],"초코_래쉬가드":[{"c":"바닐라","s":"S","p":34000.0,"st":1,"m":[0,9,6,12,9,15,57,13,1,8,9,21],"t":160,"r":5440000.0},{"c":"바닐라","s":"M","p":34000.0,"st":17,"m":[0,8,4,12,16,18,48,19,4,14,2,6],"t":151,"r":5134000.0},{"c":"바닐라","s":"L","p":34000.0,"st":7,"m":[0,6,6,7,5,9,49,13,7,12,4,16],"t":134,"r":4556000.0},{"c":"딸기","s":"M","p":34000.0,"st":0,"m":[0,8,7,7,8,17,52,11,1,0,6,12],"t":129,"r":4386000.0},{"c":"민트","s":"M","p":34000.0,"st":1,"m":[0,1,3,8,10,15,26,8,12,8,3,31],"t":125,"r":4250000.0},{"c":"민트","s":"S","p":34000.0,"st":0,"m":[0,3,1,5,2,12,40,20,4,6,3,13],"t":109,"r":3706000.0},{"c":"딸기","s":"S","p":34000.0,"st":16,"m":[0,3,5,9,6,11,31,9,0,18,0,3],"t":95,"r":3230000.0},{"c":"바닐라","s":"XL","p":34000.0,"st":0,"m":[0,6,2,5,3,17,34,13,0,0,1,0],"t":81,"r":2754000.0},{"c":"딸기","s":"L","p":34000.0,"st":0,"m":[0,0,1,4,9,9,36,7,0,0,3,6],"t":75,"r":2550000.0},{"c":"민트","s":"L","p":34000.0,"st":8,"m":[0,3,2,5,2,13,24,10,2,2,7,4],"t":74,"r":2516000.0},{"c":"바닐라","s":"XS","p":34000.0,"st":20,"m":[1,2,4,4,5,11,20,4,3,5,0,3],"t":62,"r":2108000.0},{"c":"민트","s":"XS","p":34000.0,"st":13,"m":[0,2,2,5,5,10,13,5,0,12,1,1],"t":56,"r":1904000.0},{"c":"딸기","s":"XL","p":34000.0,"st":13,"m":[0,1,0,4,5,7,23,4,1,1,0,2],"t":48,"r":1632000.0},{"c":"딸기","s":"XS","p":34000.0,"st":26,"m":[0,1,2,5,5,10,14,2,3,2,0,4],"t":48,"r":1632000.0},{"c":"민트","s":"XL","p":34000.0,"st":1,"m":[0,1,0,2,6,10,18,6,0,1,0,3],"t":47,"r":1598000.0}],"초코_래쉬가드JR":[{"c":"바닐라","s":"JS","p":37400.0,"st":0,"m":[0,1,1,3,3,6,22,1,2,0,1,5],"t":45,"r":1683000.0},{"c":"민트","s":"JS","p":37400.0,"st":3,"m":[0,1,1,1,1,5,13,5,3,0,1,1],"t":32,"r":1196800.0},{"c":"딸기","s":"JS","p":37400.0,"st":0,"m":[0,0,2,1,1,6,9,6,1,0,0,2],"t":28,"r":1047200.0},{"c":"바닐라","s":"JM","p":37400.0,"st":9,"m":[1,0,0,1,1,8,4,6,0,0,0,3],"t":24,"r":897600.0},{"c":"바닐라","s":"JL","p":37400.0,"st":0,"m":[0,1,1,1,1,4,7,6,0,0,1,2],"t":24,"r":897600.0},{"c":"딸기","s":"JM","p":37400.0,"st":1,"m":[0,0,1,0,2,4,7,1,0,0,0,3],"t":18,"r":673200.0},{"c":"딸기","s":"JL","p":37400.0,"st":3,"m":[0,1,2,0,1,4,3,3,2,1,0,0],"t":17,"r":635800.0},{"c":"민트","s":"JM","p":37400.0,"st":3,"m":[0,0,0,0,1,4,5,6,0,0,0,0],"t":16,"r":598400.0},{"c":"민트","s":"JL","p":37400.0,"st":0,"m":[0,0,1,0,1,4,4,1,0,1,1,1],"t":14,"r":523600.0}],"초코_바디수트":[{"c":"바닐라","s":"18M","p":37400.0,"st":0,"m":[3,12,29,64,66,63,115,48,25,13,34,89],"t":561,"r":20981400.0},{"c":"바닐라","s":"12M","p":37400.0,"st":15,"m":[4,23,25,57,38,49,80,38,14,24,24,41],"t":417,"r":15595800.0},{"c":"딸기","s":"18M","p":37400.0,"st":2,"m":[1,20,24,29,29,46,55,31,2,9,16,31],"t":293,"r":10958200.0},{"c":"딸기","s":"12M","p":37400.0,"st":0,"m":[8,12,10,29,15,33,54,18,7,3,4,39],"t":232,"r":8676800.0},{"c":"민트","s":"18M","p":37400.0,"st":20,"m":[2,12,13,23,23,43,47,22,3,10,8,15],"t":221,"r":8265400.0},{"c":"민트","s":"12M","p":37400.0,"st":20,"m":[0,9,8,31,10,30,42,24,3,9,14,19],"t":199,"r":7442600.0},{"c":"바닐라","s":"06M","p":37400.0,"st":10,"m":[0,4,8,15,9,17,26,19,3,8,12,41],"t":162,"r":6058800.0},{"c":"딸기","s":"06M","p":37400.0,"st":18,"m":[1,3,1,12,6,11,15,2,2,4,5,13],"t":75,"r":2805000.0},{"c":"민트","s":"06M","p":37400.0,"st":29,"m":[0,2,6,6,6,14,9,5,5,8,0,13],"t":74,"r":2767600.0}],"초코_스윔햇":[{"c":"바닐라","s":"S","p":10200.0,"st":29,"m":[11,192,221,375,263,348,442,256,174,116,57,211],"t":2666,"r":27193200.0},{"c":"딸기","s":"S","p":10200.0,"st":28,"m":[14,103,178,252,191,240,293,163,69,53,38,159],"t":1753,"r":17880600.0},{"c":"민트","s":"S","p":10200.0,"st":2,"m":[3,54,73,130,70,132,163,93,23,29,34,57],"t":861,"r":8782200.0},{"c":"바닐라","s":"M","p":10200.0,"st":26,"m":[1,47,52,69,88,72,176,59,35,21,10,24],"t":654,"r":6670800.0},{"c":"딸기","s":"M","p":10200.0,"st":8,"m":[1,56,34,35,79,86,115,42,6,5,2,20],"t":481,"r":4906200.0},{"c":"민트","s":"M","p":10200.0,"st":8,"m":[1,29,14,33,37,55,74,60,5,6,12,12],"t":338,"r":3447600.0},{"c":"바닐라","s":"L","p":10200.0,"st":14,"m":[1,5,5,13,9,24,30,27,0,1,0,7],"t":122,"r":1244400.0},{"c":"딸기","s":"L","p":10200.0,"st":38,"m":[0,3,6,8,11,12,35,21,1,0,0,4],"t":101,"r":1030200.0},{"c":"민트","s":"L","p":10200.0,"st":22,"m":[0,3,2,4,10,9,20,13,5,1,0,0],"t":67,"r":683400.0}],"초코_원피스수트":[{"c":"바닐라","s":"18M","p":22100.0,"st":1,"m":[4,88,117,135,109,145,181,115,65,36,15,62],"t":1072,"r":23691200.0},{"c":"바닐라","s":"12M","p":22100.0,"st":21,"m":[1,86,95,131,99,129,158,110,79,67,11,81],"t":1047,"r":23138700.0},{"c":"딸기","s":"18M","p":22100.0,"st":0,"m":[0,77,94,90,98,120,135,56,44,11,12,46],"t":783,"r":17304300.0},{"c":"딸기","s":"12M","p":22100.0,"st":-5,"m":[4,62,64,110,81,104,127,50,31,14,15,75],"t":737,"r":16287700.0},{"c":"바닐라","s":"06M","p":22100.0,"st":11,"m":[0,31,29,36,27,47,86,30,23,15,8,60],"t":392,"r":8663200.0},{"c":"민트","s":"18M","p":22100.0,"st":23,"m":[2,39,21,42,31,55,75,29,19,13,3,9],"t":338,"r":7469800.0},{"c":"딸기","s":"06M","p":22100.0,"st":17,"m":[1,11,31,25,22,52,62,13,26,9,19,54],"t":325,"r":7182500.0},{"c":"민트","s":"12M","p":22100.0,"st":28,"m":[1,21,29,35,22,31,73,31,13,9,3,22],"t":290,"r":6409000.0},{"c":"민트","s":"06M","p":22100.0,"st":7,"m":[0,10,7,18,6,27,29,11,3,6,0,12],"t":129,"r":2850900.0}],"크리스_래쉬가드":[{"c":"레드","s":"XS","p":35700.0,"st":33,"m":[0,0,0,1,1,1,0,0,0,0,72,1],"t":76,"r":2713200.0},{"c":"레드","s":"M","p":35700.0,"st":22,"m":[0,0,0,0,0,0,1,0,0,0,52,3],"t":56,"r":1999200.0},{"c":"레드","s":"S","p":35700.0,"st":22,"m":[0,0,0,0,0,0,1,0,0,0,47,1],"t":49,"r":1749300.0},{"c":"그린","s":"XS","p":35700.0,"st":15,"m":[0,0,0,0,1,1,0,0,0,0,32,1],"t":35,"r":1249500.0},{"c":"그린","s":"S","p":35700.0,"st":14,"m":[0,0,0,0,0,0,0,0,0,0,33,1],"t":34,"r":1213800.0},{"c":"그린","s":"M","p":35700.0,"st":15,"m":[0,0,0,0,0,0,0,0,0,0,32,1],"t":33,"r":1178100.0},{"c":"레드","s":"XL","p":35700.0,"st":8,"m":[0,1,0,0,3,0,0,0,0,0,27,1],"t":32,"r":1142400.0},{"c":"레드","s":"L","p":35700.0,"st":5,"m":[1,0,0,0,0,0,0,1,0,0,14,2],"t":18,"r":642600.0},{"c":"그린","s":"L","p":35700.0,"st":6,"m":[0,0,0,0,0,0,0,0,0,0,16,1],"t":17,"r":606900.0},{"c":"그린","s":"XL","p":35700.0,"st":5,"m":[0,0,0,0,0,1,0,0,0,0,13,1],"t":15,"r":535500.0}],"크리스_루돌프스윔햇":[{"c":"레드","s":"L","p":17000.0,"st":34,"m":[0,0,0,0,1,0,0,0,0,0,71,0],"t":72,"r":1224000.0},{"c":"레드","s":"M","p":17000.0,"st":22,"m":[0,0,0,0,2,0,0,0,0,0,57,4],"t":63,"r":1071000.0},{"c":"그린","s":"L","p":17000.0,"st":15,"m":[0,0,0,0,1,0,0,0,0,0,35,1],"t":37,"r":629000.0},{"c":"그린","s":"M","p":17000.0,"st":14,"m":[0,0,0,1,1,0,0,0,0,0,28,0],"t":30,"r":510000.0},{"c":"레드","s":"S","p":17000.0,"st":0,"m":[0,0,0,0,1,1,0,1,0,1,5,5],"t":14,"r":238000.0},{"c":"그린","s":"S","p":17000.0,"st":0,"m":[0,0,0,1,1,1,0,1,0,0,5,2],"t":11,"r":187000.0}],"크리스_바디수트(스윔)":[{"c":"레드","s":"06M","p":39100.0,"st":28,"m":[0,0,0,1,1,1,2,2,0,0,63,2],"t":72,"r":2815200.0},{"c":"그린","s":"06M","p":39100.0,"st":19,"m":[0,0,0,1,2,1,0,2,0,0,41,0],"t":47,"r":1837700.0},{"c":"레드","s":"12M","p":39100.0,"st":2,"m":[0,2,1,2,3,0,0,2,0,0,23,5],"t":38,"r":1485800.0},{"c":"그린","s":"12M","p":39100.0,"st":0,"m":[0,1,0,1,1,0,1,6,0,0,9,3],"t":22,"r":860200.0},{"c":"레드","s":"18M","p":39100.0,"st":1,"m":[0,1,1,4,2,2,1,0,3,3,4,1],"t":22,"r":860200.0},{"c":"그린","s":"18M","p":39100.0,"st":1,"m":[1,1,0,2,2,1,2,0,0,2,8,2],"t":21,"r":821100.0}],"크리스_원피스수트(스윔)":[{"c":"레드","s":"12M","p":23800.0,"st":11,"m":[0,0,0,1,2,2,10,3,3,2,31,2],"t":56,"r":1332800.0},{"c":"레드","s":"06M","p":23800.0,"st":7,"m":[0,2,0,0,1,1,3,6,0,2,33,5],"t":53,"r":1261400.0},{"c":"레드","s":"18M","p":23800.0,"st":4,"m":[0,2,0,2,3,4,10,3,2,3,23,1],"t":53,"r":1261400.0},{"c":"그린","s":"12M","p":23800.0,"st":0,"m":[0,2,0,1,2,4,7,5,5,6,11,0],"t":43,"r":1023400.0},{"c":"그린","s":"18M","p":23800.0,"st":0,"m":[0,0,0,1,3,0,10,2,7,1,12,0],"t":36,"r":856800.0},{"c":"그린","s":"06M","p":23800.0,"st":7,"m":[0,0,1,0,1,1,4,1,0,2,21,4],"t":35,"r":833000.0}],"크리스_주니어":[{"c":"그린","s":"JM","p":39100.0,"st":8,"m":[0,0,0,0,0,0,0,0,0,0,18,1],"t":19,"r":742900.0},{"c":"그린","s":"JL","p":39100.0,"st":5,"m":[0,0,0,0,0,0,0,0,0,0,17,2],"t":19,"r":742900.0},{"c":"레드","s":"JS","p":39100.0,"st":7,"m":[0,0,0,1,0,0,0,0,0,0,16,1],"t":18,"r":703800.0},{"c":"레드","s":"JL","p":39100.0,"st":7,"m":[0,0,0,0,0,1,0,0,0,0,16,1],"t":18,"r":703800.0},{"c":"그린","s":"JS","p":39100.0,"st":5,"m":[0,0,0,0,0,1,0,0,0,0,14,1],"t":16,"r":625600.0},{"c":"레드","s":"JM","p":39100.0,"st":5,"m":[0,0,0,0,0,0,0,0,0,0,14,1],"t":15,"r":586500.0}],"크리스_캡스윔햇":[{"c":"레드","s":"S","p":13600.0,"st":0,"m":[0,3,1,9,7,9,16,20,6,2,37,2],"t":112,"r":1523200.0},{"c":"그린","s":"S","p":13600.0,"st":1,"m":[0,1,1,5,3,5,12,13,2,0,30,13],"t":85,"r":1156000.0},{"c":"그린","s":"M","p":13600.0,"st":9,"m":[0,1,0,0,2,2,7,2,0,1,37,8],"t":60,"r":816000.0},{"c":"레드","s":"M","p":13600.0,"st":0,"m":[0,3,0,1,3,3,13,0,1,1,12,3],"t":40,"r":544000.0},{"c":"그린","s":"L","p":13600.0,"st":4,"m":[0,0,0,0,1,2,7,0,0,0,22,1],"t":33,"r":448800.0},{"c":"레드","s":"L","p":13600.0,"st":1,"m":[0,0,0,0,1,3,6,1,0,0,16,1],"t":28,"r":380800.0}]},"summary":[{"rank":1,"name":"초코_스윔햇","line":"초코","type":"스윔햇","target":"공용","qty":7043,"rev":71838600.0,"peak":"202507","peakQty":1348,"h1":3764,"h2":3279,"topColor":"바닐라","topColorQty":3442,"topSize":"S","topSizeQty":5280,"stock":1892},{"rank":2,"name":"초코_원피스수트","line":"초코","type":"원피스수트","target":"베이비","qty":5113,"rev":112997300.0,"peak":"202507","peakQty":926,"h1":2752,"h2":2361,"topColor":"바닐라","topColorQty":2511,"topSize":"18M","topSizeQty":2193,"stock":1211},{"rank":3,"name":"초코_바디수트","line":"초코","type":"바디수트","target":"베이비","qty":2234,"rev":83551600.0,"peak":"202507","peakQty":443,"h1":1014,"h2":1220,"topColor":"바닐라","topColorQty":1140,"topSize":"18M","topSizeQty":1075,"stock":1280},{"rank":4,"name":"베이직_스윔햇","line":"베이직","type":"스윔햇","target":"공용","qty":1537,"rev":20903200.0,"peak":"202507","peakQty":412,"h1":859,"h2":678,"topColor":"베이지","topColorQty":773,"topSize":"S","topSizeQty":699,"stock":501},{"rank":5,"name":"초코_래쉬가드","line":"초코","type":"래쉬가드","target":"키즈","qty":1394,"rev":47396000.0,"peak":"202507","peakQty":485,"h1":474,"h2":920,"topColor":"바닐라","topColorQty":588,"topSize":"M","topSizeQty":405,"stock":1253},{"rank":6,"name":"주스_스윔햇","line":"주스","type":"스윔햇","target":"공용","qty":1102,"rev":13113800.0,"peak":"202512","peakQty":201,"h1":442,"h2":660,"topColor":"노랑","topColorQty":395,"topSize":"S","topSizeQty":581,"stock":734},{"rank":7,"name":"모노_스윔햇","line":"모노","type":"스윔햇","target":"공용","qty":1048,"rev":10689600.0,"peak":"202507","peakQty":223,"h1":627,"h2":421,"topColor":"핑크","topColorQty":465,"topSize":"S","topSizeQty":722,"stock":1496},{"rank":8,"name":"주스래쉬가드","line":"주스","type":"래쉬가드","target":"키즈","qty":899,"rev":30566000.0,"peak":"202507","peakQty":279,"h1":274,"h2":625,"topColor":"노랑","topColorQty":347,"topSize":"S","topSizeQty":229,"stock":1535},{"rank":9,"name":"베이직_플랩캡","line":"베이직","type":"플랩캡","target":"공용","qty":764,"rev":14286800.0,"peak":"202507","peakQty":315,"h1":362,"h2":402,"topColor":"베이지","topColorQty":419,"topSize":"S","topSizeQty":327,"stock":2063},{"rank":10,"name":"주스_바디수트","line":"주스","type":"바디수트","target":"베이비","qty":690,"rev":24633000.0,"peak":"202507","peakQty":145,"h1":382,"h2":308,"topColor":"민트","topColorQty":299,"topSize":"18M","topSizeQty":368,"stock":716},{"rank":11,"name":"베이직_리본스윔햇","line":"베이직","type":"스윔햇","target":"공용","qty":688,"rev":11696000.0,"peak":"202507","peakQty":274,"h1":337,"h2":351,"topColor":"핑크","topColorQty":343,"topSize":"S","topSizeQty":330,"stock":1348},{"rank":12,"name":"스윔햇_샬롯","line":"스윔햇","type":"스윔햇","target":"공용","qty":670,"rev":11390000.0,"peak":"202507","peakQty":203,"h1":350,"h2":320,"topColor":"핑크","topColorQty":395,"topSize":"S","topSizeQty":371,"stock":1495},{"rank":13,"name":"모노_원피스수트","line":"모노","type":"원피스수트","target":"베이비","qty":578,"rev":11791200.0,"peak":"202507","peakQty":98,"h1":366,"h2":212,"topColor":"핑크","topColorQty":337,"topSize":"18M","topSizeQty":252,"stock":1279},{"rank":14,"name":"모노_래쉬가드","line":"모노","type":"래쉬가드","target":"키즈","qty":553,"rev":18802000.0,"peak":"202507","peakQty":187,"h1":238,"h2":315,"topColor":"베이지","topColorQty":228,"topSize":"L","topSizeQty":121,"stock":2017},{"rank":15,"name":"주스_플랩캡","line":"주스","type":"플랩캡","target":"공용","qty":470,"rev":8789000.0,"peak":"202507","peakQty":183,"h1":202,"h2":268,"topColor":"민트","topColorQty":167,"topSize":"S","topSizeQty":266,"stock":1379},{"rank":16,"name":"베이직_원피스수트(스윔)","line":"베이직","type":"원피스수트","target":"베이비","qty":379,"rev":9020200.0,"peak":"202506","peakQty":109,"h1":259,"h2":120,"topColor":"핑크","topColorQty":169,"topSize":"12M","topSizeQty":156,"stock":1060},{"rank":17,"name":"에떼 원피스수트","line":"에떼","type":"원피스수트","target":"베이비","qty":365,"rev":9490000.0,"peak":"202506","peakQty":123,"h1":123,"h2":242,"topColor":"핑크","topColorQty":258,"topSize":"80","topSizeQty":191,"stock":111},{"rank":18,"name":"크리스_래쉬가드","line":"크리스","type":"래쉬가드","target":"키즈","qty":365,"rev":13030500.0,"peak":"202511","peakQty":338,"h1":11,"h2":354,"topColor":"레드","topColorQty":231,"topSize":"XS","topSizeQty":111,"stock":494},{"rank":19,"name":"크리스_캡스윔햇","line":"크리스","type":"스윔햇","target":"공용","qty":358,"rev":4868800.0,"peak":"202511","peakQty":154,"h1":66,"h2":292,"topColor":"레드","topColorQty":180,"topSize":"S","topSizeQty":197,"stock":108},{"rank":20,"name":"베이직_래쉬가드","line":"베이직","type":"래쉬가드","target":"키즈","qty":357,"rev":12744900.0,"peak":"202506","peakQty":122,"h1":226,"h2":131,"topColor":"베이지","topColorQty":175,"topSize":"S","topSizeQty":109,"stock":830},{"rank":21,"name":"모노_바디수트","line":"모노","type":"바디수트","target":"베이비","qty":327,"rev":11118000.0,"peak":"202507","peakQty":67,"h1":196,"h2":131,"topColor":"베이지","topColorQty":155,"topSize":"18M","topSizeQty":155,"stock":1413},{"rank":22,"name":"에떼 리본 스윔햇","line":"에떼","type":"스윔햇","target":"공용","qty":299,"rev":5382000.0,"peak":"202506","peakQty":99,"h1":99,"h2":200,"topColor":"핑크","topColorQty":225,"topSize":"S","topSizeQty":196,"stock":425},{"rank":23,"name":"크리스_원피스수트(스윔)","line":"크리스","type":"원피스수트","target":"베이비","qty":276,"rev":6568800.0,"peak":"202511","peakQty":131,"h1":36,"h2":240,"topColor":"레드","topColorQty":162,"topSize":"12M","topSizeQty":99,"stock":251},{"rank":24,"name":"곰곰가운","line":"곰곰","type":"가운","target":"공용","qty":270,"rev":8262000.0,"peak":"202506","peakQty":100,"h1":214,"h2":56,"topColor":"크림","topColorQty":168,"topSize":"S","topSizeQty":96,"stock":0},{"rank":25,"name":"베이직_바디수트(스윔)","line":"베이직","type":"바디수트","target":"베이비","qty":264,"rev":10322400.0,"peak":"202506","peakQty":74,"h1":182,"h2":82,"topColor":"베이지","topColorQty":119,"topSize":"18M","topSizeQty":144,"stock":1116},{"rank":26,"name":"샬롯_바디수트","line":"샬롯","type":"바디수트","target":"베이비","qty":249,"rev":8042700.0,"peak":"202507","peakQty":58,"h1":139,"h2":110,"topColor":"핑크","topColorQty":106,"topSize":"12M","topSizeQty":118,"stock":1240},{"rank":27,"name":"에떼 스윔햇","line":"에떼","type":"스윔햇","target":"공용","qty":227,"rev":2951000.0,"peak":"202506","peakQty":79,"h1":79,"h2":148,"topColor":"블루","topColorQty":128,"topSize":"S","topSizeQty":160,"stock":495},{"rank":28,"name":"크리스_루돌프스윔햇","line":"크리스","type":"스윔햇","target":"공용","qty":227,"rev":3859000.0,"peak":"202511","peakQty":201,"h1":11,"h2":216,"topColor":"레드","topColorQty":149,"topSize":"L","topSizeQty":109,"stock":221},{"rank":29,"name":"크리스_바디수트(스윔)","line":"크리스","type":"바디수트","target":"베이비","qty":222,"rev":8680200.0,"peak":"202511","peakQty":148,"h1":35,"h2":187,"topColor":"레드","topColorQty":132,"topSize":"06M","topSizeQty":119,"stock":324},{"rank":30,"name":"샬롯_래쉬가드","line":"샬롯","type":"래쉬가드","target":"키즈","qty":221,"rev":8265400.0,"peak":"202507","peakQty":87,"h1":96,"h2":125,"topColor":"핑크","topColorQty":105,"topSize":"S","topSizeQty":79,"stock":2587},{"rank":31,"name":"초코_래쉬가드JR","line":"초코","type":"래쉬가드","target":"주니어","qty":218,"rev":8153200.0,"peak":"202507","peakQty":74,"h1":78,"h2":140,"topColor":"바닐라","topColorQty":93,"topSize":"JS","topSizeQty":105,"stock":135},{"rank":32,"name":"이브_래쉬가드","line":"이브","type":"래쉬가드","target":"키즈","qty":215,"rev":6944500.0,"peak":"202511","peakQty":116,"h1":37,"h2":178,"topColor":"레드","topColorQty":109,"topSize":"XS","topSizeQty":62,"stock":434},{"rank":33,"name":"에떼 바디수트(스윔웨어)","line":"에떼","type":"바디수트","target":"베이비","qty":188,"rev":7332000.0,"peak":"202506","peakQty":73,"h1":73,"h2":115,"topColor":"블루","topColorQty":116,"topSize":"80","topSizeQty":95,"stock":437},{"rank":34,"name":"이브_원피스수트(스윔)","line":"이브","type":"원피스수트","target":"베이비","qty":188,"rev":4154800.0,"peak":"202511","peakQty":54,"h1":75,"h2":113,"topColor":"레드","topColorQty":100,"topSize":"12M","topSizeQty":103,"stock":197},{"rank":35,"name":"이브_캡스윔햇","line":"이브","type":"스윔햇","target":"공용","qty":186,"rev":2529600.0,"peak":"202511","peakQty":68,"h1":87,"h2":99,"topColor":"레드","topColorQty":96,"topSize":"S","topSizeQty":86,"stock":193},{"rank":36,"name":"에떼 키즈 래쉬가드","line":"에떼","type":"래쉬가드","target":"키즈","qty":181,"rev":6878000.0,"peak":"202506","peakQty":94,"h1":94,"h2":87,"topColor":"핑크","topColorQty":105,"topSize":"100","topSizeQty":62,"stock":91},{"rank":37,"name":"주스_주니어","line":"주스","type":"주니어","target":"주니어","qty":173,"rev":6470200.0,"peak":"202507","peakQty":52,"h1":56,"h2":117,"topColor":"핑크","topColorQty":66,"topSize":"JL","topSizeQty":73,"stock":159},{"rank":38,"name":"이브_바디수트(스윔)","line":"이브","type":"바디수트","target":"베이비","qty":128,"rev":4569600.0,"peak":"202511","peakQty":69,"h1":42,"h2":86,"topColor":"레드","topColorQty":84,"topSize":"06M","topSizeQty":53,"stock":274},{"rank":39,"name":"에떼 플랩캡","line":"에떼","type":"플랩캡","target":"공용","qty":123,"rev":2460000.0,"peak":"202506","peakQty":72,"h1":72,"h2":51,"topColor":"핑크","topColorQty":62,"topSize":"M","topSizeQty":60,"stock":41},{"rank":40,"name":"브레드 키즈 반팔래쉬가드","line":"브레드","type":"래쉬가드","target":"키즈","qty":122,"rev":4392000.0,"peak":"202506","peakQty":75,"h1":75,"h2":47,"topColor":"브라운","topColorQty":67,"topSize":"90","topSizeQty":39,"stock":292},{"rank":41,"name":"브레드 스윔햇","line":"브레드","type":"스윔햇","target":"공용","qty":115,"rev":1495000.0,"peak":"202506","peakQty":61,"h1":61,"h2":54,"topColor":"브라운","topColorQty":62,"topSize":"S","topSizeQty":59,"stock":660},{"rank":42,"name":"브레드 원피스수트","line":"브레드","type":"원피스수트","target":"베이비","qty":111,"rev":2886000.0,"peak":"202506","peakQty":42,"h1":42,"h2":69,"topColor":"베이지","topColorQty":64,"topSize":"80","topSizeQty":58,"stock":213},{"rank":43,"name":"크리스_주니어","line":"크리스","type":"주니어","target":"주니어","qty":105,"rev":4105500.0,"peak":"202511","peakQty":95,"h1":3,"h2":102,"topColor":"그린","topColorQty":54,"topSize":"JL","topSizeQty":37,"stock":93},{"rank":44,"name":"이브_루돌프스윔햇","line":"이브","type":"스윔햇","target":"공용","qty":99,"rev":1683000.0,"peak":"202511","peakQty":68,"h1":17,"h2":82,"topColor":"레드","topColorQty":58,"topSize":"M","topSizeQty":54,"stock":144},{"rank":45,"name":"베이직가운","line":"베이직","type":"가운","target":"공용","qty":98,"rev":3498600.0,"peak":"202506","peakQty":46,"h1":81,"h2":17,"topColor":"코코아","topColorQty":48,"topSize":"S","topSizeQty":47,"stock":401},{"rank":46,"name":"베일리가운","line":"베일리","type":"가운","target":"공용","qty":96,"rev":3427200.0,"peak":"202506","peakQty":57,"h1":74,"h2":22,"topColor":"핑크","topColorQty":41,"topSize":"S","topSizeQty":39,"stock":193},{"rank":47,"name":"베이직_주니어","line":"베이직","type":"주니어","target":"주니어","qty":85,"rev":3323500.0,"peak":"202506","peakQty":36,"h1":54,"h2":31,"topColor":"베이지","topColorQty":37,"topSize":"JL","topSizeQty":32,"stock":24},{"rank":48,"name":"루루래쉬가드","line":"루루","type":"래쉬가드","target":"키즈","qty":80,"rev":2720000.0,"peak":"202507","peakQty":21,"h1":35,"h2":45,"topColor":"브라운","topColorQty":80,"topSize":"M","topSizeQty":23,"stock":22},{"rank":49,"name":"브레드 리본 스윔햇","line":"브레드","type":"스윔햇","target":"공용","qty":76,"rev":1368000.0,"peak":"202506","peakQty":38,"h1":38,"h2":38,"topColor":"베이지","topColorQty":42,"topSize":"S","topSizeQty":42,"stock":87},{"rank":50,"name":"브레드 플랩캡","line":"브레드","type":"플랩캡","target":"공용","qty":73,"rev":1460000.0,"peak":"202506","peakQty":44,"h1":44,"h2":29,"topColor":"베이지","topColorQty":42,"topSize":"S","topSizeQty":28,"stock":128},{"rank":51,"name":"브레드 바디수트(스윔웨어)","line":"브레드","type":"바디수트","target":"베이비","qty":69,"rev":2691000.0,"peak":"202506","peakQty":38,"h1":38,"h2":31,"topColor":"베이지","topColorQty":43,"topSize":"80","topSizeQty":33,"stock":242},{"rank":52,"name":"루루_루돌프스윔햇","line":"루루","type":"스윔햇","target":"공용","qty":69,"rev":1290300.0,"peak":"202511","peakQty":30,"h1":19,"h2":50,"topColor":"브라운","topColorQty":69,"topSize":"L","topSizeQty":25,"stock":32},{"rank":53,"name":"이브_주니어","line":"이브","type":"주니어","target":"주니어","qty":49,"rev":1749300.0,"peak":"202511","peakQty":21,"h1":13,"h2":36,"topColor":"그린","topColorQty":25,"topSize":"JL","topSizeQty":20,"stock":16},{"rank":54,"name":"루루_원피스수트","line":"루루","type":"원피스수트","target":"베이비","qty":47,"rev":1118600.0,"peak":"202511","peakQty":20,"h1":12,"h2":35,"topColor":"브라운","topColorQty":47,"topSize":"18M","topSizeQty":17,"stock":54},{"rank":55,"name":"에떼 주니어 래쉬가드","line":"에떼","type":"래쉬가드","target":"주니어","qty":46,"rev":2070000.0,"peak":"202506","peakQty":35,"h1":35,"h2":11,"topColor":"블루","topColorQty":25,"topSize":"130","topSizeQty":21,"stock":73},{"rank":56,"name":"샬롯_주니어","line":"샬롯","type":"주니어","target":"주니어","qty":43,"rev":1754400.0,"peak":"202507","peakQty":22,"h1":13,"h2":30,"topColor":"민트","topColorQty":19,"topSize":"JL","topSizeQty":20,"stock":48},{"rank":57,"name":"루루_바디수트","line":"루루","type":"바디수트","target":"베이비","qty":42,"rev":1570800.0,"peak":"202511","peakQty":18,"h1":15,"h2":27,"topColor":"브라운","topColorQty":42,"topSize":"18M","topSizeQty":16,"stock":104},{"rank":58,"name":"브레드 주니어 반팔래쉬가드","line":"브레드","type":"래쉬가드","target":"주니어","qty":39,"rev":1638000.0,"peak":"202506","peakQty":37,"h1":37,"h2":2,"topColor":"베이지","topColorQty":21,"topSize":"130","topSizeQty":16,"stock":32},{"rank":59,"name":"루루_주니어","line":"루루","type":"주니어","target":"주니어","qty":35,"rev":1309000.0,"peak":"202511","peakQty":16,"h1":8,"h2":27,"topColor":"브라운","topColorQty":35,"topSize":"JS","topSizeQty":14,"stock":18},{"rank":60,"name":"베일리가운_mom","line":"베일리","type":"가운","target":"MOM","qty":19,"rev":775200.0,"peak":"202506","peakQty":10,"h1":12,"h2":7,"topColor":"연베이지","topColorQty":11,"topSize":"FREE","topSizeQty":19,"stock":8},{"rank":61,"name":"베이직가운_MOM","line":"베이직","type":"가운","target":"MOM","qty":18,"rev":703800.0,"peak":"202506","peakQty":10,"h1":11,"h2":7,"topColor":"베이지","topColorQty":7,"topSize":"FREE","topSizeQty":18,"stock":79},{"rank":62,"name":"곰곰가운_mom","line":"곰곰","type":"가운","target":"MOM","qty":15,"rev":535500.0,"peak":"202506","peakQty":11,"h1":11,"h2":4,"topColor":"크림","topColorQty":8,"topSize":"FREE","topSizeQty":15,"stock":17},{"rank":63,"name":"이태리가운","line":"이태리","type":"가운","target":"공용","qty":15,"rev":535500.0,"peak":"202507","peakQty":5,"h1":8,"h2":7,"topColor":"노랑","topColorQty":6,"topSize":"M","topSizeQty":6,"stock":354},{"rank":64,"name":"[P]스윔햇_모노","line":"스윔햇","type":"스윔햇","target":"공용","qty":9,"rev":0,"peak":"202503","peakQty":2,"h1":6,"h2":3,"topColor":"카키","topColorQty":9,"topSize":"L","topSizeQty":9,"stock":78},{"rank":65,"name":"이태리가운_MOM","line":"이태리","type":"가운","target":"MOM","qty":5,"rev":195500.0,"peak":"202502","peakQty":2,"h1":5,"h2":0,"topColor":"초록","topColorQty":3,"topSize":"FREE","topSizeQty":5,"stock":30}],"wholesale":[{"name":"초코_스윔햇","qty":6388,"dealers":80},{"name":"초코_원피스수트","qty":4452,"dealers":64},{"name":"초코_바디수트","qty":1781,"dealers":53},{"name":"모노_스윔햇","qty":1066,"dealers":48},{"name":"초코_래쉬가드","qty":720,"dealers":50},{"name":"주스_스윔햇","qty":716,"dealers":49},{"name":"주스_바디수트","qty":532,"dealers":39},{"name":"모노_원피스수트","qty":511,"dealers":28},{"name":"스윔햇_샬롯","qty":403,"dealers":34},{"name":"베이직_스윔햇","qty":313,"dealers":32},{"name":"베이직_플랩캡","qty":310,"dealers":39},{"name":"베이직_리본스윔햇","qty":288,"dealers":34},{"name":"베이직_래쉬가드","qty":282,"dealers":35},{"name":"모노_래쉬가드","qty":266,"dealers":33},{"name":"모노_바디수트","qty":256,"dealers":30},{"name":"주스래쉬가드","qty":252,"dealers":43},{"name":"주스_플랩캡","qty":245,"dealers":37},{"name":"베이직_원피스수트(스윔)","qty":241,"dealers":31},{"name":"크리스_래쉬가드","qty":179,"dealers":7},{"name":"곰곰가운","qty":164,"dealers":21},{"name":"샬롯_바디수트","qty":158,"dealers":28},{"name":"베이직_바디수트(스윔)","qty":154,"dealers":31},{"name":"이브_캡스윔햇","qty":147,"dealers":19},{"name":"이브_래쉬가드","qty":127,"dealers":13},{"name":"크리스_캡스윔햇","qty":126,"dealers":16},{"name":"크리스_루돌프스윔햇","qty":107,"dealers":6},{"name":"이브_원피스수트(스윔)","qty":103,"dealers":16},{"name":"크리스_원피스수트(스윔)","qty":98,"dealers":14},{"name":"이브_바디수트(스윔)","qty":95,"dealers":7},{"name":"크리스_바디수트(스윔)","qty":93,"dealers":11},{"name":"샬롯_래쉬가드","qty":90,"dealers":24},{"name":"베이직가운","qty":87,"dealers":12},{"name":"초코_래쉬가드JR","qty":86,"dealers":19},{"name":"이브_루돌프스윔햇","qty":76,"dealers":4},{"name":"베이직_주니어","qty":63,"dealers":16},{"name":"베일리가운","qty":61,"dealers":8},{"name":"크리스_주니어","qty":52,"dealers":5},{"name":"주스_주니어","qty":45,"dealers":15},{"name":"루루래쉬가드","qty":42,"dealers":8},{"name":"루루_루돌프스윔햇","qty":37,"dealers":7},{"name":"루루_바디수트","qty":30,"dealers":6},{"name":"루루_원피스수트","qty":27,"dealers":6},{"name":"이브_주니어","qty":22,"dealers":6},{"name":"루루_주니어","qty":18,"dealers":5},{"name":"베이직가운_MOM","qty":14,"dealers":6},{"name":"곰곰가운_mom","qty":14,"dealers":3},{"name":"베일리가운_mom","qty":12,"dealers":3},{"name":"샬롯_주니어","qty":10,"dealers":5},{"name":"이태리가운","qty":7,"dealers":4},{"name":"이태리가운_MOM","qty":3,"dealers":2},{"name":"에떼 스윔햇","qty":0,"dealers":0},{"name":"에떼 리본 스윔햇","qty":0,"dealers":0},{"name":"에떼 원피스수트","qty":0,"dealers":0},{"name":"에떼 바디수트(스윔웨어)","qty":0,"dealers":0},{"name":"에떼 키즈 래쉬가드","qty":0,"dealers":0},{"name":"브레드 원피스수트","qty":0,"dealers":0},{"name":"브레드 키즈 반팔래쉬가드","qty":0,"dealers":0},{"name":"브레드 바디수트(스윔웨어)","qty":0,"dealers":0},{"name":"브레드 리본 스윔햇","qty":0,"dealers":0},{"name":"브레드 스윔햇","qty":0,"dealers":0},{"name":"에떼 플랩캡","qty":0,"dealers":0},{"name":"브레드 플랩캡","qty":0,"dealers":0},{"name":"에떼 주니어 래쉬가드","qty":0,"dealers":0},{"name":"브레드 주니어 반팔래쉬가드","qty":0,"dealers":0},{"name":"[P]스윔햇_모노","qty":0,"dealers":0}],"planning":[{"name":"베이직_리본스윔햇","line":"베이직","type":"스윔햇","judgment":"유지/보완 검토","memo":"대표컬러 핑크 / 대표사이즈 S / 재입고 이력 있음(집계 기준)"},{"name":"스윔햇_샬롯","line":"스윔햇","type":"스윔햇","judgment":"유지/보완 검토","memo":"대표컬러 핑크 / 대표사이즈 S / 재입고 이력 있음(집계 기준)"},{"name":"주스_플랩캡","line":"주스","type":"플랩캡","judgment":"유지/보완 검토","memo":"대표컬러 민트 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"베이직_원피스수트(스윔)","line":"베이직","type":"원피스수트","judgment":"유지/보완 검토","memo":"대표컬러 핑크 / 대표사이즈 12M / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"에떼 원피스수트","line":"에떼","type":"원피스수트","judgment":"유지/보완 검토","memo":"대표컬러 핑크 / 대표사이즈 80 / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"크리스_캡스윔햇","line":"크리스","type":"스윔햇","judgment":"유지/보완 검토","memo":"대표컬러 레드 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"베이직_래쉬가드","line":"베이직","type":"래쉬가드","judgment":"유지/보완 검토","memo":"대표컬러 베이지 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"에떼 리본 스윔햇","line":"에떼","type":"스윔햇","judgment":"유지/보완 검토","memo":"대표컬러 핑크 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"베이직_바디수트(스윔)","line":"베이직","type":"바디수트","judgment":"유지/보완 검토","memo":"대표컬러 베이지 / 대표사이즈 18M / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"샬롯_바디수트","line":"샬롯","type":"바디수트","judgment":"유지/보완 검토","memo":"대표컬러 핑크 / 대표사이즈 12M / 재입고 이력 있음(집계 기준)"},{"name":"샬롯_래쉬가드","line":"샬롯","type":"래쉬가드","judgment":"유지/보완 검토","memo":"대표컬러 핑크 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"초코_래쉬가드JR","line":"초코","type":"래쉬가드","judgment":"유지/보완 검토","memo":"대표컬러 바닐라 / 대표사이즈 JS / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"베일리가운","line":"베일리","type":"가운","judgment":"유지/보완 검토","memo":"대표컬러 핑크 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"베이직_주니어","line":"베이직","type":"주니어","judgment":"유지/보완 검토","memo":"대표컬러 베이지 / 대표사이즈 JL / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"베일리가운_mom","line":"베일리","type":"가운","judgment":"유지/보완 검토","memo":"대표컬러 연베이지 / 대표사이즈 FREE / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"초코_스윔햇","line":"초코","type":"스윔햇","judgment":"유지/확장 검토","memo":"대표컬러 바닐라 / 대표사이즈 S / 재입고 이력 있음(집계 기준)"},{"name":"초코_원피스수트","line":"초코","type":"원피스수트","judgment":"유지/확장 검토","memo":"대표컬러 바닐라 / 대표사이즈 18M / 재입고 이력 있음(집계 기준)"},{"name":"초코_바디수트","line":"초코","type":"바디수트","judgment":"유지/확장 검토","memo":"대표컬러 바닐라 / 대표사이즈 18M / 재입고 이력 있음(집계 기준)"},{"name":"베이직_스윔햇","line":"베이직","type":"스윔햇","judgment":"유지/확장 검토","memo":"대표컬러 베이지 / 대표사이즈 S / 재입고 이력 있음(집계 기준)"},{"name":"초코_래쉬가드","line":"초코","type":"래쉬가드","judgment":"유지/확장 검토","memo":"대표컬러 바닐라 / 대표사이즈 M / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"주스_스윔햇","line":"주스","type":"스윔햇","judgment":"유지/확장 검토","memo":"대표컬러 노랑 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"모노_스윔햇","line":"모노","type":"스윔햇","judgment":"유지/확장 검토","memo":"대표컬러 핑크 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"주스래쉬가드","line":"주스","type":"래쉬가드","judgment":"유지/확장 검토","memo":"대표컬러 노랑 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"베이직_플랩캡","line":"베이직","type":"플랩캡","judgment":"유지/확장 검토","memo":"대표컬러 베이지 / 대표사이즈 S / 재입고 이력 있음(집계 기준)"},{"name":"주스_바디수트","line":"주스","type":"바디수트","judgment":"유지/확장 검토","memo":"대표컬러 민트 / 대표사이즈 18M / 재입고 이력 있음(집계 기준)"},{"name":"모노_원피스수트","line":"모노","type":"원피스수트","judgment":"유지/확장 검토","memo":"대표컬러 핑크 / 대표사이즈 18M / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"모노_래쉬가드","line":"모노","type":"래쉬가드","judgment":"유지/확장 검토","memo":"대표컬러 베이지 / 대표사이즈 L / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"크리스_래쉬가드","line":"크리스","type":"래쉬가드","judgment":"유지/확장 검토","memo":"대표컬러 레드 / 대표사이즈 XS / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"모노_바디수트","line":"모노","type":"바디수트","judgment":"유지/확장 검토","memo":"대표컬러 베이지 / 대표사이즈 18M / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"곰곰가운","line":"곰곰","type":"가운","judgment":"유지/확장 검토","memo":"대표컬러 크림 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"주스_주니어","line":"주스","type":"주니어","judgment":"유지/확장 검토","memo":"대표컬러 핑크 / 대표사이즈 JL / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"크리스_주니어","line":"크리스","type":"주니어","judgment":"유지/확장 검토","memo":"대표컬러 그린 / 대표사이즈 JL / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"베이직가운","line":"베이직","type":"가운","judgment":"유지/확장 검토","memo":"대표컬러 코코아 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"크리스_원피스수트(스윔)","line":"크리스","type":"원피스수트","judgment":"축소/교체 검토","memo":"대표컬러 레드 / 대표사이즈 12M / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"에떼 스윔햇","line":"에떼","type":"스윔햇","judgment":"축소/교체 검토","memo":"대표컬러 블루 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"크리스_루돌프스윔햇","line":"크리스","type":"스윔햇","judgment":"축소/교체 검토","memo":"대표컬러 레드 / 대표사이즈 L / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"크리스_바디수트(스윔)","line":"크리스","type":"바디수트","judgment":"축소/교체 검토","memo":"대표컬러 레드 / 대표사이즈 06M / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"이브_래쉬가드","line":"이브","type":"래쉬가드","judgment":"축소/교체 검토","memo":"대표컬러 레드 / 대표사이즈 XS / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"에떼 바디수트(스윔웨어)","line":"에떼","type":"바디수트","judgment":"축소/교체 검토","memo":"대표컬러 블루 / 대표사이즈 80 / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"이브_원피스수트(스윔)","line":"이브","type":"원피스수트","judgment":"축소/교체 검토","memo":"대표컬러 레드 / 대표사이즈 12M / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"이브_캡스윔햇","line":"이브","type":"스윔햇","judgment":"축소/교체 검토","memo":"대표컬러 레드 / 대표사이즈 S / 재입고 이력 있음(집계 기준)"},{"name":"에떼 키즈 래쉬가드","line":"에떼","type":"래쉬가드","judgment":"축소/교체 검토","memo":"대표컬러 핑크 / 대표사이즈 100 / 재입고 이력 있음(집계 기준)"},{"name":"이브_바디수트(스윔)","line":"이브","type":"바디수트","judgment":"축소/교체 검토","memo":"대표컬러 레드 / 대표사이즈 06M / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"에떼 플랩캡","line":"에떼","type":"플랩캡","judgment":"축소/교체 검토","memo":"대표컬러 핑크 / 대표사이즈 M / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"브레드 키즈 반팔래쉬가드","line":"브레드","type":"래쉬가드","judgment":"축소/교체 검토","memo":"대표컬러 브라운 / 대표사이즈 90 / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"브레드 스윔햇","line":"브레드","type":"스윔햇","judgment":"축소/교체 검토","memo":"대표컬러 브라운 / 대표사이즈 S / 재입고 이력 있음(집계 기준)"},{"name":"브레드 원피스수트","line":"브레드","type":"원피스수트","judgment":"축소/교체 검토","memo":"대표컬러 베이지 / 대표사이즈 80 / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"이브_루돌프스윔햇","line":"이브","type":"스윔햇","judgment":"축소/교체 검토","memo":"대표컬러 레드 / 대표사이즈 M / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"루루래쉬가드","line":"루루","type":"래쉬가드","judgment":"축소/교체 검토","memo":"대표컬러 브라운 / 대표사이즈 M / 재입고 이력 있음(집계 기준)"},{"name":"브레드 리본 스윔햇","line":"브레드","type":"스윔햇","judgment":"축소/교체 검토","memo":"대표컬러 베이지 / 대표사이즈 S / 재입고 이력 있음(집계 기준)"},{"name":"브레드 플랩캡","line":"브레드","type":"플랩캡","judgment":"축소/교체 검토","memo":"대표컬러 베이지 / 대표사이즈 S / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"브레드 바디수트(스윔웨어)","line":"브레드","type":"바디수트","judgment":"축소/교체 검토","memo":"대표컬러 베이지 / 대표사이즈 80 / 재입고 이력 있음(집계 기준)"},{"name":"루루_루돌프스윔햇","line":"루루","type":"스윔햇","judgment":"축소/교체 검토","memo":"대표컬러 브라운 / 대표사이즈 L / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"이브_주니어","line":"이브","type":"주니어","judgment":"축소/교체 검토","memo":"대표컬러 그린 / 대표사이즈 JL / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"루루_원피스수트","line":"루루","type":"원피스수트","judgment":"축소/교체 검토","memo":"대표컬러 브라운 / 대표사이즈 18M / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"에떼 주니어 래쉬가드","line":"에떼","type":"래쉬가드","judgment":"축소/교체 검토","memo":"대표컬러 블루 / 대표사이즈 130 / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"샬롯_주니어","line":"샬롯","type":"주니어","judgment":"축소/교체 검토","memo":"대표컬러 민트 / 대표사이즈 JL / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"루루_바디수트","line":"루루","type":"바디수트","judgment":"축소/교체 검토","memo":"대표컬러 브라운 / 대표사이즈 18M / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"브레드 주니어 반팔래쉬가드","line":"브레드","type":"래쉬가드","judgment":"축소/교체 검토","memo":"대표컬러 베이지 / 대표사이즈 130 / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"루루_주니어","line":"루루","type":"주니어","judgment":"축소/교체 검토","memo":"대표컬러 브라운 / 대표사이즈 JS / 재입고 이력 있음(집계 기준) / 하반기 강세"},{"name":"베이직가운_MOM","line":"베이직","type":"가운","judgment":"축소/교체 검토","memo":"대표컬러 베이지 / 대표사이즈 FREE / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"곰곰가운_mom","line":"곰곰","type":"가운","judgment":"축소/교체 검토","memo":"대표컬러 크림 / 대표사이즈 FREE / 재입고 이력 있음(집계 기준) / 상반기 강세"},{"name":"이태리가운","line":"이태리","type":"가운","judgment":"축소/교체 검토","memo":"대표컬러 노랑 / 대표사이즈 M / 재입고 이력 있음(집계 기준)"},{"name":"[P]스윔햇_모노","line":"스윔햇","type":"스윔햇","judgment":"축소/교체 검토","memo":"대표컬러 카키 / 대표사이즈 L / 상반기 강세"},{"name":"이태리가운_MOM","line":"이태리","type":"가운","judgment":"축소/교체 검토","memo":"대표컬러 초록 / 대표사이즈 FREE / 재입고 이력 있음(집계 기준)"}]};
+
+// Tab switching
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Format numbers
+function fmt(n) { return n.toLocaleString('ko-KR'); }
+function fmtWon(n) {
+  if (n >= 100000000) return (n/100000000).toFixed(1) + '억';
+  if (n >= 10000) return (n/10000).toFixed(0) + '만';
+  return fmt(n);
+}
+
+// Populate ranking table
+function buildRanking() {
+  const tbody = document.getElementById('ranking-body');
+  const wsMap = {};
+  DATA.wholesale.forEach(w => { wsMap[w.name] = w; });
+
+  DATA.summary.forEach(item => {
+    const ws = wsMap[item.name] || { qty: 0, dealers: 0 };
+    const isChoco = item.line === '초코';
+    const tr = document.createElement('tr');
+    if (isChoco) tr.className = 'highlight-row';
+    const peakMonth = item.peak ? item.peak.slice(4) + '월' : '-';
+    tr.innerHTML = `
+      <td>${isChoco ? '<strong>' + item.rank + '</strong>' : item.rank}</td>
+      <td>${isChoco ? '<strong>' + item.name + '</strong>' : item.name}</td>
+      <td>${item.line}</td>
+      <td>${item.type}</td>
+      <td class="text-right">${isChoco ? '<strong>' + fmt(item.qty) + '</strong>' : fmt(item.qty)}</td>
+      <td class="text-right">${fmtWon(item.rev)}</td>
+      <td>${peakMonth}(${fmt(item.peakQty)})</td>
+      <td>${item.topColor}</td>
+      <td class="text-right">${fmt(item.stock)}</td>
+      <td class="text-right" style="color:#999;font-size:11px">${ws.qty > 0 ? fmt(ws.qty) : '-'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Populate product selector
+function buildProductSelector() {
+  const sel = document.getElementById('product-selector');
+  DATA.summary.forEach(item => {
+    const opt = document.createElement('option');
+    opt.value = item.name;
+    opt.textContent = `#${item.rank} ${item.name} (${item.line}/${item.type}) — ${fmt(item.qty)}개`;
+    sel.appendChild(opt);
+  });
+}
+
+// Show product detail
+function showProductDetail() {
+  const name = document.getElementById('product-selector').value;
+  const infoDiv = document.getElementById('product-info');
+  if (!name) { infoDiv.style.display = 'none'; return; }
+  infoDiv.style.display = 'block';
+
+  const item = DATA.summary.find(s => s.name === name);
+  const options = DATA.options[name] || [];
+
+  // Stats
+  const statsDiv = document.getElementById('product-stats');
+  statsDiv.innerHTML = `
+    <div class="stat-card"><div class="label">연간 판매</div><div class="value">${fmt(item.qty)}</div><div class="sub">소매 기준</div></div>
+    <div class="stat-card"><div class="label">추정매출</div><div class="value">${fmtWon(item.rev)}</div><div class="sub">2025년</div></div>
+    <div class="stat-card"><div class="label">현재고</div><div class="value">${fmt(item.stock)}</div><div class="sub">${item.stock > 0 && item.qty > 0 ? (item.stock / (item.qty/12)).toFixed(1) + '개월치' : '-'}</div></div>
+    <div class="stat-card"><div class="label">대표</div><div class="value" style="font-size:16px">${item.topColor} / ${item.topSize}</div><div class="sub">컬러 ${fmt(item.topColorQty)} / 사이즈 ${fmt(item.topSizeQty)}</div></div>
+  `;
+
+  // Monthly chart
+  const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  const monthTotals = new Array(12).fill(0);
+  options.forEach(o => o.m.forEach((v, i) => monthTotals[i] += v));
+  const maxMonth = Math.max(...monthTotals, 1);
+
+  const chartDiv = document.getElementById('month-chart');
+  chartDiv.innerHTML = monthTotals.map((v, i) =>
+    `<div class="month-bar-wrap"><div class="month-val">${v > 0 ? v : ''}</div><div class="month-bar" style="height:${(v/maxMonth)*100}px;${v === maxMonth ? 'background:#dc2626' : ''}"></div><div class="month-label">${months[i]}</div></div>`
+  ).join('');
+
+  // Color aggregation
+  const colors = {};
+  options.forEach(o => { colors[o.c] = (colors[o.c] || 0) + o.t; });
+  const colorArr = Object.entries(colors).sort((a,b) => b[1] - a[1]);
+  const maxColor = colorArr[0] ? colorArr[0][1] : 1;
+
+  const colorBars = document.getElementById('color-bars');
+  colorBars.innerHTML = colorArr.map(([c, v]) =>
+    `<div class="mini-bar"><div class="mini-bar-label">${c}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${(v/maxColor)*100}%;background:${getColorHex(c)}">${v}</div></div></div>`
+  ).join('');
+
+  // Size aggregation
+  const sizes = {};
+  options.forEach(o => { sizes[o.s] = (sizes[o.s] || 0) + o.t; });
+  const sizeArr = Object.entries(sizes).sort((a,b) => b[1] - a[1]);
+  const maxSize = sizeArr[0] ? sizeArr[0][1] : 1;
+
+  const sizeBars = document.getElementById('size-bars');
+  sizeBars.innerHTML = sizeArr.map(([s, v]) =>
+    `<div class="mini-bar"><div class="mini-bar-label">${s}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${(v/maxSize)*100}%;background:#5b8a9a">${v}</div></div></div>`
+  ).join('');
+
+  // Option table
+  const tbody = document.getElementById('option-body');
+  const sorted = [...options].sort((a,b) => b.t - a.t);
+  tbody.innerHTML = sorted.map(o => {
+    const h1 = o.m.slice(0,6).reduce((a,b) => a+b, 0);
+    const h2 = o.m.slice(6).reduce((a,b) => a+b, 0);
+    return `<tr${o.t === sorted[0].t ? ' class="highlight-row"' : ''}>
+      <td>${o.c}</td><td>${o.s}</td>
+      <td class="text-right"><strong>${fmt(o.t)}</strong></td>
+      <td class="text-right">${fmt(h1)}</td><td class="text-right">${fmt(h2)}</td>
+      <td class="text-right">${fmt(o.st)}</td>
+      <td class="text-right">${fmtWon(o.r)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function getColorHex(name) {
+  const map = {
+    '바닐라':'#e8d5a0','딸기':'#e06070','핑크':'#e898a8','민트':'#6bc0b0',
+    '베이지':'#c8b898','노랑':'#e8c840','레드':'#cc3333','그린':'#5aaa70',
+    '코코아':'#8b6e5a','브라운':'#8b6e40','블루':'#5888b0','카키':'#8a9070',
+    '크림':'#f0e8d0','진베이지':'#a89878','연베이지':'#d8c8a8','먹색':'#4a4a4a',
+    '모카':'#7a6050','초록':'#3a8a50'
+  };
+  return map[name] || '#888';
+}
+
+// Init
+buildRanking();
+buildProductSelector();
+</script>
+</div>
+</body>
+</html>
