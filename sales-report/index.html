@@ -270,38 +270,30 @@ function showWeekly(id) {
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">쿠팡 납품 현황</div>
+    ${w.overseas ? `<div class="card">
+      <div class="card-header">해외 수출 현황 <span style="font-size:12px; color:var(--text-light); font-weight:400;">(3월 기준, 이지어드민)</span></div>
       <div class="card-body">
         <table>
-          <tr><th>구분</th><th>SKU건</th><th>수량</th><th>금액</th><th>증감</th></tr>
-          <tr>
-            <td>금주</td><td class="num">${fmt(w.coupangStock.current.sku)}</td>
-            <td class="num">${fmt(w.coupangStock.current.qty)}개</td>
-            <td class="num">${fmt(w.coupangStock.current.amount)}원</td><td></td>
-          </tr>
-          <tr>
-            <td>전주</td><td class="num">${fmt(w.coupangStock.prevWeek.sku)}</td>
-            <td class="num">${fmt(w.coupangStock.prevWeek.qty)}개</td>
-            <td class="num">${fmt(w.coupangStock.prevWeek.amount)}원</td>
-            <td class="center"><span class="badge badge-down">${fmtPct(w.coupangStock.current.amount, w.coupangStock.prevWeek.amount)}</span></td>
-          </tr>
-          <tr>
-            <td>전년</td><td class="num">${fmt(w.coupangStock.prevYear.sku)}</td>
-            <td class="num">${fmt(w.coupangStock.prevYear.qty)}개</td>
-            <td class="num">${fmt(w.coupangStock.prevYear.amount)}원</td>
-            <td class="center"><span class="badge badge-down">${fmtPct(w.coupangStock.current.amount, w.coupangStock.prevYear.amount)}</span></td>
+          <tr><th>판매처</th><th>당월</th><th>전월</th><th>전월대비</th><th>전년</th><th>전년대비</th></tr>
+          ${w.overseas.sellers.map(s => `<tr>
+            <td>${s.name}</td>
+            <td class="num">${fmt(s.current.qty)}개</td>
+            <td class="num">${s.prevMonth ? fmt(s.prevMonth.qty) + '개' : '-'}</td>
+            <td class="center">${s.prevMonth ? `<span class="badge ${isUp(s.current.qty, s.prevMonth.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(s.current.qty, s.prevMonth.qty)}</span>` : '-'}</td>
+            <td class="num">${s.prevYear ? fmt(s.prevYear.qty) + '개' : '-'}</td>
+            <td class="center">${s.prevYear ? `<span class="badge ${isUp(s.current.qty, s.prevYear.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(s.current.qty, s.prevYear.qty)}</span>` : '<span style="color:var(--text-light)">N/A</span>'}</td>
+          </tr>`).join('')}
+          <tr class="total-row">
+            <td>합계</td>
+            <td class="num">${fmt(w.overseas.total.qty)}개</td>
+            <td class="num">${fmt(w.overseas.total.prevMonth.qty)}개</td>
+            <td class="center"><span class="badge ${isUp(w.overseas.total.qty, w.overseas.total.prevMonth.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(w.overseas.total.qty, w.overseas.total.prevMonth.qty)}</span></td>
+            <td class="num">${w.overseas.total.prevYear ? fmt(w.overseas.total.prevYear.qty) + '개' : '-'}</td>
+            <td class="center">${w.overseas.total.prevYear ? `<span class="badge ${isUp(w.overseas.total.qty, w.overseas.total.prevYear.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(w.overseas.total.qty, w.overseas.total.prevYear.qty)}</span>` : '-'}</td>
           </tr>
         </table>
-        <div style="margin-top:16px">
-          <strong style="font-size:13px; color:var(--text-light);">납품 TOP 5</strong>
-          <table style="margin-top:8px">
-            <tr><th>상품</th><th>수량</th><th>금액</th></tr>
-            ${w.coupangStock.top5.map(p => `<tr><td>${p.name}</td><td class="num">${p.qty}개</td><td class="num">${fmt(p.amount)}원</td></tr>`).join('')}
-          </table>
-        </div>
       </div>
-    </div>
+    </div>` : ''}
 
     <div class="card">
       <div class="card-header">자사몰 판매 TOP 10 (Cafe24 API)</div>
@@ -648,35 +640,29 @@ function showClosing(key) {
       </div>
     </div>` : ''}
 
-    ${c.coupangStock ? `
+    ${c.overseas ? `
     <div class="card">
-      <div class="card-header">쿠팡 납품 현황 (월간)</div>
+      <div class="card-header">해외 수출 현황 (월간) <span style="font-size:12px; color:var(--text-light); font-weight:400;">이지어드민 기준</span></div>
       <div class="card-body">
         <table>
-          <tr><th>구분</th><th>SKU건</th><th>수량</th><th>금액</th></tr>
-          <tr><td>2026.3</td><td class="num">${fmt(c.coupangStock.current.sku)}</td><td class="num">${fmt(c.coupangStock.current.qty)}개</td><td class="num">${fmt(c.coupangStock.current.amount)}원</td></tr>
-          <tr><td>2026.2</td><td class="num">${fmt(c.coupangStock.prevMonth.sku)}</td><td class="num">${fmt(c.coupangStock.prevMonth.qty)}개</td><td class="num">${fmt(c.coupangStock.prevMonth.amount)}원</td></tr>
-          <tr><td>2025.3</td><td class="num">${fmt(c.coupangStock.prevYear.sku)}</td><td class="num">${fmt(c.coupangStock.prevYear.qty)}개</td><td class="num">${fmt(c.coupangStock.prevYear.amount)}원</td></tr>
+          <tr><th>판매처</th><th>당월</th><th>전월</th><th>전월대비</th><th>전년</th><th>전년대비</th></tr>
+          ${c.overseas.sellers.map(s => `<tr>
+            <td>${s.name}</td>
+            <td class="num">${fmt(s.current.qty)}개</td>
+            <td class="num">${s.prevMonth ? fmt(s.prevMonth.qty) + '개' : '-'}</td>
+            <td class="center">${s.prevMonth ? `<span class="badge ${isUp(s.current.qty, s.prevMonth.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(s.current.qty, s.prevMonth.qty)}</span>` : '-'}</td>
+            <td class="num">${s.prevYear ? fmt(s.prevYear.qty) + '개' : '-'}</td>
+            <td class="center">${s.prevYear ? `<span class="badge ${isUp(s.current.qty, s.prevYear.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(s.current.qty, s.prevYear.qty)}</span>` : '<span style="color:var(--text-light)">N/A</span>'}</td>
+          </tr>`).join('')}
           <tr class="total-row">
-            <td>전월대비</td>
-            <td class="center"><span class="badge ${isUp(c.coupangStock.current.sku, c.coupangStock.prevMonth.sku) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.sku, c.coupangStock.prevMonth.sku)}</span></td>
-            <td class="center"><span class="badge ${isUp(c.coupangStock.current.qty, c.coupangStock.prevMonth.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.qty, c.coupangStock.prevMonth.qty)}</span></td>
-            <td class="center"><span class="badge ${isUp(c.coupangStock.current.amount, c.coupangStock.prevMonth.amount) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.amount, c.coupangStock.prevMonth.amount)}</span></td>
-          </tr>
-          <tr class="total-row">
-            <td>전년대비</td>
-            <td class="center"><span class="badge ${isUp(c.coupangStock.current.sku, c.coupangStock.prevYear.sku) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.sku, c.coupangStock.prevYear.sku)}</span></td>
-            <td class="center"><span class="badge ${isUp(c.coupangStock.current.qty, c.coupangStock.prevYear.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.qty, c.coupangStock.prevYear.qty)}</span></td>
-            <td class="center"><span class="badge ${isUp(c.coupangStock.current.amount, c.coupangStock.prevYear.amount) ? 'badge-up' : 'badge-down'}">${fmtPct(c.coupangStock.current.amount, c.coupangStock.prevYear.amount)}</span></td>
+            <td>합계</td>
+            <td class="num">${fmt(c.overseas.total.qty)}개</td>
+            <td class="num">${fmt(c.overseas.total.prevMonth.qty)}개</td>
+            <td class="center"><span class="badge ${isUp(c.overseas.total.qty, c.overseas.total.prevMonth.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(c.overseas.total.qty, c.overseas.total.prevMonth.qty)}</span></td>
+            <td class="num">${c.overseas.total.prevYear ? fmt(c.overseas.total.prevYear.qty) + '개' : '-'}</td>
+            <td class="center">${c.overseas.total.prevYear ? `<span class="badge ${isUp(c.overseas.total.qty, c.overseas.total.prevYear.qty) ? 'badge-up' : 'badge-down'}">${fmtPct(c.overseas.total.qty, c.overseas.total.prevYear.qty)}</span>` : '-'}</td>
           </tr>
         </table>
-        <div style="margin-top:16px">
-          <strong style="font-size:13px; color:var(--text-light);">납품 TOP 5 (금액순)</strong>
-          <table style="margin-top:8px">
-            <tr><th>상품</th><th>수량</th><th>금액</th></tr>
-            ${c.coupangStock.top5.map(p => `<tr><td>${p.name}</td><td class="num">${p.qty}개</td><td class="num">${fmt(p.amount)}원</td></tr>`).join('')}
-          </table>
-        </div>
       </div>
     </div>` : ''}
 
@@ -772,13 +758,8 @@ function showClosing(key) {
 
 // 초기화
 initTabs();
-// 마감 탭이 있으면 최신 마감으로, 없으면 최신 주차로
-const closingKeys = Object.keys(monthlyClosing).sort().reverse();
-if (closingKeys.length > 0) {
-  showClosing(closingKeys[0]);
-} else {
-  showWeekly(weeklyReports[weeklyReports.length - 1].id);
-}
+// 최신 주차 먼저 표시
+showWeekly(weeklyReports[0].id);
 </script>
 </body>
 </html>
