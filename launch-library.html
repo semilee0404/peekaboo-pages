@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카부 신상 학습 라이브러리</title>
+<style>
+:root{--pink:#FF6B8A;--pink-l:#FFF0F3;--teal:#4ECDC4;--blue:#4A90D9;--green:#27AE60;--red:#E74C3C;--orange:#F5A623;--bg:#FAFBFC;--card:#fff;--text:#1A1D26;--sub:#5A6070;--muted:#8E95A5;--border:#E8EBF0;--r:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:14px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px 60px}
+.hero{background:linear-gradient(135deg,#1A1D26 0%,#2D3142 100%);color:#fff;padding:32px 24px;margin-bottom:28px;border-radius:0 0 var(--r) var(--r)}
+.hero h1{font-size:22px;font-weight:700}
+.hero .sub{font-size:13px;opacity:.7;margin-top:4px}
+.hero .q{margin-top:14px;font-size:13px;line-height:1.7;padding:12px 16px;background:rgba(255,255,255,.1);border-radius:8px}
+.sec{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.sec-t{font-size:17px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sec-t .n{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;background:var(--blue)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--bg);font-weight:600;text-align:left;padding:10px 8px;border-bottom:2px solid var(--border);font-size:11px;color:var(--muted)}
+td{padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.meta{font-size:10px;color:var(--muted)}
+table.mini th,table.mini td{padding:6px 4px;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.block{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px}
+.block h4{font-size:13px;font-weight:700;margin-bottom:10px}
+.bar-row{display:grid;grid-template-columns:60px 1fr 40px;gap:8px;align-items:center;margin:4px 0;font-size:12px}
+.bar-label{color:var(--sub);font-weight:600}
+.bar{background:var(--border);height:14px;border-radius:3px;overflow:hidden}
+.bar-fill{background:var(--blue);height:100%}
+.bar-fill.baby{background:var(--teal)}
+.bar-num{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.card{border:1px solid var(--border);border-radius:8px;padding:16px;background:var(--bg)}
+.card h4{font-size:13px;font-weight:700;margin-bottom:8px}
+.card-body{font-size:12px;line-height:1.7;color:var(--sub)}
+.card.info{border-left:3px solid var(--blue)}
+.card.bad{border-left:3px solid var(--red);background:#FDECEB}
+.card.warn{border-left:3px solid var(--orange);background:#FFFCF5}
+.disclaimer{background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:12px 16px;font-size:12px;color:#7D6608;margin-bottom:20px}
+footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border-top:1px solid var(--border);margin-top:40px}
+</style>
+</head>
+<body>
+
+<div class="hero">
+<div class="wrap">
+<h1>피카부 신상 학습 라이브러리</h1>
+<div class="sub">8개 신상 누적 데이터 · 2026-04-08 07:26 갱신</div>
+<div class="q">
+신상 기획·분석할 때 꺼내보는 누적 데이터 라이브러리입니다.<br>
+매출/사이즈/컬러/교차구매/객단가 — 모두 Cafe24 API 자동 적재.<br>
+인스타·UTM·콘텐츠 패턴은 아직 미적재 (다음 단계).
+</div>
+</div>
+</div>
+
+<div class="wrap">
+
+<div class="disclaimer">
+<b>※ 한계 명시</b><br>
+• 표본 8개 — 통계적 일반화 X. 패턴은 "관찰"이지 "결론"이 아님<br>
+• 매출 = Cafe24 API. 셀러센터 실수치와 ~0.12% 오차 가능 (메모리 기준)<br>
+• D+14/D+30이 비어있는 신상은 미래 시점 — 시간 지나면 자동 채워짐<br>
+• 키워드 매칭 기반 — 보니=보니 블루머만, 보니 헤어밴드 제외
+</div>
+
+<!-- ===== 자동 인사이트 ===== -->
+<div class="sec">
+<div class="sec-t"><span class="n">★</span> 자동 추출 인사이트</div>
+<div class="cards">
+<div class="card bad"><h4>🔴 완전 품절 — 리오더 시급</h4><div class="card-body">• <b>샌디 세트</b> — 판매 16개 / 재고 0<br><br>매출 약하다고 판단했던 신상이 사실은 발주 부족이었을 가능성. 즉시 리오더 검토.</div></div>
+<div class="card warn"><h4>🔵 잉여 재고 — 발주 회고 필요</h4><div class="card-body">• <b>링고 민소매</b> — 2,581개 / 소진율 0.2%<br>• <b>리지 라인</b> — 1,984개 / 소진율 0.5%<br>• <b>샤인 수트세트</b> — 1,821개 / 소진율 2.1%<br>• <b>보니 블루머</b> — 981개 / 소진율 7.8%<br>• <b>쇼콜라 티셔츠</b> — 768개 / 소진율 9.4%<br>• <b>코이 라인</b> — 750개 / 소진율 9.7%<br><br>발주 의사결정 회고. 추가 콘텐츠 투입 또는 다음 시즌 발주량 조정.</div></div>
+<div class="card info"><h4>📊 D+7 매출 랭킹</h4><div class="card-body"><b>최강:</b> 보니 블루머 — 2,158,000원<br><b>최약:</b> 리지 라인 — 368,000원<br><b>격차:</b> 5.9배</div></div>
+<div class="card bad"><h4>⚠ 리지 라인 — 정체 패턴</h4><div class="card-body">D+1 74,000 = D+3 74,000 (오픈 다음~3일차 추가 매출 0)<br>교차구매 100% — 단독 매력 약한 신호.<br>손절/추가투자 결정 필요.</div></div>
+<div class="card info"><h4>🔗 보니 블루머 — 견인 폭발</h4><div class="card-body">교차구매 100%지만 D+3 1,222,000원 (강한 매출).<br>이 신상은 다른 제품의 동반구매를 끌어내는 '코디 핵'.</div></div>
+<div class="card info"><h4>🔗 쇼콜라 티셔츠 — 견인 폭발</h4><div class="card-body">교차구매 100%지만 D+3 968,000원 (강한 매출).<br>이 신상은 다른 제품의 동반구매를 끌어내는 '코디 핵'.</div></div>
+<div class="card info"><h4>💰 객단가 격차</h4><div class="card-body"><b>최고:</b> 리지 라인 — 250,785원<br><b>최저:</b> 링고 민소매 — 72,133원<br><b>격차:</b> 3.5배. 세트/단품/단가 영향.</div></div>
+<div class="card info"><h4>🎨 컬러 압도 가설</h4><div class="card-body">• 보니 블루머 — 레드 <b>69%</b> (D+7~D+3 2,158,000원)<br>• 밀키 베이비 3종 세트 — 핑크 <b>62%</b> (D+7~D+3 1,924,000원)<br>• 쇼콜라 티셔츠 — 아이보리 <b>57%</b> (D+7~D+3 1,760,000원)<br>• 샤인 수트세트 — 그레이 <b>40%</b> (D+7~D+3 988,000원)<br>• 링고 민소매 — 아이보리 <b>39%</b> (D+7~D+3 62,000원)<br>• 샌디 세트 — 블랙 <b>38%</b> (D+7~D+3 352,000원)<br>• 코이 라인 — 그레이 <b>31%</b> (D+7~D+3 1,634,000원)<br>• 리지 라인 — 핑크 <b>30%</b> (D+7~D+3 368,000원)<br><br><b>관찰:</b> 강한 신상은 TOP 컬러가 매출 60%+ 차지. 약한 신상은 30%대 균등 분산.<br><b>적용:</b> 발주 시점 컬러 균등 X → 1~2개 메인 컬러 집중 전략 검토.</div></div>
+<div class="card info"><h4>🎨 톤별 D+3 평균</h4><div class="card-body"><b>귀여움 (5개):</b> 801,800원<br><b>베이직 (3개):</b> 467,333원<br><b>비율:</b> 귀여움이 베이직의 1.7배. ※ n=8, 가설 확정 X.</div></div>
+</div>
+</div>
+
+<!-- ===== 매출 비교 표 ===== -->
+<div class="sec">
+<div class="sec-t"><span class="n">1</span> 매출 비교 — D+1 / D+3 / D+7 / D+14 / D+30</div>
+<div style="overflow-x:auto">
+<table>
+<tr>
+<th>신상</th>
+<th>추이 (D+1~D+30)</th>
+<th class="num">D+1</th>
+<th class="num">D+3</th>
+<th class="num">D+7</th>
+<th class="num">D+14</th>
+<th class="num">D+30</th>
+<th class="num">AOV</th>
+<th class="num">베이비</th>
+<th class="num">교차%</th>
+<th class="num">정상재고</th>
+<th class="num">소진율</th>
+</tr>
+
+        <tr>
+            <td><b>보니 블루머</b><br><span class="meta">2026-03-26 · 귀여움</span></td>
+            <td><svg width="180" height="56" viewBox="0 0 180 56" xmlns="http://www.w3.org/2000/svg"><polyline points="13.5,43.6 24.4,25.1 46.3,6.0" fill="none" stroke="#FF6B8A" stroke-width="1.6"/><circle cx="13.5" cy="43.6" r="2.5" fill="#FF6B8A"/><circle cx="24.4" cy="25.1" r="2.5" fill="#FF6B8A"/><circle cx="46.3" cy="6.0" r="2.5" fill="#FF6B8A"/><text x="42.3" y="0.0" font-size="9" fill="#5A6070" text-anchor="end">215만</text></svg></td>
+            <td class="num">312,000</td>
+            <td class="num">1,222,000</td>
+            <td class="num">2,158,000</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">119,986</td>
+            <td class="num">100%</td>
+            <td class="num">100%</td>
+            <td class="num">981<br><span class="meta">🔵 잉여 재고</span></td>
+            <td class="num">8%</td>
+        </tr>
+        
+        <tr>
+            <td><b>쇼콜라 티셔츠</b><br><span class="meta">2026-03-26 · 귀여움</span></td>
+            <td><svg width="180" height="56" viewBox="0 0 180 56" xmlns="http://www.w3.org/2000/svg"><polyline points="13.5,43.4 24.4,25.8 46.3,6.0" fill="none" stroke="#FF6B8A" stroke-width="1.6"/><circle cx="13.5" cy="43.4" r="2.5" fill="#FF6B8A"/><circle cx="24.4" cy="25.8" r="2.5" fill="#FF6B8A"/><circle cx="46.3" cy="6.0" r="2.5" fill="#FF6B8A"/><text x="42.3" y="0.0" font-size="9" fill="#5A6070" text-anchor="end">176만</text></svg></td>
+            <td class="num">264,000</td>
+            <td class="num">968,000</td>
+            <td class="num">1,760,000</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">114,695</td>
+            <td class="num">100%</td>
+            <td class="num">100%</td>
+            <td class="num">768<br><span class="meta">🔵 잉여 재고</span></td>
+            <td class="num">9%</td>
+        </tr>
+        
+        <tr>
+            <td><b>밀키 베이비 3종 세트</b><br><span class="meta">2026-03-26 · 귀여움</span></td>
+            <td><svg width="180" height="56" viewBox="0 0 180 56" xmlns="http://www.w3.org/2000/svg"><polyline points="13.5,44.1 24.4,26.2 46.3,6.0" fill="none" stroke="#FF6B8A" stroke-width="1.6"/><circle cx="13.5" cy="44.1" r="2.5" fill="#FF6B8A"/><circle cx="24.4" cy="26.2" r="2.5" fill="#FF6B8A"/><circle cx="46.3" cy="6.0" r="2.5" fill="#FF6B8A"/><text x="42.3" y="0.0" font-size="9" fill="#5A6070" text-anchor="end">192만</text></svg></td>
+            <td class="num">260,000</td>
+            <td class="num">1,040,000</td>
+            <td class="num">1,924,000</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">150,648</td>
+            <td class="num">100%</td>
+            <td class="num">94%</td>
+            <td class="num">247<br><span class="meta">🟢 정상</span></td>
+            <td class="num">13%</td>
+        </tr>
+        
+        <tr>
+            <td><b>코이 라인</b><br><span class="meta">2026-03-28 · 귀여움</span></td>
+            <td><svg width="180" height="56" viewBox="0 0 180 56" xmlns="http://www.w3.org/2000/svg"><polyline points="13.5,45.3 24.4,31.0 46.3,6.0" fill="none" stroke="#FF6B8A" stroke-width="1.6"/><circle cx="13.5" cy="45.3" r="2.5" fill="#FF6B8A"/><circle cx="24.4" cy="31.0" r="2.5" fill="#FF6B8A"/><circle cx="46.3" cy="6.0" r="2.5" fill="#FF6B8A"/><text x="42.3" y="0.0" font-size="9" fill="#5A6070" text-anchor="end">163만</text></svg></td>
+            <td class="num">176,000</td>
+            <td class="num">705,000</td>
+            <td class="num">1,634,000</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">97,177</td>
+            <td class="num">100%</td>
+            <td class="num">71%</td>
+            <td class="num">750<br><span class="meta">🔵 잉여 재고</span></td>
+            <td class="num">10%</td>
+        </tr>
+        
+        <tr>
+            <td><b>리지 라인</b><br><span class="meta">2026-03-28 · 귀여움</span></td>
+            <td><svg width="180" height="56" viewBox="0 0 180 56" xmlns="http://www.w3.org/2000/svg"><polyline points="13.5,41.2 24.4,41.2 46.3,6.0" fill="none" stroke="#FF6B8A" stroke-width="1.6"/><circle cx="13.5" cy="41.2" r="2.5" fill="#FF6B8A"/><circle cx="24.4" cy="41.2" r="2.5" fill="#FF6B8A"/><circle cx="46.3" cy="6.0" r="2.5" fill="#FF6B8A"/><text x="42.3" y="0.0" font-size="9" fill="#5A6070" text-anchor="end">36만</text></svg></td>
+            <td class="num">74,000</td>
+            <td class="num">74,000</td>
+            <td class="num">368,000</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">250,785</td>
+            <td class="num">50%</td>
+            <td class="num">100%</td>
+            <td class="num">1,984<br><span class="meta">🔵 잉여 재고</span></td>
+            <td class="num">0%</td>
+        </tr>
+        
+        <tr>
+            <td><b>링고 민소매</b><br><span class="meta">2026-04-03 · 베이직</span></td>
+            <td><svg width="180" height="56" viewBox="0 0 180 56" xmlns="http://www.w3.org/2000/svg"><polyline points="13.5,41.5 24.4,6.0" fill="none" stroke="#FF6B8A" stroke-width="1.6"/><circle cx="13.5" cy="41.5" r="2.5" fill="#FF6B8A"/><circle cx="24.4" cy="6.0" r="2.5" fill="#FF6B8A"/><text x="20.4" y="0.0" font-size="9" fill="#5A6070" text-anchor="end">6만</text></svg></td>
+            <td class="num">12,000</td>
+            <td class="num">62,000</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">72,133</td>
+            <td class="num">100%</td>
+            <td class="num">67%</td>
+            <td class="num">2,581<br><span class="meta">🔵 잉여 재고</span></td>
+            <td class="num">0%</td>
+        </tr>
+        
+        <tr>
+            <td><b>샌디 세트</b><br><span class="meta">2026-04-03 · 베이직</span></td>
+            <td><svg width="180" height="56" viewBox="0 0 180 56" xmlns="http://www.w3.org/2000/svg"><polyline points="13.5,47.2 24.4,6.0" fill="none" stroke="#FF6B8A" stroke-width="1.6"/><circle cx="13.5" cy="47.2" r="2.5" fill="#FF6B8A"/><circle cx="24.4" cy="6.0" r="2.5" fill="#FF6B8A"/><text x="20.4" y="0.0" font-size="9" fill="#5A6070" text-anchor="end">35만</text></svg></td>
+            <td class="num">22,000</td>
+            <td class="num">352,000</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">161,209</td>
+            <td class="num">81%</td>
+            <td class="num">91%</td>
+            <td class="num">0<br><span class="meta">🔴 완전 품절</span></td>
+            <td class="num">100%</td>
+        </tr>
+        
+        <tr>
+            <td><b>샤인 수트세트</b><br><span class="meta">2026-04-03 · 베이직</span></td>
+            <td><svg width="180" height="56" viewBox="0 0 180 56" xmlns="http://www.w3.org/2000/svg"><polyline points="13.5,45.6 24.4,6.0" fill="none" stroke="#FF6B8A" stroke-width="1.6"/><circle cx="13.5" cy="45.6" r="2.5" fill="#FF6B8A"/><circle cx="24.4" cy="6.0" r="2.5" fill="#FF6B8A"/><text x="20.4" y="0.0" font-size="9" fill="#5A6070" text-anchor="end">98만</text></svg></td>
+            <td class="num">98,000</td>
+            <td class="num">988,000</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">97,396</td>
+            <td class="num">66%</td>
+            <td class="num">69%</td>
+            <td class="num">1,821<br><span class="meta">🔵 잉여 재고</span></td>
+            <td class="num">2%</td>
+        </tr>
+        
+</table>
+</div>
+</div>
+
+<!-- ===== 컬러 분포 ===== -->
+<div class="sec">
+<div class="sec-t"><span class="n">2</span> 컬러 분포 (TOP 5)</div>
+<div class="grid">
+
+        <div class="block">
+            <h4>보니 블루머 <span style="font-size:11px;color:var(--muted);font-weight:400">TOP 69% ✓ 압도</span></h4>
+            <div class="bar-row"><div class="bar-label">레드</div><div class="bar"><div class="bar-fill" style="width:69%"></div></div><div class="bar-num">148만</div></div>
+<div class="bar-row"><div class="bar-label">옐로우</div><div class="bar"><div class="bar-fill" style="width:13%"></div></div><div class="bar-num">29만</div></div>
+<div class="bar-row"><div class="bar-label">블랙</div><div class="bar"><div class="bar-fill" style="width:7%"></div></div><div class="bar-num">16만</div></div>
+<div class="bar-row"><div class="bar-label">베이지</div><div class="bar"><div class="bar-fill" style="width:5%"></div></div><div class="bar-num">10만</div></div>
+<div class="bar-row"><div class="bar-label">브라운</div><div class="bar"><div class="bar-fill" style="width:4%"></div></div><div class="bar-num">8만</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>쇼콜라 티셔츠 <span style="font-size:11px;color:var(--muted);font-weight:400">TOP 57% ⚠ 분산</span></h4>
+            <div class="bar-row"><div class="bar-label">아이보리</div><div class="bar"><div class="bar-fill" style="width:57%"></div></div><div class="bar-num">101만</div></div>
+<div class="bar-row"><div class="bar-label">크림</div><div class="bar"><div class="bar-fill" style="width:32%"></div></div><div class="bar-num">57만</div></div>
+<div class="bar-row"><div class="bar-label">블랙</div><div class="bar"><div class="bar-fill" style="width:6%"></div></div><div class="bar-num">11만</div></div>
+<div class="bar-row"><div class="bar-label">베이지</div><div class="bar"><div class="bar-fill" style="width:4%"></div></div><div class="bar-num">7만</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>밀키 베이비 3종 세트 <span style="font-size:11px;color:var(--muted);font-weight:400">TOP 62% ✓ 압도</span></h4>
+            <div class="bar-row"><div class="bar-label">핑크</div><div class="bar"><div class="bar-fill" style="width:62%"></div></div><div class="bar-num">120만</div></div>
+<div class="bar-row"><div class="bar-label">베이지</div><div class="bar"><div class="bar-fill" style="width:22%"></div></div><div class="bar-num">42만</div></div>
+<div class="bar-row"><div class="bar-label">브라운</div><div class="bar"><div class="bar-fill" style="width:16%"></div></div><div class="bar-num">31만</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>코이 라인 <span style="font-size:11px;color:var(--muted);font-weight:400">TOP 31% ⚠ 분산</span></h4>
+            <div class="bar-row"><div class="bar-label">그레이</div><div class="bar"><div class="bar-fill" style="width:31%"></div></div><div class="bar-num">51만</div></div>
+<div class="bar-row"><div class="bar-label">아이보리</div><div class="bar"><div class="bar-fill" style="width:22%"></div></div><div class="bar-num">36만</div></div>
+<div class="bar-row"><div class="bar-label">크림</div><div class="bar"><div class="bar-fill" style="width:14%"></div></div><div class="bar-num">22만</div></div>
+<div class="bar-row"><div class="bar-label">연그레이</div><div class="bar"><div class="bar-fill" style="width:13%"></div></div><div class="bar-num">21만</div></div>
+<div class="bar-row"><div class="bar-label">브라운</div><div class="bar"><div class="bar-fill" style="width:11%"></div></div><div class="bar-num">18만</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>리지 라인 <span style="font-size:11px;color:var(--muted);font-weight:400">TOP 30% ⚠ 분산</span></h4>
+            <div class="bar-row"><div class="bar-label">핑크</div><div class="bar"><div class="bar-fill" style="width:30%"></div></div><div class="bar-num">11만</div></div>
+<div class="bar-row"><div class="bar-label">블랙</div><div class="bar"><div class="bar-fill" style="width:30%"></div></div><div class="bar-num">11만</div></div>
+<div class="bar-row"><div class="bar-label">크림</div><div class="bar"><div class="bar-fill" style="width:30%"></div></div><div class="bar-num">11만</div></div>
+<div class="bar-row"><div class="bar-label">베이지</div><div class="bar"><div class="bar-fill" style="width:10%"></div></div><div class="bar-num">4만</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>링고 민소매 <span style="font-size:11px;color:var(--muted);font-weight:400">TOP 39% ⚠ 분산</span></h4>
+            <div class="bar-row"><div class="bar-label">아이보리</div><div class="bar"><div class="bar-fill" style="width:39%"></div></div><div class="bar-num">2만</div></div>
+<div class="bar-row"><div class="bar-label">코코아</div><div class="bar"><div class="bar-fill" style="width:21%"></div></div><div class="bar-num">1만</div></div>
+<div class="bar-row"><div class="bar-label">라이트베이지</div><div class="bar"><div class="bar-fill" style="width:21%"></div></div><div class="bar-num">1만</div></div>
+<div class="bar-row"><div class="bar-label">블랙</div><div class="bar"><div class="bar-fill" style="width:19%"></div></div><div class="bar-num">1만</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>샌디 세트 <span style="font-size:11px;color:var(--muted);font-weight:400">TOP 38% ⚠ 분산</span></h4>
+            <div class="bar-row"><div class="bar-label">블랙</div><div class="bar"><div class="bar-fill" style="width:38%"></div></div><div class="bar-num">13만</div></div>
+<div class="bar-row"><div class="bar-label">핑크</div><div class="bar"><div class="bar-fill" style="width:31%"></div></div><div class="bar-num">11만</div></div>
+<div class="bar-row"><div class="bar-label">크림</div><div class="bar"><div class="bar-fill" style="width:12%"></div></div><div class="bar-num">4만</div></div>
+<div class="bar-row"><div class="bar-label">옐로우</div><div class="bar"><div class="bar-fill" style="width:12%"></div></div><div class="bar-num">4만</div></div>
+<div class="bar-row"><div class="bar-label">베이지</div><div class="bar"><div class="bar-fill" style="width:6%"></div></div><div class="bar-num">2만</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>샤인 수트세트 <span style="font-size:11px;color:var(--muted);font-weight:400">TOP 40% ⚠ 분산</span></h4>
+            <div class="bar-row"><div class="bar-label">그레이</div><div class="bar"><div class="bar-fill" style="width:40%"></div></div><div class="bar-num">39만</div></div>
+<div class="bar-row"><div class="bar-label">베이지</div><div class="bar"><div class="bar-fill" style="width:39%"></div></div><div class="bar-num">38만</div></div>
+<div class="bar-row"><div class="bar-label">아이보리</div><div class="bar"><div class="bar-fill" style="width:21%"></div></div><div class="bar-num">21만</div></div>
+        </div>
+        
+</div>
+</div>
+
+<!-- ===== 사이즈 분포 ===== -->
+<div class="sec">
+<div class="sec-t"><span class="n">3</span> 사이즈 분포</div>
+<div class="grid">
+
+        <div class="block">
+            <h4>보니 블루머</h4>
+            <div class="bar-row"><div class="bar-label">60</div><div class="bar"><div class="bar-fill baby" style="width:13%"></div></div><div class="bar-num">11</div></div>
+<div class="bar-row"><div class="bar-label">70</div><div class="bar"><div class="bar-fill baby" style="width:40%"></div></div><div class="bar-num">33</div></div>
+<div class="bar-row"><div class="bar-label">80</div><div class="bar"><div class="bar-fill baby" style="width:33%"></div></div><div class="bar-num">27</div></div>
+<div class="bar-row"><div class="bar-label">90</div><div class="bar"><div class="bar-fill baby" style="width:14%"></div></div><div class="bar-num">12</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>쇼콜라 티셔츠</h4>
+            <div class="bar-row"><div class="bar-label">60</div><div class="bar"><div class="bar-fill baby" style="width:14%"></div></div><div class="bar-num">11</div></div>
+<div class="bar-row"><div class="bar-label">70</div><div class="bar"><div class="bar-fill baby" style="width:35%"></div></div><div class="bar-num">28</div></div>
+<div class="bar-row"><div class="bar-label">80</div><div class="bar"><div class="bar-fill baby" style="width:34%"></div></div><div class="bar-num">27</div></div>
+<div class="bar-row"><div class="bar-label">90</div><div class="bar"><div class="bar-fill baby" style="width:18%"></div></div><div class="bar-num">14</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>밀키 베이비 3종 세트</h4>
+            <div class="bar-row"><div class="bar-label">60</div><div class="bar"><div class="bar-fill baby" style="width:16%"></div></div><div class="bar-num">6</div></div>
+<div class="bar-row"><div class="bar-label">70</div><div class="bar"><div class="bar-fill baby" style="width:41%"></div></div><div class="bar-num">15</div></div>
+<div class="bar-row"><div class="bar-label">80</div><div class="bar"><div class="bar-fill baby" style="width:43%"></div></div><div class="bar-num">16</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>코이 라인</h4>
+            <div class="bar-row"><div class="bar-label">60</div><div class="bar"><div class="bar-fill baby" style="width:17%"></div></div><div class="bar-num">11</div></div>
+<div class="bar-row"><div class="bar-label">70</div><div class="bar"><div class="bar-fill baby" style="width:52%"></div></div><div class="bar-num">34</div></div>
+<div class="bar-row"><div class="bar-label">80</div><div class="bar"><div class="bar-fill baby" style="width:18%"></div></div><div class="bar-num">12</div></div>
+<div class="bar-row"><div class="bar-label">90</div><div class="bar"><div class="bar-fill baby" style="width:12%"></div></div><div class="bar-num">8</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>리지 라인</h4>
+            <div class="bar-row"><div class="bar-label">60</div><div class="bar"><div class="bar-fill baby" style="width:10%"></div></div><div class="bar-num">1</div></div>
+<div class="bar-row"><div class="bar-label">70</div><div class="bar"><div class="bar-fill baby" style="width:20%"></div></div><div class="bar-num">2</div></div>
+<div class="bar-row"><div class="bar-label">90</div><div class="bar"><div class="bar-fill baby" style="width:60%"></div></div><div class="bar-num">6</div></div>
+<div class="bar-row"><div class="bar-label">110</div><div class="bar"><div class="bar-fill baby" style="width:10%"></div></div><div class="bar-num">1</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>링고 민소매</h4>
+            <div class="bar-row"><div class="bar-label">80</div><div class="bar"><div class="bar-fill baby" style="width:60%"></div></div><div class="bar-num">3</div></div>
+<div class="bar-row"><div class="bar-label">90</div><div class="bar"><div class="bar-fill baby" style="width:40%"></div></div><div class="bar-num">2</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>샌디 세트</h4>
+            <div class="bar-row"><div class="bar-label">70</div><div class="bar"><div class="bar-fill baby" style="width:25%"></div></div><div class="bar-num">4</div></div>
+<div class="bar-row"><div class="bar-label">80</div><div class="bar"><div class="bar-fill baby" style="width:56%"></div></div><div class="bar-num">9</div></div>
+<div class="bar-row"><div class="bar-label">100</div><div class="bar"><div class="bar-fill baby" style="width:6%"></div></div><div class="bar-num">1</div></div>
+<div class="bar-row"><div class="bar-label">110</div><div class="bar"><div class="bar-fill baby" style="width:12%"></div></div><div class="bar-num">2</div></div>
+        </div>
+        
+        <div class="block">
+            <h4>샤인 수트세트</h4>
+            <div class="bar-row"><div class="bar-label">70</div><div class="bar"><div class="bar-fill baby" style="width:20%"></div></div><div class="bar-num">7</div></div>
+<div class="bar-row"><div class="bar-label">80</div><div class="bar"><div class="bar-fill baby" style="width:26%"></div></div><div class="bar-num">9</div></div>
+<div class="bar-row"><div class="bar-label">90</div><div class="bar"><div class="bar-fill baby" style="width:20%"></div></div><div class="bar-num">7</div></div>
+<div class="bar-row"><div class="bar-label">100</div><div class="bar"><div class="bar-fill baby" style="width:14%"></div></div><div class="bar-num">5</div></div>
+<div class="bar-row"><div class="bar-label">110</div><div class="bar"><div class="bar-fill baby" style="width:11%"></div></div><div class="bar-num">4</div></div>
+<div class="bar-row"><div class="bar-label">120</div><div class="bar"><div class="bar-fill baby" style="width:9%"></div></div><div class="bar-num">3</div></div>
+        </div>
+        
+</div>
+</div>
+
+<div class="sec"><div class="sec-t"><span class="n">★</span> 회고 노트 (사람 입력)</div><div class="grid">
+        <div class="block">
+            <h4>샌디 세트</h4>
+            <div style="font-size:12px;color:var(--sub);line-height:1.7">[2026-04-07 20:26] 발주 16개로 4일만에 품절. 수요는 검증됨, 다음 발주 적극(×1.6) 권장</div>
+        </div>
+        
+        <div class="block">
+            <h4>샤인 수트세트</h4>
+            <div style="font-size:12px;color:var(--sub);line-height:1.7">[2026-04-07 20:26] 베이직 톤+콘텐츠 4일 공백→매출 약함. 다음 신상은 귀여움 톤 우선 + D-7 티저 시작</div>
+        </div>
+        </div></div>
+
+<!-- ===== 콘텐츠 패턴 ===== -->
+<div class="sec">
+<div class="sec-t"><span class="n">4</span> 콘텐츠 패턴 (인스타) <span style="font-size:11px;color:var(--muted);font-weight:400">캡션 매칭 기반</span></div>
+<div class="grid">
+
+        <div class="block">
+            <h4>보니 블루머</h4>
+            <div class="bar-row"><div class="bar-label">티저 시작</div><div class="bar-num" style="text-align:left">D-6</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">매칭 게시물</div><div class="bar-num" style="text-align:left">2개</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">티저/오픈/후속</div><div class="bar-num" style="text-align:left">1 / 1 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">피드/릴스</div><div class="bar-num" style="text-align:left">2 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">reach</div><div class="bar-num" style="text-align:left">25,617</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">saves</div><div class="bar-num" style="text-align:left">79</div><div></div></div>
+        </div>
+        
+        <div class="block">
+            <h4>쇼콜라 티셔츠</h4>
+            <div class="bar-row"><div class="bar-label">티저 시작</div><div class="bar-num" style="text-align:left">D-0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">매칭 게시물</div><div class="bar-num" style="text-align:left">1개</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">티저/오픈/후속</div><div class="bar-num" style="text-align:left">0 / 1 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">피드/릴스</div><div class="bar-num" style="text-align:left">1 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">reach</div><div class="bar-num" style="text-align:left">10,901</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">saves</div><div class="bar-num" style="text-align:left">72</div><div></div></div>
+        </div>
+        
+        <div class="block">
+            <h4>밀키 베이비 3종 세트</h4>
+            <div class="bar-row"><div class="bar-label">티저 시작</div><div class="bar-num" style="text-align:left">D-0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">매칭 게시물</div><div class="bar-num" style="text-align:left">1개</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">티저/오픈/후속</div><div class="bar-num" style="text-align:left">0 / 1 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">피드/릴스</div><div class="bar-num" style="text-align:left">1 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">reach</div><div class="bar-num" style="text-align:left">10,901</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">saves</div><div class="bar-num" style="text-align:left">72</div><div></div></div>
+        </div>
+        
+        <div class="block">
+            <h4>코이 라인</h4>
+            <div class="bar-row"><div class="bar-label">티저 시작</div><div class="bar-num" style="text-align:left">D-2</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">매칭 게시물</div><div class="bar-num" style="text-align:left">1개</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">티저/오픈/후속</div><div class="bar-num" style="text-align:left">1 / 0 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">피드/릴스</div><div class="bar-num" style="text-align:left">1 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">reach</div><div class="bar-num" style="text-align:left">10,901</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">saves</div><div class="bar-num" style="text-align:left">72</div><div></div></div>
+        </div>
+        
+        <div class="block">
+            <h4>리지 라인</h4>
+            <div class="bar-row"><div class="bar-label">티저 시작</div><div class="bar-num" style="text-align:left">D-2</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">매칭 게시물</div><div class="bar-num" style="text-align:left">1개</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">티저/오픈/후속</div><div class="bar-num" style="text-align:left">1 / 0 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">피드/릴스</div><div class="bar-num" style="text-align:left">1 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">reach</div><div class="bar-num" style="text-align:left">10,901</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">saves</div><div class="bar-num" style="text-align:left">72</div><div></div></div>
+        </div>
+        
+        <div class="block">
+            <h4>링고 민소매</h4>
+            <div class="bar-row"><div class="bar-label">티저 시작</div><div class="bar-num" style="text-align:left">D-6</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">매칭 게시물</div><div class="bar-num" style="text-align:left">2개</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">티저/오픈/후속</div><div class="bar-num" style="text-align:left">1 / 0 / 1</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">피드/릴스</div><div class="bar-num" style="text-align:left">1 / 1</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">reach</div><div class="bar-num" style="text-align:left">9,946</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">saves</div><div class="bar-num" style="text-align:left">34</div><div></div></div>
+        </div>
+        
+        <div class="block">
+            <h4>샌디 세트</h4>
+            <div class="bar-row"><div class="bar-label">티저 시작</div><div class="bar-num" style="text-align:left">D-4</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">매칭 게시물</div><div class="bar-num" style="text-align:left">2개</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">티저/오픈/후속</div><div class="bar-num" style="text-align:left">1 / 0 / 1</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">피드/릴스</div><div class="bar-num" style="text-align:left">2 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">reach</div><div class="bar-num" style="text-align:left">8,973</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">saves</div><div class="bar-num" style="text-align:left">28</div><div></div></div>
+        </div>
+        
+        <div class="block">
+            <h4>샤인 수트세트</h4>
+            <div class="bar-row"><div class="bar-label">티저 시작</div><div class="bar-num" style="text-align:left">D-5</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">매칭 게시물</div><div class="bar-num" style="text-align:left">2개</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">티저/오픈/후속</div><div class="bar-num" style="text-align:left">1 / 0 / 1</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">피드/릴스</div><div class="bar-num" style="text-align:left">2 / 0</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">reach</div><div class="bar-num" style="text-align:left">19,306</div><div></div></div>
+            <div class="bar-row"><div class="bar-label">saves</div><div class="bar-num" style="text-align:left">121</div><div></div></div>
+        </div>
+        
+</div>
+</div>
+
+<!-- ===== 교차구매 ===== -->
+<div class="sec">
+<div class="sec-t"><span class="n">5</span> 교차구매 — 같이 팔린 제품 TOP 5</div>
+<div class="grid">
+
+        <div class="block">
+            <h4>보니 블루머</h4>
+            <table class="mini"><tr><th>#</th><th>같이 팔린 제품</th><th class="num">건수</th></tr>
+            <tr><td>1</td><td>쇼콜라 티셔츠</td><td class='num'>71건</td></tr>
+<tr><td>2</td><td>보니 헤어밴드</td><td class='num'>42건</td></tr>
+<tr><td>3</td><td>밀키 베이비 3종 세트</td><td class='num'>15건</td></tr>
+<tr><td>4</td><td>플라워 니삭스 (+mom)</td><td class='num'>8건</td></tr>
+<tr><td>5</td><td>코이 티셔츠</td><td class='num'>8건</td></tr>
+            </table>
+        </div>
+        
+        <div class="block">
+            <h4>쇼콜라 티셔츠</h4>
+            <table class="mini"><tr><th>#</th><th>같이 팔린 제품</th><th class="num">건수</th></tr>
+            <tr><td>1</td><td>보니 블루머</td><td class='num'>75건</td></tr>
+<tr><td>2</td><td>보니 헤어밴드</td><td class='num'>41건</td></tr>
+<tr><td>3</td><td>밀키 베이비 3종 세트</td><td class='num'>16건</td></tr>
+<tr><td>4</td><td>플라워 니삭스 (+mom)</td><td class='num'>8건</td></tr>
+<tr><td>5</td><td>밀키 헤어밴드</td><td class='num'>6건</td></tr>
+            </table>
+        </div>
+        
+        <div class="block">
+            <h4>밀키 베이비 3종 세트</h4>
+            <table class="mini"><tr><th>#</th><th>같이 팔린 제품</th><th class="num">건수</th></tr>
+            <tr><td>1</td><td>보니 블루머</td><td class='num'>20건</td></tr>
+<tr><td>2</td><td>쇼콜라 티셔츠</td><td class='num'>18건</td></tr>
+<tr><td>3</td><td>밀키 헤어밴드</td><td class='num'>14건</td></tr>
+<tr><td>4</td><td>보니 헤어밴드</td><td class='num'>12건</td></tr>
+<tr><td>5</td><td>플라워 니삭스 (+mom)</td><td class='num'>6건</td></tr>
+            </table>
+        </div>
+        
+        <div class="block">
+            <h4>코이 라인</h4>
+            <table class="mini"><tr><th>#</th><th>같이 팔린 제품</th><th class="num">건수</th></tr>
+            <tr><td>1</td><td>보니 블루머</td><td class='num'>10건</td></tr>
+<tr><td>2</td><td>쇼콜라 티셔츠</td><td class='num'>10건</td></tr>
+<tr><td>3</td><td>윈디 베이비 가디건</td><td class='num'>7건</td></tr>
+<tr><td>4</td><td>단단baby 티셔츠(단품)</td><td class='num'>5건</td></tr>
+<tr><td>5</td><td>쫀득 쫄바지(단품)</td><td class='num'>5건</td></tr>
+            </table>
+        </div>
+        
+        <div class="block">
+            <h4>리지 라인</h4>
+            <table class="mini"><tr><th>#</th><th>같이 팔린 제품</th><th class="num">건수</th></tr>
+            <tr><td>1</td><td>보니 블루머</td><td class='num'>8건</td></tr>
+<tr><td>2</td><td>쇼콜라 티셔츠</td><td class='num'>5건</td></tr>
+<tr><td>3</td><td>보니 헤어밴드</td><td class='num'>4건</td></tr>
+<tr><td>4</td><td>윈디 베이비 가디건</td><td class='num'>3건</td></tr>
+<tr><td>5</td><td>밀키 베이비 3종 세트</td><td class='num'>3건</td></tr>
+            </table>
+        </div>
+        
+        <div class="block">
+            <h4>링고 민소매</h4>
+            <table class="mini"><tr><th>#</th><th>같이 팔린 제품</th><th class="num">건수</th></tr>
+            <tr><td>1</td><td>나팔 쫄바지</td><td class='num'>2건</td></tr>
+<tr><td>2</td><td>코이 티셔츠</td><td class='num'>1건</td></tr>
+<tr><td>3</td><td>쇼콜라 티셔츠</td><td class='num'>1건</td></tr>
+<tr><td>4</td><td>디저트 방울보넷</td><td class='num'>1건</td></tr>
+<tr><td>5</td><td>디저트 반팔 수트세트</td><td class='num'>1건</td></tr>
+            </table>
+        </div>
+        
+        <div class="block">
+            <h4>샌디 세트</h4>
+            <table class="mini"><tr><th>#</th><th>같이 팔린 제품</th><th class="num">건수</th></tr>
+            <tr><td>1</td><td>보니 헤어밴드</td><td class='num'>7건</td></tr>
+<tr><td>2</td><td>쇼콜라 티셔츠</td><td class='num'>6건</td></tr>
+<tr><td>3</td><td>보니 블루머</td><td class='num'>6건</td></tr>
+<tr><td>4</td><td>샤인 수트세트</td><td class='num'>5건</td></tr>
+<tr><td>5</td><td>코이 블루머</td><td class='num'>5건</td></tr>
+            </table>
+        </div>
+        
+        <div class="block">
+            <h4>샤인 수트세트</h4>
+            <table class="mini"><tr><th>#</th><th>같이 팔린 제품</th><th class="num">건수</th></tr>
+            <tr><td>1</td><td>코이 블루머</td><td class='num'>5건</td></tr>
+<tr><td>2</td><td>코이 티셔츠</td><td class='num'>5건</td></tr>
+<tr><td>3</td><td>보니 블루머</td><td class='num'>5건</td></tr>
+<tr><td>4</td><td>보니 헤어밴드</td><td class='num'>5건</td></tr>
+<tr><td>5</td><td>쿨리 키즈세트</td><td class='num'>4건</td></tr>
+            </table>
+        </div>
+        
+</div>
+</div>
+
+<footer>
+신상 학습 라이브러리 v0.1 · 2026-04-08 07:26 자동 생성<br>
+다음 단계: 콘텐츠 패턴/UTM/인스타 데이터 적재 → 유사 신상 매칭
+</footer>
+
+</div>
+</body>
+</html>

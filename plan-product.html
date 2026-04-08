@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카부 신상 기획 도구</title>
+<style>
+:root{--pink:#FF6B8A;--pink-l:#FFF0F3;--teal:#4ECDC4;--blue:#4A90D9;--green:#27AE60;--red:#E74C3C;--orange:#F5A623;--bg:#FAFBFC;--card:#fff;--text:#1A1D26;--sub:#5A6070;--muted:#8E95A5;--border:#E8EBF0;--r:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:14px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px 60px}
+.hero{background:linear-gradient(135deg,#1A1D26 0%,#2D3142 100%);color:#fff;padding:32px 24px;margin-bottom:28px;border-radius:0 0 var(--r) var(--r)}
+.hero h1{font-size:22px;font-weight:700}
+.hero .sub{font-size:13px;opacity:.7;margin-top:4px}
+.hero .q{margin-top:14px;font-size:13px;line-height:1.7;padding:12px 16px;background:rgba(255,255,255,.1);border-radius:8px}
+.sec{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.sec-t{font-size:17px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sec-t .n{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;background:var(--blue)}
+form{display:grid;gap:14px}
+.row{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center}
+@media(max-width:640px){.row{grid-template-columns:1fr}}
+label{font-size:12px;color:var(--muted);font-weight:600}
+input,select{padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;background:#fff;width:100%}
+input:focus,select:focus{outline:none;border-color:var(--blue)}
+button{margin-top:8px;padding:14px;background:var(--pink);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+button:hover{background:#E85A78}
+.results{display:none}
+.results.shown{display:block}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--bg);font-weight:600;text-align:left;padding:8px 10px;border-bottom:2px solid var(--border);font-size:11px;color:var(--muted)}
+td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.bar-row{display:grid;grid-template-columns:80px 1fr 60px 60px;gap:8px;align-items:center;margin:4px 0;font-size:12px}
+.bar-label{color:var(--sub);font-weight:600}
+.bar{background:var(--border);height:14px;border-radius:3px;overflow:hidden}
+.bar-fill{background:var(--blue);height:100%}
+.bar-num{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar-qty{text-align:right;color:var(--text);font-variant-numeric:tabular-nums;font-weight:700}
+.flag{padding:10px 14px;border-radius:6px;margin:6px 0;font-size:13px}
+.flag.warn{background:#FFFCF5;border-left:3px solid var(--orange)}
+.flag.bad{background:#FDECEB;border-left:3px solid var(--red)}
+.flag.tip{background:#EBF3FC;border-left:3px solid var(--blue)}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.kpi .l{font-size:11px;color:var(--muted);font-weight:600}
+.kpi .v{font-size:20px;font-weight:800;margin:2px 0}
+.kpi .c{font-size:11px;color:var(--sub)}
+.match-row{padding:12px;background:var(--bg);border-radius:8px;margin:8px 0;border-left:3px solid var(--blue)}
+.match-row b{font-size:14px}
+.match-meta{font-size:11px;color:var(--muted);margin:4px 0}
+.match-num{font-size:12px;color:var(--sub);margin-top:6px}
+footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border-top:1px solid var(--border);margin-top:40px}
+</style>
+</head>
+<body>
+
+<div class="hero">
+<div class="wrap">
+<h1>신상 기획 도구</h1>
+<div class="sub">학습 라이브러리 기반 자동 추천 · 2026-04-07 20:30 갱신</div>
+<div class="q">
+새 신상 메타 입력 → 닮은 과거 신상 매칭 → 발주량/컬러/사이즈/콘텐츠 자동 추천.<br>
+표본 8 개 (5~6개 누적 시 신뢰도 강해짐).
+</div>
+</div>
+</div>
+
+<div class="wrap">
+
+<div class="sec">
+<div class="sec-t"><span class="n">1</span> 신상 정보 입력</div>
+<form id="planForm">
+<div class="row"><label>제품명</label><input type="text" id="label" placeholder="예: 쿨링 메쉬"></div>
+<div class="row"><label>카테고리</label>
+  <select id="category">
+    <option value="">선택...</option>
+    <option>베이비</option>
+    <option>베이비키즈</option>
+    <option>키즈</option>
+  </select>
+</div>
+<div class="row"><label>톤</label>
+  <select id="tone">
+    <option value="">선택...</option>
+    <option>귀여움</option>
+    <option>베이직</option>
+    <option>기능</option>
+    <option>시즌</option>
+  </select>
+</div>
+<div class="row"><label>제품 타입</label>
+  <select id="product_type">
+    <option value="">선택...</option>
+    <option>단품</option>
+    <option>세트</option>
+    <option>이너</option>
+    <option>실내복</option>
+    <option>라인</option>
+    <option>액세서리</option>
+  </select>
+</div>
+<div class="row"><label>시즌</label>
+  <select id="season"><option>SS26</option><option>FW26</option></select>
+</div>
+<div class="row"><label>베이비 비중 %</label><input type="number" id="baby_pct" min="0" max="100" placeholder="예: 85"></div>
+<div class="row"><label>예상 가격</label><input type="number" id="price" placeholder="예: 32000"></div>
+<button type="submit">📊 추천 생성</button>
+</form>
+</div>
+
+<div id="results" class="results"></div>
+
+<footer>
+신상 기획 도구 · 2026-04-07 20:30 자동 생성<br>
+plan_new_product.py CLI와 동일 로직, 비개발자용 폼 인터페이스
+</footer>
+
+</div>
+
+<script>
+const LAUNCHES = [{"launch_id":"boni_2026_03_26","label":"보니 블루머","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"단품","season":"SS26","aov":119986,"notes":"","snapshots":{"d1":{"revenue":312000,"qty":12,"baby_pct":100.0},"d3":{"revenue":1222000,"qty":47,"baby_pct":100.0},"d7":{"revenue":2158000,"qty":83,"baby_pct":100.0}},"color_dist":{"레드":{"qty":57,"revenue":1482000},"핑크":{"qty":2,"revenue":52000},"블랙":{"qty":6,"revenue":156000},"옐로우":{"qty":11,"revenue":286000},"베이지":{"qty":4,"revenue":104000},"브라운":{"qty":3,"revenue":78000}},"size_dist":{"60":11,"90":12,"70":33,"80":27},"content_pattern":{"teaser_days":6,"feed_count":2,"total_reach":25617,"total_saves":79},"inventory":{"status":"excess_stock","normal_stock":981,"soldout_pct":7.8}},{"launch_id":"chocolat_2026_03_26","label":"쇼콜라 티셔츠","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"단품","season":"SS26","aov":114695,"notes":"","snapshots":{"d1":{"revenue":264000,"qty":12,"baby_pct":100.0},"d3":{"revenue":968000,"qty":44,"baby_pct":100.0},"d7":{"revenue":1760000,"qty":80,"baby_pct":100.0}},"color_dist":{"크림":{"qty":26,"revenue":572000},"아이보리":{"qty":46,"revenue":1012000},"블랙":{"qty":5,"revenue":110000},"베이지":{"qty":3,"revenue":66000}},"size_dist":{"60":11,"90":14,"70":28,"80":27},"content_pattern":{"teaser_days":0,"feed_count":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"excess_stock","normal_stock":768,"soldout_pct":9.4}},{"launch_id":"milky_2026_03_26","label":"밀키 베이비 3종 세트","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"세트","season":"SS26","aov":150648,"notes":"","snapshots":{"d1":{"revenue":260000,"qty":5,"baby_pct":100.0},"d3":{"revenue":1040000,"qty":20,"baby_pct":100.0},"d7":{"revenue":1924000,"qty":37,"baby_pct":100.0}},"color_dist":{"브라운":{"qty":6,"revenue":312000},"베이지":{"qty":8,"revenue":416000},"핑크":{"qty":23,"revenue":1196000}},"size_dist":{"70":15,"80":16,"60":6},"content_pattern":{"teaser_days":0,"feed_count":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"normal","normal_stock":247,"soldout_pct":13.0}},{"launch_id":"reji_2026_03_28","label":"리지 라인","launch_date":"2026-03-28","category":"베이비키즈","tone":"귀여움","product_type":"라인","season":"SS26","aov":250785,"notes":"","snapshots":{"d1":{"revenue":74000,"qty":2,"baby_pct":50.0},"d3":{"revenue":74000,"qty":2,"baby_pct":50.0},"d7":{"revenue":368000,"qty":10,"baby_pct":90.0}},"color_dist":{"블랙":{"qty":3,"revenue":110000},"핑크":{"qty":3,"revenue":112000},"베이지":{"qty":1,"revenue":36000},"크림":{"qty":3,"revenue":110000}},"size_dist":{"70":2,"110":1,"90":6,"60":1},"content_pattern":{"teaser_days":2,"feed_count":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"excess_stock","normal_stock":1984,"soldout_pct":0.5}},{"launch_id":"koi_2026_03_28","label":"코이 라인","launch_date":"2026-03-28","category":"베이비","tone":"귀여움","product_type":"라인","season":"SS26","aov":97177,"notes":"","snapshots":{"d1":{"revenue":176000,"qty":9,"baby_pct":100.0},"d3":{"revenue":705000,"qty":35,"baby_pct":100.0},"d7":{"revenue":1634000,"qty":81,"baby_pct":100.0}},"color_dist":{"아이보리":{"qty":19,"revenue":356000},"블랙":{"qty":8,"revenue":162000},"크림":{"qty":12,"revenue":223000},"연그레이":{"qty":11,"revenue":209000},"그레이":{"qty":23,"revenue":507000},"브라운":{"qty":8,"revenue":177000}},"size_dist":{"70":34,"80":12,"90":8,"60":11},"content_pattern":{"teaser_days":2,"feed_count":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"excess_stock","normal_stock":750,"soldout_pct":9.7}},{"launch_id":"shine_2026_04_03","label":"샤인 수트세트","launch_date":"2026-04-03","category":"베이비키즈","tone":"베이직","product_type":"세트","season":"SS26","aov":97396,"notes":"[2026-04-07 20:26] 베이직 톤+콘텐츠 4일 공백→매출 약함. 다음 신상은 귀여움 톤 우선 + D-7 티저 시작","snapshots":{"d1":{"revenue":98000,"qty":4,"baby_pct":100.0},"d3":{"revenue":988000,"qty":39,"baby_pct":65.71428571428571}},"color_dist":{"베이지":{"qty":15,"revenue":384000},"그레이":{"qty":16,"revenue":392000},"아이보리":{"qty":8,"revenue":212000}},"size_dist":{"70":7,"90":7,"80":9,"100":5,"110":4,"120":3},"content_pattern":{"teaser_days":5,"feed_count":2,"total_reach":19306,"total_saves":121},"inventory":{"status":"excess_stock","normal_stock":1821,"soldout_pct":2.1}},{"launch_id":"sandy_2026_04_03","label":"샌디 세트","launch_date":"2026-04-03","category":"베이비","tone":"베이직","product_type":"세트","season":"SS26","aov":161209,"notes":"[2026-04-07 20:26] 발주 16개로 4일만에 품절. 수요는 검증됨, 다음 발주 적극(×1.6) 권장","snapshots":{"d1":{"revenue":22000,"qty":1,"baby_pct":100.0},"d3":{"revenue":352000,"qty":16,"baby_pct":81.25}},"color_dist":{"블랙":{"qty":6,"revenue":132000},"크림":{"qty":2,"revenue":44000},"핑크":{"qty":5,"revenue":110000},"옐로우":{"qty":2,"revenue":44000},"베이지":{"qty":1,"revenue":22000}},"size_dist":{"80":9,"70":4,"110":2,"100":1},"content_pattern":{"teaser_days":4,"feed_count":2,"total_reach":8973,"total_saves":28},"inventory":{"status":"completely_sold_out","normal_stock":0,"soldout_pct":100.0}},{"launch_id":"ringo_2026_04_03","label":"링고 민소매","launch_date":"2026-04-03","category":"베이비","tone":"베이직","product_type":"이너","season":"SS26","aov":72133,"notes":"","snapshots":{"d1":{"revenue":12000,"qty":1,"baby_pct":100.0},"d3":{"revenue":62000,"qty":5,"baby_pct":100.0}},"color_dist":{"아이보리":{"qty":2,"revenue":24000},"코코아":{"qty":1,"revenue":13000},"라이트베이지":{"qty":1,"revenue":13000},"블랙":{"qty":1,"revenue":12000}},"size_dist":{"80":3,"90":2},"content_pattern":{"teaser_days":6,"feed_count":1,"total_reach":9946,"total_saves":34},"inventory":{"status":"excess_stock","normal_stock":2581,"soldout_pct":0.2}}];
+const MAX_SCORE = 10;
+
+function scoreSimilarity(target, c) {
+  let score = 0; const reasons = [];
+  if (target.tone && c.tone === target.tone) { score += 3; reasons.push('톤=' + target.tone); }
+  if (target.product_type && c.product_type === target.product_type) { score += 2; reasons.push('타입=' + target.product_type); }
+  if (target.category && c.category === target.category) { score += 2; reasons.push('카테고리=' + target.category); }
+  if (target.season && c.season === target.season) score += 1;
+  if (target.baby_pct != null) {
+    const cBaby = (c.snapshots.d3 || {}).baby_pct ?? (c.snapshots.d1 || {}).baby_pct;
+    if (cBaby != null && Math.abs(cBaby - target.baby_pct) <= 15) {
+      score += 2;
+      reasons.push('베이비±' + Math.round(Math.abs(cBaby - target.baby_pct)) + '%');
+    }
+  }
+  return { score, reasons };
+}
+
+function findSimilar(target, topN = 3) {
+  return LAUNCHES.map(c => ({ launch: c, ...scoreSimilarity(target, c) }))
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, topN);
+}
+
+function fmt(n) { if (n == null || n === 0) return '미수집'; return n.toLocaleString() + '원'; }
+function fmtPct(n) { if (n == null) return '—'; return n.toFixed(1) + '%'; }
+
+function aggregate(similar) {
+  const launches = similar.map(s => s.launch);
+  if (launches.length === 0) return null;
+
+  const d7Revs = launches.map(l => (l.snapshots.d7 || {}).revenue).filter(x => x);
+  const d30Revs = launches.map(l => (l.snapshots.d30 || {}).revenue).filter(x => x);
+  const d7Qtys = launches.map(l => (l.snapshots.d7 || {}).qty).filter(x => x);
+  const d30Qtys = launches.map(l => (l.snapshots.d30 || {}).qty).filter(x => x);
+  const aovs = launches.map(l => l.aov).filter(x => x);
+  const teaserDays = launches.map(l => l.content_pattern.teaser_days).filter(x => x);
+  const feedCounts = launches.map(l => l.content_pattern.feed_count).filter(x => x);
+  const reaches = launches.map(l => l.content_pattern.total_reach).filter(x => x);
+
+  const avg = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null;
+
+  // 컬러 mix
+  const colorPcts = {};
+  launches.forEach(l => {
+    const cd = l.color_dist || {};
+    const total = Object.values(cd).reduce((a, v) => a + (v.revenue || 0), 0);
+    if (total <= 0) return;
+    Object.entries(cd).forEach(([c, v]) => {
+      if (v.revenue > 0) {
+        if (!colorPcts[c]) colorPcts[c] = [];
+        colorPcts[c].push(v.revenue / total);
+      }
+    });
+  });
+  let colorMix = Object.entries(colorPcts).map(([c, ps]) => [c, avg(ps)]);
+  const colorTotal = colorMix.reduce((a, [, p]) => a + p, 0);
+  if (colorTotal > 0) colorMix = colorMix.map(([c, p]) => [c, p / colorTotal]);
+  colorMix.sort((a, b) => b[1] - a[1]);
+
+  // 사이즈 mix
+  const sizePcts = {};
+  launches.forEach(l => {
+    const sd = l.size_dist || {};
+    const total = Object.values(sd).reduce((a, q) => a + q, 0);
+    if (total <= 0) return;
+    Object.entries(sd).forEach(([s, q]) => {
+      if (q > 0) {
+        if (!sizePcts[s]) sizePcts[s] = [];
+        sizePcts[s].push(q / total);
+      }
+    });
+  });
+  let sizeMix = Object.entries(sizePcts).map(([s, ps]) => [s, avg(ps)]);
+  const sizeTotal = sizeMix.reduce((a, [, p]) => a + p, 0);
+  if (sizeTotal > 0) sizeMix = sizeMix.map(([s, p]) => [s, p / sizeTotal]);
+  sizeMix.sort((a, b) => (parseInt(a[0]) || 999) - (parseInt(b[0]) || 999));
+
+  // 재고 위험
+  const excessCount = launches.filter(l => (l.inventory || {}).status === 'excess_stock').length;
+  const soldoutCount = launches.filter(l => (l.inventory || {}).status === 'completely_sold_out').length;
+
+  // 컬러 압도
+  const domPcts = launches.map(l => {
+    const cd = l.color_dist || {};
+    const total = Object.values(cd).reduce((a, v) => a + (v.revenue || 0), 0);
+    if (total <= 0) return null;
+    const top = Object.values(cd).reduce((m, v) => Math.max(m, v.revenue || 0), 0);
+    return top / total * 100;
+  }).filter(x => x != null);
+
+  return {
+    d7RevAvg: avg(d7Revs), d7RevRange: d7Revs.length ? [Math.min(...d7Revs), Math.max(...d7Revs)] : null,
+    d30RevAvg: avg(d30Revs), d30RevRange: d30Revs.length ? [Math.min(...d30Revs), Math.max(...d30Revs)] : null,
+    d7QtyAvg: avg(d7Qtys), d30QtyAvg: avg(d30Qtys),
+    aovAvg: avg(aovs),
+    teaserDaysAvg: avg(teaserDays),
+    feedCountAvg: avg(feedCounts),
+    reachAvg: avg(reaches),
+    colorMix, sizeMix,
+    excessCount, soldoutCount,
+    domColorPctAvg: avg(domPcts),
+  };
+}
+
+function deriveFlags(target, recs, similar) {
+  const flags = [];
+  if (similar.length === 0) {
+    flags.push(['warn', '⚠ 닮은 신상 0개 — 라이브러리 표본 부족, 모든 추정 보류']);
+    return flags;
+  }
+  const avgScore = similar.reduce((a, s) => a + s.score, 0) / similar.length;
+  if (avgScore < MAX_SCORE * 0.5) {
+    flags.push(['warn', '⚠ 매칭 점수 평균 ' + Math.round(avgScore) + '/10 — 약한 매칭. 추정 신뢰도 낮음']);
+  }
+  if (target.tone === '베이직') {
+    flags.push(['warn', '⚠ 베이직 톤 — 라이브러리상 베이직 신상 매출 평균이 귀여움 대비 약함']);
+  }
+  if (recs && recs.excessCount >= 2) {
+    flags.push(['warn', '⚠ 닮은 신상 중 ' + recs.excessCount + '개가 잉여 재고 — 발주 보수적으로']);
+  }
+  if (recs && recs.soldoutCount >= 1) {
+    flags.push(['bad', '🔴 닮은 신상 중 ' + recs.soldoutCount + '개가 완전 품절 — 발주 적극 검토 (수요 예상보다 큼)']);
+  }
+  if (target.baby_pct != null && target.baby_pct < 60) {
+    flags.push(['warn', '⚠ 베이비 비중 ' + target.baby_pct + '% — 핵심고객(70-80) 비중 낮음']);
+  }
+  if (recs && recs.domColorPctAvg != null && recs.domColorPctAvg >= 55) {
+    flags.push(['tip', "💡 닮은 신상 평균 TOP 컬러 " + Math.round(recs.domColorPctAvg) + "% — '컬러 압도' 패턴. 1~2개 메인 컬러 집중 권장"]);
+  }
+  return flags;
+}
+
+function render(target, similar, recs, flags) {
+  let html = '';
+
+  // 발주 시나리오 (보수/표준/적극)
+  let baseQty = null;
+  if (recs && recs.d30QtyAvg) baseQty = Math.round(recs.d30QtyAvg);
+  else if (recs && recs.d7QtyAvg) baseQty = Math.round(recs.d7QtyAvg * 2.5);
+  const scenarios = baseQty ? {
+    보수: Math.round(baseQty * 1.0),
+    표준: Math.round(baseQty * 1.3),
+    적극: Math.round(baseQty * 1.6),
+  } : null;
+  const recQty = scenarios ? scenarios['표준'] : null;
+
+  // KPI + 시나리오
+  if (recs) {
+    html += '<div class="sec"><div class="sec-t"><span class="n">2</span> 매출 예상 + 발주 시나리오</div>';
+    html += '<div class="kpi-grid">';
+    html += '<div class="kpi"><div class="l">D+7 매출 평균</div><div class="v">' + (recs.d7RevAvg ? Math.round(recs.d7RevAvg/10000) + '만' : '—') + '</div><div class="c">닮은 신상 평균</div></div>';
+    html += '<div class="kpi"><div class="l">표준 발주</div><div class="v">' + (recQty ? recQty + '개' : '—') + '</div><div class="c">안전마진 1.3</div></div>';
+    html += '<div class="kpi"><div class="l">AOV 평균</div><div class="v">' + (recs.aovAvg ? Math.round(recs.aovAvg/1000) + 'k' : '—') + '</div><div class="c">닮은 신상 평균</div></div>';
+    html += '</div>';
+
+    if (scenarios) {
+      html += '<div style="margin-top:16px"><table>';
+      html += '<tr><th>시나리오</th><th class="num">배율</th><th class="num">발주량</th><th>리스크</th></tr>';
+      const labels = {
+        보수: ['×1.0', '발주 부족 위험'],
+        표준: ['×1.3', '균형'],
+        적극: ['×1.6', '잉여 위험'],
+      };
+      ['보수','표준','적극'].forEach(name => {
+        const [m, r] = labels[name];
+        const star = name === '표준' ? ' ★' : '';
+        html += '<tr><td><b>' + name + star + '</b></td><td class="num">' + m + '</td><td class="num"><b>' + scenarios[name] + '개</b></td><td>' + r + '</td></tr>';
+      });
+      html += '</table></div>';
+    }
+    html += '</div>';
+  }
+
+  // 닮은 신상
+  html += '<div class="sec"><div class="sec-t"><span class="n">3</span> 닮은 과거 신상</div>';
+  if (similar.length === 0) html += '<p style="color:var(--muted)">매칭 없음</p>';
+  else {
+    similar.forEach(s => {
+      const l = s.launch;
+      const scorePct = Math.round(s.score / MAX_SCORE * 100);
+      const d3 = (l.snapshots.d3 || {}).revenue;
+      const d7 = (l.snapshots.d7 || {}).revenue;
+      const d30 = (l.snapshots.d30 || {}).revenue;
+      const inv = l.inventory || {};
+      html += '<div class="match-row">';
+      html += '<b>' + l.label + '</b> &nbsp;<span style="color:var(--muted)">' + scorePct + '%</span>';
+      html += '<div class="match-meta">' + s.reasons.join(', ') + '</div>';
+      html += '<div class="match-num">D+3 ' + fmt(d3) + ' &nbsp;/&nbsp; D+7 ' + fmt(d7) + ' &nbsp;/&nbsp; D+30 ' + fmt(d30);
+      if (inv.soldout_pct != null) html += ' &nbsp;/&nbsp; 소진 ' + fmtPct(inv.soldout_pct);
+      html += '</div>';
+      if (l.notes && l.notes.trim()) {
+        const noteLines = l.notes.split('\n').filter(x => x.trim()).join('<br>');
+        html += '<div style="margin-top:8px;padding:8px 10px;background:#FFFCF5;border-left:3px solid var(--orange);font-size:11px;line-height:1.6">📝 ' + noteLines + '</div>';
+      }
+      html += '</div>';
+    });
+  }
+  html += '</div>';
+
+  // 권장 컬러/사이즈 발주
+  if (recs) {
+    const recQty = recs.d30QtyAvg ? Math.round(recs.d30QtyAvg * 1.3)
+      : (recs.d7QtyAvg ? Math.round(recs.d7QtyAvg * 2.5 * 1.3) : null);
+
+    if (recs.colorMix.length) {
+      // 압도형 전략 (TOP 55% 강제)
+      const sortedMix = [...recs.colorMix].sort((a,b) => b[1]-a[1]);
+      const top = sortedMix[0];
+      const rest = sortedMix.slice(1, 4);
+      const weights = [8, 5, 3].slice(0, rest.length);
+      const wsum = weights.reduce((a,b) => a+b, 0);
+      const dominantMix = [[top[0], 0.55]].concat(
+        rest.map((r, i) => [r[0], 0.45 * weights[i] / wsum])
+      );
+
+      html += '<div class="sec"><div class="sec-t"><span class="n">4</span> 권장 컬러 발주 (전략 비교)</div>';
+      html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">';
+
+      // 균등형
+      html += '<div><h4 style="font-size:13px;margin-bottom:10px;color:var(--sub)">균등형 (닮은 신상 평균)</h4>';
+      sortedMix.slice(0, 6).forEach(([c, p]) => {
+        const pct = (p * 100).toFixed(1);
+        const qty = recQty ? Math.round(recQty * p) : null;
+        html += '<div class="bar-row"><div class="bar-label">' + c + '</div>';
+        html += '<div class="bar"><div class="bar-fill" style="width:' + pct + '%"></div></div>';
+        html += '<div class="bar-num">' + pct + '%</div>';
+        html += '<div class="bar-qty">' + (qty != null ? qty + '개' : '') + '</div></div>';
+      });
+      html += '</div>';
+
+      // 압도형
+      html += '<div><h4 style="font-size:13px;margin-bottom:10px;color:var(--pink)">압도형 (TOP 55% 강제) ★</h4>';
+      dominantMix.forEach(([c, p]) => {
+        const pct = (p * 100).toFixed(1);
+        const qty = recQty ? Math.round(recQty * p) : null;
+        html += '<div class="bar-row"><div class="bar-label">' + c + '</div>';
+        html += '<div class="bar"><div class="bar-fill" style="width:' + pct + '%;background:var(--pink)"></div></div>';
+        html += '<div class="bar-num">' + pct + '%</div>';
+        html += '<div class="bar-qty">' + (qty != null ? qty + '개' : '') + '</div></div>';
+      });
+      html += '</div>';
+
+      html += '</div>';
+      html += '<p style="font-size:11px;color:var(--muted);margin-top:12px">압도형 = "강한 신상은 TOP 컬러 60%+" 가설 적용. 균등형 = 닮은 신상 평균 그대로.</p>';
+      html += '</div>';
+    }
+
+    if (recs.sizeMix.length) {
+      html += '<div class="sec"><div class="sec-t"><span class="n">5</span> 권장 사이즈 발주 (수량 비율 평균)</div>';
+      recs.sizeMix.forEach(([s, p]) => {
+        const pct = (p * 100).toFixed(1);
+        const qty = recQty ? Math.round(recQty * p) : null;
+        const cls = ['60','70','80','90'].includes(s) ? '베이비' : '키즈';
+        html += '<div class="bar-row"><div class="bar-label">' + s + ' (' + cls + ')</div>';
+        html += '<div class="bar"><div class="bar-fill" style="width:' + pct + '%;background:var(--teal)"></div></div>';
+        html += '<div class="bar-num">' + pct + '%</div>';
+        html += '<div class="bar-qty">' + (qty != null ? qty + '개' : '') + '</div></div>';
+      });
+      html += '</div>';
+    }
+
+    // 콘텐츠 패턴
+    html += '<div class="sec"><div class="sec-t"><span class="n">6</span> 권장 콘텐츠 패턴</div>';
+    html += '<table>';
+    if (recs.teaserDaysAvg) html += '<tr><td>티저 시작</td><td class="num">D-' + Math.round(recs.teaserDaysAvg) + '</td></tr>';
+    if (recs.feedCountAvg) html += '<tr><td>피드 개수</td><td class="num">' + Math.round(recs.feedCountAvg) + '개</td></tr>';
+    if (recs.reachAvg) html += '<tr><td>목표 reach</td><td class="num">' + Math.round(recs.reachAvg).toLocaleString() + '</td></tr>';
+    if (recs.domColorPctAvg) html += '<tr><td>TOP 컬러 매출 비중</td><td class="num">' + Math.round(recs.domColorPctAvg) + '%</td></tr>';
+    html += '</table></div>';
+  }
+
+  // 위험 신호
+  html += '<div class="sec"><div class="sec-t"><span class="n">7</span> 위험 신호 / 코칭</div>';
+  if (flags.length === 0) html += '<p style="color:var(--muted)">특이사항 없음</p>';
+  else flags.forEach(([cls, msg]) => { html += '<div class="flag ' + cls + '">' + msg + '</div>'; });
+  html += '</div>';
+
+  return html;
+}
+
+document.getElementById('planForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const target = {
+    label: document.getElementById('label').value || '(이름 없음)',
+    category: document.getElementById('category').value,
+    tone: document.getElementById('tone').value,
+    product_type: document.getElementById('product_type').value,
+    season: document.getElementById('season').value || 'SS26',
+    baby_pct: parseInt(document.getElementById('baby_pct').value) || null,
+    price: parseInt(document.getElementById('price').value) || null,
+  };
+  const similar = findSimilar(target, 3);
+  const recs = aggregate(similar);
+  const flags = deriveFlags(target, recs, similar);
+  document.getElementById('results').innerHTML = render(target, similar, recs, flags);
+  document.getElementById('results').classList.add('shown');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+});
+</script>
+</body>
+</html>

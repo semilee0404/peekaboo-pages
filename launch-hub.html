@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카부 신상 허브</title>
+<style>
+:root{--pink:#FF6B8A;--pink-l:#FFF0F3;--teal:#4ECDC4;--blue:#4A90D9;--green:#27AE60;--red:#E74C3C;--orange:#F5A623;--bg:#FAFBFC;--card:#fff;--text:#1A1D26;--sub:#5A6070;--muted:#8E95A5;--border:#E8EBF0;--r:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:14px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px 60px}
+.hero{background:linear-gradient(135deg,#1A1D26 0%,#2D3142 100%);color:#fff;padding:24px 24px 18px;border-radius:0 0 var(--r) var(--r)}
+.hero h1{font-size:22px;font-weight:700}
+.hero .sub{font-size:12px;opacity:.7;margin-top:4px}
+nav.tabs{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--border);padding:0 20px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+nav.tabs .inner{max-width:1200px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs .inner::-webkit-scrollbar{display:none}
+nav.tabs button{padding:14px 18px;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap;font-family:inherit}
+nav.tabs button:hover{color:var(--text)}
+nav.tabs button.active{color:var(--pink);border-bottom-color:var(--pink)}
+.panel{display:none}
+.panel.active{display:block}
+.sec{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.sec-t{font-size:17px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sec-t .n{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;background:var(--blue)}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.kpi{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center}
+.kpi.bad{border-left:3px solid var(--red);background:#FDECEB}
+.kpi.warn{border-left:3px solid var(--orange);background:#FFFCF5}
+.kpi.good{border-left:3px solid var(--green);background:#F6FDF8}
+.kpi .l{font-size:11px;color:var(--muted);font-weight:600}
+.kpi .v{font-size:22px;font-weight:800;margin:4px 0}
+.kpi .c{font-size:11px;color:var(--sub)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--bg);font-weight:600;text-align:left;padding:8px 8px;border-bottom:2px solid var(--border);font-size:11px;color:var(--muted)}
+td{padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.meta{font-size:10px;color:var(--muted)}
+.bar-row{display:grid;grid-template-columns:80px 1fr 60px 60px;gap:8px;align-items:center;margin:4px 0;font-size:12px}
+.bar-label{color:var(--sub);font-weight:600}
+.bar{background:var(--border);height:14px;border-radius:3px;overflow:hidden}
+.bar-fill{background:var(--blue);height:100%}
+.bar-num{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar-qty{text-align:right;color:var(--text);font-variant-numeric:tabular-nums;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.block{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px}
+.block h4{font-size:13px;font-weight:700;margin-bottom:10px}
+.flag{padding:10px 14px;border-radius:6px;margin:6px 0;font-size:13px}
+.flag.warn{background:#FFFCF5;border-left:3px solid var(--orange)}
+.flag.bad{background:#FDECEB;border-left:3px solid var(--red)}
+.flag.tip{background:#EBF3FC;border-left:3px solid var(--blue)}
+.flag.good{background:#F6FDF8;border-left:3px solid var(--green)}
+form{display:grid;gap:12px}
+.row{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center}
+@media(max-width:640px){.row{grid-template-columns:1fr}}
+label{font-size:12px;color:var(--muted);font-weight:600}
+input,select{padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;background:#fff;width:100%}
+button.primary{margin-top:8px;padding:14px;background:var(--pink);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+button.primary:hover{background:#E85A78}
+.match-row{padding:12px;background:var(--bg);border-radius:8px;margin:8px 0;border-left:3px solid var(--blue)}
+.routine-row{display:grid;grid-template-columns:1fr 130px 90px;gap:12px;align-items:center;padding:14px;background:var(--bg);border-radius:8px;margin:8px 0}
+.routine-label b{font-size:14px}
+.routine-purpose{font-size:11px;color:var(--muted);margin-top:4px}
+.routine-schedule{font-size:12px;color:var(--sub);font-weight:600}
+.routine-status{padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;text-align:center}
+.routine-status.on{background:#E8F8EF;color:var(--green)}
+.routine-status.off{background:#FDECEB;color:var(--red)}
+footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border-top:1px solid var(--border);margin-top:40px}
+</style>
+</head>
+<body>
+
+<div class="hero">
+<div class="wrap">
+<h1>피카부 신상 허브</h1>
+<div class="sub">학습 라이브러리 + 자동화 루틴 + 기획 도구 통합 · 2026-04-08 15:59 갱신</div>
+</div>
+</div>
+
+<nav class="tabs">
+<div class="inner">
+<button data-tab="today" class="active">📍 오늘</button>
+<button data-tab="routines">⚙ 자동화 루틴</button>
+<button data-tab="library">📚 학습 라이브러리</button>
+<button data-tab="planner">📊 신상 기획</button>
+<button data-tab="retro">📝 회고 / 위험</button>
+</div>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ 1. 오늘 ============ -->
+<div class="panel active" id="panel-today">
+<div class="sec">
+<div class="sec-t"><span class="n">★</span> 오늘 (2026-04-08)</div>
+<div id="today-kpi" class="kpi-grid"></div>
+</div>
+<div class="sec">
+<div class="sec-t"><span class="n">!</span> 즉시 액션 / 위험 신호</div>
+<div id="today-actions"></div>
+</div>
+<div class="sec">
+<div class="sec-t"><span class="n">⏰</span> 다음 자동 실행</div>
+<div id="today-next"></div>
+</div>
+</div>
+
+<!-- ============ 2. 루틴 ============ -->
+<div class="panel" id="panel-routines">
+<div class="sec">
+<div class="sec-t"><span class="n">⚙</span> 자동화 루틴 (launchd)</div>
+<div id="routines-list"></div>
+<p style="font-size:11px;color:var(--muted);margin-top:14px;line-height:1.7">
+※ 상태 ON = 페이지 생성 시점에 launchctl list에 등록됨<br>
+※ 상태 OFF인 루틴은 사용자가 직접 등록 필요:<br>
+&nbsp;&nbsp;<code>launchctl load ~/Library/LaunchAgents/[plist 파일]</code>
+</p>
+</div>
+</div>
+
+<!-- ============ 3. 학습 라이브러리 ============ -->
+<div class="panel" id="panel-library">
+<div class="sec">
+<div class="sec-t"><span class="n">1</span> 매출 비교 + 추이</div>
+<div style="overflow-x:auto"><table id="library-sales"></table></div>
+</div>
+<div class="sec">
+<div class="sec-t"><span class="n">2</span> 컬러 분포 (매출 기준)</div>
+<div class="grid" id="library-colors"></div>
+</div>
+<div class="sec">
+<div class="sec-t"><span class="n">3</span> 사이즈 분포</div>
+<div class="grid" id="library-sizes"></div>
+</div>
+<div class="sec">
+<div class="sec-t"><span class="n">4</span> 콘텐츠 패턴 + 교차구매</div>
+<div class="grid" id="library-content"></div>
+</div>
+</div>
+
+<!-- ============ 4. 기획 도구 ============ -->
+<div class="panel" id="panel-planner">
+<div class="sec">
+<div class="sec-t"><span class="n">1</span> 신상 정보 입력</div>
+<form id="planForm">
+<div class="row"><label>제품명</label><input type="text" id="label" placeholder="예: 쿨링 메쉬"></div>
+<div class="row"><label>카테고리</label><select id="category"><option value="">선택...</option><option>베이비</option><option>베이비키즈</option><option>키즈</option><option>패밀리</option></select></div>
+<div class="row"><label>톤</label><select id="tone"><option value="">선택...</option><option>귀여움</option><option>베이직</option><option>기능</option><option>감성</option><option>패밀리</option><option>시즌</option></select></div>
+<div class="row"><label>제품 타입</label><select id="product_type"><option value="">선택...</option><option>단품</option><option>세트</option><option>이너</option><option>실내복</option><option>라인</option><option>액세서리</option></select></div>
+<div class="row"><label>시즌</label><select id="season"><option>SS26</option><option>FW26</option></select></div>
+<div class="row"><label>베이비 비중 %</label><input type="number" id="baby_pct" min="0" max="100" placeholder="예: 85"></div>
+<div class="row"><label>예상 가격</label><input type="number" id="price" placeholder="예: 32000"></div>
+<button type="submit" class="primary">📊 추천 생성</button>
+</form>
+</div>
+<div id="planner-result"></div>
+</div>
+
+<!-- ============ 5. 회고/위험 ============ -->
+<div class="panel" id="panel-retro">
+<div class="sec">
+<div class="sec-t"><span class="n">⚠</span> 자동 추출 위험 신호</div>
+<div id="retro-flags"></div>
+</div>
+<div class="sec">
+<div class="sec-t"><span class="n">📝</span> 회고 노트</div>
+<div class="grid" id="retro-notes"></div>
+<p style="font-size:11px;color:var(--muted);margin-top:14px">
+노트 추가: <code>scripts/add_launch_note.py --launch X --note "..."</code>
+</p>
+</div>
+</div>
+
+</div>
+
+<footer>
+피카부 신상 허브 · 2026-04-08 15:59 자동 생성 · 매일 09:30 launch monitor가 자동 갱신<br>
+<br>
+<b>데이터 정확성</b><br>
+• 매출/재고: 2026-04-08 기준 8개 신상 모두 Cafe24 API + 이지어드민 live 재검증 일치 (0 차이)<br>
+• 절대값: API값이 셀러센터 실수치와 ~0.12% 오차 가능 (메모리 알려진 한계)<br>
+• 데이터 비교/추세 분석엔 영향 없음. 절대 정확도 필요 시 셀러센터 reconcile 별도 실행<br>
+<br>
+<b>시스템 한계</b><br>
+• 표본 8개 — 통계적 일반화 X. 5~6개 누적 후 의미 강해짐<br>
+• D+14/D+30 미수집 신상은 미래 시점, launch monitor가 자동 백필<br>
+• 캡션 매칭 한계 — 일부 신상은 인스타 캡션에 단어 미포함 시 매칭 누락
+</footer>
+
+<script>
+const LAUNCHES = [{"launch_id":"boni_2026_03_26","label":"보니 블루머","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"단품","season":"SS26","aov":119986,"notes":"","snapshots":{"d1":{"revenue":312000,"qty":12,"orders":10,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":1222000,"qty":47,"orders":38,"baby_pct":100.0,"cross_pct":100.0},"d7":{"revenue":2158000,"qty":83,"orders":65,"baby_pct":100.0,"cross_pct":100.0},"d14":{"revenue":3406000,"qty":131,"orders":106,"baby_pct":100.0,"cross_pct":97.2}},"color_dist":{"레드":{"qty":57,"revenue":1482000},"핑크":{"qty":2,"revenue":52000},"블랙":{"qty":6,"revenue":156000},"옐로우":{"qty":11,"revenue":286000},"베이지":{"qty":4,"revenue":104000},"브라운":{"qty":3,"revenue":78000}},"size_dist":{"60":11,"90":12,"70":33,"80":27},"cross_top":[["쇼콜라 티셔츠",71],["보니 헤어밴드",42],["밀키 베이비 3종 세트",15],["플라워 니삭스 (+mom)",8],["코이 티셔츠",8],["밀키 헤어밴드",7],["쿨쿨 수트세트",6],["디저트 반팔 수트세트",6],["코이 블루머",5],["셀리소피 세트",4]],"content_pattern":{"teaser_days":6,"feed_count":2,"reel_count":0,"matched_posts":2,"total_reach":25617,"total_saves":79},"inventory":{"status":"normal","normal_stock":981,"soldout_pct":11.8,"qty_sold_to_date":131,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"chocolat_2026_03_26","label":"쇼콜라 티셔츠","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"단품","season":"SS26","aov":114695,"notes":"","snapshots":{"d1":{"revenue":264000,"qty":12,"orders":10,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":968000,"qty":44,"orders":37,"baby_pct":100.0,"cross_pct":100.0},"d7":{"revenue":1760000,"qty":80,"orders":63,"baby_pct":100.0,"cross_pct":98.4},"d14":{"revenue":2684000,"qty":122,"orders":98,"baby_pct":100.0,"cross_pct":96.9}},"color_dist":{"크림":{"qty":26,"revenue":572000},"아이보리":{"qty":46,"revenue":1012000},"블랙":{"qty":5,"revenue":110000},"베이지":{"qty":3,"revenue":66000}},"size_dist":{"60":11,"90":14,"70":28,"80":27},"cross_top":[["보니 블루머",75],["보니 헤어밴드",41],["밀키 베이비 3종 세트",16],["플라워 니삭스 (+mom)",8],["밀키 헤어밴드",6],["코이 티셔츠",6],["디저트 반팔 수트세트",6],["셀리소피 세트",4],["미미쥬쥬 세트",3],["윙고 바디수트",3]],"content_pattern":{"teaser_days":0,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"normal","normal_stock":768,"soldout_pct":13.7,"qty_sold_to_date":122,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"milky_2026_03_26","label":"밀키 베이비 3종 세트","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"세트","season":"SS26","aov":150648,"notes":"","snapshots":{"d1":{"revenue":260000,"qty":5,"orders":5,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":1040000,"qty":20,"orders":17,"baby_pct":100.0,"cross_pct":94.1},"d7":{"revenue":1924000,"qty":37,"orders":29,"baby_pct":100.0,"cross_pct":93.1},"d14":{"revenue":2912000,"qty":56,"orders":47,"baby_pct":100.0,"cross_pct":91.5}},"color_dist":{"브라운":{"qty":6,"revenue":312000},"베이지":{"qty":8,"revenue":416000},"핑크":{"qty":23,"revenue":1196000}},"size_dist":{"70":15,"80":16,"60":6},"cross_top":[["보니 블루머",20],["쇼콜라 티셔츠",18],["밀키 헤어밴드",14],["보니 헤어밴드",12],["플라워 니삭스 (+mom)",6],["코이 티셔츠",4],["코이 블루머",3],["미미쥬쥬 세트",2],["윈디 베이비 가디건",2],["코이 토끼 보넷",2]],"content_pattern":{"teaser_days":0,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"normal","normal_stock":247,"soldout_pct":18.5,"qty_sold_to_date":56,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"reji_2026_03_28","label":"리지 라인","launch_date":"2026-03-28","category":"베이비키즈","tone":"귀여움","product_type":"라인","season":"SS26","aov":250785,"notes":"","snapshots":{"d1":{"revenue":74000,"qty":2,"orders":2,"baby_pct":50.0,"cross_pct":100.0},"d3":{"revenue":74000,"qty":2,"orders":2,"baby_pct":50.0,"cross_pct":100.0},"d7":{"revenue":368000,"qty":10,"orders":7,"baby_pct":90.0,"cross_pct":100.0}},"color_dist":{"블랙":{"qty":3,"revenue":110000},"핑크":{"qty":3,"revenue":112000},"베이지":{"qty":1,"revenue":36000},"크림":{"qty":3,"revenue":110000}},"size_dist":{"70":2,"110":1,"90":6,"60":1},"cross_top":[["보니 블루머",8],["쇼콜라 티셔츠",5],["보니 헤어밴드",4],["윈디 베이비 가디건",3],["밀키 베이비 3종 세트",3],["디저트 반팔 수트세트",2],["밀키 헤어밴드",2],["플라워 니삭스 (+mom)",2],["누보 스카프(파스텔)",2],["누보 키즈 주니어세트(파스텔)",2]],"content_pattern":{"teaser_days":2,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"excess_stock","normal_stock":1984,"soldout_pct":0.5,"qty_sold_to_date":10,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"koi_2026_03_28","label":"코이 라인","launch_date":"2026-03-28","category":"베이비","tone":"귀여움","product_type":"라인","season":"SS26","aov":97177,"notes":"","snapshots":{"d1":{"revenue":176000,"qty":9,"orders":4,"baby_pct":100.0,"cross_pct":75.0},"d3":{"revenue":705000,"qty":35,"orders":17,"baby_pct":100.0,"cross_pct":70.6},"d7":{"revenue":1634000,"qty":81,"orders":40,"baby_pct":100.0,"cross_pct":80.0}},"color_dist":{"아이보리":{"qty":19,"revenue":356000},"블랙":{"qty":8,"revenue":162000},"크림":{"qty":12,"revenue":223000},"연그레이":{"qty":11,"revenue":209000},"그레이":{"qty":23,"revenue":507000},"브라운":{"qty":8,"revenue":177000}},"size_dist":{"70":34,"80":12,"90":8,"60":11},"cross_top":[["보니 블루머",10],["쇼콜라 티셔츠",10],["윈디 베이비 가디건",7],["단단baby 티셔츠(단품)",5],["쫀득 쫄바지(단품)",5],["모브 베이비 티셔츠 - 피카부 유아용 긴팔 티셔츠",4],["뉴말랑 티셔츠 베이비",4],["플라워 니삭스 (+mom)",4],["단단 티셔츠(단품)",4],["밀키 베이비 3종 세트",4]],"content_pattern":{"teaser_days":2,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"excess_stock","normal_stock":750,"soldout_pct":9.7,"qty_sold_to_date":81,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"shine_2026_04_03","label":"샤인 수트세트","launch_date":"2026-04-03","category":"베이비키즈","tone":"베이직","product_type":"세트","season":"SS26","aov":97396,"notes":"[2026-04-07 20:26] 베이직 톤+콘텐츠 4일 공백→매출 약함. 다음 신상은 귀여움 톤 우선 + D-7 티저 시작\n\n[DECISION] 2026-04-08 07:27\n  scenario=표준\n  color_strategy=균등형\n  order_qty=1821\n  based_on=보니\n  expected_d7_revenue=1,900,000\n  reason=사후 회고 — 실제로는 잉여 발주, 보수형 + 압도형이 옳았을 것","snapshots":{"d1":{"revenue":98000,"qty":4,"orders":2,"baby_pct":100.0,"cross_pct":0.0},"d3":{"revenue":988000,"qty":39,"orders":26,"baby_pct":65.71428571428571,"cross_pct":69.2}},"color_dist":{"베이지":{"qty":15,"revenue":384000},"그레이":{"qty":16,"revenue":392000},"아이보리":{"qty":8,"revenue":212000}},"size_dist":{"70":7,"90":7,"80":9,"100":5,"110":4,"120":3},"cross_top":[["코이 블루머",5],["코이 티셔츠",5],["보니 블루머",5],["보니 헤어밴드",5],["쿨리 키즈세트",4],["밀키 베이비 3종 세트",3],["샌디 베이비 세트",3],["플라워 니삭스 (+mom)",3],["타비 양말",2],["아이린 보넷",2]],"content_pattern":{"teaser_days":5,"feed_count":2,"reel_count":0,"matched_posts":2,"total_reach":19306,"total_saves":121},"inventory":{"status":"excess_stock","normal_stock":1821,"soldout_pct":2.1,"qty_sold_to_date":39,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"sandy_2026_04_03","label":"샌디 세트","launch_date":"2026-04-03","category":"베이비","tone":"베이직","product_type":"세트","season":"SS26","aov":161209,"notes":"[2026-04-07 20:26] 발주 16개로 4일만에 품절. 수요는 검증됨, 다음 발주 적극(×1.6) 권장","snapshots":{"d1":{"revenue":22000,"qty":1,"orders":1,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":352000,"qty":16,"orders":11,"baby_pct":81.25,"cross_pct":90.9}},"color_dist":{"블랙":{"qty":6,"revenue":132000},"크림":{"qty":2,"revenue":44000},"핑크":{"qty":5,"revenue":110000},"옐로우":{"qty":2,"revenue":44000},"베이지":{"qty":1,"revenue":22000}},"size_dist":{"80":9,"70":4,"110":2,"100":1},"cross_top":[["보니 헤어밴드",7],["쇼콜라 티셔츠",6],["보니 블루머",6],["샤인 수트세트",5],["코이 블루머",5],["코이 티셔츠",4],["샤인 키즈 주니어 세트",3],["밀키 베이비 3종 세트",2],["플라워 니삭스 (+mom)",2],["타비 양말",2]],"content_pattern":{"teaser_days":4,"feed_count":2,"reel_count":0,"matched_posts":2,"total_reach":8973,"total_saves":28},"inventory":{"status":"completely_sold_out","normal_stock":0,"soldout_pct":100.0,"qty_sold_to_date":16,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"ringo_2026_04_03","label":"링고 민소매","launch_date":"2026-04-03","category":"베이비","tone":"베이직","product_type":"이너","season":"SS26","aov":72133,"notes":"","snapshots":{"d1":{"revenue":12000,"qty":1,"orders":1,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":62000,"qty":5,"orders":3,"baby_pct":100.0,"cross_pct":66.7}},"color_dist":{"아이보리":{"qty":2,"revenue":24000},"코코아":{"qty":1,"revenue":13000},"라이트베이지":{"qty":1,"revenue":13000},"블랙":{"qty":1,"revenue":12000}},"size_dist":{"80":3,"90":2},"cross_top":[["나팔 쫄바지",2],["코이 티셔츠",1],["쇼콜라 티셔츠",1],["디저트 방울보넷",1],["디저트 반팔 수트세트",1],["밀키 베이비 3종 세트",1]],"content_pattern":{"teaser_days":6,"feed_count":1,"reel_count":1,"matched_posts":2,"total_reach":9946,"total_saves":34},"inventory":{"status":"excess_stock","normal_stock":2581,"soldout_pct":0.2,"qty_sold_to_date":5,"snapshot_at":"2026-04-08 14:21"}}];
+const ROUTINES = [{"label": "신상 출시 모니터", "plist": "com.peekaboo.new-product-launch-monitor", "schedule": "매일 09:30", "purpose": "D+1/3/7 디스코드 알림 + D+14/30 자동 백필 + 정상재고 갱신 + 잉여 알림", "log": "logs/new_product_launch_monitor_stdout.log", "loaded": true}, {"label": "이지어드민 재고 다운로드", "plist": "com.peekaboo.ezadmin-download", "schedule": "매일 06:00", "purpose": "현재고조회 xls → ~/Downloads, 세션 만료 시 디스코드 알림", "log": "logs/ezadmin_download_stdout.log", "loaded": false}, {"label": "인스타그램 일별 수집", "plist": "com.peekaboo.instagram-daily", "schedule": "매일 08:00", "purpose": "최근 25개 게시물 + 인사이트 + 계정 메트릭 → DB", "log": "logs/instagram_daily_stdout.log", "loaded": false}];
+const TODAY = "2026-04-08";
+const MAX_SCORE = 10;
+
+// ──── 탭 전환 ────
+document.querySelectorAll('nav.tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+});
+
+// ──── 유틸 ────
+function fmt(n) { if (n == null || n === 0) return '미수집'; return n.toLocaleString() + '원'; }
+function fmtPct(n) { if (n == null) return '—'; return n.toFixed(1) + '%'; }
+function fmtMan(n) { if (n == null || n === 0) return '—'; return Math.round(n/10000) + '만'; }
+
+function sparkline(snapshots) {
+  const days = [['d1',1],['d3',3],['d7',7],['d14',14],['d30',30]];
+  const points = days.map(([k,d]) => {
+    const s = snapshots[k];
+    return s && s.revenue ? [d, s.revenue] : null;
+  }).filter(x => x);
+  if (points.length < 2) return '<svg width="180" height="56"></svg>';
+  const W = 180, H = 56, padX = 8, padY = 6;
+  const innerW = W - 2*padX, innerH = H - 2*padY;
+  const maxR = Math.max(...points.map(p => p[1])) || 1;
+  const xFor = d => padX + (d/30) * innerW;
+  const yFor = r => padY + innerH - (r/maxR) * innerH;
+  const poly = points.map(([d,r]) => `${xFor(d).toFixed(1)},${yFor(r).toFixed(1)}`).join(' ');
+  const dots = points.map(([d,r]) => `<circle cx="${xFor(d).toFixed(1)}" cy="${yFor(r).toFixed(1)}" r="2.5" fill="#FF6B8A"/>`).join('');
+  const last = points[points.length-1];
+  const label = `<text x="${(xFor(last[0])-4).toFixed(1)}" y="${(yFor(last[1])-6).toFixed(1)}" font-size="9" fill="#5A6070" text-anchor="end">${Math.round(last[1]/10000)}만</text>`;
+  return `<svg width="${W}" height="${H}"><polyline points="${poly}" fill="none" stroke="#FF6B8A" stroke-width="1.6"/>${dots}${label}</svg>`;
+}
+
+// ──── 1. 오늘 패널 ────
+function renderToday() {
+  // KPI: 활성 신상 / 잉여 / 품절 / 정상재고 합 / 평균 D+7 매출
+  const total = LAUNCHES.length;
+  const excess = LAUNCHES.filter(l => (l.inventory||{}).status === 'excess_stock').length;
+  const soldout = LAUNCHES.filter(l => (l.inventory||{}).status === 'completely_sold_out').length;
+  const totalStock = LAUNCHES.reduce((a,l) => a + ((l.inventory||{}).normal_stock||0), 0);
+  const d7s = LAUNCHES.map(l => (l.snapshots.d7||{}).revenue).filter(x=>x);
+  const avgD7 = d7s.length ? Math.round(d7s.reduce((a,b)=>a+b,0)/d7s.length) : 0;
+
+  document.getElementById('today-kpi').innerHTML = `
+    <div class="kpi"><div class="l">라이브러리 신상</div><div class="v">${total}개</div><div class="c">5~6개+ 권장</div></div>
+    <div class="kpi ${soldout?'bad':'good'}"><div class="l">완전 품절</div><div class="v">${soldout}개</div><div class="c">${soldout?'리오더 시급':'OK'}</div></div>
+    <div class="kpi ${excess>=3?'warn':'good'}"><div class="l">잉여 재고</div><div class="v">${excess}개</div><div class="c">소진율 ≤10%</div></div>
+    <div class="kpi"><div class="l">총 정상재고</div><div class="v">${totalStock.toLocaleString()}</div><div class="c">8개 신상 합산</div></div>
+    <div class="kpi"><div class="l">평균 D+7 매출</div><div class="v">${fmtMan(avgD7)}</div><div class="c">${d7s.length}개 신상</div></div>
+  `;
+
+  // 즉시 액션
+  const actions = [];
+  LAUNCHES.filter(l => (l.inventory||{}).status === 'completely_sold_out').forEach(l => {
+    actions.push(['bad', `🔴 <b>${l.label}</b> — 완전 품절. 즉시 리오더 검토 (판매 ${l.inventory.qty_sold_to_date}개)`]);
+  });
+  LAUNCHES.filter(l => (l.inventory||{}).status === 'excess_stock' && l.inventory.normal_stock >= 1500).forEach(l => {
+    actions.push(['warn', `🔵 <b>${l.label}</b> — 잉여 ${l.inventory.normal_stock.toLocaleString()}개 / 소진 ${l.inventory.soldout_pct}% — 손절/콘텐츠 보강 검토`]);
+  });
+  if (actions.length === 0) actions.push(['good','✓ 현재 위험 신호 없음']);
+  document.getElementById('today-actions').innerHTML = actions.map(([c,m]) => `<div class="flag ${c}">${m}</div>`).join('');
+
+  // 다음 실행
+  const nextRoutines = ROUTINES.map(r => `<div class="routine-row"><div><div class="routine-label"><b>${r.label}</b></div><div class="routine-purpose">${r.purpose}</div></div><div class="routine-schedule">${r.schedule}</div><div class="routine-status ${r.loaded?'on':'off'}">${r.loaded?'ON':'OFF'}</div></div>`).join('');
+  document.getElementById('today-next').innerHTML = nextRoutines;
+}
+
+// ──── 2. 루틴 패널 ────
+function renderRoutines() {
+  document.getElementById('routines-list').innerHTML = ROUTINES.map(r => `
+    <div class="routine-row">
+      <div>
+        <div class="routine-label"><b>${r.label}</b></div>
+        <div class="routine-purpose">${r.purpose}</div>
+        <div class="routine-purpose"><code>${r.plist}</code> · 로그: <code>${r.log}</code></div>
+      </div>
+      <div class="routine-schedule">${r.schedule}</div>
+      <div class="routine-status ${r.loaded?'on':'off'}">${r.loaded?'ON':'OFF'}</div>
+    </div>
+  `).join('');
+}
+
+// ──── 3. 학습 라이브러리 ────
+function renderLibrary() {
+  // 매출 표
+  const sortedL = [...LAUNCHES].sort((a,b) => a.launch_date.localeCompare(b.launch_date));
+  let salesHtml = '<tr><th>신상</th><th>추이</th><th class="num">D+1</th><th class="num">D+3</th><th class="num">D+7</th><th class="num">D+14</th><th class="num">D+30</th><th class="num">AOV</th><th class="num">베이비</th><th class="num">교차%</th><th class="num">정상재고</th><th class="num">소진%</th></tr>';
+  sortedL.forEach(l => {
+    const s = l.snapshots;
+    const baby = (s.d3||{}).baby_pct || (s.d1||{}).baby_pct;
+    const cross = (s.d3||{}).cross_pct;
+    const inv = l.inventory||{};
+    salesHtml += `<tr>
+      <td><b>${l.label}</b><br><span class="meta">${l.launch_date} · ${l.tone||''}</span></td>
+      <td>${sparkline(s)}</td>
+      <td class="num">${fmt((s.d1||{}).revenue)}</td>
+      <td class="num">${fmt((s.d3||{}).revenue)}</td>
+      <td class="num">${fmt((s.d7||{}).revenue)}</td>
+      <td class="num">${fmt((s.d14||{}).revenue)}</td>
+      <td class="num">${fmt((s.d30||{}).revenue)}</td>
+      <td class="num">${l.aov ? l.aov.toLocaleString() : '—'}</td>
+      <td class="num">${baby!=null?baby.toFixed(0)+'%':'—'}</td>
+      <td class="num">${cross!=null?cross.toFixed(0)+'%':'—'}</td>
+      <td class="num">${inv.normal_stock?inv.normal_stock.toLocaleString():'—'}</td>
+      <td class="num">${inv.soldout_pct!=null?inv.soldout_pct.toFixed(1)+'%':'—'}</td>
+    </tr>`;
+  });
+  document.getElementById('library-sales').innerHTML = salesHtml;
+
+  // 컬러
+  let colorsHtml = '';
+  LAUNCHES.forEach(l => {
+    const cd = l.color_dist || {};
+    const items = Object.entries(cd).map(([c,v]) => [c, v.revenue||0, v.qty||0]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]);
+    if (items.length === 0) return;
+    const total = items.reduce((a,x)=>a+x[1], 0);
+    const topPct = items[0][1]/total*100;
+    const flag = topPct>=60 ? '✓압도' : '⚠분산';
+    let bars = items.slice(0,5).map(([c,r,q]) => `<div class="bar-row"><div class="bar-label">${c}</div><div class="bar"><div class="bar-fill" style="width:${(r/total*100).toFixed(0)}%"></div></div><div class="bar-num">${(r/total*100).toFixed(0)}%</div><div class="bar-qty">${Math.round(r/10000)}만</div></div>`).join('');
+    colorsHtml += `<div class="block"><h4>${l.label} <span style="font-size:11px;color:var(--muted);font-weight:400">TOP ${topPct.toFixed(0)}% ${flag}</span></h4>${bars}</div>`;
+  });
+  document.getElementById('library-colors').innerHTML = colorsHtml;
+
+  // 사이즈
+  let sizesHtml = '';
+  LAUNCHES.forEach(l => {
+    const sd = l.size_dist || {};
+    const items = Object.entries(sd).filter(x=>x[1]>0).sort((a,b) => (parseInt(a[0])||999) - (parseInt(b[0])||999));
+    if (items.length === 0) return;
+    const total = items.reduce((a,x)=>a+x[1], 0);
+    let bars = items.map(([s,q]) => {
+      const cls = ['60','70','80','90'].includes(s) ? '베이비' : '키즈';
+      return `<div class="bar-row"><div class="bar-label">${s} (${cls})</div><div class="bar"><div class="bar-fill" style="width:${(q/total*100).toFixed(0)}%;background:var(--teal)"></div></div><div class="bar-num">${(q/total*100).toFixed(0)}%</div><div class="bar-qty">${q}</div></div>`;
+    }).join('');
+    sizesHtml += `<div class="block"><h4>${l.label}</h4>${bars}</div>`;
+  });
+  document.getElementById('library-sizes').innerHTML = sizesHtml;
+
+  // 콘텐츠 + 교차구매
+  let cHtml = '';
+  LAUNCHES.forEach(l => {
+    const cp = l.content_pattern || {};
+    const ct = l.cross_top || [];
+    let body = `<div style="font-size:11px;color:var(--muted);margin-bottom:8px">콘텐츠</div>`;
+    if (cp.matched_posts > 0) {
+      body += `<div class="bar-row"><div class="bar-label">티저</div><div class="bar-num" style="text-align:left">D-${cp.teaser_days}</div><div></div></div>`;
+      body += `<div class="bar-row"><div class="bar-label">매칭</div><div class="bar-num" style="text-align:left">${cp.matched_posts}개 (피드 ${cp.feed_count}/릴 ${cp.reel_count})</div><div></div></div>`;
+      body += `<div class="bar-row"><div class="bar-label">reach</div><div class="bar-num" style="text-align:left">${cp.total_reach.toLocaleString()}</div><div></div></div>`;
+    } else {
+      body += `<div style="font-size:11px;color:var(--muted)">캡션 매칭 없음</div>`;
+    }
+    body += `<div style="font-size:11px;color:var(--muted);margin-top:12px;margin-bottom:6px">교차구매 TOP 3</div>`;
+    if (ct.length > 0) {
+      body += '<div style="font-size:12px">' + ct.slice(0,3).map(([n,c],i) => `${i+1}. ${n} (${c}건)`).join('<br>') + '</div>';
+    } else {
+      body += `<div style="font-size:11px;color:var(--muted)">없음</div>`;
+    }
+    cHtml += `<div class="block"><h4>${l.label}</h4>${body}</div>`;
+  });
+  document.getElementById('library-content').innerHTML = cHtml;
+}
+
+// ──── 4. 기획 도구 ────
+function scoreSimilarity(target, c) {
+  let score = 0; const reasons = [];
+  if (target.tone && c.tone === target.tone) { score += 3; reasons.push('톤=' + target.tone); }
+  if (target.product_type && c.product_type === target.product_type) { score += 2; reasons.push('타입=' + target.product_type); }
+  if (target.category && c.category === target.category) { score += 2; reasons.push('카테고리=' + target.category); }
+  if (target.season && c.season === target.season) score += 1;
+  if (target.baby_pct != null) {
+    const cBaby = (c.snapshots.d3||{}).baby_pct ?? (c.snapshots.d1||{}).baby_pct;
+    if (cBaby != null && Math.abs(cBaby - target.baby_pct) <= 15) {
+      score += 2; reasons.push('베이비±' + Math.round(Math.abs(cBaby - target.baby_pct)) + '%');
+    }
+  }
+  return { score, reasons };
+}
+
+function findSimilar(target, n=3) {
+  return LAUNCHES.map(c => ({ launch: c, ...scoreSimilarity(target, c) }))
+    .filter(x => x.score > 0)
+    .sort((a,b) => b.score - a.score)
+    .slice(0, n);
+}
+
+document.getElementById('planForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const target = {
+    label: document.getElementById('label').value || '(이름 없음)',
+    category: document.getElementById('category').value,
+    tone: document.getElementById('tone').value,
+    product_type: document.getElementById('product_type').value,
+    season: document.getElementById('season').value || 'SS26',
+    baby_pct: parseInt(document.getElementById('baby_pct').value) || null,
+    price: parseInt(document.getElementById('price').value) || null,
+  };
+  const similar = findSimilar(target, 3);
+  const launches = similar.map(s => s.launch);
+  const avg = arr => arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : null;
+
+  const d7Revs = launches.map(l => (l.snapshots.d7||{}).revenue).filter(x=>x);
+  const d7RevAvg = avg(d7Revs);
+  const d7Qtys = launches.map(l => (l.snapshots.d7||{}).qty).filter(x=>x);
+  const d30Qtys = launches.map(l => (l.snapshots.d30||{}).qty).filter(x=>x);
+  const aovs = launches.map(l => l.aov).filter(x=>x);
+  const baseQty = avg(d30Qtys) || (avg(d7Qtys) ? avg(d7Qtys)*2.5 : null);
+  const scenarios = baseQty ? { 보수: Math.round(baseQty*1.0), 표준: Math.round(baseQty*1.3), 적극: Math.round(baseQty*1.6) } : null;
+  const recQty = scenarios ? scenarios['표준'] : null;
+
+  // 컬러 mix
+  const colorPcts = {};
+  launches.forEach(l => {
+    const cd = l.color_dist||{};
+    const tot = Object.values(cd).reduce((a,v)=>a+(v.revenue||0),0);
+    if (tot<=0) return;
+    Object.entries(cd).forEach(([c,v]) => {
+      if (v.revenue>0) { if(!colorPcts[c]) colorPcts[c]=[]; colorPcts[c].push(v.revenue/tot); }
+    });
+  });
+  let colorMix = Object.entries(colorPcts).map(([c,ps]) => [c, avg(ps)]);
+  const cTotal = colorMix.reduce((a,[,p])=>a+p,0);
+  if (cTotal>0) colorMix = colorMix.map(([c,p])=>[c, p/cTotal]);
+  colorMix.sort((a,b)=>b[1]-a[1]);
+
+  // 사이즈 mix
+  const sizePcts = {};
+  launches.forEach(l => {
+    const sd = l.size_dist||{};
+    const tot = Object.values(sd).reduce((a,q)=>a+q,0);
+    if (tot<=0) return;
+    Object.entries(sd).forEach(([s,q]) => {
+      if (q>0) { if(!sizePcts[s]) sizePcts[s]=[]; sizePcts[s].push(q/tot); }
+    });
+  });
+  let sizeMix = Object.entries(sizePcts).map(([s,ps]) => [s, avg(ps)]);
+  const sTotal = sizeMix.reduce((a,[,p])=>a+p,0);
+  if (sTotal>0) sizeMix = sizeMix.map(([s,p])=>[s, p/sTotal]);
+  sizeMix.sort((a,b)=>(parseInt(a[0])||999)-(parseInt(b[0])||999));
+
+  // 위험 신호
+  const flags = [];
+  const excessCount = launches.filter(l => (l.inventory||{}).status==='excess_stock').length;
+  const soldoutCount = launches.filter(l => (l.inventory||{}).status==='completely_sold_out').length;
+  const avgScore = similar.reduce((a,s)=>a+s.score,0)/Math.max(similar.length,1);
+  if (avgScore < MAX_SCORE*0.5) flags.push(['warn','⚠ 매칭 점수 평균 ' + Math.round(avgScore) + '/10 — 약한 매칭. 추정 신뢰도 낮음']);
+  if (target.tone === '베이직') flags.push(['warn','⚠ 베이직 톤 — 라이브러리상 베이직 신상 부진']);
+  if (excessCount >= 2) flags.push(['warn','⚠ 닮은 신상 중 ' + excessCount + '개 잉여 재고 — 발주 보수적으로']);
+  if (soldoutCount >= 1) flags.push(['bad','🔴 닮은 신상 중 ' + soldoutCount + '개 완전 품절 — 발주 적극 검토']);
+  if (target.baby_pct != null && target.baby_pct < 60) flags.push(['warn','⚠ 베이비 비중 ' + target.baby_pct + '% — 핵심고객 비중 낮음']);
+
+  let html = '';
+
+  // KPI
+  html += '<div class="sec"><div class="sec-t"><span class="n">2</span> 매출 예상 + 발주 시나리오</div>';
+  html += '<div class="kpi-grid">';
+  html += `<div class="kpi"><div class="l">D+7 매출 평균</div><div class="v">${fmtMan(d7RevAvg)}</div><div class="c">${launches.length}개 평균</div></div>`;
+  html += `<div class="kpi"><div class="l">표준 발주</div><div class="v">${recQty?recQty+'개':'—'}</div><div class="c">×1.3</div></div>`;
+  html += `<div class="kpi"><div class="l">AOV 평균</div><div class="v">${avg(aovs)?Math.round(avg(aovs)/1000)+'k':'—'}</div><div class="c">닮은 신상</div></div>`;
+  html += '</div>';
+  if (scenarios) {
+    html += '<div style="margin-top:16px"><table>';
+    html += '<tr><th>시나리오</th><th class="num">배율</th><th class="num">발주</th><th>리스크</th></tr>';
+    [['보수','×1.0','발주 부족 위험'],['표준 ★','×1.3','균형'],['적극','×1.6','잉여 위험']].forEach(([n,m,r]) => {
+      const k = n.replace(' ★','');
+      html += `<tr><td><b>${n}</b></td><td class="num">${m}</td><td class="num"><b>${scenarios[k]}개</b></td><td>${r}</td></tr>`;
+    });
+    html += '</table></div>';
+  }
+  html += '</div>';
+
+  // 닮은 신상
+  html += '<div class="sec"><div class="sec-t"><span class="n">3</span> 닮은 과거 신상</div>';
+  if (similar.length === 0) html += '<p style="color:var(--muted)">매칭 없음</p>';
+  similar.forEach(s => {
+    const l = s.launch;
+    const sp = Math.round(s.score/MAX_SCORE*100);
+    const d3 = (l.snapshots.d3||{}).revenue;
+    const d7 = (l.snapshots.d7||{}).revenue;
+    const d30 = (l.snapshots.d30||{}).revenue;
+    const inv = l.inventory||{};
+    html += '<div class="match-row">';
+    html += `<b>${l.label}</b> &nbsp;<span style="color:var(--muted)">${sp}%</span>`;
+    html += `<div style="font-size:11px;color:var(--muted);margin:4px 0">${s.reasons.join(', ')}</div>`;
+    html += `<div style="font-size:12px;color:var(--sub)">D+3 ${fmt(d3)} / D+7 ${fmt(d7)} / D+30 ${fmt(d30)}` + (inv.soldout_pct!=null?` / 소진 ${fmtPct(inv.soldout_pct)}`:'') + '</div>';
+    if (l.notes && l.notes.trim()) {
+      const noteLines = l.notes.split('\n').filter(x=>x.trim()).join('<br>');
+      html += `<div style="margin-top:8px;padding:8px 10px;background:#FFFCF5;border-left:3px solid var(--orange);font-size:11px">📝 ${noteLines}</div>`;
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // 컬러 발주 (균등 vs 압도)
+  if (colorMix.length) {
+    const sorted = [...colorMix].sort((a,b)=>b[1]-a[1]);
+    const top = sorted[0];
+    const rest = sorted.slice(1,4);
+    const w = [8,5,3].slice(0, rest.length);
+    const ws = w.reduce((a,b)=>a+b,0);
+    const dom = [[top[0],0.55]].concat(rest.map((r,i)=>[r[0], 0.45*w[i]/ws]));
+
+    html += '<div class="sec"><div class="sec-t"><span class="n">4</span> 권장 컬러 발주 (전략 비교)</div>';
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">';
+    html += '<div><h4 style="font-size:13px;margin-bottom:10px;color:var(--sub)">균등형 (평균)</h4>';
+    sorted.slice(0,6).forEach(([c,p]) => {
+      const pct = (p*100).toFixed(1);
+      const q = recQty ? Math.round(recQty*p) : null;
+      html += `<div class="bar-row"><div class="bar-label">${c}</div><div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div><div class="bar-num">${pct}%</div><div class="bar-qty">${q?q+'개':''}</div></div>`;
+    });
+    html += '</div><div><h4 style="font-size:13px;margin-bottom:10px;color:var(--pink)">압도형 (TOP 55% 강제) ★</h4>';
+    dom.forEach(([c,p]) => {
+      const pct = (p*100).toFixed(1);
+      const q = recQty ? Math.round(recQty*p) : null;
+      html += `<div class="bar-row"><div class="bar-label">${c}</div><div class="bar"><div class="bar-fill" style="width:${pct}%;background:var(--pink)"></div></div><div class="bar-num">${pct}%</div><div class="bar-qty">${q?q+'개':''}</div></div>`;
+    });
+    html += '</div></div></div>';
+  }
+
+  // 사이즈 발주
+  if (sizeMix.length) {
+    html += '<div class="sec"><div class="sec-t"><span class="n">5</span> 권장 사이즈 발주</div>';
+    sizeMix.forEach(([s,p]) => {
+      const pct = (p*100).toFixed(1);
+      const q = recQty ? Math.round(recQty*p) : null;
+      const cls = ['60','70','80','90'].includes(s) ? '베이비' : '키즈';
+      html += `<div class="bar-row"><div class="bar-label">${s} (${cls})</div><div class="bar"><div class="bar-fill" style="width:${pct}%;background:var(--teal)"></div></div><div class="bar-num">${pct}%</div><div class="bar-qty">${q?q+'개':''}</div></div>`;
+    });
+    html += '</div>';
+  }
+
+  // 위험 신호
+  html += '<div class="sec"><div class="sec-t"><span class="n">6</span> 위험 신호 / 코칭</div>';
+  if (flags.length === 0) html += '<p style="color:var(--muted)">특이사항 없음</p>';
+  flags.forEach(([c,m]) => { html += `<div class="flag ${c}">${m}</div>`; });
+  html += '</div>';
+
+  document.getElementById('planner-result').innerHTML = html;
+});
+
+// ──── 5. 회고/위험 ────
+function renderRetro() {
+  // 위험 신호
+  const flags = [];
+  LAUNCHES.filter(l => (l.inventory||{}).status === 'completely_sold_out').forEach(l => {
+    flags.push(['bad', `🔴 <b>${l.label}</b> — 완전 품절 (판매 ${l.inventory.qty_sold_to_date}, 재고 0). 즉시 리오더 검토`]);
+  });
+  LAUNCHES.filter(l => (l.inventory||{}).status === 'excess_stock').forEach(l => {
+    flags.push(['warn', `🔵 <b>${l.label}</b> — 잉여 재고 ${l.inventory.normal_stock.toLocaleString()}개 / 소진 ${l.inventory.soldout_pct}%`]);
+  });
+  if (flags.length === 0) flags.push(['good', '✓ 현재 위험 신호 없음']);
+  document.getElementById('retro-flags').innerHTML = flags.map(([c,m]) => `<div class="flag ${c}">${m}</div>`).join('');
+
+  // 노트
+  const notesHtml = LAUNCHES.filter(l => l.notes && l.notes.trim()).map(l => {
+    const lines = l.notes.split('\n').filter(x => x.trim()).join('<br>');
+    return `<div class="block"><h4>${l.label}</h4><div style="font-size:12px;color:var(--sub)">${lines}</div></div>`;
+  }).join('');
+  document.getElementById('retro-notes').innerHTML = notesHtml || '<p style="color:var(--muted);font-size:13px">아직 회고 노트 없음</p>';
+}
+
+// ──── 초기 렌더 ────
+renderToday();
+renderRoutines();
+renderLibrary();
+renderRetro();
+</script>
+</body>
+</html>
