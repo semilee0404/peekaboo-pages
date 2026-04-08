@@ -74,6 +74,8 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .badge-export{background:var(--green-bg);color:var(--cyan)}
 .badge-wholesale{background:var(--green-bg);color:var(--green)}
 .badge-loan{background:var(--pink-bg);color:var(--pink)}
+.badge-gov{background:rgba(6,182,212,.15);color:#06b6d4}
+.badge-tax{background:rgba(251,146,60,.15);color:#fb923c}
 .table-wrap{max-height:600px;overflow:auto;border-radius:12px}
 
 .pagination{display:flex;justify-content:center;gap:4px;margin-top:14px}
@@ -90,7 +92,7 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 <div class="header">
   <div>
     <h1>피카부 입출금 데이터</h1>
-    <div class="subtitle">2025년 월별 순이익 분석</div>
+    <div class="subtitle">2025~2026년 월별 순이익 분석</div>
   </div>
 </div>
 
@@ -169,17 +171,17 @@ const PAGE_SIZE=50,CI={};
 
 function fmt(n){return n?n.toLocaleString('ko-KR')+'원':'-'}
 function fmtS(n){if(Math.abs(n)>=1e8)return(n/1e8).toFixed(1)+'억';if(Math.abs(n)>=1e4)return(n/1e4).toFixed(0)+'만';return n.toLocaleString()}
-function mLabel(k){if(k==='전체')return'2025 전체';const[y,m]=k.split('-');return parseInt(m)+'월'}
+function mLabel(k){if(k==='전체')return'2025 전체';const[y,m]=k.split('-');return y==='2025'?parseInt(m)+'월':"'"+y.slice(2)+' '+parseInt(m)+'월'}
 function ds(){return[...new Set(DATA.map(d=>d.date))].sort()}
 function dAgg(){const d={};DATA.forEach(r=>{if(!d[r.date])d[r.date]={in:0,out:0,bal:0};d[r.date].in+=r.in;d[r.date].out+=r.out;if(!d[r.date].bal)d[r.date].bal=r.bal});return d}
 function destroyC(){Object.keys(CI).forEach(k=>{CI[k].destroy();delete CI[k]})}
 
-const IN_CAT_NAMES={'쿠팡':'쿠팡','소매매출':'소매매출 (리을디귿)','수출매출':'수출매출 (유용재)','도매매출':'도매매출','대출(중진공)':'대출 (중진공 3억)','대출(기업은행)':'대출 (기업은행 4.4억)'};
-const IN_CAT_COLORS={'쿠팡':'#f97316','소매매출':'#3b82f6','수출매출':'#06b6d4','도매매출':'#22c55e','대출(중진공)':'#ec4899','대출(기업은행)':'#f472b6'};
-const BADGE_CLS={'고정비':'badge-fixed','임가공비':'badge-proc','변동비':'badge-variable','쿠팡':'badge-coupang','소매매출':'badge-retail','수출매출':'badge-export','도매매출':'badge-wholesale','대출(중진공)':'badge-loan','대출(기업은행)':'badge-loan'};
+const IN_CAT_NAMES={'쿠팡':'쿠팡','소매매출':'소매매출 (리을디귿)','수출매출':'수출매출','도매매출':'도매매출','정부지원금':'정부지원금','대출(중진공)':'대출 (중진공 3억)','대출(기업은행)':'대출 (기업은행 4.4억)'};
+const IN_CAT_COLORS={'쿠팡':'#f97316','소매매출':'#3b82f6','수출매출':'#06b6d4','도매매출':'#22c55e','정부지원금':'#14b8a6','대출(중진공)':'#ec4899','대출(기업은행)':'#f472b6'};
+const BADGE_CLS={'고정비':'badge-fixed','임가공비':'badge-proc','변동비':'badge-variable','세금':'badge-tax','쿠팡':'badge-coupang','소매매출':'badge-retail','수출매출':'badge-export','도매매출':'badge-wholesale','정부지원금':'badge-gov','대출(중진공)':'badge-loan','대출(기업은행)':'badge-loan'};
 
 function init(){
-  const months=Object.keys(MONTHLY_DATA).sort((a,b)=>{if(a==='전체')return 1;if(b==='전체')return-1;return a.localeCompare(b)});
+  const months=Object.keys(MONTHLY_DATA).sort((a,b)=>{if(a==='전체')return 1;if(b==='전체')return-1;return b.localeCompare(a)});
   const bar=document.getElementById('monthBar');
   months.forEach(m=>{
     const btn=document.createElement('button');
@@ -217,16 +219,17 @@ function renderOverview(){
   const tIn=DATA.reduce((s,d)=>s+d.in,0),tOut=DATA.reduce((s,d)=>s+d.out,0),net=tIn-tOut;
   const sBal=DATA.length?DATA[DATA.length-1].bal:0,eBal=DATA.length?DATA[0].bal:0;
   const dates=ds();
-  // 대출 제외 순매출
+  // 대출+정부지원금 제외 순매출
   const loanIn=DATA.filter(d=>d.cat.startsWith('대출')).reduce((s,d)=>s+d.in,0);
-  const netSales=tIn-loanIn;
+  const govIn=DATA.filter(d=>d.cat==='정부지원금').reduce((s,d)=>s+d.in,0);
+  const netSales=tIn-loanIn-govIn;
   const realProfit=netSales-tOut;
 
   document.getElementById('overviewCards').innerHTML=`
     <div class="summary-card"><div class="label">총 입금</div><div class="value val-green">${fmt(tIn)}</div><div class="sub">${DATA.filter(d=>d.in>0).length}건</div></div>
     <div class="summary-card"><div class="label">총 출금</div><div class="value val-red">${fmt(tOut)}</div><div class="sub">${DATA.filter(d=>d.out>0).length}건</div></div>
     <div class="summary-card"><div class="label">순이익 (입금-출금)</div><div class="value ${net>=0?'val-green':'val-red'}">${fmt(net)}</div></div>
-    <div class="summary-card"><div class="label">대출 입금 제외 순매출</div><div class="value val-blue">${fmt(netSales)}</div></div>
+    <div class="summary-card"><div class="label">순매출 (대출·지원금 제외)</div><div class="value val-blue">${fmt(netSales)}</div></div>
     <div class="summary-card"><div class="label">실질 순이익 (매출-출금)</div><div class="value ${realProfit>=0?'val-green':'val-red'}">${fmt(realProfit)}</div></div>
     <div class="summary-card"><div class="label">기초잔액 (${dates[0]||''})</div><div class="value val-blue">${fmt(sBal)}</div></div>
     <div class="summary-card"><div class="label">기말잔액 (${dates[dates.length-1]||''})</div><div class="value val-blue">${fmt(eBal)}</div></div>
@@ -235,8 +238,9 @@ function renderOverview(){
   const inC={};DATA.filter(d=>d.in>0).forEach(d=>{inC[d.cat]=(inC[d.cat]||0)+d.in});
   mkDoughnut('chartIncomeBreak',Object.keys(inC).map(k=>IN_CAT_NAMES[k]||k),Object.values(inC),Object.keys(inC).map(k=>IN_CAT_COLORS[k]||'#64748b'));
 
+  const OUT_COLORS={'고정비':'#a855f7','임가공비':'#c084fc','변동비':'#eab308','세금':'#fb923c'};
   const outC={};DATA.filter(d=>d.out>0).forEach(d=>{outC[d.cat]=(outC[d.cat]||0)+d.out});
-  mkDoughnut('chartExpenseBreak',Object.keys(outC),Object.values(outC),['#a855f7','#c084fc','#eab308']);
+  mkDoughnut('chartExpenseBreak',Object.keys(outC),Object.values(outC),Object.keys(outC).map(k=>OUT_COLORS[k]||'#64748b'));
 
   const daily=dAgg(),labels=Object.keys(daily).sort();
   mkBar('chartDailyOverview',labels,[
@@ -249,7 +253,7 @@ function renderOverview(){
 function renderIncome(){
   const tIn=DATA.reduce((s,d)=>s+d.in,0);
   const cats={};DATA.filter(d=>d.in>0).forEach(d=>{cats[d.cat]=(cats[d.cat]||0)+d.in});
-  const order=['쿠팡','소매매출','수출매출','도매매출','대출(중진공)','대출(기업은행)'];
+  const order=['쿠팡','소매매출','수출매출','도매매출','정부지원금','대출(중진공)','대출(기업은행)'];
   const sorted=Object.entries(cats).sort((a,b)=>{const ai=order.indexOf(a[0]),bi=order.indexOf(b[0]);return(ai===-1?99:ai)-(bi===-1?99:bi)});
 
   let h='';sorted.forEach(([k,v])=>{
@@ -287,6 +291,7 @@ function renderExpense(){
   DATA.filter(d=>d.out>0&&d.cat==='고정비').forEach(d=>{fixedSub[d.sub]=(fixedSub[d.sub]||0)+d.out});
   const fixedTotal=Object.values(fixedSub).reduce((s,v)=>s+v,0);
   const varTotal=DATA.filter(d=>d.out>0&&d.cat==='변동비').reduce((s,d)=>s+d.out,0);
+  const taxTotal=DATA.filter(d=>d.out>0&&d.cat==='세금').reduce((s,d)=>s+d.out,0);
 
   // 임가공비 (별도 카테고리)
   const procSub={};
@@ -302,6 +307,7 @@ function renderExpense(){
     <div class="summary-card"><div class="label">┗ 화담</div><div class="value val-purple">${fmt(hwadamTotal)}</div></div>
     <div class="summary-card"><div class="label">임가공비</div><div class="value" style="color:#c084fc">${fmt(procTotal)}</div><div class="sub">${tOut?(procTotal/tOut*100).toFixed(1):'0'}%</div></div>
     <div class="summary-card"><div class="label">변동비</div><div class="value val-yellow">${fmt(varTotal)}</div><div class="sub">${tOut?(varTotal/tOut*100).toFixed(1):'0'}%</div></div>
+    ${taxTotal?`<div class="summary-card"><div class="label">세금</div><div class="value" style="color:#fb923c">${fmt(taxTotal)}</div><div class="sub">${(taxTotal/tOut*100).toFixed(1)}%</div></div>`:''}
   `;
 
   const pieL=[],pieV=[],pieC=[];
@@ -309,15 +315,17 @@ function renderExpense(){
   if(hwadamTotal){pieL.push('화담 임대료/관리비');pieV.push(hwadamTotal);pieC.push('#e9d5ff')}
   if(procTotal){pieL.push('임가공비');pieV.push(procTotal);pieC.push('#c084fc')}
   pieL.push('변동비');pieV.push(varTotal);pieC.push('#eab308');
+  if(taxTotal){pieL.push('세금');pieV.push(taxTotal);pieC.push('#fb923c')}
   mkDoughnut('chartExpensePie',pieL,pieV,pieC);
 
   const daily={};
-  DATA.filter(d=>d.out>0).forEach(r=>{if(!daily[r.date])daily[r.date]={f:0,p:0,v:0};if(r.cat==='고정비')daily[r.date].f+=r.out;else if(r.cat==='임가공비')daily[r.date].p+=r.out;else daily[r.date].v+=r.out});
+  DATA.filter(d=>d.out>0).forEach(r=>{if(!daily[r.date])daily[r.date]={f:0,p:0,v:0,t:0};if(r.cat==='고정비')daily[r.date].f+=r.out;else if(r.cat==='임가공비')daily[r.date].p+=r.out;else if(r.cat==='세금')daily[r.date].t+=r.out;else daily[r.date].v+=r.out});
   const labels=ds();
   mkStackedBar('chartExpenseDaily',labels,[
     {label:'고정비',data:labels.map(d=>(daily[d]&&daily[d].f)||0),backgroundColor:'#a855f7'},
     {label:'임가공비',data:labels.map(d=>(daily[d]&&daily[d].p)||0),backgroundColor:'#c084fc'},
-    {label:'변동비',data:labels.map(d=>(daily[d]&&daily[d].v)||0),backgroundColor:'#eab308'}
+    {label:'변동비',data:labels.map(d=>(daily[d]&&daily[d].v)||0),backgroundColor:'#eab308'},
+    {label:'세금',data:labels.map(d=>(daily[d]&&daily[d].t)||0),backgroundColor:'#fb923c'}
   ]);
 
   let dh='';
@@ -348,6 +356,15 @@ function renderExpense(){
     const hwAgg={};hw.forEach(d=>{const k=d.memo+'|'+d.date.slice(0,7);hwAgg[k]=(hwAgg[k]||0)+d.out});
     Object.entries(hwAgg).sort((a,b)=>b[1]-a[1]).slice(0,20).forEach(([key,amt])=>{
       dh+=`<div class="cat-item"><span class="name">${key.replace('|',' ')}</span><span class="amt val-red">${fmt(amt)}</span></div>`;
+    });
+    dh+='</div>';
+  }
+  // 세금 상세
+  const taxList=DATA.filter(d=>d.out>0&&d.cat==='세금').sort((a,b)=>b.out-a.out);
+  if(taxList.length){
+    dh+='<div class="cat-card"><h3>세금 상세</h3>';
+    taxList.forEach(d=>{
+      dh+=`<div class="cat-item"><span class="name">${d.date} ${d.memo}</span><span class="amt val-red">${fmt(d.out)}</span></div>`;
     });
     dh+='</div>';
   }
