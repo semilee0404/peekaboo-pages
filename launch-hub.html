@@ -73,17 +73,15 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border
 <div class="hero">
 <div class="wrap">
 <h1>피카부 신상 허브</h1>
-<div class="sub">학습 라이브러리 + 자동화 루틴 + 기획 도구 통합 · 2026-04-08 15:59 갱신</div>
+<div class="sub">학습 라이브러리 + 자동화 루틴 + 기획 도구 통합 · 2026-04-08 18:05 갱신</div>
 </div>
 </div>
 
 <nav class="tabs">
-<div class="inner">
+<div class="inner" id="tabs-inner">
 <button data-tab="today" class="active">📍 오늘</button>
-<button data-tab="routines">⚙ 자동화 루틴</button>
 <button data-tab="library">📚 학습 라이브러리</button>
-<button data-tab="planner">📊 신상 기획</button>
-<button data-tab="retro">📝 회고 / 위험</button>
+<!-- 📊 신상 기획 / 📝 회고 탭은 데이터 누적 시 JS가 자동 추가 -->
 </div>
 </nav>
 
@@ -96,25 +94,8 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border
 <div id="today-kpi" class="kpi-grid"></div>
 </div>
 <div class="sec">
-<div class="sec-t"><span class="n">!</span> 즉시 액션 / 위험 신호</div>
+<div class="sec-t"><span class="n">!</span> 점검 항목</div>
 <div id="today-actions"></div>
-</div>
-<div class="sec">
-<div class="sec-t"><span class="n">⏰</span> 다음 자동 실행</div>
-<div id="today-next"></div>
-</div>
-</div>
-
-<!-- ============ 2. 루틴 ============ -->
-<div class="panel" id="panel-routines">
-<div class="sec">
-<div class="sec-t"><span class="n">⚙</span> 자동화 루틴 (launchd)</div>
-<div id="routines-list"></div>
-<p style="font-size:11px;color:var(--muted);margin-top:14px;line-height:1.7">
-※ 상태 ON = 페이지 생성 시점에 launchctl list에 등록됨<br>
-※ 상태 OFF인 루틴은 사용자가 직접 등록 필요:<br>
-&nbsp;&nbsp;<code>launchctl load ~/Library/LaunchAgents/[plist 파일]</code>
-</p>
 </div>
 </div>
 
@@ -174,24 +155,39 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border
 </div>
 
 <footer>
-피카부 신상 허브 · 2026-04-08 15:59 자동 생성 · 매일 09:30 launch monitor가 자동 갱신<br>
+피카부 신상 허브 · 2026-04-08 18:05 자동 생성 · 매일 09:30 자동 갱신<br>
 <br>
 <b>데이터 정확성</b><br>
-• 매출/재고: 2026-04-08 기준 8개 신상 모두 Cafe24 API + 이지어드민 live 재검증 일치 (0 차이)<br>
+• 매출/재고: 8개 신상 모두 Cafe24 API + 이지어드민 live 재검증 일치 (0 차이)<br>
 • 절대값: API값이 셀러센터 실수치와 ~0.12% 오차 가능 (메모리 알려진 한계)<br>
-• 데이터 비교/추세 분석엔 영향 없음. 절대 정확도 필요 시 셀러센터 reconcile 별도 실행<br>
+• 데이터 비교/추세 분석엔 영향 없음<br>
 <br>
-<b>시스템 한계</b><br>
+<b>표시 원칙</b><br>
+• 신상품(launch_date 7일 이내) 재고 0 = 미입고 가능성 점검 (품절 단정 X)<br>
 • 표본 8개 — 통계적 일반화 X. 5~6개 누적 후 의미 강해짐<br>
-• D+14/D+30 미수집 신상은 미래 시점, launch monitor가 자동 백필<br>
-• 캡션 매칭 한계 — 일부 신상은 인스타 캡션에 단어 미포함 시 매칭 누락
+• 신상 기획 도구는 15개+ 누적 시 자동 노출 (현재 8개)<br>
+• 회고 탭은 회고 노트 3개+ 누적 시 자동 노출 (현재 2개)
 </footer>
 
 <script>
-const LAUNCHES = [{"launch_id":"boni_2026_03_26","label":"보니 블루머","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"단품","season":"SS26","aov":119986,"notes":"","snapshots":{"d1":{"revenue":312000,"qty":12,"orders":10,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":1222000,"qty":47,"orders":38,"baby_pct":100.0,"cross_pct":100.0},"d7":{"revenue":2158000,"qty":83,"orders":65,"baby_pct":100.0,"cross_pct":100.0},"d14":{"revenue":3406000,"qty":131,"orders":106,"baby_pct":100.0,"cross_pct":97.2}},"color_dist":{"레드":{"qty":57,"revenue":1482000},"핑크":{"qty":2,"revenue":52000},"블랙":{"qty":6,"revenue":156000},"옐로우":{"qty":11,"revenue":286000},"베이지":{"qty":4,"revenue":104000},"브라운":{"qty":3,"revenue":78000}},"size_dist":{"60":11,"90":12,"70":33,"80":27},"cross_top":[["쇼콜라 티셔츠",71],["보니 헤어밴드",42],["밀키 베이비 3종 세트",15],["플라워 니삭스 (+mom)",8],["코이 티셔츠",8],["밀키 헤어밴드",7],["쿨쿨 수트세트",6],["디저트 반팔 수트세트",6],["코이 블루머",5],["셀리소피 세트",4]],"content_pattern":{"teaser_days":6,"feed_count":2,"reel_count":0,"matched_posts":2,"total_reach":25617,"total_saves":79},"inventory":{"status":"normal","normal_stock":981,"soldout_pct":11.8,"qty_sold_to_date":131,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"chocolat_2026_03_26","label":"쇼콜라 티셔츠","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"단품","season":"SS26","aov":114695,"notes":"","snapshots":{"d1":{"revenue":264000,"qty":12,"orders":10,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":968000,"qty":44,"orders":37,"baby_pct":100.0,"cross_pct":100.0},"d7":{"revenue":1760000,"qty":80,"orders":63,"baby_pct":100.0,"cross_pct":98.4},"d14":{"revenue":2684000,"qty":122,"orders":98,"baby_pct":100.0,"cross_pct":96.9}},"color_dist":{"크림":{"qty":26,"revenue":572000},"아이보리":{"qty":46,"revenue":1012000},"블랙":{"qty":5,"revenue":110000},"베이지":{"qty":3,"revenue":66000}},"size_dist":{"60":11,"90":14,"70":28,"80":27},"cross_top":[["보니 블루머",75],["보니 헤어밴드",41],["밀키 베이비 3종 세트",16],["플라워 니삭스 (+mom)",8],["밀키 헤어밴드",6],["코이 티셔츠",6],["디저트 반팔 수트세트",6],["셀리소피 세트",4],["미미쥬쥬 세트",3],["윙고 바디수트",3]],"content_pattern":{"teaser_days":0,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"normal","normal_stock":768,"soldout_pct":13.7,"qty_sold_to_date":122,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"milky_2026_03_26","label":"밀키 베이비 3종 세트","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"세트","season":"SS26","aov":150648,"notes":"","snapshots":{"d1":{"revenue":260000,"qty":5,"orders":5,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":1040000,"qty":20,"orders":17,"baby_pct":100.0,"cross_pct":94.1},"d7":{"revenue":1924000,"qty":37,"orders":29,"baby_pct":100.0,"cross_pct":93.1},"d14":{"revenue":2912000,"qty":56,"orders":47,"baby_pct":100.0,"cross_pct":91.5}},"color_dist":{"브라운":{"qty":6,"revenue":312000},"베이지":{"qty":8,"revenue":416000},"핑크":{"qty":23,"revenue":1196000}},"size_dist":{"70":15,"80":16,"60":6},"cross_top":[["보니 블루머",20],["쇼콜라 티셔츠",18],["밀키 헤어밴드",14],["보니 헤어밴드",12],["플라워 니삭스 (+mom)",6],["코이 티셔츠",4],["코이 블루머",3],["미미쥬쥬 세트",2],["윈디 베이비 가디건",2],["코이 토끼 보넷",2]],"content_pattern":{"teaser_days":0,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"normal","normal_stock":247,"soldout_pct":18.5,"qty_sold_to_date":56,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"reji_2026_03_28","label":"리지 라인","launch_date":"2026-03-28","category":"베이비키즈","tone":"귀여움","product_type":"라인","season":"SS26","aov":250785,"notes":"","snapshots":{"d1":{"revenue":74000,"qty":2,"orders":2,"baby_pct":50.0,"cross_pct":100.0},"d3":{"revenue":74000,"qty":2,"orders":2,"baby_pct":50.0,"cross_pct":100.0},"d7":{"revenue":368000,"qty":10,"orders":7,"baby_pct":90.0,"cross_pct":100.0}},"color_dist":{"블랙":{"qty":3,"revenue":110000},"핑크":{"qty":3,"revenue":112000},"베이지":{"qty":1,"revenue":36000},"크림":{"qty":3,"revenue":110000}},"size_dist":{"70":2,"110":1,"90":6,"60":1},"cross_top":[["보니 블루머",8],["쇼콜라 티셔츠",5],["보니 헤어밴드",4],["윈디 베이비 가디건",3],["밀키 베이비 3종 세트",3],["디저트 반팔 수트세트",2],["밀키 헤어밴드",2],["플라워 니삭스 (+mom)",2],["누보 스카프(파스텔)",2],["누보 키즈 주니어세트(파스텔)",2]],"content_pattern":{"teaser_days":2,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"excess_stock","normal_stock":1984,"soldout_pct":0.5,"qty_sold_to_date":10,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"koi_2026_03_28","label":"코이 라인","launch_date":"2026-03-28","category":"베이비","tone":"귀여움","product_type":"라인","season":"SS26","aov":97177,"notes":"","snapshots":{"d1":{"revenue":176000,"qty":9,"orders":4,"baby_pct":100.0,"cross_pct":75.0},"d3":{"revenue":705000,"qty":35,"orders":17,"baby_pct":100.0,"cross_pct":70.6},"d7":{"revenue":1634000,"qty":81,"orders":40,"baby_pct":100.0,"cross_pct":80.0}},"color_dist":{"아이보리":{"qty":19,"revenue":356000},"블랙":{"qty":8,"revenue":162000},"크림":{"qty":12,"revenue":223000},"연그레이":{"qty":11,"revenue":209000},"그레이":{"qty":23,"revenue":507000},"브라운":{"qty":8,"revenue":177000}},"size_dist":{"70":34,"80":12,"90":8,"60":11},"cross_top":[["보니 블루머",10],["쇼콜라 티셔츠",10],["윈디 베이비 가디건",7],["단단baby 티셔츠(단품)",5],["쫀득 쫄바지(단품)",5],["모브 베이비 티셔츠 - 피카부 유아용 긴팔 티셔츠",4],["뉴말랑 티셔츠 베이비",4],["플라워 니삭스 (+mom)",4],["단단 티셔츠(단품)",4],["밀키 베이비 3종 세트",4]],"content_pattern":{"teaser_days":2,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"excess_stock","normal_stock":750,"soldout_pct":9.7,"qty_sold_to_date":81,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"shine_2026_04_03","label":"샤인 수트세트","launch_date":"2026-04-03","category":"베이비키즈","tone":"베이직","product_type":"세트","season":"SS26","aov":97396,"notes":"[2026-04-07 20:26] 베이직 톤+콘텐츠 4일 공백→매출 약함. 다음 신상은 귀여움 톤 우선 + D-7 티저 시작\n\n[DECISION] 2026-04-08 07:27\n  scenario=표준\n  color_strategy=균등형\n  order_qty=1821\n  based_on=보니\n  expected_d7_revenue=1,900,000\n  reason=사후 회고 — 실제로는 잉여 발주, 보수형 + 압도형이 옳았을 것","snapshots":{"d1":{"revenue":98000,"qty":4,"orders":2,"baby_pct":100.0,"cross_pct":0.0},"d3":{"revenue":988000,"qty":39,"orders":26,"baby_pct":65.71428571428571,"cross_pct":69.2}},"color_dist":{"베이지":{"qty":15,"revenue":384000},"그레이":{"qty":16,"revenue":392000},"아이보리":{"qty":8,"revenue":212000}},"size_dist":{"70":7,"90":7,"80":9,"100":5,"110":4,"120":3},"cross_top":[["코이 블루머",5],["코이 티셔츠",5],["보니 블루머",5],["보니 헤어밴드",5],["쿨리 키즈세트",4],["밀키 베이비 3종 세트",3],["샌디 베이비 세트",3],["플라워 니삭스 (+mom)",3],["타비 양말",2],["아이린 보넷",2]],"content_pattern":{"teaser_days":5,"feed_count":2,"reel_count":0,"matched_posts":2,"total_reach":19306,"total_saves":121},"inventory":{"status":"excess_stock","normal_stock":1821,"soldout_pct":2.1,"qty_sold_to_date":39,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"sandy_2026_04_03","label":"샌디 세트","launch_date":"2026-04-03","category":"베이비","tone":"베이직","product_type":"세트","season":"SS26","aov":161209,"notes":"[2026-04-07 20:26] 발주 16개로 4일만에 품절. 수요는 검증됨, 다음 발주 적극(×1.6) 권장","snapshots":{"d1":{"revenue":22000,"qty":1,"orders":1,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":352000,"qty":16,"orders":11,"baby_pct":81.25,"cross_pct":90.9}},"color_dist":{"블랙":{"qty":6,"revenue":132000},"크림":{"qty":2,"revenue":44000},"핑크":{"qty":5,"revenue":110000},"옐로우":{"qty":2,"revenue":44000},"베이지":{"qty":1,"revenue":22000}},"size_dist":{"80":9,"70":4,"110":2,"100":1},"cross_top":[["보니 헤어밴드",7],["쇼콜라 티셔츠",6],["보니 블루머",6],["샤인 수트세트",5],["코이 블루머",5],["코이 티셔츠",4],["샤인 키즈 주니어 세트",3],["밀키 베이비 3종 세트",2],["플라워 니삭스 (+mom)",2],["타비 양말",2]],"content_pattern":{"teaser_days":4,"feed_count":2,"reel_count":0,"matched_posts":2,"total_reach":8973,"total_saves":28},"inventory":{"status":"completely_sold_out","normal_stock":0,"soldout_pct":100.0,"qty_sold_to_date":16,"snapshot_at":"2026-04-08 14:21"}},{"launch_id":"ringo_2026_04_03","label":"링고 민소매","launch_date":"2026-04-03","category":"베이비","tone":"베이직","product_type":"이너","season":"SS26","aov":72133,"notes":"","snapshots":{"d1":{"revenue":12000,"qty":1,"orders":1,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":62000,"qty":5,"orders":3,"baby_pct":100.0,"cross_pct":66.7}},"color_dist":{"아이보리":{"qty":2,"revenue":24000},"코코아":{"qty":1,"revenue":13000},"라이트베이지":{"qty":1,"revenue":13000},"블랙":{"qty":1,"revenue":12000}},"size_dist":{"80":3,"90":2},"cross_top":[["나팔 쫄바지",2],["코이 티셔츠",1],["쇼콜라 티셔츠",1],["디저트 방울보넷",1],["디저트 반팔 수트세트",1],["밀키 베이비 3종 세트",1]],"content_pattern":{"teaser_days":6,"feed_count":1,"reel_count":1,"matched_posts":2,"total_reach":9946,"total_saves":34},"inventory":{"status":"excess_stock","normal_stock":2581,"soldout_pct":0.2,"qty_sold_to_date":5,"snapshot_at":"2026-04-08 14:21"}}];
-const ROUTINES = [{"label": "신상 출시 모니터", "plist": "com.peekaboo.new-product-launch-monitor", "schedule": "매일 09:30", "purpose": "D+1/3/7 디스코드 알림 + D+14/30 자동 백필 + 정상재고 갱신 + 잉여 알림", "log": "logs/new_product_launch_monitor_stdout.log", "loaded": true}, {"label": "이지어드민 재고 다운로드", "plist": "com.peekaboo.ezadmin-download", "schedule": "매일 06:00", "purpose": "현재고조회 xls → ~/Downloads, 세션 만료 시 디스코드 알림", "log": "logs/ezadmin_download_stdout.log", "loaded": false}, {"label": "인스타그램 일별 수집", "plist": "com.peekaboo.instagram-daily", "schedule": "매일 08:00", "purpose": "최근 25개 게시물 + 인사이트 + 계정 메트릭 → DB", "log": "logs/instagram_daily_stdout.log", "loaded": false}];
+const LAUNCHES = [{"launch_id":"boni_2026_03_26","label":"보니 블루머","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"단품","season":"SS26","aov":119986,"notes":"","snapshots":{"d1":{"revenue":312000,"qty":12,"orders":10,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":1222000,"qty":47,"orders":38,"baby_pct":100.0,"cross_pct":100.0},"d7":{"revenue":2158000,"qty":83,"orders":65,"baby_pct":100.0,"cross_pct":100.0},"d14":{"revenue":3406000,"qty":131,"orders":106,"baby_pct":100.0,"cross_pct":97.2}},"color_dist":{"레드":{"qty":57,"revenue":1482000},"핑크":{"qty":2,"revenue":52000},"블랙":{"qty":6,"revenue":156000},"옐로우":{"qty":11,"revenue":286000},"베이지":{"qty":4,"revenue":104000},"브라운":{"qty":3,"revenue":78000}},"size_dist":{"60":11,"90":12,"70":33,"80":27},"cross_top":[["쇼콜라 티셔츠",71],["보니 헤어밴드",42],["밀키 베이비 3종 세트",15],["플라워 니삭스 (+mom)",8],["코이 티셔츠",8],["밀키 헤어밴드",7],["쿨쿨 수트세트",6],["디저트 반팔 수트세트",6],["코이 블루머",5],["셀리소피 세트",4]],"content_pattern":{"teaser_days":6,"feed_count":2,"reel_count":0,"matched_posts":2,"total_reach":25617,"total_saves":79},"inventory":{"status":"stock_normal","normal_stock":981,"soldout_pct":11.8,"qty_sold_to_date":131,"snapshot_at":"2026-04-08 17:48"}},{"launch_id":"chocolat_2026_03_26","label":"쇼콜라 티셔츠","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"단품","season":"SS26","aov":114695,"notes":"","snapshots":{"d1":{"revenue":264000,"qty":12,"orders":10,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":968000,"qty":44,"orders":37,"baby_pct":100.0,"cross_pct":100.0},"d7":{"revenue":1760000,"qty":80,"orders":63,"baby_pct":100.0,"cross_pct":98.4},"d14":{"revenue":2684000,"qty":122,"orders":98,"baby_pct":100.0,"cross_pct":96.9}},"color_dist":{"크림":{"qty":26,"revenue":572000},"아이보리":{"qty":46,"revenue":1012000},"블랙":{"qty":5,"revenue":110000},"베이지":{"qty":3,"revenue":66000}},"size_dist":{"60":11,"90":14,"70":28,"80":27},"cross_top":[["보니 블루머",75],["보니 헤어밴드",41],["밀키 베이비 3종 세트",16],["플라워 니삭스 (+mom)",8],["밀키 헤어밴드",6],["코이 티셔츠",6],["디저트 반팔 수트세트",6],["셀리소피 세트",4],["미미쥬쥬 세트",3],["윙고 바디수트",3]],"content_pattern":{"teaser_days":0,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"stock_normal","normal_stock":768,"soldout_pct":13.7,"qty_sold_to_date":122,"snapshot_at":"2026-04-08 17:48"}},{"launch_id":"milky_2026_03_26","label":"밀키 베이비 3종 세트","launch_date":"2026-03-26","category":"베이비","tone":"귀여움","product_type":"세트","season":"SS26","aov":150648,"notes":"","snapshots":{"d1":{"revenue":260000,"qty":5,"orders":5,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":1040000,"qty":20,"orders":17,"baby_pct":100.0,"cross_pct":94.1},"d7":{"revenue":1924000,"qty":37,"orders":29,"baby_pct":100.0,"cross_pct":93.1},"d14":{"revenue":2912000,"qty":56,"orders":47,"baby_pct":100.0,"cross_pct":91.5}},"color_dist":{"브라운":{"qty":6,"revenue":312000},"베이지":{"qty":8,"revenue":416000},"핑크":{"qty":23,"revenue":1196000}},"size_dist":{"70":15,"80":16,"60":6},"cross_top":[["보니 블루머",20],["쇼콜라 티셔츠",18],["밀키 헤어밴드",14],["보니 헤어밴드",12],["플라워 니삭스 (+mom)",6],["코이 티셔츠",4],["코이 블루머",3],["미미쥬쥬 세트",2],["윈디 베이비 가디건",2],["코이 토끼 보넷",2]],"content_pattern":{"teaser_days":0,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"stock_normal","normal_stock":247,"soldout_pct":18.5,"qty_sold_to_date":56,"snapshot_at":"2026-04-08 17:48"}},{"launch_id":"reji_2026_03_28","label":"리지 라인","launch_date":"2026-03-28","category":"베이비키즈","tone":"귀여움","product_type":"라인","season":"SS26","aov":250785,"notes":"","snapshots":{"d1":{"revenue":74000,"qty":2,"orders":2,"baby_pct":50.0,"cross_pct":100.0},"d3":{"revenue":74000,"qty":2,"orders":2,"baby_pct":50.0,"cross_pct":100.0},"d7":{"revenue":368000,"qty":10,"orders":7,"baby_pct":90.0,"cross_pct":100.0}},"color_dist":{"블랙":{"qty":3,"revenue":110000},"핑크":{"qty":3,"revenue":112000},"베이지":{"qty":1,"revenue":36000},"크림":{"qty":3,"revenue":110000}},"size_dist":{"70":2,"110":1,"90":6,"60":1},"cross_top":[["보니 블루머",8],["쇼콜라 티셔츠",5],["보니 헤어밴드",4],["윈디 베이비 가디건",3],["밀키 베이비 3종 세트",3],["디저트 반팔 수트세트",2],["밀키 헤어밴드",2],["플라워 니삭스 (+mom)",2],["누보 스카프(파스텔)",2],["누보 키즈 주니어세트(파스텔)",2]],"content_pattern":{"teaser_days":2,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"stock_high","normal_stock":1984,"soldout_pct":0.5,"qty_sold_to_date":10,"snapshot_at":"2026-04-08 17:48"}},{"launch_id":"koi_2026_03_28","label":"코이 라인","launch_date":"2026-03-28","category":"베이비","tone":"귀여움","product_type":"라인","season":"SS26","aov":97177,"notes":"","snapshots":{"d1":{"revenue":176000,"qty":9,"orders":4,"baby_pct":100.0,"cross_pct":75.0},"d3":{"revenue":705000,"qty":35,"orders":17,"baby_pct":100.0,"cross_pct":70.6},"d7":{"revenue":1634000,"qty":81,"orders":40,"baby_pct":100.0,"cross_pct":80.0}},"color_dist":{"아이보리":{"qty":19,"revenue":356000},"블랙":{"qty":8,"revenue":162000},"크림":{"qty":12,"revenue":223000},"연그레이":{"qty":11,"revenue":209000},"그레이":{"qty":23,"revenue":507000},"브라운":{"qty":8,"revenue":177000}},"size_dist":{"70":34,"80":12,"90":8,"60":11},"cross_top":[["보니 블루머",10],["쇼콜라 티셔츠",10],["윈디 베이비 가디건",7],["단단baby 티셔츠(단품)",5],["쫀득 쫄바지(단품)",5],["모브 베이비 티셔츠 - 피카부 유아용 긴팔 티셔츠",4],["뉴말랑 티셔츠 베이비",4],["플라워 니삭스 (+mom)",4],["단단 티셔츠(단품)",4],["밀키 베이비 3종 세트",4]],"content_pattern":{"teaser_days":2,"feed_count":1,"reel_count":0,"matched_posts":1,"total_reach":10901,"total_saves":72},"inventory":{"status":"stock_high","normal_stock":750,"soldout_pct":9.7,"qty_sold_to_date":81,"snapshot_at":"2026-04-08 17:48"}},{"launch_id":"shine_2026_04_03","label":"샤인 수트세트","launch_date":"2026-04-03","category":"베이비키즈","tone":"베이직","product_type":"세트","season":"SS26","aov":97396,"notes":"[2026-04-07 20:26] 베이직 톤+콘텐츠 4일 공백→매출 약함. 다음 신상은 귀여움 톤 우선 + D-7 티저 시작\n\n[DECISION] 2026-04-08 07:27\n  scenario=표준\n  color_strategy=균등형\n  order_qty=1821\n  based_on=보니\n  expected_d7_revenue=1,900,000\n  reason=사후 회고 — 실제로는 잉여 발주, 보수형 + 압도형이 옳았을 것","snapshots":{"d1":{"revenue":98000,"qty":4,"orders":2,"baby_pct":100.0,"cross_pct":0.0},"d3":{"revenue":988000,"qty":39,"orders":26,"baby_pct":65.71428571428571,"cross_pct":69.2}},"color_dist":{"베이지":{"qty":15,"revenue":384000},"그레이":{"qty":16,"revenue":392000},"아이보리":{"qty":8,"revenue":212000}},"size_dist":{"70":7,"90":7,"80":9,"100":5,"110":4,"120":3},"cross_top":[["코이 블루머",5],["코이 티셔츠",5],["보니 블루머",5],["보니 헤어밴드",5],["쿨리 키즈세트",4],["밀키 베이비 3종 세트",3],["샌디 베이비 세트",3],["플라워 니삭스 (+mom)",3],["타비 양말",2],["아이린 보넷",2]],"content_pattern":{"teaser_days":5,"feed_count":2,"reel_count":0,"matched_posts":2,"total_reach":19306,"total_saves":121},"inventory":{"status":"stock_high","normal_stock":1821,"soldout_pct":2.1,"qty_sold_to_date":39,"snapshot_at":"2026-04-08 17:48"}},{"launch_id":"sandy_2026_04_03","label":"샌디 세트","launch_date":"2026-04-03","category":"베이비","tone":"베이직","product_type":"세트","season":"SS26","aov":161209,"notes":"[2026-04-07 20:26] 발주 16개로 4일만에 품절. 수요는 검증됨, 다음 발주 적극(×1.6) 권장","snapshots":{"d1":{"revenue":22000,"qty":1,"orders":1,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":352000,"qty":16,"orders":11,"baby_pct":81.25,"cross_pct":90.9}},"color_dist":{"블랙":{"qty":6,"revenue":132000},"크림":{"qty":2,"revenue":44000},"핑크":{"qty":5,"revenue":110000},"옐로우":{"qty":2,"revenue":44000},"베이지":{"qty":1,"revenue":22000}},"size_dist":{"80":9,"70":4,"110":2,"100":1},"cross_top":[["보니 헤어밴드",7],["쇼콜라 티셔츠",6],["보니 블루머",6],["샤인 수트세트",5],["코이 블루머",5],["코이 티셔츠",4],["샤인 키즈 주니어 세트",3],["밀키 베이비 3종 세트",2],["플라워 니삭스 (+mom)",2],["타비 양말",2]],"content_pattern":{"teaser_days":4,"feed_count":2,"reel_count":0,"matched_posts":2,"total_reach":8973,"total_saves":28},"inventory":{"status":"new_no_stock","normal_stock":0,"soldout_pct":100.0,"qty_sold_to_date":16,"snapshot_at":"2026-04-08 17:48"}},{"launch_id":"ringo_2026_04_03","label":"링고 민소매","launch_date":"2026-04-03","category":"베이비","tone":"베이직","product_type":"이너","season":"SS26","aov":72133,"notes":"","snapshots":{"d1":{"revenue":12000,"qty":1,"orders":1,"baby_pct":100.0,"cross_pct":100.0},"d3":{"revenue":62000,"qty":5,"orders":3,"baby_pct":100.0,"cross_pct":66.7}},"color_dist":{"아이보리":{"qty":2,"revenue":24000},"코코아":{"qty":1,"revenue":13000},"라이트베이지":{"qty":1,"revenue":13000},"블랙":{"qty":1,"revenue":12000}},"size_dist":{"80":3,"90":2},"cross_top":[["나팔 쫄바지",2],["코이 티셔츠",1],["쇼콜라 티셔츠",1],["디저트 방울보넷",1],["디저트 반팔 수트세트",1],["밀키 베이비 3종 세트",1]],"content_pattern":{"teaser_days":6,"feed_count":1,"reel_count":1,"matched_posts":2,"total_reach":9946,"total_saves":34},"inventory":{"status":"stock_high","normal_stock":2581,"soldout_pct":0.2,"qty_sold_to_date":5,"snapshot_at":"2026-04-08 17:48"}}];
+const VIS = {"planner": false, "retro": false, "n_launches": 8, "planner_threshold": 15, "retro_threshold": 3, "n_notes": 2};
 const TODAY = "2026-04-08";
 const MAX_SCORE = 10;
+
+// 조건부 탭 추가 (데이터 충분 시)
+if (VIS.planner) {
+  const btn = document.createElement('button');
+  btn.dataset.tab = 'planner';
+  btn.textContent = '📊 신상 기획';
+  document.getElementById('tabs-inner').appendChild(btn);
+}
+if (VIS.retro) {
+  const btn = document.createElement('button');
+  btn.dataset.tab = 'retro';
+  btn.textContent = '📝 회고';
+  document.getElementById('tabs-inner').appendChild(btn);
+}
 
 // ──── 탭 전환 ────
 document.querySelectorAll('nav.tabs button').forEach(btn => {
@@ -230,36 +226,35 @@ function sparkline(snapshots) {
 
 // ──── 1. 오늘 패널 ────
 function renderToday() {
-  // KPI: 활성 신상 / 잉여 / 품절 / 정상재고 합 / 평균 D+7 매출
   const total = LAUNCHES.length;
-  const excess = LAUNCHES.filter(l => (l.inventory||{}).status === 'excess_stock').length;
-  const soldout = LAUNCHES.filter(l => (l.inventory||{}).status === 'completely_sold_out').length;
+  const newNoStock = LAUNCHES.filter(l => (l.inventory||{}).status === 'new_no_stock').length;
+  const stockZero = LAUNCHES.filter(l => (l.inventory||{}).status === 'stock_zero').length;
+  const stockHigh = LAUNCHES.filter(l => (l.inventory||{}).status === 'stock_high').length;
   const totalStock = LAUNCHES.reduce((a,l) => a + ((l.inventory||{}).normal_stock||0), 0);
   const d7s = LAUNCHES.map(l => (l.snapshots.d7||{}).revenue).filter(x=>x);
   const avgD7 = d7s.length ? Math.round(d7s.reduce((a,b)=>a+b,0)/d7s.length) : 0;
 
   document.getElementById('today-kpi').innerHTML = `
     <div class="kpi"><div class="l">라이브러리 신상</div><div class="v">${total}개</div><div class="c">5~6개+ 권장</div></div>
-    <div class="kpi ${soldout?'bad':'good'}"><div class="l">완전 품절</div><div class="v">${soldout}개</div><div class="c">${soldout?'리오더 시급':'OK'}</div></div>
-    <div class="kpi ${excess>=3?'warn':'good'}"><div class="l">잉여 재고</div><div class="v">${excess}개</div><div class="c">소진율 ≤10%</div></div>
-    <div class="kpi"><div class="l">총 정상재고</div><div class="v">${totalStock.toLocaleString()}</div><div class="c">8개 신상 합산</div></div>
+    <div class="kpi ${newNoStock?'warn':''}"><div class="l">신상품 미입고 점검</div><div class="v">${newNoStock}개</div><div class="c">재고 0인 신상품</div></div>
+    <div class="kpi ${stockZero?'bad':''}"><div class="l">재고 0</div><div class="v">${stockZero}개</div><div class="c">신상품 외 (리오더 검토)</div></div>
+    <div class="kpi"><div class="l">총 재고</div><div class="v">${totalStock.toLocaleString()}</div><div class="c">${total}개 신상 합산</div></div>
     <div class="kpi"><div class="l">평균 D+7 매출</div><div class="v">${fmtMan(avgD7)}</div><div class="c">${d7s.length}개 신상</div></div>
   `;
 
-  // 즉시 액션
+  // 점검 항목
   const actions = [];
-  LAUNCHES.filter(l => (l.inventory||{}).status === 'completely_sold_out').forEach(l => {
-    actions.push(['bad', `🔴 <b>${l.label}</b> — 완전 품절. 즉시 리오더 검토 (판매 ${l.inventory.qty_sold_to_date}개)`]);
+  LAUNCHES.filter(l => (l.inventory||{}).status === 'new_no_stock').forEach(l => {
+    actions.push(['warn', `🟠 <b>${l.label}</b> — 신상품 재고 0. 미입고 가능성 점검 (판매 ${l.inventory.qty_sold_to_date}개)`]);
   });
-  LAUNCHES.filter(l => (l.inventory||{}).status === 'excess_stock' && l.inventory.normal_stock >= 1500).forEach(l => {
-    actions.push(['warn', `🔵 <b>${l.label}</b> — 잉여 ${l.inventory.normal_stock.toLocaleString()}개 / 소진 ${l.inventory.soldout_pct}% — 손절/콘텐츠 보강 검토`]);
+  LAUNCHES.filter(l => (l.inventory||{}).status === 'stock_zero').forEach(l => {
+    actions.push(['bad', `🔴 <b>${l.label}</b> — 재고 0. 미입고 또는 리오더 검토`]);
   });
-  if (actions.length === 0) actions.push(['good','✓ 현재 위험 신호 없음']);
+  LAUNCHES.filter(l => (l.inventory||{}).status === 'stock_high' && l.inventory.normal_stock >= 1500).forEach(l => {
+    actions.push(['tip', `🔵 <b>${l.label}</b> — 재고 ${l.inventory.normal_stock.toLocaleString()}개 / 소진 ${l.inventory.soldout_pct}% — 콘텐츠/마케팅 보강 검토`]);
+  });
+  if (actions.length === 0) actions.push(['good','✓ 현재 점검할 항목 없음']);
   document.getElementById('today-actions').innerHTML = actions.map(([c,m]) => `<div class="flag ${c}">${m}</div>`).join('');
-
-  // 다음 실행
-  const nextRoutines = ROUTINES.map(r => `<div class="routine-row"><div><div class="routine-label"><b>${r.label}</b></div><div class="routine-purpose">${r.purpose}</div></div><div class="routine-schedule">${r.schedule}</div><div class="routine-status ${r.loaded?'on':'off'}">${r.loaded?'ON':'OFF'}</div></div>`).join('');
-  document.getElementById('today-next').innerHTML = nextRoutines;
 }
 
 // ──── 2. 루틴 패널 ────
@@ -557,9 +552,8 @@ function renderRetro() {
 
 // ──── 초기 렌더 ────
 renderToday();
-renderRoutines();
 renderLibrary();
-renderRetro();
+if (VIS.retro) renderRetro();
 </script>
 </body>
 </html>
