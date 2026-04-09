@@ -65,15 +65,17 @@ button.primary:hover{background:#E85A78}
 .routine-status{padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;text-align:center}
 .routine-status.on{background:#E8F8EF;color:var(--green)}
 .routine-status.off{background:#FDECEB;color:var(--red)}
-.line-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-bottom:12px;overflow:hidden}
+.line-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-bottom:14px;overflow:hidden}
 .line-header{width:100%;padding:14px 16px;background:none;border:none;text-align:left;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:inherit;font-size:14px}
 .line-header:hover{background:#F5F7FA}
-.line-arrow{display:inline-block;transition:transform 0.2s;font-size:10px;color:var(--muted)}
-.line-card.expanded .line-arrow{transform:rotate(90deg)}
+.line-arrow{display:inline-block;transition:transform 0.2s;font-size:10px;color:var(--muted);transform:rotate(90deg)}
+.line-card.collapsed .line-arrow{transform:rotate(0)}
 .line-meta{font-size:11px;color:var(--muted);margin-left:auto}
 .line-summary{padding:0 16px 14px}
-.line-detail{display:none;padding:14px 16px;border-top:1px dashed var(--border);background:#fff}
-.line-card.expanded .line-detail{display:block}
+.line-detail{display:block;padding:14px 16px;border-top:1px dashed var(--border);background:#fff}
+.line-card.collapsed .line-detail{display:none}
+.block.empty{background:#FFF8E1;border-color:#FFE082}
+.block.empty h4{color:#7D6608}
 footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border-top:1px solid var(--border);margin-top:40px}
 </style>
 </head>
@@ -82,7 +84,7 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border
 <div class="hero">
 <div class="wrap">
 <h1>피카부 신상 허브</h1>
-<div class="sub">학습 라이브러리 + 자동화 루틴 + 기획 도구 통합 · 2026-04-09 10:20 갱신</div>
+<div class="sub">학습 라이브러리 + 자동화 루틴 + 기획 도구 통합 · 2026-04-09 10:36 갱신</div>
 </div>
 </div>
 
@@ -164,7 +166,7 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border
 </div>
 
 <footer>
-피카부 신상 허브 · 2026-04-09 10:20 자동 생성 · 매일 09:30 자동 갱신<br>
+피카부 신상 허브 · 2026-04-09 10:36 자동 생성 · 매일 09:30 자동 갱신<br>
 <br>
 <b>데이터 정확성</b><br>
 • 매출/재고: 8개 신상 모두 Cafe24 API + 이지어드민 live 재검증 일치 (0 차이)<br>
@@ -353,7 +355,7 @@ function renderLibrary() {
       const invStock = ((l.inventory||{}).by_name||{})[pname];
       const stockText = invStock ? ` <span style="font-size:11px;color:var(--muted);font-weight:400">재고 ${invStock.normal_stock||0}개</span>` : '';
       if (items.length === 0) {
-        productHtml += `<div class="block"><h4>${pname}${stockText}</h4><div style="font-size:11px;color:var(--muted)">아직 매출 데이터 없음</div></div>`;
+        productHtml += `<div class="block empty"><h4>${pname}${stockText}</h4><div style="font-size:11px">아직 매출 데이터 없음</div></div>`;
         return;
       }
       const total = items.reduce((a,x)=>a+x[1], 0);
@@ -365,7 +367,7 @@ function renderLibrary() {
 
     colorsHtml += `
       <div class="line-card">
-        <button class="line-header" onclick="this.parentElement.classList.toggle('expanded')">
+        <button class="line-header" onclick="this.parentElement.classList.toggle('collapsed')">
           <span class="line-arrow">▶</span>
           <b>${l.label}</b>
           <span class="line-meta">${products.length}개 제품 / 라인 TOP ${lineTopPct.toFixed(0)}% ${lineFlag}</span>
@@ -416,8 +418,10 @@ function renderLibrary() {
       const invStock = ((l.inventory||{}).by_name||{})[pname];
       const stockText = invStock ? ` <span style="font-size:11px;color:var(--muted);font-weight:400">재고 ${invStock.normal_stock||0}개</span>` : '';
       if (items.length === 0) {
-        const msg = ppEntry && ppEntry.qty > 0 ? '사이즈 옵션 없음 (액세서리)' : '아직 매출 데이터 없음';
-        productHtml += `<div class="block"><h4>${pname}${stockText}</h4><div style="font-size:11px;color:var(--muted)">${msg}</div></div>`;
+        const isEmpty = !(ppEntry && ppEntry.qty > 0);
+        const msg = isEmpty ? '아직 매출 데이터 없음' : '사이즈 옵션 없음 (액세서리)';
+        const cls = isEmpty ? 'block empty' : 'block';
+        productHtml += `<div class="${cls}"><h4>${pname}${stockText}</h4><div style="font-size:11px">${msg}</div></div>`;
         return;
       }
       const total = items.reduce((a,x)=>a+x[1], 0);
@@ -433,7 +437,7 @@ function renderLibrary() {
     const lineMeta = lineBabyPct != null ? `라인 베이비 ${lineBabyPct.toFixed(0)}%` : '';
     sizesHtml += `
       <div class="line-card">
-        <button class="line-header" onclick="this.parentElement.classList.toggle('expanded')">
+        <button class="line-header" onclick="this.parentElement.classList.toggle('collapsed')">
           <span class="line-arrow">▶</span>
           <b>${l.label}</b>
           <span class="line-meta">${products.length}개 제품 / ${lineMeta}</span>
