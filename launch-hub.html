@@ -84,7 +84,7 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border
 <div class="hero">
 <div class="wrap">
 <h1>피카부 신상 허브</h1>
-<div class="sub">학습 라이브러리 + 자동화 루틴 + 기획 도구 통합 · 2026-04-09 10:36 갱신</div>
+<div class="sub">학습 라이브러리 + 자동화 루틴 + 기획 도구 통합 · 2026-04-09 10:46 갱신</div>
 </div>
 </div>
 
@@ -166,7 +166,7 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:20px 0;border
 </div>
 
 <footer>
-피카부 신상 허브 · 2026-04-09 10:36 자동 생성 · 매일 09:30 자동 갱신<br>
+피카부 신상 허브 · 2026-04-09 10:46 자동 생성 · 매일 09:30 자동 갱신<br>
 <br>
 <b>데이터 정확성</b><br>
 • 매출/재고: 8개 신상 모두 Cafe24 API + 이지어드민 live 재검증 일치 (0 차이)<br>
@@ -329,10 +329,12 @@ function renderLibrary() {
     const products = allLineProducts(l);
     if (products.length === 0) return;
 
-    // 라인 합산 (모든 제품 색 총합)
+    // 라인 합산 (모든 제품 색 총합) — 매출 0 제품(pp에 없음) 안전 처리
     const lineColors = {};
     products.forEach(pname => {
-      const cd = pp[pname].color_dist || {};
+      const ppEntry = pp[pname];
+      if (!ppEntry) return;
+      const cd = ppEntry.color_dist || {};
       Object.entries(cd).forEach(([c, v]) => {
         if (!lineColors[c]) lineColors[c] = {qty: 0, revenue: 0};
         lineColors[c].qty += v.qty || 0;
@@ -389,11 +391,13 @@ function renderLibrary() {
     const products = allLineProducts(l);
     if (products.length === 0) return;
 
-    // 라인 합산
+    // 라인 합산 — 매출 0 제품 안전 처리
     const lineSize = {};
     let lineBaby = 0, lineKids = 0;
     products.forEach(pname => {
-      const sd = pp[pname].size_dist || {};
+      const ppEntry = pp[pname];
+      if (!ppEntry) return;
+      const sd = ppEntry.size_dist || {};
       Object.entries(sd).forEach(([s, q]) => {
         lineSize[s] = (lineSize[s] || 0) + q;
         if (['60','70','80','90'].includes(s)) lineBaby += q;
