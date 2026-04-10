@@ -3386,11 +3386,23 @@ function selectProduct(name) {
   var displayQty = p.total_qty;
   var displayRev = p.total_rev;
   var displayPeriod = periodDays;
+  var filteredChannels = null; // null = use original channels
   if (DATE_FILTER.start || DATE_FILTER.end) {
     var dailyData = p.daily || {};
+    var chDailyData = p.channel_daily || {};
     displayQty = 0;
+    filteredChannels = {};
     Object.keys(dailyData).forEach(function(d) {
       if (isDateInRange(d)) displayQty += (dailyData[d] || 0);
+    });
+    // 기간 내 채널별 합산
+    Object.keys(chDailyData).forEach(function(d) {
+      if (!isDateInRange(d)) return;
+      var chs = chDailyData[d];
+      Object.keys(chs).forEach(function(ch) {
+        if (!filteredChannels[ch]) filteredChannels[ch] = { qty: 0, rev: 0 };
+        filteredChannels[ch].qty += (chs[ch] || 0);
+      });
     });
     displayPeriod = (DATE_FILTER.start || '') + ' ~ ' + (DATE_FILTER.end || '');
   }
@@ -3407,18 +3419,34 @@ function selectProduct(name) {
   if (displayPeriod) html += '<span>기간: <strong>' + displayPeriod + '</strong></span>';
   html += '</div></div>';
 
-  // Channel bars
-  var channels = p.channels || {};
-  var chKeys = Object.keys(channels).filter(function(k) { return channels[k] > 0; })
-    .sort(function(a, b) { return channels[b] - channels[a]; });
-  var maxChQty = chKeys.length > 0 ? channels[chKeys[0]] : 1;
+  // Channel bars — 기간 필터 적용
+  var displayChannels = filteredChannels || p.channels || {};
+  // channels 구조: {ch: {qty, rev}} 또는 기존 {ch: qty}
+  var chKeys = Object.keys(displayChannels).filter(function(k) {
+    var v = displayChannels[k];
+    var qty = typeof v === 'object' ? (v.qty || 0) : (v || 0);
+    return qty > 0;
+  }).sort(function(a, b) {
+    var qa = typeof displayChannels[a] === 'object' ? (displayChannels[a].qty || 0) : (displayChannels[a] || 0);
+    var qb = typeof displayChannels[b] === 'object' ? (displayChannels[b].qty || 0) : (displayChannels[b] || 0);
+    return qb - qa;
+  });
+  function getChQty(ch) {
+    var v = displayChannels[ch];
+    return typeof v === 'object' ? (v.qty || 0) : (v || 0);
+  }
+  var maxChQty = chKeys.length > 0 ? getChQty(chKeys[0]) : 1;
+  var totalChQty = chKeys.reduce(function(s, ch) { return s + getChQty(ch); }, 0);
 
   if (chKeys.length > 0) {
     html += '<div class="pdc-section">';
-    html += '<div class="pdc-section-title">채널별 판매</div>';
+    html += '<div class="pdc-section-title">판매처별 출고' +
+      (filteredChannels ? ' <span style="font-size:0.85em;color:var(--text-muted);">(선택 기간)</span>' : '') +
+      '</div>';
     chKeys.forEach(function(ch) {
-      var qty = channels[ch];
+      var qty = getChQty(ch);
       var pct = (qty / maxChQty) * 100;
+      var share = totalChQty > 0 ? ((qty / totalChQty) * 100).toFixed(1) : '0';
       var color = getChannelColor(ch);
       html += '<div class="channel-hbar-item">' +
         '<span class="channel-hbar-label">' + ch + '</span>' +
@@ -3426,7 +3454,7 @@ function selectProduct(name) {
         '<div class="channel-hbar-fill" style="width:' + Math.max(pct, 3) + '%;background:' + color + ';">' +
         '<span class="channel-hbar-fill-text">' + (pct > 15 ? fmtNum(qty) : '') + '</span>' +
         '</div></div>' +
-        '<span class="channel-hbar-value">' + fmtNum(qty) + '</span>' +
+        '<span class="channel-hbar-value">' + fmtNum(qty) + '<span style="font-size:0.8em;color:var(--text-muted);margin-left:4px;">(' + share + '%)</span></span>' +
         '</div>';
     });
     html += '</div>';
