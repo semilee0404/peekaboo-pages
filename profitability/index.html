@@ -649,21 +649,25 @@
 // ══════════════════════════════════════════════
 const marginData = {
   summary: {
-    total_revenue: 183770000,
-    total_estimated_cost: 36009258,
-    total_fee: 16351044,
-    total_gross_profit: 131409698,
-    overall_margin_rate_pct: 71.5,
-    products_no_cost_count: 104
+    total_revenue: 43116450,
+    total_estimated_cost: 7027791,
+    total_fee: 1075878,
+    total_gross_profit: 35012781,
+    overall_margin_rate_pct: 81.2,
+    products_no_cost_count: 0,
+    note: "소매만 (도매/해외 제외). 쿠팡=서플라이허브 납품금액."
+  },
+  coupang_comparison: {
+    supply_hub: 16535100,
+    ezadmin_sales: 28554200,
+    note: "서플라이허브=입고 납품가 vs 이지어드민=출고 소매가. 기준 다름."
   },
   channel_analysis: [
-    { channel: "DD168(해외)",      fee_rate_pct: 0,   revenue: 37916600,  estimated_cost: 5932033,  fee: 0,        gross_profit: 31984567, margin_rate_pct: 84.4, qty: 1583 },
-    { channel: "스마트스토어",      fee_rate_pct: 7,   revenue: 1760150,   estimated_cost: 234000,   fee: 123211,   gross_profit: 1402939,  margin_rate_pct: 79.7, qty: 82 },
-    { channel: "Hipeekaboo(해외)", fee_rate_pct: 0,   revenue: 20850000,  estimated_cost: 4276510,  fee: 0,        gross_profit: 16573490, margin_rate_pct: 79.5, qty: 955 },
-    { channel: "도매",              fee_rate_pct: 0,   revenue: 54978150,  estimated_cost: 12965636, fee: 0,        gross_profit: 42012514, margin_rate_pct: 76.4, qty: 2604 },
-    { channel: "카페24",            fee_rate_pct: 3,   revenue: 23721100,  estimated_cost: 5640120,  fee: 711633,   gross_profit: 17369347, margin_rate_pct: 73.2, qty: 1094 },
-    { channel: "롯데ON",            fee_rate_pct: 15,  revenue: 371000,    estimated_cost: 56800,    fee: 55650,    gross_profit: 258550,   margin_rate_pct: 69.7, qty: 20 },
-    { channel: "쿠팡",              fee_rate_pct: 35,  revenue: 44173000,  estimated_cost: 6904159,  fee: 15460550, gross_profit: 21808291, margin_rate_pct: 49.4, qty: 2842 }
+    { channel: "쿠팡(납품)",   fee_rate_pct: 0,   revenue: 16535100,  estimated_cost: 1097396,  fee: 0,       gross_profit: 15437704, margin_rate_pct: 93.4, qty: 1657, note: "⚠️ 원가 매칭 28% — 실제 마진은 더 낮음" },
+    { channel: "스마트스토어", fee_rate_pct: 7,   revenue: 1760150,   estimated_cost: 234000,   fee: 123210,  gross_profit: 1402940,  margin_rate_pct: 79.7, qty: 82 },
+    { channel: "카페24",       fee_rate_pct: 3,   revenue: 23844600,  estimated_cost: 5639595,  fee: 715338,  gross_profit: 17489667, margin_rate_pct: 73.3, qty: 1110 },
+    { channel: "카카오",       fee_rate_pct: 30,  revenue: 605600,    estimated_cost: 0,        fee: 181680,  gross_profit: 423920,   margin_rate_pct: 70.0, qty: 0, note: "원가 미매칭" },
+    { channel: "롯데ON",       fee_rate_pct: 15,  revenue: 371000,    estimated_cost: 56800,    fee: 55650,   gross_profit: 258550,   margin_rate_pct: 69.7, qty: 20 }
   ],
   product_top10: [
     { product: "에이스_MOM",     margin_rate_pct: 90.2, unit_cost: 6000,  sale_price: 61200 },
@@ -691,38 +695,10 @@ const marginData = {
   ],
   channel_comparison: [
     {
-      product: "샌디 베이비세트",
-      channels: [
-        { channel: "Hipeekaboo(해외)", margin_rate_pct: 80.9 },
-        { channel: "DD168(해외)",      margin_rate_pct: 80.9 },
-        { channel: "카페24",            margin_rate_pct: 77.9 },
-        { channel: "도매",              margin_rate_pct: -9.9 }
-      ]
-    },
-    {
-      product: "샌디 키즈세트",
-      channels: [
-        { channel: "Hipeekaboo(해외)", margin_rate_pct: 81.8 },
-        { channel: "DD168(해외)",      margin_rate_pct: 81.8 },
-        { channel: "카페24",            margin_rate_pct: 78.8 },
-        { channel: "도매",              margin_rate_pct: 0.8 }
-      ]
-    },
-    {
       product: "누보 수트",
       channels: [
-        { channel: "도매",   margin_rate_pct: 67.5 },
         { channel: "카페24", margin_rate_pct: 56.3 },
-        { channel: "쿠팡",   margin_rate_pct: 24.3 }
-      ]
-    },
-    {
-      product: "누보 사각비니",
-      channels: [
-        { channel: "도매",        margin_rate_pct: 69.6 },
-        { channel: "DD168(해외)", margin_rate_pct: 62.0 },
-        { channel: "카페24",      margin_rate_pct: 59.0 },
-        { channel: "쿠팡",        margin_rate_pct: 27.0 }
+        { channel: "스마트스토어", margin_rate_pct: 52.1 }
       ]
     },
     {
