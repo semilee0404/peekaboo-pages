@@ -26,7 +26,7 @@ const weeklyReports = [
           name: "도매주문관리",
           current: { qty: 2787, amount: 57408100 },
           prevMonth: { qty: 23261, amount: 399850600 },
-          prevYear: null
+          prevYear: { qty: 2236, amount: 50059474 }
         },
         {
           name: "Hipeekaboo(China)",
@@ -35,7 +35,7 @@ const weeklyReports = [
           prevYear: null
         }
       ],
-      total: { qty: 7573, amount: 57486733, prevMonth: { qty: 31569, amount: 584798600 }, prevYear: null }
+      total: { qty: 7573, amount: 57486733, prevMonth: { qty: 31569, amount: 584798600 }, prevYear: { qty: 2236, amount: 50059474 } }
     },
     cafe24Daily: [
       { day: "일", date: "4/6", revenue: 4173027 },
