@@ -1,0 +1,382 @@
+{
+  "generated_at": "2026-04-13",
+  "period": "2026-01-01 ~ 2026-04-12",
+  "total_orders": 6264,
+  "classified_orders": 4039,
+  "summary": {
+    "first_orders": 2706,
+    "repeat_orders": 1333,
+    "repeat_rate_pct": 33.0,
+    "first_revenue": 162241424.0,
+    "repeat_revenue": 100100975.0,
+    "repeat_revenue_rate_pct": 38.2,
+    "avg_first_order": 64229,
+    "avg_repeat_order": 80338,
+    "total_members": 3248,
+    "loyal_members_3plus": 111,
+    "guest_orders": 2276,
+    "guest_rate_pct": 36.3,
+    "mobile_rate_pct": 92.3
+  },
+  "monthly_trend": [
+    {
+      "month": "2026-01",
+      "total_orders": 1647,
+      "first_orders": 748,
+      "repeat_orders": 308,
+      "repeat_rate": 29.2,
+      "first_revenue": 42857284.0,
+      "repeat_revenue": 25667484.0,
+      "repeat_revenue_rate": 37.5
+    },
+    {
+      "month": "2026-02",
+      "total_orders": 2364,
+      "first_orders": 1094,
+      "repeat_orders": 493,
+      "repeat_rate": 31.1,
+      "first_revenue": 66954630.0,
+      "repeat_revenue": 35928753.0,
+      "repeat_revenue_rate": 34.9
+    },
+    {
+      "month": "2026-03",
+      "total_orders": 1629,
+      "first_orders": 629,
+      "repeat_orders": 376,
+      "repeat_rate": 37.4,
+      "first_revenue": 35946860.0,
+      "repeat_revenue": 25492270.0,
+      "repeat_revenue_rate": 41.5
+    },
+    {
+      "month": "2026-04",
+      "total_orders": 624,
+      "first_orders": 235,
+      "repeat_orders": 156,
+      "repeat_rate": 39.9,
+      "first_revenue": 16482650.0,
+      "repeat_revenue": 13012468.0,
+      "repeat_revenue_rate": 44.1
+    }
+  ],
+  "weekly_trend": [
+    {
+      "week": "2026-W08",
+      "first": 384,
+      "repeat": 167,
+      "repeat_rate": 30.3
+    },
+    {
+      "week": "2026-W09",
+      "first": 160,
+      "repeat": 68,
+      "repeat_rate": 29.8
+    },
+    {
+      "week": "2026-W10",
+      "first": 111,
+      "repeat": 84,
+      "repeat_rate": 43.1
+    },
+    {
+      "week": "2026-W11",
+      "first": 139,
+      "repeat": 55,
+      "repeat_rate": 28.4
+    },
+    {
+      "week": "2026-W12",
+      "first": 154,
+      "repeat": 78,
+      "repeat_rate": 33.6
+    },
+    {
+      "week": "2026-W13",
+      "first": 175,
+      "repeat": 120,
+      "repeat_rate": 40.7
+    },
+    {
+      "week": "2026-W14",
+      "first": 156,
+      "repeat": 97,
+      "repeat_rate": 38.3
+    },
+    {
+      "week": "2026-W15",
+      "first": 118,
+      "repeat": 88,
+      "repeat_rate": 42.7
+    }
+  ],
+  "frequency_distribution": [
+    {
+      "frequency": 1,
+      "members": 2742,
+      "revenue": 171080575.0
+    },
+    {
+      "frequency": 2,
+      "members": 395,
+      "revenue": 47322022.0
+    },
+    {
+      "frequency": 3,
+      "members": 68,
+      "revenue": 14097129.0
+    },
+    {
+      "frequency": 4,
+      "members": 26,
+      "revenue": 8227457.0
+    },
+    {
+      "frequency": 5,
+      "members": 10,
+      "revenue": 3737751.0
+    },
+    {
+      "frequency": 6,
+      "members": 2,
+      "revenue": 521830.0
+    },
+    {
+      "frequency": 8,
+      "members": 1,
+      "revenue": 601320.0
+    },
+    {
+      "frequency": 9,
+      "members": 1,
+      "revenue": 1224195.0
+    },
+    {
+      "frequency": 13,
+      "members": 1,
+      "revenue": 3082295.0
+    },
+    {
+      "frequency": 24,
+      "members": 1,
+      "revenue": 7134661.0
+    },
+    {
+      "frequency": 32,
+      "members": 1,
+      "revenue": 758364.0
+    }
+  ],
+  "loyal_customers": [
+    {
+      "member_id": "suny****",
+      "orders": 24,
+      "total_revenue": 7134661.0,
+      "first_date": "2026-01-05",
+      "last_date": "2026-03-30"
+    },
+    {
+      "member_id": "4449****",
+      "orders": 13,
+      "total_revenue": 3082295.0,
+      "first_date": "2026-01-07",
+      "last_date": "2026-04-05"
+    },
+    {
+      "member_id": "xian****",
+      "orders": 3,
+      "total_revenue": 2359850.0,
+      "first_date": "2026-04-07",
+      "last_date": "2026-04-12"
+    },
+    {
+      "member_id": "3787****",
+      "orders": 9,
+      "total_revenue": 1224195.0,
+      "first_date": "2026-01-15",
+      "last_date": "2026-04-08"
+    },
+    {
+      "member_id": "4713****",
+      "orders": 4,
+      "total_revenue": 1223380.0,
+      "first_date": "2026-01-27",
+      "last_date": "2026-02-16"
+    },
+    {
+      "member_id": "4762****",
+      "orders": 4,
+      "total_revenue": 840828.0,
+      "first_date": "2026-02-25",
+      "last_date": "2026-03-24"
+    },
+    {
+      "member_id": "4412****",
+      "orders": 5,
+      "total_revenue": 829015.0,
+      "first_date": "2026-01-07",
+      "last_date": "2026-04-08"
+    },
+    {
+      "member_id": "huis****",
+      "orders": 32,
+      "total_revenue": 758364.0,
+      "first_date": "2026-02-06",
+      "last_date": "2026-04-10"
+    },
+    {
+      "member_id": "sang****",
+      "orders": 8,
+      "total_revenue": 601320.0,
+      "first_date": "2026-02-02",
+      "last_date": "2026-04-10"
+    },
+    {
+      "member_id": "4523****",
+      "orders": 4,
+      "total_revenue": 589241.0,
+      "first_date": "2026-03-01",
+      "last_date": "2026-03-21"
+    },
+    {
+      "member_id": "mint****",
+      "orders": 3,
+      "total_revenue": 576900.0,
+      "first_date": "2026-01-11",
+      "last_date": "2026-04-11"
+    },
+    {
+      "member_id": "jjy0****",
+      "orders": 4,
+      "total_revenue": 574500.0,
+      "first_date": "2026-02-08",
+      "last_date": "2026-03-22"
+    },
+    {
+      "member_id": "4765****",
+      "orders": 4,
+      "total_revenue": 499168.0,
+      "first_date": "2026-02-24",
+      "last_date": "2026-04-05"
+    },
+    {
+      "member_id": "3798****",
+      "orders": 5,
+      "total_revenue": 478835.0,
+      "first_date": "2026-02-11",
+      "last_date": "2026-04-05"
+    },
+    {
+      "member_id": "4744****",
+      "orders": 5,
+      "total_revenue": 449205.0,
+      "first_date": "2026-02-22",
+      "last_date": "2026-03-02"
+    },
+    {
+      "member_id": "wug4****",
+      "orders": 5,
+      "total_revenue": 414900.0,
+      "first_date": "2026-01-06",
+      "last_date": "2026-04-08"
+    },
+    {
+      "member_id": "3561****",
+      "orders": 4,
+      "total_revenue": 397224.0,
+      "first_date": "2026-02-23",
+      "last_date": "2026-03-23"
+    },
+    {
+      "member_id": "2751****",
+      "orders": 3,
+      "total_revenue": 373815.0,
+      "first_date": "2026-02-01",
+      "last_date": "2026-03-11"
+    },
+    {
+      "member_id": "3868****",
+      "orders": 5,
+      "total_revenue": 355170.0,
+      "first_date": "2026-01-29",
+      "last_date": "2026-04-02"
+    },
+    {
+      "member_id": "9323****",
+      "orders": 3,
+      "total_revenue": 343930.0,
+      "first_date": "2026-01-09",
+      "last_date": "2026-02-21"
+    },
+    {
+      "member_id": "4709****",
+      "orders": 5,
+      "total_revenue": 338530.0,
+      "first_date": "2026-01-22",
+      "last_date": "2026-02-06"
+    },
+    {
+      "member_id": "rlaa****",
+      "orders": 4,
+      "total_revenue": 337240.0,
+      "first_date": "2026-02-20",
+      "last_date": "2026-04-06"
+    },
+    {
+      "member_id": "3831****",
+      "orders": 3,
+      "total_revenue": 333048.0,
+      "first_date": "2026-03-30",
+      "last_date": "2026-04-10"
+    },
+    {
+      "member_id": "4697****",
+      "orders": 4,
+      "total_revenue": 331900.0,
+      "first_date": "2026-01-15",
+      "last_date": "2026-04-07"
+    },
+    {
+      "member_id": "4734****",
+      "orders": 6,
+      "total_revenue": 322590.0,
+      "first_date": "2026-02-05",
+      "last_date": "2026-03-01"
+    },
+    {
+      "member_id": "4830****",
+      "orders": 3,
+      "total_revenue": 313000.0,
+      "first_date": "2026-04-04",
+      "last_date": "2026-04-06"
+    },
+    {
+      "member_id": "4679****",
+      "orders": 4,
+      "total_revenue": 309815.0,
+      "first_date": "2026-01-04",
+      "last_date": "2026-02-12"
+    },
+    {
+      "member_id": "3770****",
+      "orders": 4,
+      "total_revenue": 309740.0,
+      "first_date": "2026-02-09",
+      "last_date": "2026-02-12"
+    },
+    {
+      "member_id": "3792****",
+      "orders": 3,
+      "total_revenue": 309150.0,
+      "first_date": "2026-02-12",
+      "last_date": "2026-03-26"
+    },
+    {
+      "member_id": "4710****",
+      "orders": 3,
+      "total_revenue": 295028.0,
+      "first_date": "2026-01-22",
+      "last_date": "2026-03-28"
+    }
+  ]
+}

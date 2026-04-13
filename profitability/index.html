@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>피카부 수익성 & 고객 분석</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      color: #1e293b;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      padding: 44px 20px 52px;
+      text-align: center;
+    }
+    .hero-brand {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 6px;
+    }
+    .hero-title {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+    .hero-period {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 32px;
+    }
+    .hero-kpi-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .hero-kpi {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 14px 20px;
+      min-width: 120px;
+      text-align: center;
+    }
+    .hero-kpi-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+    .hero-kpi-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .hero-kpi-value.green { color: #34d399; }
+    .hero-kpi-value.blue { color: #60a5fa; }
+    .hero-kpi-value.yellow { color: #fbbf24; }
+    .hero-kpi-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 2px;
+    }
+
+    /* ─── Tabs ─── */
+    .tab-nav {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .tab-nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .tab-nav-inner::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex-shrink: 0;
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tab-btn.active {
+      color: #3b82f6;
+      border-bottom-color: #3b82f6;
+    }
+    .tab-btn:hover:not(.active) { color: #475569; }
+
+    /* ─── Content ─── */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 16px 60px;
+    }
+
+    /* ─── Section heading ─── */
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 14px;
+      padding-left: 10px;
+      border-left: 3px solid #3b82f6;
+    }
+    .section-title.green { border-left-color: #10b981; }
+    .section-title.red { border-left-color: #ef4444; }
+    .section-title.yellow { border-left-color: #f59e0b; }
+
+    /* ─── KPI Cards ─── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    @media (min-width: 600px) {
+      .kpi-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .kpi-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    }
+    .kpi-label {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .kpi-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1e293b;
+      line-height: 1.1;
+    }
+    .kpi-value.green { color: #10b981; }
+    .kpi-value.blue { color: #3b82f6; }
+    .kpi-value.red { color: #ef4444; }
+    .kpi-value.yellow { color: #f59e0b; }
+    .kpi-sub {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    /* ─── Table ─── */
+    .table-wrap {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      overflow: hidden;
+      margin-bottom: 28px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead {
+      background: #f8fafc;
+    }
+    th {
+      padding: 12px 14px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    th.num, td.num { text-align: right; }
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      white-space: nowrap;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+
+    /* margin rate pill */
+    .margin-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .margin-pill.high { background: #d1fae5; color: #065f46; }
+    .margin-pill.mid  { background: #dbeafe; color: #1e40af; }
+    .margin-pill.low  { background: #fee2e2; color: #991b1b; }
+
+    /* badge */
+    .badge-warn {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+    .badge-loss {
+      display: inline-block;
+      background: #fee2e2;
+      color: #991b1b;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    /* ─── Chart container ─── */
+    .chart-card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      padding: 20px 16px;
+      margin-bottom: 28px;
+    }
+    .chart-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 16px;
+    }
+    .chart-wrap {
+      position: relative;
+    }
+
+    /* ─── Product margin bar ─── */
+    .product-margin-item {
+      margin-bottom: 14px;
+    }
+    .product-margin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .product-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+    .product-rate {
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .bar-bg {
+      height: 8px;
+      background: #f1f5f9;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.6s ease;
+    }
+    .bar-fill.green { background: #10b981; }
+    .bar-fill.blue  { background: #3b82f6; }
+    .bar-fill.red   { background: #ef4444; }
+
+    /* ─── Two column grid ─── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    @media (min-width: 640px) {
+      .two-col { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ─── Channel comparison ─── */
+    .comparison-card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      padding: 18px 16px;
+    }
+    .comparison-product-name {
+      font-size: 14px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 12px;
+    }
+    .comparison-channel-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .comparison-ch-name {
+      font-size: 12px;
+      color: #475569;
+      width: 120px;
+      flex-shrink: 0;
+    }
+    .comparison-bar-bg {
+      flex: 1;
+      height: 10px;
+      background: #f1f5f9;
+      border-radius: 99px;
+      overflow: visible;
+      position: relative;
+    }
+    .comparison-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      position: relative;
+    }
+    .comparison-rate {
+      font-size: 12px;
+      font-weight: 700;
+      width: 50px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* ─── Warning box ─── */
+    .warn-box {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .warn-icon {
+      font-size: 20px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .warn-text {
+      font-size: 13px;
+      color: #78350f;
+    }
+    .warn-text strong { font-weight: 700; }
+
+    /* ─── Loyal customer table highlight ─── */
+    .rank-1 td:first-child { font-weight: 800; color: #f59e0b; }
+    .rank-2 td:first-child { font-weight: 700; color: #94a3b8; }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 12px;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
+      background: #fff;
+    }
+
+    /* ─── Info note ─── */
+    .info-note {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: -16px;
+      margin-bottom: 24px;
+      padding-left: 4px;
+    }
+
+    /* ─── Stat inline row ─── */
+    .stat-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .stat-chip {
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      font-size: 13px;
+    }
+    .stat-chip-label { color: #94a3b8; font-size: 11px; }
+    .stat-chip-value { font-weight: 700; color: #1e293b; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<div class="hero">
+  <div class="hero-brand">Peekaboo · Analytics</div>
+  <div class="hero-title">수익성 & 고객 분석</div>
+  <div class="hero-period">2026년 1월~4월 | 마진 기준일 2026-04-06~12</div>
+  <div class="hero-kpi-row">
+    <div class="hero-kpi">
+      <div class="hero-kpi-label">총 매출</div>
+      <div class="hero-kpi-value">1.84억</div>
+      <div class="hero-kpi-sub">183,770,000원</div>
+    </div>
+    <div class="hero-kpi">
+      <div class="hero-kpi-label">순이익</div>
+      <div class="hero-kpi-value green">1.31억</div>
+      <div class="hero-kpi-sub">마진율 71.5%</div>
+    </div>
+    <div class="hero-kpi">
+      <div class="hero-kpi-label">총 주문</div>
+      <div class="hero-kpi-value blue">6,264건</div>
+      <div class="hero-kpi-sub">2026년 1~4월</div>
+    </div>
+    <div class="hero-kpi">
+      <div class="hero-kpi-label">재구매율</div>
+      <div class="hero-kpi-value yellow">33.0%</div>
+      <div class="hero-kpi-sub">매출비중 38.2%</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ TABS ══════════════════════ -->
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" data-tab="tab-channel">채널별 수익성</button>
+    <button class="tab-btn" data-tab="tab-product">제품별 마진</button>
+    <button class="tab-btn" data-tab="tab-customer">고객 분석</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════ TAB 1: 채널별 수익성 ══════════════════════ -->
+<div id="tab-channel" class="tab-content active">
+  <div class="container">
+
+    <!-- KPI -->
+    <div class="kpi-grid" style="margin-top: 8px;">
+      <div class="kpi-card">
+        <div class="kpi-label">총 매출</div>
+        <div class="kpi-value">1.84억</div>
+        <div class="kpi-sub">183,770,000원</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">총 원가</div>
+        <div class="kpi-value blue">3,601만</div>
+        <div class="kpi-sub">36,009,258원</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">총 수수료</div>
+        <div class="kpi-value yellow">1,635만</div>
+        <div class="kpi-sub">16,351,044원</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">순이익</div>
+        <div class="kpi-value green">1.31억</div>
+        <div class="kpi-sub">마진율 71.5%</div>
+      </div>
+    </div>
+
+    <!-- 채널별 마진 테이블 -->
+    <div class="section-title">채널별 수익성 (마진율 순)</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>채널</th>
+            <th class="num">매출</th>
+            <th class="num">원가</th>
+            <th class="num">수수료</th>
+            <th class="num">순이익</th>
+            <th class="num">마진율</th>
+          </tr>
+        </thead>
+        <tbody id="channel-table-body"></tbody>
+      </table>
+    </div>
+
+    <!-- 채널별 바 차트 -->
+    <div class="section-title">채널별 매출 vs 순이익</div>
+    <div class="chart-card">
+      <div class="chart-card-title">수평 바 차트 — 매출(파랑) · 순이익(초록)</div>
+      <div class="chart-wrap" style="height: 280px;">
+        <canvas id="channelChart"></canvas>
+      </div>
+    </div>
+
+    <!-- 데이터 주석 -->
+    <div class="warn-box">
+      <div class="warn-icon">ℹ️</div>
+      <div class="warn-text">
+        <strong>데이터 기준</strong><br>
+        쿠팡 매출은 소매가 기준, 수수료 35% 적용 · DD168/Hipeekaboo는 납품 계약, 수수료 0% · 원가 미등록 제품의 추정원가 0원 처리 → 해당 채널 마진율 과대 표시 가능
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════ TAB 2: 제품별 마진 ══════════════════════ -->
+<div id="tab-product" class="tab-content">
+  <div class="container">
+
+    <!-- 원가 미등록 경고 -->
+    <div class="warn-box" style="margin-top: 8px;">
+      <div class="warn-icon">⚠️</div>
+      <div class="warn-text">
+        <strong>원가 미등록 104개 제품</strong> — 해당 제품들은 원가 0원으로 계산되어 마진율이 실제보다 높게 표시됩니다. 원가 등록 후 재분석을 권장합니다.
+      </div>
+    </div>
+
+    <div class="two-col">
+      <!-- TOP 10 -->
+      <div>
+        <div class="section-title green">마진율 TOP 10</div>
+        <div class="chart-card" style="margin-bottom:0">
+          <div id="top10-list"></div>
+        </div>
+      </div>
+      <!-- BOTTOM 10 -->
+      <div>
+        <div class="section-title red">마진율 BOTTOM 10</div>
+        <div class="chart-card" style="margin-bottom:0">
+          <div id="bottom10-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 채널별 마진 비교 -->
+    <div class="section-title" style="margin-top: 16px;">같은 제품 채널별 마진 비교 (상위 5개)</div>
+    <p class="info-note">마진율 격차가 가장 큰 제품 순 · 같은 제품도 채널에 따라 수익성 차이 큼</p>
+    <div id="comparison-grid"></div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════ TAB 3: 고객 분석 ══════════════════════ -->
+<div id="tab-customer" class="tab-content">
+  <div class="container">
+
+    <!-- KPI -->
+    <div class="kpi-grid" style="margin-top: 8px;">
+      <div class="kpi-card">
+        <div class="kpi-label">총 주문</div>
+        <div class="kpi-value blue">6,264건</div>
+        <div class="kpi-sub">2026년 1~4월</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">재구매율</div>
+        <div class="kpi-value green">33.0%</div>
+        <div class="kpi-sub">매출비중 38.2%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">객단가 신규/재구매</div>
+        <div class="kpi-value">6.4만 / 8.0만</div>
+        <div class="kpi-sub">재구매 +25% 높음</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">회원 / 비회원</div>
+        <div class="kpi-value">3,248명</div>
+        <div class="kpi-sub">비회원 36.3% · 모바일 92.3%</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <!-- 월별 재구매율 라인차트 -->
+      <div>
+        <div class="section-title">월별 재구매율 추이</div>
+        <div class="chart-card" style="margin-bottom:0;">
+          <div class="chart-wrap" style="height: 220px;">
+            <canvas id="repeatTrendChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- 주문 횟수 분포 -->
+      <div>
+        <div class="section-title">회원 주문 횟수 분포</div>
+        <div class="chart-card" style="margin-bottom:0;">
+          <div class="chart-wrap" style="height: 220px;">
+            <canvas id="freqChart"></canvas>
+          </div>
+          <div style="margin-top:12px; padding: 10px 12px; background:#eff6ff; border-radius:8px; font-size:12px; color:#1e40af; font-weight:600;">
+            💡 1회→2회 전환이 핵심 허들 — 1회 구매자 2,742명 중 재구매 유도 시 LTV 극대화 가능
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 충성고객 TOP 10 -->
+    <div class="section-title" style="margin-top: 8px;">충성고객 TOP 10</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>순위</th>
+            <th>회원 ID</th>
+            <th class="num">주문 횟수</th>
+            <th class="num">총 매출 기여</th>
+            <th>첫 구매일</th>
+            <th>최근 구매일</th>
+          </tr>
+        </thead>
+        <tbody id="loyal-table-body"></tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  마지막 업데이트: 2026-04-13 &nbsp;·&nbsp; Peekaboo Analytics Dashboard
+</footer>
+
+<script>
+// ══════════════════════════════════════════════
+// INLINE DATA
+// ══════════════════════════════════════════════
+const marginData = {
+  summary: {
+    total_revenue: 183770000,
+    total_estimated_cost: 36009258,
+    total_fee: 16351044,
+    total_gross_profit: 131409698,
+    overall_margin_rate_pct: 71.5,
+    products_no_cost_count: 104
+  },
+  channel_analysis: [
+    { channel: "DD168(해외)",      fee_rate_pct: 0,   revenue: 37916600,  estimated_cost: 5932033,  fee: 0,        gross_profit: 31984567, margin_rate_pct: 84.4, qty: 1583 },
+    { channel: "스마트스토어",      fee_rate_pct: 7,   revenue: 1760150,   estimated_cost: 234000,   fee: 123211,   gross_profit: 1402939,  margin_rate_pct: 79.7, qty: 82 },
+    { channel: "Hipeekaboo(해외)", fee_rate_pct: 0,   revenue: 20850000,  estimated_cost: 4276510,  fee: 0,        gross_profit: 16573490, margin_rate_pct: 79.5, qty: 955 },
+    { channel: "도매",              fee_rate_pct: 0,   revenue: 54978150,  estimated_cost: 12965636, fee: 0,        gross_profit: 42012514, margin_rate_pct: 76.4, qty: 2604 },
+    { channel: "카페24",            fee_rate_pct: 3,   revenue: 23721100,  estimated_cost: 5640120,  fee: 711633,   gross_profit: 17369347, margin_rate_pct: 73.2, qty: 1094 },
+    { channel: "롯데ON",            fee_rate_pct: 15,  revenue: 371000,    estimated_cost: 56800,    fee: 55650,    gross_profit: 258550,   margin_rate_pct: 69.7, qty: 20 },
+    { channel: "쿠팡",              fee_rate_pct: 35,  revenue: 44173000,  estimated_cost: 6904159,  fee: 15460550, gross_profit: 21808291, margin_rate_pct: 49.4, qty: 2842 }
+  ],
+  product_top10: [
+    { product: "에이스_MOM",     margin_rate_pct: 90.2, unit_cost: 6000,  sale_price: 61200 },
+    { product: "엘리_MOM",       margin_rate_pct: 89.5, unit_cost: 4300,  sale_price: 40800 },
+    { product: "롱해리티셔츠",   margin_rate_pct: 89.4, unit_cost: 1800,  sale_price: 17000 },
+    { product: "롱셀리티셔츠",   margin_rate_pct: 89.4, unit_cost: 1800,  sale_price: 17000 },
+    { product: "꼬미_모자",      margin_rate_pct: 89.4, unit_cost: 1600,  sale_price: 21000 },
+    { product: "에버세트",       margin_rate_pct: 89.0, unit_cost: 2800,  sale_price: 25500 },
+    { product: "쿨링_DAD",       margin_rate_pct: 89.0, unit_cost: 4300,  sale_price: 39100 },
+    { product: "함께해_DAD",     margin_rate_pct: 88.8, unit_cost: 4000,  sale_price: 35700 },
+    { product: "예스_MOM",       margin_rate_pct: 88.8, unit_cost: 4200,  sale_price: 37400 },
+    { product: "마가린_MOM",     margin_rate_pct: 88.5, unit_cost: 4100,  sale_price: 35700 }
+  ],
+  product_bottom10: [
+    { product: "피크릿_오오_baby",   margin_rate_pct: -76.5, unit_cost: 3000,  sale_price: 0,     is_loss: true },
+    { product: "누보 키즈세트(컬)",  margin_rate_pct: 21.5,  unit_cost: 8267,  sale_price: 19000, is_loss: false },
+    { product: "누보 수트(컬)",       margin_rate_pct: 24.3,  unit_cost: 9757,  sale_price: 24000, is_loss: false },
+    { product: "누보 페이크 폴라",    margin_rate_pct: 24.3,  unit_cost: 4885,  sale_price: 12000, is_loss: false },
+    { product: "누보 배냇세트(컬러)", margin_rate_pct: 28.1,  unit_cost: 12535, sale_price: 34000, is_loss: false },
+    { product: "누보 비니",           margin_rate_pct: 29.2,  unit_cost: 4293,  sale_price: 12000, is_loss: false },
+    { product: "누보 곰돌이 배냇세트",margin_rate_pct: 29.8,  unit_cost: 11965, sale_price: 34000, is_loss: false },
+    { product: "누보 키즈세트",       margin_rate_pct: 33.2,  unit_cost: 8267,  sale_price: 19000, is_loss: false },
+    { product: "누보 수트",           margin_rate_pct: 41.4,  unit_cost: 9757,  sale_price: 24000, is_loss: false },
+    { product: "꽃순이_살롱모자",     margin_rate_pct: 41.5,  unit_cost: 2000,  sale_price: 8500,  is_loss: false }
+  ],
+  channel_comparison: [
+    {
+      product: "샌디 베이비세트",
+      channels: [
+        { channel: "Hipeekaboo(해외)", margin_rate_pct: 80.9 },
+        { channel: "DD168(해외)",      margin_rate_pct: 80.9 },
+        { channel: "카페24",            margin_rate_pct: 77.9 },
+        { channel: "도매",              margin_rate_pct: -9.9 }
+      ]
+    },
+    {
+      product: "샌디 키즈세트",
+      channels: [
+        { channel: "Hipeekaboo(해외)", margin_rate_pct: 81.8 },
+        { channel: "DD168(해외)",      margin_rate_pct: 81.8 },
+        { channel: "카페24",            margin_rate_pct: 78.8 },
+        { channel: "도매",              margin_rate_pct: 0.8 }
+      ]
+    },
+    {
+      product: "누보 수트",
+      channels: [
+        { channel: "도매",   margin_rate_pct: 67.5 },
+        { channel: "카페24", margin_rate_pct: 56.3 },
+        { channel: "쿠팡",   margin_rate_pct: 24.3 }
+      ]
+    },
+    {
+      product: "누보 사각비니",
+      channels: [
+        { channel: "도매",        margin_rate_pct: 69.6 },
+        { channel: "DD168(해외)", margin_rate_pct: 62.0 },
+        { channel: "카페24",      margin_rate_pct: 59.0 },
+        { channel: "쿠팡",        margin_rate_pct: 27.0 }
+      ]
+    },
+    {
+      product: "앤세트",
+      channels: [
+        { channel: "도매",   margin_rate_pct: 75.0 },
+        { channel: "카페24", margin_rate_pct: 68.0 },
+        { channel: "쿠팡",   margin_rate_pct: 40.0 }
+      ]
+    }
+  ]
+};
+
+const customerData = {
+  summary: {
+    total_orders: 6264,
+    repeat_rate_pct: 33.0,
+    repeat_revenue_rate_pct: 38.2,
+    avg_first_order: 64229,
+    avg_repeat_order: 80338,
+    total_members: 3248,
+    guest_rate_pct: 36.3,
+    mobile_rate_pct: 92.3
+  },
+  monthly_trend: [
+    { month: "1월", repeat_rate: 29.2, repeat_revenue_rate: 37.5 },
+    { month: "2월", repeat_rate: 31.1, repeat_revenue_rate: 34.9 },
+    { month: "3월", repeat_rate: 37.4, repeat_revenue_rate: 41.5 },
+    { month: "4월", repeat_rate: 39.9, repeat_revenue_rate: 44.1 }
+  ],
+  frequency_distribution: [
+    { label: "1회",   members: 2742, pct: 84.4 },
+    { label: "2회",   members: 395,  pct: 12.2 },
+    { label: "3회+",  members: 111,  pct: 3.4 }
+  ],
+  loyal_customers: [
+    { member_id: "suny****", orders: 24, total_revenue: 7134661, first_date: "2026-01-05", last_date: "2026-03-30" },
+    { member_id: "4449****", orders: 13, total_revenue: 3082295, first_date: "2026-01-07", last_date: "2026-04-05" },
+    { member_id: "xian****", orders: 3,  total_revenue: 2359850, first_date: "2026-04-07", last_date: "2026-04-12" },
+    { member_id: "3787****", orders: 9,  total_revenue: 1224195, first_date: "2026-01-15", last_date: "2026-04-08" },
+    { member_id: "4713****", orders: 4,  total_revenue: 1223380, first_date: "2026-01-27", last_date: "2026-02-16" },
+    { member_id: "4762****", orders: 4,  total_revenue: 840828,  first_date: "2026-02-25", last_date: "2026-03-24" },
+    { member_id: "4412****", orders: 5,  total_revenue: 829015,  first_date: "2026-01-07", last_date: "2026-04-08" },
+    { member_id: "huis****", orders: 32, total_revenue: 758364,  first_date: "2026-02-06", last_date: "2026-04-10" },
+    { member_id: "sang****", orders: 8,  total_revenue: 601320,  first_date: "2026-02-02", last_date: "2026-04-10" },
+    { member_id: "4523****", orders: 4,  total_revenue: 589241,  first_date: "2026-03-01", last_date: "2026-03-21" }
+  ]
+};
+
+// ══════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════
+function comma(n) {
+  return Math.abs(n) >= 100000000
+    ? (n / 100000000).toFixed(1) + '억'
+    : Math.abs(n) >= 10000
+    ? (n / 10000).toFixed(0) + '만'
+    : n.toLocaleString('ko-KR');
+}
+function commaFull(n) { return n.toLocaleString('ko-KR'); }
+function marginClass(r) {
+  if (r >= 80) return 'high';
+  if (r >= 60) return 'mid';
+  return 'low';
+}
+function marginColor(r) {
+  if (r >= 80) return '#10b981';
+  if (r >= 60) return '#3b82f6';
+  return '#ef4444';
+}
+
+// ══════════════════════════════════════════════
+// TAB 1: 채널 테이블
+// ══════════════════════════════════════════════
+function renderChannelTable() {
+  const tbody = document.getElementById('channel-table-body');
+  const sorted = [...marginData.channel_analysis].sort((a, b) => b.margin_rate_pct - a.margin_rate_pct);
+  tbody.innerHTML = sorted.map(ch => {
+    const warn = ch.fee_rate_pct >= 35
+      ? '<span class="badge-warn">⚠️ 수수료 35%</span>' : '';
+    const pillClass = marginClass(ch.margin_rate_pct);
+    return `<tr>
+      <td><strong>${ch.channel}</strong>${warn}</td>
+      <td class="num">${comma(ch.revenue)}</td>
+      <td class="num">${comma(ch.estimated_cost)}</td>
+      <td class="num">${comma(ch.fee)}</td>
+      <td class="num" style="color:${marginColor(ch.margin_rate_pct)};font-weight:700;">${comma(ch.gross_profit)}</td>
+      <td class="num"><span class="margin-pill ${pillClass}">${ch.margin_rate_pct.toFixed(1)}%</span></td>
+    </tr>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+// TAB 1: 채널 바 차트
+// ══════════════════════════════════════════════
+function renderChannelChart() {
+  const sorted = [...marginData.channel_analysis].sort((a, b) => b.revenue - a.revenue);
+  const ctx = document.getElementById('channelChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: sorted.map(c => c.channel),
+      datasets: [
+        {
+          label: '매출',
+          data: sorted.map(c => c.revenue),
+          backgroundColor: 'rgba(59,130,246,0.7)',
+          borderRadius: 4
+        },
+        {
+          label: '순이익',
+          data: sorted.map(c => c.gross_profit),
+          backgroundColor: 'rgba(16,185,129,0.7)',
+          borderRadius: 4
+        }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { font: { size: 12 } } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: ${commaFull(ctx.raw)}원`
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            callback: v => v >= 10000000 ? (v/10000000).toFixed(0)+'천만' : (v/10000).toFixed(0)+'만',
+            font: { size: 11 }
+          },
+          grid: { color: '#f1f5f9' }
+        },
+        y: { ticks: { font: { size: 12 } }, grid: { display: false } }
+      }
+    }
+  });
+}
+
+// ══════════════════════════════════════════════
+// TAB 2: TOP10 / BOTTOM10
+// ══════════════════════════════════════════════
+function renderProductLists() {
+  // TOP 10
+  const top10El = document.getElementById('top10-list');
+  top10El.innerHTML = marginData.product_top10.map(p => {
+    const pct = p.margin_rate_pct;
+    const barW = Math.min(pct, 100);
+    return `<div class="product-margin-item">
+      <div class="product-margin-header">
+        <span class="product-name">${p.product}</span>
+        <span class="product-rate" style="color:#10b981">${pct.toFixed(1)}%</span>
+      </div>
+      <div class="bar-bg">
+        <div class="bar-fill green" style="width:${barW}%"></div>
+      </div>
+      <div style="font-size:11px;color:#94a3b8;margin-top:3px">원가 ${commaFull(p.unit_cost)}원 → 판가 ${commaFull(p.sale_price)}원</div>
+    </div>`;
+  }).join('');
+
+  // BOTTOM 10
+  const bot10El = document.getElementById('bottom10-list');
+  bot10El.innerHTML = marginData.product_bottom10.map(p => {
+    const pct = p.margin_rate_pct;
+    const isLoss = p.is_loss;
+    const barW = Math.max(0, Math.min(Math.abs(pct), 100));
+    const badgeHtml = isLoss ? '<span class="badge-loss">적자</span>' : '';
+    const nameStyle = isLoss ? 'color:#ef4444;font-weight:800;' : '';
+    return `<div class="product-margin-item">
+      <div class="product-margin-header">
+        <span class="product-name" style="${nameStyle}">${p.product}${badgeHtml}</span>
+        <span class="product-rate" style="color:#ef4444">${pct.toFixed(1)}%</span>
+      </div>
+      <div class="bar-bg">
+        <div class="bar-fill red" style="width:${barW}%"></div>
+      </div>
+      <div style="font-size:11px;color:#94a3b8;margin-top:3px">원가 ${commaFull(p.unit_cost)}원 → 판가 ${commaFull(p.sale_price)}원</div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+// TAB 2: 채널 비교
+// ══════════════════════════════════════════════
+function renderComparison() {
+  const grid = document.getElementById('comparison-grid');
+  grid.innerHTML = marginData.channel_comparison.slice(0, 5).map(item => {
+    const maxAbs = Math.max(...item.channels.map(c => Math.abs(c.margin_rate_pct)));
+    const channelRows = item.channels.map(ch => {
+      const r = ch.margin_rate_pct;
+      const barW = maxAbs > 0 ? (Math.abs(r) / maxAbs * 100) : 0;
+      const color = r < 0 ? '#ef4444' : r >= 70 ? '#10b981' : r >= 50 ? '#3b82f6' : '#f59e0b';
+      const rateColor = r < 0 ? '#ef4444' : r >= 70 ? '#10b981' : r >= 50 ? '#3b82f6' : '#f59e0b';
+      return `<div class="comparison-channel-row">
+        <span class="comparison-ch-name">${ch.channel}</span>
+        <div class="comparison-bar-bg">
+          <div class="comparison-bar-fill" style="width:${barW}%;background:${color};height:10px;border-radius:99px;"></div>
+        </div>
+        <span class="comparison-rate" style="color:${rateColor}">${r.toFixed(1)}%</span>
+      </div>`;
+    }).join('');
+
+    const best = item.channels.reduce((a, b) => a.margin_rate_pct > b.margin_rate_pct ? a : b);
+    const worst = item.channels.reduce((a, b) => a.margin_rate_pct < b.margin_rate_pct ? a : b);
+    const spread = (best.margin_rate_pct - worst.margin_rate_pct).toFixed(1);
+
+    return `<div class="comparison-card" style="margin-bottom:14px">
+      <div class="comparison-product-name">${item.product}
+        <span style="font-size:11px;font-weight:500;color:#94a3b8;margin-left:8px;">격차 ${spread}%p</span>
+      </div>
+      ${channelRows}
+      <div style="margin-top:10px;padding:8px 10px;background:#f8fafc;border-radius:8px;font-size:11px;color:#475569;">
+        최고: <strong style="color:#10b981">${best.channel} ${best.margin_rate_pct.toFixed(1)}%</strong>
+        &nbsp;→&nbsp; 최저: <strong style="color:#ef4444">${worst.channel} ${worst.margin_rate_pct.toFixed(1)}%</strong>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+// TAB 3: 월별 재구매율 라인 차트
+// ══════════════════════════════════════════════
+function renderRepeatTrendChart() {
+  const ctx = document.getElementById('repeatTrendChart').getContext('2d');
+  const labels = customerData.monthly_trend.map(m => m.month);
+  const rates = customerData.monthly_trend.map(m => m.repeat_rate);
+  const revRates = customerData.monthly_trend.map(m => m.repeat_revenue_rate);
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: '재구매율 (%)',
+          data: rates,
+          borderColor: '#10b981',
+          backgroundColor: 'rgba(16,185,129,0.1)',
+          borderWidth: 2.5,
+          pointRadius: 5,
+          pointBackgroundColor: '#10b981',
+          tension: 0.3,
+          fill: true
+        },
+        {
+          label: '재구매 매출비중 (%)',
+          data: revRates,
+          borderColor: '#3b82f6',
+          backgroundColor: 'rgba(59,130,246,0.05)',
+          borderWidth: 2,
+          pointRadius: 4,
+          pointBackgroundColor: '#3b82f6',
+          tension: 0.3,
+          fill: false,
+          borderDash: [5, 3]
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}%`
+          }
+        }
+      },
+      scales: {
+        y: {
+          min: 20, max: 55,
+          ticks: { callback: v => v + '%', font: { size: 11 } },
+          grid: { color: '#f1f5f9' }
+        },
+        x: { ticks: { font: { size: 12 } }, grid: { display: false } }
+      }
+    }
+  });
+}
+
+// ══════════════════════════════════════════════
+// TAB 3: 주문 횟수 분포 바 차트
+// ══════════════════════════════════════════════
+function renderFreqChart() {
+  const ctx = document.getElementById('freqChart').getContext('2d');
+  const labels = customerData.frequency_distribution.map(f => f.label);
+  const pcts = customerData.frequency_distribution.map(f => f.pct);
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: '비율 (%)',
+        data: pcts,
+        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b'],
+        borderRadius: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const members = customerData.frequency_distribution[ctx.dataIndex].members;
+              return ` ${ctx.raw}% (${commaFull(members)}명)`;
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          max: 100,
+          ticks: { callback: v => v + '%', font: { size: 11 } },
+          grid: { color: '#f1f5f9' }
+        },
+        x: { ticks: { font: { size: 13, weight: '600' } }, grid: { display: false } }
+      }
+    }
+  });
+}
+
+// ══════════════════════════════════════════════
+// TAB 3: 충성고객 테이블
+// ══════════════════════════════════════════════
+function renderLoyalTable() {
+  const tbody = document.getElementById('loyal-table-body');
+  tbody.innerHTML = customerData.loyal_customers.map((c, i) => {
+    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : '';
+    const rankLabel = i === 0 ? '🥇 1위' : i === 1 ? '🥈 2위' : i === 2 ? '🥉 3위' : `${i+1}위`;
+    return `<tr class="${rankClass}">
+      <td>${rankLabel}</td>
+      <td><code style="font-size:13px;color:#475569">${c.member_id}</code></td>
+      <td class="num"><strong>${c.orders}회</strong></td>
+      <td class="num" style="color:#10b981;font-weight:700">${commaFull(c.total_revenue)}원</td>
+      <td style="color:#94a3b8;font-size:12px">${c.first_date}</td>
+      <td style="color:#94a3b8;font-size:12px">${c.last_date}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════
+let chartsRendered = { channel: false, product: false, customer: false };
+
+function initTab(tabId) {
+  if (tabId === 'tab-channel' && !chartsRendered.channel) {
+    renderChannelTable();
+    renderChannelChart();
+    chartsRendered.channel = true;
+  }
+  if (tabId === 'tab-product' && !chartsRendered.product) {
+    renderProductLists();
+    renderComparison();
+    chartsRendered.product = true;
+  }
+  if (tabId === 'tab-customer' && !chartsRendered.customer) {
+    renderRepeatTrendChart();
+    renderFreqChart();
+    renderLoyalTable();
+    chartsRendered.customer = true;
+  }
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    const tabId = btn.dataset.tab;
+    document.getElementById(tabId).classList.add('active');
+    initTab(tabId);
+  });
+});
+
+// 최초 탭 렌더
+initTab('tab-channel');
+</script>
+</body>
+</html>
