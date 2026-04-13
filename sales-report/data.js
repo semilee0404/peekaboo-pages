@@ -7,6 +7,89 @@
 
 const weeklyReports = [
   {
+    id: "2026-W15",
+    label: "4월2주 (4/6~4/12)",
+    period: "2026-04-06 ~ 2026-04-12",
+    summary: "전체 매출 4,491만원, 전주 대비 -17.4%. 쿠팡 납품 -27.5% 하락, 자사몰 -12.7%. 카카오 +24.3%, 롯데온 +234% 반등. 쿠팡 소매 GMV 4,039만(수수료35%).",
+    channels: [
+      { name: "쿠팡", revenue: 16535100, prevWeek: 22798400, prevYear: null, ratio: 36.8 },
+      { name: "자사몰", revenue: 25249515, prevWeek: 28914400, prevYear: null, ratio: 56.2 },
+      { name: "스마트스토어", revenue: 2073150, prevWeek: 2058770, prevYear: null, ratio: 4.6 },
+      { name: "카카오선물하기", revenue: 605600, prevWeek: 487100, prevYear: null, ratio: 1.3 },
+      { name: "롯데온", revenue: 448000, prevWeek: 134300, prevYear: null, ratio: 1.0 }
+    ],
+    total: { revenue: 44911365, prevWeek: 54392970, prevYear: null },
+    coupangGmv: { revenue: 40393820, fee: 35 },
+    overseas: {
+      sellers: [
+        {
+          name: "도매주문관리",
+          current: { qty: 2787, amount: 57408100 },
+          prevMonth: { qty: 23261, amount: 399850600 },
+          prevYear: null
+        },
+        {
+          name: "Hipeekaboo(China)",
+          current: { qty: 1607, amount: 0 },
+          prevMonth: { qty: 8308, amount: 184948000 },
+          prevYear: null
+        }
+      ],
+      total: { qty: 7573, amount: 57486733, prevMonth: { qty: 31569, amount: 584798600 }, prevYear: null }
+    },
+    cafe24Daily: [
+      { day: "일", date: "4/6", revenue: 4173027 },
+      { day: "월", date: "4/7", revenue: 4795450 },
+      { day: "화", date: "4/8", revenue: 4168964 },
+      { day: "수", date: "4/9", revenue: 3903207 },
+      { day: "목", date: "4/10", revenue: 3678620 },
+      { day: "금", date: "4/11", revenue: 1609300 },
+      { day: "토", date: "4/12", revenue: 2920947 }
+    ],
+    cafe24Top10: [
+      { rank: 1, name: "샤인 수트세트", qty: 72, amount: 2016000 },
+      { rank: 2, name: "디저트 반팔 수트세트", qty: 41, amount: 1066000 },
+      { rank: 3, name: "샤인 키즈세트", qty: 40, amount: 960000 },
+      { rank: 4, name: "밀키 베이비 3종세트", qty: 16, amount: 832000 },
+      { rank: 5, name: "쿨쿨세트", qty: 40, amount: 612000 },
+      { rank: 6, name: "쿨리 베이비세트", qty: 24, amount: 504000 },
+      { rank: 7, name: "보니 블루머", qty: 18, amount: 468000 },
+      { rank: 8, name: "쇼콜라 티셔츠", qty: 18, amount: 396000 },
+      { rank: 9, name: "코이 블루머", qty: 16, amount: 384000 },
+      { rank: 10, name: "쿨쿨 수트", qty: 18, amount: 336600 }
+    ],
+    insights: {
+      good: [
+        "자사몰 비중 56.2%로 전주(53.2%) 대비 상승 — 채널 1위 유지",
+        "카카오선물하기 +24.3% 반등 (49만 → 61만), 취소 0건",
+        "롯데온 +233.6% (13만 → 45만), 취소 0건",
+        "샤인 수트세트 자사몰 TOP1 (72개/202만) — 4/3 출시 후 2주 연속 강세"
+      ],
+      check: [
+        "전체 매출 전주대비 -17.4% (5,439만 → 4,491만)",
+        "쿠팡 납품 전주대비 -27.5% (2,280만 → 1,654만)",
+        "자사몰 전주대비 -12.7% (2,891만 → 2,525만, CSV order_amount 기준)",
+        "4/11(금) 자사몰 일매출 161만으로 주중 최저"
+      ]
+    },
+    status: [
+      { type: "confirmed", text: "자사몰 Cafe24 셀러센터 CSV 기준 (order_amount, 환불 미반영)" },
+      { type: "confirmed", text: "쿠팡 납품 서플라이허브 xlsx 기준 (총단가 16,535,100원, 401건)" },
+      { type: "confirmed", text: "쿠팡 소매 GMV 40,393,820원 (수수료 35%)" },
+      { type: "confirmed", text: "스마트스토어 셀러센터 판매성과 xlsx 기준 (결제금액 2,073,150원, 91건)" },
+      { type: "confirmed", text: "카카오선물하기 판매현황 xlsx 기준 (주문 605,600원 - 취소 0원)" },
+      { type: "confirmed", text: "롯데온 통계매출분석 xlsx 기준 (결제 448,000원 - 취소 0원)" },
+      { type: "confirmed", text: "해외 수출 이지어드민 판매처상품매출통계 기준" }
+    ],
+    nextWeek: {
+      products: "",
+      issues: [
+        "쿠팡 납품 하락 원인 확인 — 입고 지연 또는 시즌 전환 영향",
+        "자사몰 금요일 매출 급락(161만) 원인 분석"
+      ]
+    }
+  },
+  {
     id: "2026-W14",
     label: "4월1주 (3/30~4/5)",
     period: "2026-03-30 ~ 2026-04-05",
