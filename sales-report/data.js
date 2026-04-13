@@ -12,11 +12,11 @@ const weeklyReports = [
     period: "2026-04-06 ~ 2026-04-12",
     summary: "전체 매출 4,491만원, 전주 대비 -17.4%. 쿠팡 납품 -27.5% 하락, 자사몰 -12.7%. 카카오 +24.3%, 롯데온 +234% 반등. 쿠팡 소매 GMV 4,039만(수수료35%).",
     channels: [
-      { name: "쿠팡", revenue: 16535100, prevWeek: 22798400, prevYear: null, ratio: 36.8 },
+      { name: "쿠팡", revenue: 16535100, prevWeek: 22798400, prevYear: 10842500, ratio: 36.8 },
       { name: "자사몰", revenue: 25249515, prevWeek: 28914400, prevYear: null, ratio: 56.2 },
-      { name: "스마트스토어", revenue: 2073150, prevWeek: 2058770, prevYear: null, ratio: 4.6 },
+      { name: "스마트스토어", revenue: 2073150, prevWeek: 2058770, prevYear: 1341420, ratio: 4.6 },
       { name: "카카오선물하기", revenue: 605600, prevWeek: 487100, prevYear: null, ratio: 1.3 },
-      { name: "롯데온", revenue: 448000, prevWeek: 134300, prevYear: null, ratio: 1.0 }
+      { name: "롯데온", revenue: 448000, prevWeek: 134300, prevYear: 142800, ratio: 1.0 }
     ],
     total: { revenue: 44911365, prevWeek: 54392970, prevYear: null },
     coupangGmv: { revenue: 40393820, fee: 35 },
