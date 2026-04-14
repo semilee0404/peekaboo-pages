@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR코드 생성기</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.container { background: #fff; border-radius: 20px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 40px; max-width: 480px; width: 100%; }
+h1 { font-size: 24px; font-weight: 700; color: #1d1d1f; margin-bottom: 8px; }
+.sub { font-size: 14px; color: #86868b; margin-bottom: 28px; }
+label { font-size: 13px; font-weight: 600; color: #1d1d1f; display: block; margin-bottom: 6px; }
+textarea { width: 100%; border: 1.5px solid #d2d2d7; border-radius: 12px; padding: 14px; font-size: 15px; resize: vertical; min-height: 80px; outline: none; transition: border-color 0.2s; font-family: inherit; }
+textarea:focus { border-color: #0071e3; }
+.options { display: flex; gap: 12px; margin: 16px 0 24px; }
+.option { flex: 1; }
+select { width: 100%; border: 1.5px solid #d2d2d7; border-radius: 10px; padding: 10px 12px; font-size: 14px; background: #fff; outline: none; cursor: pointer; }
+select:focus { border-color: #0071e3; }
+.btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-primary { background: #0071e3; color: #fff; }
+.btn-primary:hover { background: #0077ed; }
+.btn-primary:active { transform: scale(0.98); }
+.result { margin-top: 28px; text-align: center; display: none; }
+.result.show { display: block; }
+.qr-wrap { background: #fff; display: inline-block; padding: 20px; border-radius: 16px; border: 1.5px solid #e8e8ed; }
+.qr-wrap img { display: block; }
+.actions { display: flex; gap: 10px; margin-top: 16px; justify-content: center; }
+.btn-secondary { background: #f5f5f7; color: #1d1d1f; padding: 10px 20px; font-size: 14px; border-radius: 10px; }
+.btn-secondary:hover { background: #e8e8ed; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>QR코드 생성기</h1>
+  <p class="sub">URL, 텍스트 등을 QR코드로 변환합니다</p>
+
+  <label for="input">내용 입력</label>
+  <textarea id="input" placeholder="URL 또는 텍스트를 입력하세요"></textarea>
+
+  <div class="options">
+    <div class="option">
+      <label for="size">크기</label>
+      <select id="size">
+        <option value="4">작게 (132px)</option>
+        <option value="6" selected>보통 (198px)</option>
+        <option value="8">크게 (264px)</option>
+        <option value="12">아주 크게 (396px)</option>
+      </select>
+    </div>
+    <div class="option">
+      <label for="errLevel">오류 보정</label>
+      <select id="errLevel">
+        <option value="L">낮음 (L)</option>
+        <option value="M" selected>보통 (M)</option>
+        <option value="Q">높음 (Q)</option>
+        <option value="H">최고 (H)</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" onclick="generate()">QR코드 생성</button>
+
+  <div class="result" id="result">
+    <div class="qr-wrap" id="qrWrap"></div>
+    <div class="actions">
+      <button class="btn btn-secondary" onclick="downloadPNG()">PNG 다운로드</button>
+      <button class="btn btn-secondary" onclick="downloadSVG()">SVG 다운로드</button>
+      <button class="btn btn-secondary" onclick="copyImage()">복사</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentQR = null;
+let currentInput = '';
+
+function generate() {
+  const text = document.getElementById('input').value.trim();
+  if (!text) { alert('내용을 입력해주세요.'); return; }
+  currentInput = text;
+  const size = parseInt(document.getElementById('size').value);
+  const errLevel = document.getElementById('errLevel').value;
+
+  const typeNumber = 0; // auto
+  const qr = qrcode(typeNumber, errLevel);
+  qr.addData(text);
+  qr.make();
+  currentQR = qr;
+
+  const cellSize = size;
+  const margin = 2;
+  const imgTag = qr.createImgTag(cellSize, margin);
+
+  const wrap = document.getElementById('qrWrap');
+  wrap.innerHTML = imgTag;
+
+  document.getElementById('result').classList.add('show');
+}
+
+function getCanvas() {
+  const img = document.querySelector('#qrWrap img');
+  if (!img) return null;
+  const c = document.createElement('canvas');
+  c.width = img.width;
+  c.height = img.height;
+  const ctx = c.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+  return c;
+}
+
+function downloadPNG() {
+  const c = getCanvas();
+  if (!c) return;
+  const a = document.createElement('a');
+  a.download = 'qrcode.png';
+  a.href = c.toDataURL('image/png');
+  a.click();
+}
+
+function downloadSVG() {
+  if (!currentQR) return;
+  const cellSize = parseInt(document.getElementById('size').value);
+  const margin = 2;
+  const svgTag = currentQR.createSvgTag(cellSize, margin);
+  const blob = new Blob([svgTag], { type: 'image/svg+xml' });
+  const a = document.createElement('a');
+  a.download = 'qrcode.svg';
+  a.href = URL.createObjectURL(blob);
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+async function copyImage() {
+  const c = getCanvas();
+  if (!c) return;
+  try {
+    const blob = await new Promise(r => c.toBlob(r, 'image/png'));
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+    alert('클립보드에 복사되었습니다!');
+  } catch (e) {
+    alert('복사에 실패했습니다. 브라우저 설정을 확인해주세요.');
+  }
+}
+
+document.getElementById('input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); generate(); }
+});
+</script>
+</body>
+</html>
