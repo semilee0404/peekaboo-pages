@@ -7,6 +7,96 @@
 
 const weeklyReports = [
   {
+    id: "2026-W16",
+    label: "4월3주 (4/13~4/19)",
+    period: "2026-04-13 ~ 2026-04-19",
+    summary: "전체 매출 5,774만원, 전주 대비 +28.6%. 쿠팡 납품 +68%·자사몰 +9.5% 반등. 롯데온 -48.8%, 스마트스토어 -23% 부진 지속. 쿠팡 소매 GMV 4,919만(수수료35%).",
+    channels: [
+      { name: "쿠팡", revenue: 27767900, prevWeek: 16535100, prevYear: null, ratio: 48.1 },
+      { name: "자사몰", revenue: 27656198, prevWeek: 25249515, prevYear: 27225354, ratio: 47.9 },
+      { name: "스마트스토어", revenue: 1591400, prevWeek: 2073150, prevYear: 2022840, ratio: 2.8 },
+      { name: "카카오선물하기", revenue: 496900, prevWeek: 605600, prevYear: 60300, ratio: 0.9 },
+      { name: "롯데온", revenue: 229400, prevWeek: 448000, prevYear: 1167900, ratio: 0.4 }
+    ],
+    total: { revenue: 57741798, prevWeek: 44911365, prevYear: null },
+    coupangGmv: { revenue: 49189800, fee: 35 },
+    overseas: {
+      sellers: [
+        {
+          name: "도매주문관리",
+          current: { qty: 3967, amount: 86021600 },
+          prevMonth: { qty: 29844, amount: 641218627 },
+          prevYear: { qty: 7217, amount: 152599301 }
+        },
+        {
+          name: "Hipeekaboo(China)",
+          current: { qty: 3773, amount: 0 },
+          prevMonth: { qty: 12430, amount: 45600 },
+          prevYear: null
+        }
+      ],
+      total: { qty: 7740, amount: 86021600, prevMonth: { qty: 42274, amount: 641264227 }, prevYear: { qty: 7217, amount: 152599301 } }
+    },
+    cafe24Daily: [
+      { day: "월", date: "4/13", revenue: 3722690 },
+      { day: "화", date: "4/14", revenue: 5341742 },
+      { day: "수", date: "4/15", revenue: 3322888 },
+      { day: "목", date: "4/16", revenue: 6113118 },
+      { day: "금", date: "4/17", revenue: 3078359 },
+      { day: "토", date: "4/18", revenue: 2725610 },
+      { day: "일", date: "4/19", revenue: 3351791 }
+    ],
+    cafe24Top10: [
+      { rank: 1, name: "에어 키즈 세트", qty: 11, amount: 242000 },
+      { rank: 2, name: "아임세트", qty: 6, amount: 214200 },
+      { rank: 3, name: "쿨리 키즈세트", qty: 10, amount: 200000 },
+      { rank: 4, name: "에어 바디수트", qty: 9, amount: 198000 },
+      { rank: 5, name: "버디 바디수트", qty: 7, amount: 196000 },
+      { rank: 6, name: "이븐 베이비세트", qty: 4, amount: 160000 },
+      { rank: 7, name: "에어 베이비 세트", qty: 7, amount: 154000 },
+      { rank: 8, name: "윙고_baby상하세트", qty: 9, amount: 153000 },
+      { rank: 9, name: "카렌 키즈세트", qty: 3, amount: 117000 },
+      { rank: 10, name: "듀이 바디수트", qty: 3, amount: 114000 }
+    ],
+    insights: {
+      good: [
+        "전체 매출 +28.6% 반등 (W15 4,491만 → W16 5,774만)",
+        "쿠팡 납품 +68.0% (1,654만 → 2,777만), 발주 781건 회복",
+        "자사몰 +9.5% WoW (2,525만 → 2,766만), 전년 동주 대비 +1.6%",
+        "카카오선물하기 전년 동주 대비 +724% (6만 → 50만) — 채널 성장",
+        "4/16(목) 자사몰 일매출 611만, 주중 최고치",
+        "쿠팡 소매 GMV 4,919만원 (W15 4,039만 대비 +21.8%)"
+      ],
+      check: [
+        "롯데온 -48.8% WoW (45만 → 23만), 전년 동주 대비 -80.4% (117만 → 23만) 급락",
+        "스마트스토어 -23.2% WoW (207만 → 159만), 3주 연속 부진",
+        "4/18(금) 자사몰 273만원, 주중 최저 — W15 4/11(금) 161만 이어 금요일 취약 패턴",
+        "카카오선물하기 4/13·14·17·18 매출 0원 (7일 중 4일 공백)",
+        "자사몰 Cafe24 CSV 매출(2,765만) vs 이지어드민 카페24(848만) 괴리 — 이지어드민 집계 지연 가능성"
+      ]
+    },
+    status: [
+      { type: "confirmed", text: "자사몰 Cafe24 셀러센터 CSV 기준 (order_amount 27,656,198원, 387건, 바이어 381명)" },
+      { type: "confirmed", text: "쿠팡 납품 서플라이허브 xlsx 기준 (총단가 27,767,900원, 781건)" },
+      { type: "confirmed", text: "쿠팡 소매 GMV 49,189,800원 (WING ads 기준, 수수료 35%)" },
+      { type: "warning", text: "쿠팡 납품 전년(2025 W16) 서플라이허브 자료 없음 — prevYear 비교 불가" },
+      { type: "confirmed", text: "스마트스토어 이지어드민 판매처상품매출통계 기준 (1,591,400원, 63개)" },
+      { type: "confirmed", text: "카카오선물하기 판매현황 xlsx 기준 (주문 496,900원 - 취소 0원)" },
+      { type: "confirmed", text: "롯데온 통계매출분석 xlsx 기준 (결제 338,800원 - 취소 109,400원 = 229,400원)" },
+      { type: "confirmed", text: "해외/도매 이지어드민 판매처상품매출통계 (월 누적 4/1~4/19)" },
+      { type: "warning", text: "자사몰 TOP10은 이지어드민 카페24 기준 — CSV에는 상품별 집계 없음" }
+    ],
+    nextWeek: {
+      products: "",
+      issues: [
+        "롯데온 전년 대비 -80% 하락 원인 확인 — 상품 노출 또는 취소 이슈",
+        "스마트스토어 3주 연속 부진 대응 (W14 206만 → W15 207만 → W16 159만)",
+        "자사몰 금요일 저조 2주 연속 — 콘텐츠·프로모션 발행 요일 재검토",
+        "카카오선물하기 주 4일 공백 — 노출/배너 교체 검토"
+      ]
+    }
+  },
+  {
     id: "2026-W15",
     label: "4월2주 (4/6~4/12)",
     period: "2026-04-06 ~ 2026-04-12",
@@ -24,18 +114,18 @@ const weeklyReports = [
       sellers: [
         {
           name: "도매주문관리",
-          current: { qty: 2787, amount: 57408100 },
-          prevMonth: { qty: 23261, amount: 399850600 },
-          prevYear: { qty: 2236, amount: 50059474 }
+          current: { qty: 3716, amount: 79815150 },
+          prevMonth: { qty: 16272, amount: 348573327 },
+          prevYear: { qty: 4067, amount: 89499001 }
         },
         {
           name: "Hipeekaboo(China)",
-          current: { qty: 1607, amount: 0 },
-          prevMonth: { qty: 8308, amount: 184948000 },
+          current: { qty: 1787, amount: 0 },
+          prevMonth: { qty: 5677, amount: 34200 },
           prevYear: null
         }
       ],
-      total: { qty: 7573, amount: 57486733, prevMonth: { qty: 31569, amount: 584798600 }, prevYear: { qty: 2236, amount: 50059474 } }
+      total: { qty: 5503, amount: 79815150, prevMonth: { qty: 21949, amount: 348607527 }, prevYear: { qty: 4067, amount: 89499001 } }
     },
     cafe24Daily: [
       { day: "일", date: "4/6", revenue: 4173027 },
@@ -107,18 +197,18 @@ const weeklyReports = [
       sellers: [
         {
           name: "도매주문관리",
-          current: { qty: 66285, amount: 1274887100 },
-          prevMonth: { qty: 23261, amount: 399850600 },
-          prevYear: { qty: 34185, amount: 548365900 }
+          current: { qty: 278, amount: 7023700 },
+          prevMonth: { qty: 4628, amount: 94668600 },
+          prevYear: { qty: 1815, amount: 38334527 }
         },
         {
           name: "Hipeekaboo(China)",
-          current: { qty: 13148, amount: 290242500 },
-          prevMonth: { qty: 8308, amount: 184948000 },
+          current: { qty: 651, amount: 0 },
+          prevMonth: { qty: 3987, amount: 0 },
           prevYear: null
         }
       ],
-      total: { qty: 79433, amount: 1565129600, prevMonth: { qty: 31569, amount: 584798600 }, prevYear: { qty: 34185, amount: 548365900 } }
+      total: { qty: 929, amount: 7023700, prevMonth: { qty: 8615, amount: 94668600 }, prevYear: { qty: 1815, amount: 38334527 } }
     },
     cafe24Daily: [
       { day: "월", date: "3/30", revenue: 3936700 },
