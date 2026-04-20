@@ -284,6 +284,72 @@ function getMonthlyData() {
 
 // 월간 마감 보고서 데이터 (셀러센터 확정치, 쿠팡은 납품금액 기준)
 const monthlyClosing = {
+  "2026-04": {
+    label: "2026년 4월 누적",
+    period: "2026-04-01 ~ 2026-04-19 (진행 중, 19일)",
+    summary: "4월 19일 누적 1억 4,031만원 · MoM(3/1~19) +23.9% · YoY(2025 4/1~19) +15.7%. 자사몰 7,415만 +33.3% MoM, 쿠팡 납품 5,882만 +11.0% MoM. 롯데온 -47.9% YoY 회복 필요.",
+    channels: [
+      { name: "쿠팡", revenue: 58822900, prevMonth: 52977800, prevYear: 59228000 },
+      { name: "자사몰", revenue: 74151213, prevMonth: 55643741, prevYear: 56113120 },
+      { name: "스마트스토어", revenue: 5498490, prevMonth: 4338950, prevYear: 3640910 },
+      { name: "카카오선물하기", revenue: 1102500, prevMonth: 44200, prevYear: 854700 },
+      { name: "롯데온", revenue: 735200, prevMonth: 275400, prevYear: 1410800 }
+    ],
+    total: { revenue: 140310303, prevMonth: 113280091, prevYear: 121247530 },
+    ratioChange: [
+      { name: "쿠팡", prev: 46.8, current: 41.9, change: -4.9 },
+      { name: "자사몰", prev: 49.1, current: 52.8, change: 3.7 },
+      { name: "스마트스토어", prev: 3.8, current: 3.9, change: 0.1 },
+      { name: "카카오선물하기", prev: 0.0, current: 0.8, change: 0.8 },
+      { name: "롯데온", prev: 0.3, current: 0.5, change: 0.2 }
+    ],
+    overseas: {
+      sellers: [
+        {
+          name: "도매주문관리",
+          current: { qty: 3967, amount: 86021600 },
+          prevMonth: { qty: 29844, amount: 641218627 },
+          prevYear: { qty: 7217, amount: 152599301 }
+        },
+        {
+          name: "Hipeekaboo(China)",
+          current: { qty: 3773, amount: 0 },
+          prevMonth: { qty: 12430, amount: 45600 },
+          prevYear: null
+        }
+      ],
+      total: { qty: 7740, amount: 86021600, prevMonth: { qty: 42274, amount: 641264227 }, prevYear: { qty: 7217, amount: 152599301 } }
+    },
+    insights: {
+      good: [
+        "4월 누적(~4/19) 1.40억원, MoM +23.9% · YoY +15.7%",
+        "자사몰 7,415만 · MoM +33.3% · YoY +32.1% (채널 1위 52.8%)",
+        "쿠팡 납품 5,882만 · MoM +11.0% (전년 대비 -0.7% 제자리)",
+        "스마트스토어 550만 · MoM +26.7% · YoY +51.0% 성장세",
+        "카카오선물하기 110만 · YoY +29.0% 회복"
+      ],
+      check: [
+        "롯데온 73.5만 · YoY -47.9% (141만→73만) 지속 하락",
+        "카카오선물하기 4/1~4/5 데이터 결측 (W14 셀러센터 xlsx 미입수) — 4/6~4/19만 실측",
+        "해외 Hipeekaboo 3,773개 재고 이동은 있으나 이지어드민 매출 0원 — 별도 소스 필요",
+        "쿠팡 납품 YoY -0.7%, 성장 정체 (5,923만→5,882만)"
+      ]
+    },
+    weeklyTrend: [
+      { label: "1주 (3/30~4/5, W14)", coupang: 22798400, cafe24: 28914400, smartstore: 2058770, kakao: 487100, lotteon: 134300, total: 54392970 },
+      { label: "2주 (4/6~4/12, W15)", coupang: 16535100, cafe24: 25249515, smartstore: 2073150, kakao: 605600, lotteon: 448000, total: 44911365 },
+      { label: "3주 (4/13~4/19, W16)", coupang: 27767900, cafe24: 27656198, smartstore: 1591400, kakao: 496900, lotteon: 229400, total: 57741798 }
+    ],
+    nextMonth: {
+      products: "",
+      issues: [
+        "4월 잔여 주차(W17 이후) 집계 대기",
+        "롯데온 전년 대비 회복 방안 검토",
+        "Hipeekaboo 매출 원본 소스 확인 필요",
+        "스마트스토어 2026-04 셀러센터 판매성과 원본 xlsx로 재검증(내일 예정)"
+      ]
+    }
+  },
   "2026-03": {
     label: "2026년 3월 마감",
     period: "2026-03-01 ~ 2026-03-31",
