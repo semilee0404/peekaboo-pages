@@ -10,15 +10,15 @@ const weeklyReports = [
     id: "2026-W16",
     label: "4월3주 (4/13~4/19)",
     period: "2026-04-13 ~ 2026-04-19",
-    summary: "전체 매출 5,774만원, 전주 대비 +28.6%. 쿠팡 납품 +68%·자사몰 +9.5% 반등. 롯데온 -48.8%, 스마트스토어 -23% 부진 지속. 쿠팡 소매 GMV 4,919만(수수료35%).",
+    summary: "전체 매출 5,774만원 · WoW +28.6% · YoY +16.9%. 쿠팡 납품 +68% WoW/+6.5% YoY, 자사몰 +9.5% WoW/+37.8% YoY. 롯데온 -80.4% YoY·스마트스토어 -21.3% YoY 부진. 쿠팡 소매 GMV 4,919만(수수료35%).",
     channels: [
-      { name: "쿠팡", revenue: 27767900, prevWeek: 16535100, prevYear: null, ratio: 48.1 },
-      { name: "자사몰", revenue: 27656198, prevWeek: 25249515, prevYear: 27225354, ratio: 47.9 },
+      { name: "쿠팡", revenue: 27767900, prevWeek: 16535100, prevYear: 26062100, ratio: 48.1 },
+      { name: "자사몰", revenue: 27656198, prevWeek: 25249515, prevYear: 20070560, ratio: 47.9 },
       { name: "스마트스토어", revenue: 1591400, prevWeek: 2073150, prevYear: 2022840, ratio: 2.8 },
       { name: "카카오선물하기", revenue: 496900, prevWeek: 605600, prevYear: 60300, ratio: 0.9 },
       { name: "롯데온", revenue: 229400, prevWeek: 448000, prevYear: 1167900, ratio: 0.4 }
     ],
-    total: { revenue: 57741798, prevWeek: 44911365, prevYear: null },
+    total: { revenue: 57741798, prevWeek: 44911365, prevYear: 49383700 },
     coupangGmv: { revenue: 49189800, fee: 35 },
     overseas: {
       sellers: [
@@ -60,16 +60,16 @@ const weeklyReports = [
     ],
     insights: {
       good: [
-        "전체 매출 +28.6% 반등 (W15 4,491만 → W16 5,774만)",
-        "쿠팡 납품 +68.0% (1,654만 → 2,777만), 발주 781건 회복",
-        "자사몰 +9.5% WoW (2,525만 → 2,766만), 전년 동주 대비 +1.6%",
-        "카카오선물하기 전년 동주 대비 +724% (6만 → 50만) — 채널 성장",
+        "전체 매출 WoW +28.6% (4,491만→5,774만) · YoY +16.9% (4,938만→5,774만)",
+        "쿠팡 납품 WoW +68.0% · YoY +6.5% (2,606만→2,777만), 발주 781건 회복",
+        "자사몰 WoW +9.5% · YoY +37.8% (2,007만→2,766만) 두 자릿수 성장",
+        "카카오선물하기 YoY +724% (6만→50만) — 채널 성장 지속",
         "4/16(목) 자사몰 일매출 611만, 주중 최고치",
         "쿠팡 소매 GMV 4,919만원 (W15 4,039만 대비 +21.8%)"
       ],
       check: [
-        "롯데온 -48.8% WoW (45만 → 23만), 전년 동주 대비 -80.4% (117만 → 23만) 급락",
-        "스마트스토어 -23.2% WoW (207만 → 159만), 3주 연속 부진",
+        "롯데온 WoW -48.8% (45만→23만) · YoY -80.4% (117만→23만) 급락",
+        "스마트스토어 WoW -23.2% · YoY -21.3% (203만→159만) 3주 연속 부진",
         "4/18(금) 자사몰 273만원, 주중 최저 — W15 4/11(금) 161만 이어 금요일 취약 패턴",
         "카카오선물하기 4/13·14·17·18 매출 0원 (7일 중 4일 공백)",
         "자사몰 Cafe24 CSV 매출(2,765만) vs 이지어드민 카페24(848만) 괴리 — 이지어드민 집계 지연 가능성"
@@ -79,7 +79,8 @@ const weeklyReports = [
       { type: "confirmed", text: "자사몰 Cafe24 셀러센터 CSV 기준 (order_amount 27,656,198원, 387건, 바이어 381명)" },
       { type: "confirmed", text: "쿠팡 납품 서플라이허브 xlsx 기준 (총단가 27,767,900원, 781건)" },
       { type: "confirmed", text: "쿠팡 소매 GMV 49,189,800원 (WING ads 기준, 수수료 35%)" },
-      { type: "warning", text: "쿠팡 납품 전년(2025 W16) 서플라이허브 자료 없음 — prevYear 비교 불가" },
+      { type: "confirmed", text: "전년(2025) 쿠팡 납품 서플라이허브 이력 xlsx로 재산출 (26,062,100원)" },
+      { type: "confirmed", text: "전년(2025) 자사몰 Cafe24 CSV 이력 재계산, 요일정렬(-364d) 기준 20,070,560원" },
       { type: "confirmed", text: "스마트스토어 이지어드민 판매처상품매출통계 기준 (1,591,400원, 63개)" },
       { type: "confirmed", text: "카카오선물하기 판매현황 xlsx 기준 (주문 496,900원 - 취소 0원)" },
       { type: "confirmed", text: "롯데온 통계매출분석 xlsx 기준 (결제 338,800원 - 취소 109,400원 = 229,400원)" },
@@ -102,13 +103,13 @@ const weeklyReports = [
     period: "2026-04-06 ~ 2026-04-12",
     summary: "전체 매출 4,491만원, 전주 대비 -17.4%. 쿠팡 납품 -27.5% 하락, 자사몰 -12.7%. 카카오 +24.3%, 롯데온 +234% 반등. 쿠팡 소매 GMV 4,039만(수수료35%).",
     channels: [
-      { name: "쿠팡", revenue: 16535100, prevWeek: 22798400, prevYear: 10842500, ratio: 36.8 },
-      { name: "자사몰", revenue: 25249515, prevWeek: 28914400, prevYear: 16427490, ratio: 56.2 },
-      { name: "스마트스토어", revenue: 2073150, prevWeek: 2058770, prevYear: 1341420, ratio: 4.6 },
-      { name: "카카오선물하기", revenue: 605600, prevWeek: 487100, prevYear: 1404700, ratio: 1.3 },
-      { name: "롯데온", revenue: 448000, prevWeek: 134300, prevYear: 142800, ratio: 1.0 }
+      { name: "쿠팡", revenue: 16535100, prevWeek: 22798400, prevYear: 16264600, ratio: 36.8 },
+      { name: "자사몰", revenue: 25249515, prevWeek: 28914400, prevYear: 19126990, ratio: 56.2 },
+      { name: "스마트스토어", revenue: 2073150, prevWeek: 2058770, prevYear: 1152470, ratio: 4.6 },
+      { name: "카카오선물하기", revenue: 605600, prevWeek: 487100, prevYear: null, ratio: 1.3 },
+      { name: "롯데온", revenue: 448000, prevWeek: 134300, prevYear: 208900, ratio: 1.0 }
     ],
-    total: { revenue: 44911365, prevWeek: 54392970, prevYear: 30158910 },
+    total: { revenue: 44911365, prevWeek: 54392970, prevYear: null },
     coupangGmv: { revenue: 40393820, fee: 35 },
     overseas: {
       sellers: [
@@ -185,13 +186,13 @@ const weeklyReports = [
     period: "2026-03-30 ~ 2026-04-05",
     summary: "전체 매출 5,439만원, 전주 대비 +7.7%. 쿠팡 납품 +28.2% 반등, 스마트스토어 +67% 급성장. 쿠팡 소매 GMV 4,686만(수수료35%).",
     channels: [
-      { name: "쿠팡", revenue: 22798400, prevWeek: 17783300, prevYear: null, ratio: 41.9 },
-      { name: "자사몰", revenue: 28914400, prevWeek: 30741475, prevYear: null, ratio: 53.2 },
-      { name: "스마트스토어", revenue: 2058770, prevWeek: 1232700, prevYear: null, ratio: 3.8 },
-      { name: "카카오선물하기", revenue: 487100, prevWeek: 624300, prevYear: null, ratio: 0.9 },
-      { name: "롯데온", revenue: 134300, prevWeek: 137700, prevYear: null, ratio: 0.2 }
+      { name: "쿠팡", revenue: 22798400, prevWeek: 17783300, prevYear: 16968400, ratio: 41.9 },
+      { name: "자사몰", revenue: 28914400, prevWeek: 30741475, prevYear: 23455570, ratio: 53.2 },
+      { name: "스마트스토어", revenue: 2058770, prevWeek: 1232700, prevYear: 837990, ratio: 3.8 },
+      { name: "카카오선물하기", revenue: 487100, prevWeek: 624300, prevYear: 794400, ratio: 0.9 },
+      { name: "롯데온", revenue: 134300, prevWeek: 137700, prevYear: 130900, ratio: 0.2 }
     ],
-    total: { revenue: 54392970, prevWeek: 50519475, prevYear: null },
+    total: { revenue: 54392970, prevWeek: 50519475, prevYear: 42187260 },
     coupangGmv: { revenue: 46857930, fee: 35 },
     overseas: {
       sellers: [
