@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카부 위클리 — /Users/a0096/peekaboo-report/weekly-collect.sh: line 21: claude: command not found</title>
+<style>
+  :root {
+    --pink: #d4a0a0;
+    --pink-light: #f7eded;
+    --pink-dark: #b07878;
+    --text: #3a3232;
+    --text-sub: #7d6b6b;
+    --bg: #faf8f8;
+    --white: #ffffff;
+    --green: #6ba07a;
+    --green-light: #eef5f0;
+    --border: #ede6e6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 15.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 헤더 ── */
+  .report-header {
+    background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
+    color: white;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+  .report-header .brand {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 12px;
+  }
+  .report-header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .report-header .date {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+  .back-link {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 13px;
+    transition: opacity 0.2s;
+  }
+  .back-link:hover { opacity: 1; }
+
+  /* ── 한줄 요약 배너 ── */
+  .headline-banner {
+    max-width: 740px;
+    margin: -28px auto 0;
+    padding: 24px 28px;
+    background: var(--white);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(180, 140, 140, 0.12);
+    position: relative;
+    z-index: 1;
+  }
+  .headline-banner .label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--pink-dark);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .headline-banner p {
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ── 본문 ── */
+  .content {
+    max-width: 740px;
+    margin: 32px auto 60px;
+    padding: 0 20px;
+  }
+
+  /* ── 섹션 카드 ── */
+  .section-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 32px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 8px rgba(180, 140, 140, 0.06);
+  }
+  .section-card h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--pink-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-card h2 .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--pink);
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .section-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 24px 0 10px;
+  }
+  .section-card h3:first-of-type {
+    margin-top: 0;
+  }
+  .section-card p {
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+  .section-card hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+
+  /* ── 테이블 ── */
+  .section-card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .section-card thead th {
+    background: var(--pink);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+  .section-card thead th:first-child {
+    border-radius: 8px 0 0 0;
+  }
+  .section-card thead th:last-child {
+    border-radius: 0 8px 0 0;
+  }
+  .section-card tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .section-card tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .section-card tbody tr:hover {
+    background: var(--pink-light);
+  }
+
+  /* ── 인용문 (고객 목소리) ── */
+  .section-card blockquote {
+    border-left: 3px solid var(--pink);
+    background: var(--pink-light);
+    margin: 12px 0;
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    font-size: 14.5px;
+    color: var(--text-sub);
+    line-height: 1.75;
+  }
+  .section-card blockquote p {
+    margin-bottom: 0;
+  }
+
+  /* ── 시사점 박스 ── */
+  .insight-box {
+    background: var(--green-light);
+    border-left: 3px solid var(--green);
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    margin: 14px 0;
+    font-size: 14.5px;
+  }
+  .insight-box strong {
+    color: var(--green);
+  }
+
+  /* ── 전략 질문 박스 ── */
+  .strategy-box {
+    background: linear-gradient(135deg, var(--pink-light) 0%, #f5eef5 100%);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .strategy-box strong {
+    color: var(--pink-dark);
+  }
+
+  /* ── 리스트 ── */
+  .section-card ul, .section-card ol {
+    padding-left: 20px;
+    margin-bottom: 14px;
+  }
+  .section-card li {
+    margin-bottom: 6px;
+  }
+
+  /* ── strong 색상 ── */
+  .section-card strong {
+    color: var(--pink-dark);
+    font-weight: 700;
+  }
+
+  /* ── 푸터 ── */
+  .report-footer {
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 13px;
+    color: var(--text-sub);
+    border-top: 1px solid var(--border);
+    max-width: 740px;
+    margin: 0 auto;
+  }
+  .report-footer a {
+    color: var(--pink-dark);
+    text-decoration: none;
+  }
+
+  /* ── 네비게이션 ── */
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    max-width: 740px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+    font-size: 13px;
+  }
+  .nav-bar a {
+    color: var(--pink-dark);
+    text-decoration: none;
+    padding: 8px 16px;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    transition: all 0.2s;
+  }
+  .nav-bar a:hover {
+    box-shadow: 0 2px 8px rgba(180,140,140,0.15);
+  }
+
+  /* ── 반응형 ── */
+  @media (max-width: 640px) {
+    .report-header { padding: 36px 16px 32px; }
+    .report-header h1 { font-size: 21px; }
+    .headline-banner { margin: -20px 12px 0; padding: 20px; }
+    .content { padding: 0 12px; }
+    .section-card { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+  <div style="position:relative;">
+    <a href="index.html" class="back-link">&larr; All Reports</a>
+  </div>
+  <header class="report-header">
+    <div class="brand">Peekaboo Weekly Intelligence</div>
+    <h1>/Users/a0096/peekaboo-report/weekly-collect.sh: line 21: claude: command not found</h1>
+    <div class="date">/Users/a0096/peekaboo-report/weekly-collect.sh: line 21: claude: command not found</div>
+  </header>
+
+  <div class="headline-banner">
+    <div class="label">This Week</div>
+    <p>주간 경쟁사 분석 리포트</p>
+  </div>
+
+  <div class="content">
+    <div class="nav-bar">
+      <a href="2026-04-13.html">&larr; 2026-04-13</a>
+      <span></span>
+    </div>
+    
+  </div>
+
+  <div class="report-footer">
+    <p>본 리포트는 2026-04-20 기준 자동 생성되었습니다.</p>
+    <p style="margin-top: 8px;"><a href="index.html">&larr; All Reports</a></p>
+  </div>
+</body>
+</html>
