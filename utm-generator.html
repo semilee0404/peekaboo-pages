@@ -25,6 +25,11 @@ select:focus,input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 
 .result-box{background:#F0F7FF;border:2px solid var(--blue);border-radius:var(--r);padding:16px;margin-top:20px;display:none}
 .result-box.show{display:block}
 .result-box h4{font-size:12px;color:var(--blue);font-weight:700;margin-bottom:8px}
+.warning-box{background:#FFF4E5;border:2px solid #FF9800;border-radius:var(--r);padding:16px;margin-top:20px;display:none}
+.warning-box.show{display:block}
+.warning-box h4{font-size:13px;color:#E65100;font-weight:700;margin-bottom:6px}
+.warning-box p{font-size:12px;color:#5D4037;line-height:1.6}
+.warning-box code{background:#fff;padding:1px 6px;border-radius:4px;font-family:'SF Mono',monospace;font-size:11px;color:#E65100}
 .url-display{background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px;font-size:13px;word-break:break-all;font-family:'SF Mono',monospace;line-height:1.6;position:relative}
 .url-display .highlight{color:var(--pink);font-weight:600}
 .btn-row{display:flex;gap:8px;margin-top:12px}
@@ -111,6 +116,12 @@ select:focus,input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 
 </div>
 <label>또는 제품 상세 URL 직접 입력</label>
 <input type="text" id="customUrl" placeholder="https://www.peekabookorea.com/product/..." oninput="updateResult()">
+</div>
+
+<!-- 콘텐츠 ID 미입력 경고 -->
+<div class="warning-box" id="warningBox">
+<h4>콘텐츠 ID를 입력해주세요</h4>
+<p>콘텐츠 ID를 입력해야 GA4 분석표와 연결됩니다.<br>위 "콘텐츠 ID" 입력란에 <code>IG-001</code>, <code>IF-001</code> 같은 ID를 입력하세요.</p>
 </div>
 
 <!-- 결과 -->
@@ -206,9 +217,24 @@ document.getElementById('contentId').addEventListener('input', function() {
 
 function updateResult() {
   const box = document.getElementById('resultBox');
+  const warning = document.getElementById('warningBox');
   const display = document.getElementById('urlDisplay');
 
-  if (!state.source) { box.classList.remove('show'); return; }
+  // 채널 미선택: 결과/경고 모두 숨김
+  if (!state.source) {
+    box.classList.remove('show');
+    warning.classList.remove('show');
+    return;
+  }
+
+  // 채널은 선택됐지만 콘텐츠 ID 비어있음: 경고만 표시
+  if (!state.contentId) {
+    box.classList.remove('show');
+    warning.classList.add('show');
+    return;
+  }
+
+  warning.classList.remove('show');
 
   let base = state.destUrl || 'https://www.peekabookorea.com';
   if (base && !base.startsWith('http')) base = 'https://' + base;
@@ -241,11 +267,13 @@ function updateResult() {
 }
 
 function copyUrl() {
+  if (!state.contentId) { showToast('콘텐츠 ID를 입력해주세요'); return; }
   const url = document.getElementById('urlDisplay').dataset.url;
   navigator.clipboard.writeText(url).then(() => showToast('링크가 복사되었습니다'));
 }
 
 function shortenUrl() {
+  if (!state.contentId) { showToast('콘텐츠 ID를 입력해주세요'); return; }
   const url = document.getElementById('urlDisplay').dataset.url;
   // TinyURL API (무료, 회원가입 불필요)
   window.open('https://tinyurl.com/create.php?url=' + encodeURIComponent(url), '_blank');
@@ -253,6 +281,7 @@ function shortenUrl() {
 }
 
 function saveToHistory() {
+  if (!state.contentId) { showToast('콘텐츠 ID를 입력해주세요'); return; }
   const url = document.getElementById('urlDisplay').dataset.url;
   const label = [
     state.source === 'instagram' ? '인스타' :
