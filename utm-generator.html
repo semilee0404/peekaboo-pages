@@ -66,6 +66,7 @@ select:focus,input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 
 <div class="chip" data-source="instagram" data-medium="feed" onclick="selectChannel(this)">인스타 피드 (DM용)</div>
 <div class="chip" data-source="kakaotalk" data-medium="social" onclick="selectChannel(this)">카카오톡</div>
 <div class="chip" data-source="naver_blog" data-medium="social" onclick="selectChannel(this)">네이버 블로그</div>
+<div class="chip" data-source="inforklink" data-medium="referral" onclick="selectChannel(this)">인포크링크</div>
 </div>
 </div>
 
@@ -96,6 +97,9 @@ select:focus,input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 
 <div class="chip" data-val="restock" onclick="selectType(this)">재입고</div>
 <div class="chip" data-val="daily" onclick="selectType(this)">일상/브랜드</div>
 </div>
+
+<label>콘텐츠 ID <span style="color:var(--pink);font-weight:700">*</span> <span style="color:var(--muted);font-weight:400">(GA4 분석표 연결용)</span></label>
+<input type="text" id="contentId" placeholder="예: IG-001, IF-001, IF-001_top_button">
 </div>
 
 <!-- 3단계: 도착 URL -->
@@ -122,11 +126,15 @@ select:focus,input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 
 
 <div class="help">
 <b>이렇게 쓰면 됩니다</b><br>
-1. 위에서 채널, 제품, 콘텐츠 종류를 선택<br>
+1. 채널 → 제품 → 콘텐츠 종류 → <b>콘텐츠 ID</b> 입력<br>
 2. "복사하기" 눌러서 링크 복사<br>
-3. 인스타 프로필 링크 / 스토리 링크 스티커 / 카톡 메시지에 붙여넣기<br>
-4. GA4에서 "소스/매체" 보면 어디서 왔는지 정확히 나옴<br><br>
-<b>주의:</b> 콘텐츠가 바뀔 때마다 새 링크를 만들어야 의미가 있어요. 같은 링크를 계속 쓰면 어떤 콘텐츠가 효과 있었는지 구분이 안 됩니다.
+3. 인스타 프로필 / 스토리 / 카톡 / 인포크링크 버튼에 붙여넣기<br>
+4. GA4에서 "소스/매체"·"콘텐츠 ID(utm_content)"로 어떤 콘텐츠가 성과 났는지 확인<br><br>
+<b>콘텐츠 ID 규칙</b> (엑셀 분석표 매칭용)<br>
+- 인스타 게시물: <code>IG-001</code>, <code>IG-002</code>...<br>
+- 인포크링크: <code>IF-001</code>, <code>IF-002</code>...<br>
+- 버튼 위치까지 보고 싶으면: <code>IF-001_top_button</code>, <code>IF-001_product_button</code>, <code>IF-001_event_button</code><br><br>
+<b>주의:</b> 콘텐츠가 바뀔 때마다 콘텐츠 ID도 바꿔야 GA4 분석표와 연결됩니다. 같은 ID를 계속 쓰면 성과 구분이 안 됩니다.
 </div>
 
 <!-- 저장 이력 -->
@@ -141,7 +149,7 @@ select:focus,input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 
 
 <script>
 let state = {
-  source: '', medium: '', product: '', type: '', destUrl: 'https://www.peekabookorea.com'
+  source: '', medium: '', product: '', type: '', contentId: '', destUrl: 'https://www.peekabookorea.com'
 };
 
 function selectChannel(el) {
@@ -191,6 +199,11 @@ document.getElementById('customUrl').addEventListener('input', function() {
   updateResult();
 });
 
+document.getElementById('contentId').addEventListener('input', function() {
+  state.contentId = this.value.trim();
+  updateResult();
+});
+
 function updateResult() {
   const box = document.getElementById('resultBox');
   const display = document.getElementById('urlDisplay');
@@ -212,12 +225,10 @@ function updateResult() {
     params.set('utm_campaign', state.type);
   }
 
-  // 날짜 자동 추가
-  const today = new Date();
-  const dateStr = today.getFullYear().toString().slice(2) +
-    String(today.getMonth()+1).padStart(2,'0') +
-    String(today.getDate()).padStart(2,'0');
-  params.set('utm_content', dateStr);
+  // utm_content = 콘텐츠 ID (GA4 분석표 '콘텐츠 ID' 컬럼과 매칭)
+  if (state.contentId) {
+    params.set('utm_content', state.contentId);
+  }
 
   const separator = base.includes('?') ? '&' : '?';
   const fullUrl = base + separator + params.toString();
@@ -244,10 +255,14 @@ function shortenUrl() {
 function saveToHistory() {
   const url = document.getElementById('urlDisplay').dataset.url;
   const label = [
-    state.source === 'instagram' ? '인스타' : state.source === 'kakaotalk' ? '카톡' : state.source,
+    state.source === 'instagram' ? '인스타' :
+      state.source === 'kakaotalk' ? '카톡' :
+      state.source === 'inforklink' ? '인포크' :
+      state.source === 'naver_blog' ? '네이버블로그' : state.source,
     state.medium,
     state.product,
-    state.type
+    state.type,
+    state.contentId
   ].filter(Boolean).join(' / ');
 
   let history = JSON.parse(localStorage.getItem('peekaboo_utm_history') || '[]');
