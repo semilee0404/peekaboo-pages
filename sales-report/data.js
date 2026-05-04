@@ -5,7 +5,96 @@
 // 카카오선물하기: 카카오 판매현황
 // 롯데온: 셀러센터 판매금액 (결제-취소)
 
+// 해외/도매 판매처별 수수료율
+// 도매주문관리는 하위 판매처 금액이 있으면 subSellerRates로 가중 계산하고, 없으면 fallbackRate를 사용합니다.
+const overseasCommissionConfig = {
+  defaultRate: 35,
+  sellers: [
+    { name: "DD168 & LALAPROT", rate: 45 },
+    { name: "Hipeekaboo(China)", rate: 41.5 },
+    { name: "도매주문관리", fallbackRate: 45, subSellerRates: [
+      { name: "numa", rate: 50 },
+      { name: "peekaboo japan", rate: 50 },
+      { name: "*", rate: 35 }
+    ] },
+    { name: "예약거래", rate: 30 },
+    { name: "카카오", rate: 15 },
+    { name: "카페24", rate: 3 },
+    { name: "쿠팡로켓배송SKU", rate: 30 }
+  ]
+};
+
 const weeklyReports = [
+  {
+    id: "2026-W18",
+    label: "5월1주 (4/27~5/3)",
+    period: "2026-04-27 ~ 2026-05-03",
+    summary: "5월 1주차(4/27~5/3)는 쿠팡·자사몰·네이버·카카오·롯데온 기준 확인 매출 3,824만원. 쿠팡 Ads 확인 매출은 4,016만원.",
+    channels: [
+      { name: "쿠팡", revenue: 18574000, prevWeek: 25998030, prevYear: null, ratio: 48.6 },
+      { name: "자사몰", revenue: 15737653, prevWeek: 20554297, prevYear: null, ratio: 41.2 },
+      { name: "스마트스토어", revenue: 3011300, prevWeek: null, prevYear: null, ratio: 7.9 },
+      { name: "카카오선물하기", revenue: 752700, prevWeek: 111500, prevYear: null, ratio: 2.0 },
+      { name: "롯데온", revenue: 163200, prevWeek: 252600, prevYear: null, ratio: 0.4 }
+    ],
+    total: { revenue: 38238853, prevWeek: null, prevYear: null },
+    coupangGmv: { revenue: 40157950, fee: 35 },
+    cafe24Daily: [
+      { day: "금", date: "5/1", revenue: 5712838 },
+      { day: "토", date: "5/2", revenue: 4939596 },
+      { day: "일", date: "5/3", revenue: 5085219 }
+    ],
+    cafe24Top10: [
+      { rank: 1, name: "쿨쿨 수트세트", qty: 51, amount: 762960 },
+      { rank: 2, name: "퐁퐁 반팔 세트", qty: 51, amount: 631040 },
+      { rank: 3, name: "샤인 수트세트", qty: 21, amount: 558600 },
+      { rank: 4, name: "[가정의 달] 카네이션 마음을 전하는 날, 카니 3종 세트", qty: 14, amount: 557200 },
+      { rank: 5, name: "[가정의 달] 고마운 마음을 전하는 날, 효도세트", qty: 20, amount: 496000 },
+      { rank: 6, name: "뉴쿨링 세트", qty: 23, amount: 419200 },
+      { rank: 7, name: "쿨쿨 세트", qty: 34, amount: 418880 },
+      { rank: 8, name: "밀키 베이비 3종 세트", qty: 8, amount: 395200 },
+      { rank: 9, name: "와플 베이비세트", qty: 13, amount: 395200 },
+      { rank: 10, name: "디저트 반팔 수트세트", qty: 16, amount: 395200 }
+    ],
+    insights: {
+      good: [
+        "쿠팡·자사몰·네이버·카카오·롯데온 합산 4/27~5/3 기준 확인 매출 38,238,853원",
+        "쿠팡 납품 4/27~5/3 총단가 18,574,000원",
+        "카카오선물하기 4/27~5/3 매출 752,700원 (주문금액-취소주문금액 기준)",
+        "롯데온 4/27~5/3 판매금액 163,200원",
+        "쿠팡 Ads 확인 매출 40,157,950원",
+        "Cafe24 5/1~5/3 매출 15,737,653원 · 주문 283건 · AOV 약 55,610원",
+        "네이버 4/27~5/3 매출 3,011,300원 (결제금액-환불금액 기준)",
+        "Meta 광고 export 기준 지출 1,514,107원, 구매 180건, 구매 전환값 11,113,298원"
+      ],
+      check: [
+        "5월 1주차는 전체 주요 채널 매출 반영 완료",
+        "Cafe24 자사몰 매출은 현재 2026-05-01~2026-05-03 주문 Pull 기준",
+        "GA4 purchase 이벤트 2026-05-01~2026-05-03: 구매 246건, 매출 14,586,568원"
+      ]
+    },
+    status: [
+      { type: "confirmed", text: "쿠팡 서플라이허브 2026-04-27~2026-05-03: 총단가 18,574,000원" },
+      { type: "confirmed", text: "롯데온 통계매출분석 2026-04-27~2026-05-03: 판매금액 163,200원" },
+      { type: "confirmed", text: "카카오선물하기 판매현황 2026-04-27~2026-05-03: 주문금액 752,700원 - 취소주문금액 0원 = 752,700원" },
+      { type: "confirmed", text: "쿠팡 Ads 2026-04-27~2026-05-03 확인 매출: 40,157,950원" },
+      { type: "confirmed", text: "Cafe24 주문 Pull 기준 2026-05-01~2026-05-03: 주문 283건, 매출 15,737,653원" },
+      { type: "confirmed", text: "네이버 판매성과 2026-04-27~2026-05-03: 매출 3,011,300원 (결제금액-환불금액)" },
+      { type: "confirmed", text: "Cafe24 2026-05-01~2026-05-04 오전 Pull 전체: 주문 302건, 매출 16,851,561원" },
+      { type: "confirmed", text: "GA4 purchase 이벤트 2026-05-01~2026-05-03: 구매 246건, 매출 14,586,568원" },
+      { type: "confirmed", text: "Meta 2026-04-04~2026-05-03 광고 export: 지출 1,514,107원, 구매 180건, 구매 전환값 11,113,298원" },
+      { type: "confirmed", text: "5월 1주차 주요 채널 매출 반영 완료" }
+    ],
+    nextWeek: {
+      products: "선물하기 제품군 구성 및 업로드 진행",
+      issues: [
+        "여름 기획전 종료 후 자사몰 디벨롭 진행 내용 판단",
+        "Cafe24 2026-04-27~2026-04-30 주문 Pull 확보 후 5월 1주차 자사몰 주차 합계 보정 여부 확인",
+        "5월 2주차 원본 파일 수집 기준 정리: 네이버 판매성과, 쿠팡 납품 리스트, 쿠팡 Ads 확인 매출, 롯데온 매출분석, 카카오선물하기 판매현황",
+        "자동 업데이트용 파일명/기간 규칙 고정 후 import-weekly-sales.ps1로 주차 매출 반영 테스트"
+      ]
+    }
+  },
   {
     id: "2026-W17",
     label: "4월4주 (4/20~4/26)",
@@ -374,22 +463,23 @@ function getMonthlyData() {
 // 월간 마감 보고서 데이터 (셀러센터 확정치, 쿠팡은 납품금액 기준)
 const monthlyClosing = {
   "2026-04": {
-    label: "2026년 4월 누적",
-    period: "2026-04-01 ~ 2026-04-26 (진행 중, 26일)",
-    summary: "4월 26일 누적 1억 9,017만원 · MoM(3/1~26) +19.9% · YoY(2025 4/1~26) +5.9%. 스마트스토어 844만 +165.6% MoM, 롯데온 +221% MoM 폭등. 자사몰 9,471만 채널 1위(49.8%). 카카오 YoY -69%·롯데온 YoY -45% 회복 필요.",
+    label: "2026년 4월 마감",
+    period: "2026-04-01 ~ 2026-04-30",
+    summary: "4월 마감 2억 1,025만원 · MoM(3/1~26) +32.6% · YoY(2025 4/1~26) +17.0%. 쿠팡 납품 1억 262만, 쿠팡 Ads 확인 매출 1억 8,582만. 쿠팡이 채널 1위(48.8%)로 상승.",
     channels: [
-      { name: "쿠팡", revenue: 84820930, prevMonth: 71770000, prevYear: 81728100 },
+      { name: "쿠팡", revenue: 102616430, prevMonth: 71770000, prevYear: 81728100 },
       { name: "자사몰", revenue: 94705510, prevMonth: 81963256, prevYear: 87673720 },
-      { name: "스마트스토어", revenue: 8441470, prevMonth: 3178100, prevYear: 4526200 },
-      { name: "카카오선물하기", revenue: 1214000, prevMonth: 1352600, prevYear: 3915100 },
-      { name: "롯데온", revenue: 987800, prevMonth: 307700, prevYear: 1803100 }
+      { name: "스마트스토어", revenue: 9782200, prevMonth: 3178100, prevYear: 4526200 },
+      { name: "카카오선물하기", revenue: 2044600, prevMonth: 1352600, prevYear: 3915100 },
+      { name: "롯데온", revenue: 1105100, prevMonth: 307700, prevYear: 1803100 }
     ],
-    total: { revenue: 190169710, prevMonth: 158571656, prevYear: 179646220 },
+    total: { revenue: 210253840, prevMonth: 158571656, prevYear: 179646220 },
+    coupangGmv: { revenue: 185820710, fee: 35 },
     ratioChange: [
-      { name: "쿠팡", prev: 45.3, current: 44.6, change: -0.7 },
-      { name: "자사몰", prev: 51.7, current: 49.8, change: -1.9 },
-      { name: "스마트스토어", prev: 2.0, current: 4.4, change: 2.4 },
-      { name: "카카오선물하기", prev: 0.9, current: 0.6, change: -0.3 },
+      { name: "쿠팡", prev: 45.3, current: 48.8, change: 3.5 },
+      { name: "자사몰", prev: 51.7, current: 45.0, change: -6.7 },
+      { name: "스마트스토어", prev: 2.0, current: 4.7, change: 2.7 },
+      { name: "카카오선물하기", prev: 0.9, current: 1.0, change: 0.1 },
       { name: "롯데온", prev: 0.2, current: 0.5, change: 0.3 }
     ],
     overseas: {
@@ -411,17 +501,19 @@ const monthlyClosing = {
     },
     insights: {
       good: [
-        "4월 누적(~4/26) 1.90억원, MoM +19.9% · YoY +5.9%",
-        "스마트스토어 844만 · MoM +165.6% · YoY +86.5% — 채널 비중 2.0%→4.4%로 두 배 확대",
-        "롯데온 988만 · MoM +221% (3/1~26 31만 → 4/1~26 99만)",
-        "자사몰 9,471만 · MoM +15.5% · YoY +8.0% (채널 1위 49.8%)",
-        "쿠팡 납품 8,482만 · MoM +18.2% · YoY +3.8% (전년 동기 대비 회복)"
+        "4월 마감 2.10억원, MoM +32.6% · YoY +17.0%",
+        "쿠팡 납품 1억 262만 · MoM +43.0% · YoY +25.6% (채널 1위 48.8%)",
+        "쿠팡 Ads 확인 매출 185,820,710원",
+        "카카오선물하기 204만 · MoM +51.2% (주문금액 217.7만 - 취소 13.3만)",
+        "스마트스토어 978만 · MoM +207.8% · YoY +116.1% — 채널 비중 2.0%→5.1%로 확대",
+        "롯데온 111만 · MoM +259.1% (3/1~26 31만 → 4/1~30 111만)",
+        "자사몰 9,471만 · MoM +15.5% · YoY +8.0% (채널 2위 45.2%)"
       ],
       check: [
-        "카카오선물하기 121만 · MoM -10.2% · YoY -69.0% (392만→121만) 큰 폭 하락",
-        "롯데온 99만 · YoY -45.2% (180만→99만) 전년 대비 절반 수준",
-        "자사몰 비중 51.7%→49.8%로 50% 미만 하락 — 채널 다각화 진행 중",
-        "Hipeekaboo 정산 매출 96만(이지어드민 판매금액합 기준), 전월 7.6만 대비 12배 — 정산 인식 시작"
+        "4월 채널 비중: 쿠팡 48.8%, 자사몰 45.0%, 스마트스토어 4.7%, 카카오선물하기 1.0%, 롯데온 0.5%",
+        "카카오선물하기 4월 매출 2,044,600원 (주문금액 2,177,600원 - 취소주문금액 133,000원)",
+        "롯데온 4월 판매금액 1,105,100원",
+        "해외/도매 4월 누적 판매금액 116,184,000원 (이지어드민 판매금액합 기준)"
       ]
     },
     weeklyTrend: [
@@ -431,12 +523,12 @@ const monthlyClosing = {
       { label: "4주 (4/20~4/26, W17)", coupang: 25998030, cafe24: 20554297, smartstore: 2942980, kakao: 111500, lotteon: 252600, total: 49859407 }
     ],
     nextMonth: {
-      products: "",
+      products: "선물하기 제품군 구성 및 업로드 진행",
       issues: [
-        "4월 잔여(4/27~30, 4일) 집계 대기 — 5월 마감 시 합산",
-        "5월 가정의달 이벤트 본격 시작 (4/30~5/6 \"2026 여름\" 기획전 오픈)",
-        "카카오선물하기 YoY -69% 회복 방안 — 노출/배너 점검",
-        "롯데온 전년 대비 회복 방안 검토 지속"
+        "여름 기획전 종료 후 자사몰 디벨롭 진행 내용 판단",
+        "5월 주차별 매출 원본 파일 수집 일정 확정",
+        "쿠팡 Ads 확인 매출과 서플라이허브 납품금액 병기 방식 유지",
+        "월별 추이 자동 반영을 위한 5월 누적 집계 파일 구조 정리"
       ]
     }
   },
@@ -543,5 +635,16 @@ const monthlyTrend = [
       { name: "롯데온", revenue: 469200 }
     ],
     total: 198602985
+  },
+  {
+    month: "2026-04",
+    channels: [
+      { name: "쿠팡", revenue: 102616430 },
+      { name: "자사몰", revenue: 94705510 },
+      { name: "스마트스토어", revenue: 9782200 },
+      { name: "카카오선물하기", revenue: 2044600 },
+      { name: "롯데온", revenue: 1105100 }
+    ],
+    total: 210253840
   }
 ];
