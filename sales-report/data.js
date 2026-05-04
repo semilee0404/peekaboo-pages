@@ -475,21 +475,21 @@ const monthlyClosing = {
   "2026-04": {
     label: "2026년 4월 마감",
     period: "2026-04-01 ~ 2026-04-30",
-    summary: "4월 마감 2억 2,505만원 · MoM(3/1~26) +41.9% · YoY(2025 4/1~26) +25.3%. 자사몰 Cafe24 애널리틱스 매출 1억 950만, 쿠팡 납품 1억 262만, 쿠팡 Ads 확인 매출 1억 8,582만.",
+    summary: "4월 마감 2억 2,505만원 · MoM(3월 마감) +12.4% · YoY(2025 4/1~26) +25.3%. 자사몰 Cafe24 애널리틱스 매출 1억 950만, 쿠팡 납품 1억 262만, 쿠팡 Ads 확인 매출 1억 8,582만.",
     channels: [
-      { name: "쿠팡", revenue: 102616430, prevMonth: 71770000, prevYear: 81728100 },
-      { name: "자사몰", revenue: 109505414, prevMonth: 81963256, prevYear: 87673720 },
-      { name: "스마트스토어", revenue: 9782200, prevMonth: 3178100, prevYear: 4526200 },
-      { name: "카카오선물하기", revenue: 2044600, prevMonth: 1352600, prevYear: 3915100 },
-      { name: "롯데온", revenue: 1105100, prevMonth: 307700, prevYear: 1803100 }
+      { name: "쿠팡", revenue: 102616430, prevMonth: 91236900, prevYear: 81728100 },
+      { name: "자사몰", revenue: 109505414, prevMonth: 101838230, prevYear: 87673720 },
+      { name: "스마트스토어", revenue: 9782200, prevMonth: 4972500, prevYear: 4526200 },
+      { name: "카카오선물하기", revenue: 2044600, prevMonth: 1690300, prevYear: 3915100 },
+      { name: "롯데온", revenue: 1105100, prevMonth: 469200, prevYear: 1803100 }
     ],
-    total: { revenue: 225053744, prevMonth: 158571656, prevYear: 179646220 },
+    total: { revenue: 225053744, prevMonth: 200207130, prevYear: 179646220 },
     coupangGmv: { revenue: 185820710, fee: 35 },
     ratioChange: [
-      { name: "쿠팡", prev: 45.3, current: 45.6, change: 0.3 },
-      { name: "자사몰", prev: 51.7, current: 48.7, change: -3.0 },
-      { name: "스마트스토어", prev: 2.0, current: 4.3, change: 2.3 },
-      { name: "카카오선물하기", prev: 0.9, current: 1.0, change: 0.1 },
+      { name: "쿠팡", prev: 45.6, current: 45.6, change: 0.0 },
+      { name: "자사몰", prev: 50.9, current: 48.7, change: -2.2 },
+      { name: "스마트스토어", prev: 2.5, current: 4.3, change: 1.8 },
+      { name: "카카오선물하기", prev: 0.8, current: 0.9, change: 0.1 },
       { name: "롯데온", prev: 0.2, current: 0.5, change: 0.3 }
     ],
     overseas: {
@@ -511,13 +511,13 @@ const monthlyClosing = {
     },
     insights: {
       good: [
-        "4월 마감 2.25억원, MoM +41.9% · YoY +25.3%",
-        "자사몰 Cafe24 애널리틱스 109,505,414원 · MoM +33.6% · YoY +24.9% (채널 1위 48.7%)",
-        "쿠팡 납품 1억 262만 · MoM +43.0% · YoY +25.6% (채널 2위 45.6%)",
+        "4월 마감 2.25억원, MoM +12.4% · YoY +25.3%",
+        "자사몰 Cafe24 애널리틱스 109,505,414원 · MoM +7.5% · YoY +24.9% (채널 1위 48.7%)",
+        "쿠팡 납품 1억 262만 · MoM +12.5% · YoY +25.6% (채널 2위 45.6%)",
         "쿠팡 Ads 확인 매출 185,820,710원",
-        "카카오선물하기 204만 · MoM +51.2% (주문금액 217.7만 - 취소 13.3만)",
-        "스마트스토어 978만 · MoM +207.8% · YoY +116.1% — 채널 비중 2.0%→5.1%로 확대",
-        "롯데온 111만 · MoM +259.1% (3/1~26 31만 → 4/1~30 111만)",
+        "카카오선물하기 204만 · MoM +21.0% (주문금액 217.7만 - 취소 13.3만)",
+        "스마트스토어 978만 · MoM +96.7% · YoY +116.1% — 채널 비중 2.5%→4.3%로 확대",
+        "롯데온 111만 · MoM +135.5% (3월 47만 → 4월 111만)",
         "Cafe24 API/주문 Pull 기준이 아닌 Cafe24 애널리틱스 매출 기준으로 4월 자사몰 마감 반영"
       ],
       check: [
@@ -546,18 +546,18 @@ const monthlyClosing = {
   "2026-03": {
     label: "2026년 3월 마감",
     period: "2026-03-01 ~ 2026-03-31",
-    summary: "전체 매출 1억 9,860만원(쿠팡 납품 기준), 전월대비 -18.6%, 전년대비 +12.1%. 자사몰 비중 50.5%로 1위.",
+    summary: "전체 매출 2억 21만원(쿠팡 납품 기준), 전월대비 -17.9%, 전년대비 +13.0%. 자사몰 비중 50.9%로 1위.",
     channels: [
       { name: "쿠팡", revenue: 91236900, prevMonth: 83556530, prevYear: 79635100 },
-      { name: "자사몰", revenue: 100234085, prevMonth: 156405573, prevYear: 86482892 },
+      { name: "자사몰", revenue: 101838230, prevMonth: 156405573, prevYear: 86482892 },
       { name: "스마트스토어", revenue: 4972500, prevMonth: 1582600, prevYear: 2789190 },
       { name: "카카오선물하기", revenue: 1690300, prevMonth: 2319200, prevYear: 5992800 },
       { name: "롯데온", revenue: 469200, prevMonth: 93500, prevYear: 2346000 }
     ],
-    total: { revenue: 198602985, prevMonth: 243957403, prevYear: 177245982 },
+    total: { revenue: 200207130, prevMonth: 243957403, prevYear: 177245982 },
     ratioChange: [
-      { name: "쿠팡", prev: 44.9, current: 45.9, change: 1.0 },
-      { name: "자사몰", prev: 48.8, current: 50.5, change: 1.7 },
+      { name: "쿠팡", prev: 44.9, current: 45.6, change: 0.7 },
+      { name: "자사몰", prev: 48.8, current: 50.9, change: 2.1 },
       { name: "스마트스토어", prev: 1.6, current: 2.5, change: 0.9 },
       { name: "카카오선물하기", prev: 3.4, current: 0.9, change: -2.5 },
       { name: "롯데온", prev: 1.3, current: 0.2, change: -1.1 }
@@ -581,16 +581,17 @@ const monthlyClosing = {
     },
     insights: {
       good: [
-        "전체 매출 전년대비 +12.1% 성장 (1.77억 → 1.99억, 납품 기준)",
+        "전체 매출 전년대비 +13.0% 성장 (1.77억 → 2.00억, 납품 기준)",
+        "자사몰 Cafe24 애널리틱스 101,838,230원 · MoM -34.9% · YoY +17.8% (채널 1위 50.9%)",
         "쿠팡 납품 전년대비 +14.6% (7,964만 → 9,124만)",
         "쿠팡 납품 전월대비 +9.2% 증가",
         "스마트스토어 전월대비 +214%, 전년대비 +78% 성장세",
         "해외 수출 Hipeekaboo 전월대비 +564.6% 급성장 (8,308개)"
       ],
       check: [
-        "자사몰 전월대비 -35.9% (2월 1.56억 → 3월 1.00억)",
+        "자사몰 전월대비 -34.9% (2월 1.56억 → 3월 1.02억)",
         "카카오 전년대비 -71.8%, 롯데온 전년대비 -80.0% 축소",
-        "전월대비 전체 -18.6% — 2월 대비 하락",
+        "전월대비 전체 -17.9% — 2월 대비 하락",
         "도매주문관리 수출 전월 -18.6%, 전년 -32.0% 감소 추세"
       ]
     },
@@ -640,12 +641,12 @@ const monthlyTrend = [
     month: "2026-03",
     channels: [
       { name: "쿠팡", revenue: 91236900 },
-      { name: "자사몰", revenue: 100234085 },
+      { name: "자사몰", revenue: 101838230 },
       { name: "스마트스토어", revenue: 4972500 },
       { name: "카카오선물하기", revenue: 1690300 },
       { name: "롯데온", revenue: 469200 }
     ],
-    total: 198602985
+    total: 200207130
   },
   {
     month: "2026-04",
