@@ -33,11 +33,11 @@ const weeklyReports = [
     channels: [
       { name: "쿠팡", revenue: 18574000, prevWeek: 25998030, prevYear: null, ratio: 48.6 },
       { name: "자사몰", revenue: 15737653, prevWeek: 20554297, prevYear: null, ratio: 41.2 },
-      { name: "스마트스토어", revenue: 3011300, prevWeek: null, prevYear: null, ratio: 7.9 },
+      { name: "스마트스토어", revenue: 3011300, prevWeek: 2942980, prevYear: 1675980, ratio: 7.9 },
       { name: "카카오선물하기", revenue: 752700, prevWeek: 111500, prevYear: null, ratio: 2.0 },
       { name: "롯데온", revenue: 163200, prevWeek: 252600, prevYear: null, ratio: 0.4 }
     ],
-    total: { revenue: 38238853, prevWeek: null, prevYear: null },
+    total: { revenue: 38238853, prevWeek: 49859407, prevYear: null },
     coupangGmv: { revenue: 40157950, fee: 35 },
     cafe24Daily: [
       { day: "금", date: "5/1", revenue: 5712838 },
@@ -65,6 +65,7 @@ const weeklyReports = [
         "쿠팡 Ads 확인 매출 40,157,950원",
         "Cafe24 5/1~5/3 매출 15,737,653원 · 주문 283건 · AOV 약 55,610원",
         "네이버 4/27~5/3 매출 3,011,300원 (결제금액-환불금액 기준)",
+        "스마트스토어 전년 동요일 2025-04-28~2025-05-04 매출 1,675,980원 (결제금액 1,914,050원 - 환불금액 238,070원)",
         "Meta 광고 export 기준 지출 1,514,107원, 구매 180건, 구매 전환값 11,113,298원"
       ],
       check: [
@@ -80,6 +81,7 @@ const weeklyReports = [
       { type: "confirmed", text: "쿠팡 Ads 2026-04-27~2026-05-03 확인 매출: 40,157,950원" },
       { type: "confirmed", text: "Cafe24 주문 Pull 기준 2026-05-01~2026-05-03: 주문 283건, 매출 15,737,653원" },
       { type: "confirmed", text: "네이버 판매성과 2026-04-27~2026-05-03: 매출 3,011,300원 (결제금액-환불금액)" },
+      { type: "confirmed", text: "스마트스토어 전년 동요일 2025-04-28~2025-05-04: 결제금액 1,914,050원 - 환불금액 238,070원 = 매출 1,675,980원" },
       { type: "confirmed", text: "Cafe24 2026-05-01~2026-05-04 오전 Pull 전체: 주문 302건, 매출 16,851,561원" },
       { type: "confirmed", text: "GA4 purchase 이벤트 2026-05-01~2026-05-03: 구매 246건, 매출 14,586,568원" },
       { type: "confirmed", text: "Meta 2026-04-04~2026-05-03 광고 export: 지출 1,514,107원, 구매 180건, 구매 전환값 11,113,298원" },
