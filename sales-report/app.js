@@ -121,6 +121,29 @@ function buildMetaAdsFromSheet(row) {
   };
 }
 
+function buildInputStatusFromSheet(row) {
+  const items = [
+    { label: '쿠팡', complete: parseNumber(row.coupang) != null },
+    { label: '자사몰', complete: parseNumber(row.cafe24) != null },
+    { label: '스마트스토어', complete: parseNumber(row.smartstore) != null },
+    { label: '카카오선물하기', complete: parseNumber(row.kakao) != null },
+    { label: '롯데온', complete: parseNumber(row.lotteon) != null },
+    {
+      label: 'Meta 광고비',
+      complete: parseNumber(row.meta_spend) != null
+        || parseNumber(row.meta_purchases) != null
+        || parseNumber(row.meta_purchase_value) != null
+        || Boolean(row.meta_period)
+    }
+  ];
+
+  return {
+    completed: items.filter(item => item.complete).length,
+    total: items.length,
+    items
+  };
+}
+
 function renderMetaAds(metaAds, totalRevenue) {
   if (!metaAds) return '';
 
@@ -147,6 +170,52 @@ function renderMetaAds(metaAds, totalRevenue) {
           </tr>
         </table>
         ${metaAds.notes?.length ? `<ul class="insight-list">${metaAds.notes.map(note => `<li class="check">${note}</li>`).join('')}</ul>` : ''}
+      </div>
+    </div>`;
+}
+
+function renderWeeklyDecisionSummary(w) {
+  const inputStatus = w.inputStatus || {
+    completed: w.channels.filter(ch => ch.revenue != null).length,
+    total: w.channels.length,
+    items: w.channels.map(ch => ({ label: ch.name, complete: ch.revenue != null }))
+  };
+  const inputLabel = inputStatus.completed === inputStatus.total ? '입력 완료' : '일부 미입력';
+  const adAdjustedRevenue = w.metaAds?.spend != null ? w.total.revenue - w.metaAds.spend : null;
+
+  return `
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header">운영 판단 요약</div>
+        <div class="card-body">
+          <table>
+            <tr><th>항목</th><th>값</th></tr>
+            <tr><td>입력 상태</td><td class="num">${inputStatus.completed}/${inputStatus.total} · ${inputLabel}</td></tr>
+            <tr><td>총매출</td><td class="num">${fmtWon(w.total.revenue)}</td></tr>
+            <tr><td>Meta 광고비</td><td class="num">${w.metaAds?.spend == null ? '미입력' : fmtWon(w.metaAds.spend)}</td></tr>
+            <tr><td>광고비 차감 후 매출</td><td class="num">${adAdjustedRevenue == null ? '미입력' : fmtWon(adAdjustedRevenue)}</td></tr>
+          </table>
+          <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;">
+            ${inputStatus.items.map(item => `<span class="badge ${item.complete ? 'badge-up' : 'badge-down'}">${item.label} ${item.complete ? '완료' : '미입력'}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">채널별 전주대비 증감액</div>
+        <div class="card-body">
+          <table>
+            <tr><th>채널</th><th>이번 주</th><th>전주대비</th></tr>
+            ${w.channels.map(ch => {
+              const delta = ch.prevWeek == null ? null : ch.revenue - ch.prevWeek;
+              const cls = delta == null ? '' : delta >= 0 ? 'badge-up' : 'badge-down';
+              return `<tr>
+                <td>${ch.name}</td>
+                <td class="num">${fmtWon(ch.revenue)}</td>
+                <td class="center">${delta == null ? '-' : `<span class="badge ${cls}">${delta >= 0 ? '+' : ''}${fmt(delta)}원</span>`}</td>
+              </tr>`;
+            }).join('')}
+          </table>
+        </div>
       </div>
     </div>`;
 }
@@ -216,6 +285,7 @@ function buildWeeklyReportFromSheet(row) {
     total: { revenue: totalRevenue, prevWeek: totalPrevWeek, prevYear: totalPrevYear },
     coupangGmv: coupangAds ? { revenue: coupangAds, fee: 35 } : null,
     metaAds,
+    inputStatus: buildInputStatusFromSheet(row),
     cafe24Daily: parseDailyRows(row),
     cafe24Top10: [],
     insights: {
@@ -323,6 +393,8 @@ function showWeekly(id) {
         </div>`;
       }).join('')}
     </div>
+
+    ${renderWeeklyDecisionSummary(w)}
 
     ${renderMetaAds(w.metaAds, w.total.revenue)}
 
