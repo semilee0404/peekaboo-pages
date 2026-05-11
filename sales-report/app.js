@@ -7,6 +7,7 @@ const fmtPct = (cur, prev) => {
 };
 const isUp = (cur, prev) => prev && cur > prev;
 const normalizeSellerName = name => (name || '').toLowerCase().replace(/\s+/g, '');
+const weeklyInputPath = 'weekly-sales-input.csv';
 
 function findCommissionRule(name) {
   if (typeof overseasCommissionConfig === 'undefined') return null;
@@ -49,6 +50,161 @@ let currentChart2 = null;
 let currentChart3 = null;
 const visibleWeeklyReports = () => weeklyReports.filter(w => w.id >= '2026-W18');
 
+function parseNumber(value) {
+  if (value == null) return null;
+  const text = String(value).replace(/,/g, '').replace(/원/g, '').trim();
+  if (!text) return null;
+  const num = Number(text);
+  return Number.isFinite(num) ? num : null;
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let cell = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    const next = text[i + 1];
+
+    if (char === '"' && inQuotes && next === '"') {
+      cell += '"';
+      i += 1;
+    } else if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ',' && !inQuotes) {
+      row.push(cell);
+      cell = '';
+    } else if ((char === '\n' || char === '\r') && !inQuotes) {
+      if (char === '\r' && next === '\n') i += 1;
+      row.push(cell);
+      if (row.some(v => v.trim() !== '')) rows.push(row);
+      row = [];
+      cell = '';
+    } else {
+      cell += char;
+    }
+  }
+
+  row.push(cell);
+  if (row.some(v => v.trim() !== '')) rows.push(row);
+  if (!rows.length) return [];
+
+  const headers = rows[0].map(h => h.trim());
+  return rows.slice(1).map(values => {
+    const obj = {};
+    headers.forEach((header, i) => { obj[header] = (values[i] || '').trim(); });
+    return obj;
+  });
+}
+
+function splitCell(value) {
+  return (value || '').split('|').map(v => v.trim()).filter(Boolean);
+}
+
+function parseDailyRows(row) {
+  const dates = splitCell(row.cafe24_daily_dates);
+  const amounts = splitCell(row.cafe24_daily_revenues).map(parseNumber);
+  const days = ['월', '화', '수', '목', '금', '토', '일'];
+
+  return dates.map((date, index) => ({
+    day: days[index] || '',
+    date,
+    revenue: amounts[index] || 0
+  }));
+}
+
+function findPreviousWeeklyReport(id) {
+  return weeklyReports
+    .filter(report => report.id < id)
+    .slice()
+    .sort((a, b) => b.id.localeCompare(a.id))[0] || null;
+}
+
+function getChannelRevenue(report, name) {
+  return report?.channels?.find(ch => ch.name === name)?.revenue ?? null;
+}
+
+function buildWeeklyReportFromSheet(row) {
+  const id = row.id;
+  const previous = findPreviousWeeklyReport(id);
+  const channelConfig = [
+    ['쿠팡', 'coupang', 'prev_year_coupang'],
+    ['자사몰', 'cafe24', 'prev_year_cafe24'],
+    ['스마트스토어', 'smartstore', 'prev_year_smartstore'],
+    ['카카오선물하기', 'kakao', 'prev_year_kakao'],
+    ['롯데온', 'lotteon', 'prev_year_lotteon']
+  ];
+
+  const rawChannels = channelConfig.map(([name, currentKey, prevYearKey]) => ({
+    name,
+    revenue: parseNumber(row[currentKey]) || 0,
+    prevWeek: parseNumber(row[`prev_week_${currentKey}`]) ?? getChannelRevenue(previous, name),
+    prevYear: parseNumber(row[prevYearKey])
+  }));
+
+  const totalRevenue = rawChannels.reduce((sum, ch) => sum + ch.revenue, 0);
+  const channels = rawChannels.map(ch => ({
+    ...ch,
+    ratio: totalRevenue > 0 ? Number((ch.revenue / totalRevenue * 100).toFixed(1)) : 0
+  }));
+
+  const totalPrevWeek = parseNumber(row.prev_week_total) ?? previous?.total?.revenue ?? null;
+  const totalPrevYear = parseNumber(row.prev_year_total);
+  const period = row.period || `${row.start_date} ~ ${row.end_date}`;
+  const coupangAds = parseNumber(row.coupang_ads);
+  const good = splitCell(row.insight_good);
+  const check = splitCell(row.insight_check);
+  const status = splitCell(row.status_confirmed).map(text => ({ type: 'confirmed', text }));
+
+  return {
+    id,
+    label: row.label,
+    period,
+    summary: row.summary || `${row.label}(${period}) 확인 매출 ${fmt(totalRevenue)}원${coupangAds ? `, 쿠팡 Ads 확인 매출 ${fmt(coupangAds)}원` : ''}.`,
+    channels,
+    total: { revenue: totalRevenue, prevWeek: totalPrevWeek, prevYear: totalPrevYear },
+    coupangGmv: coupangAds ? { revenue: coupangAds, fee: 35 } : null,
+    cafe24Daily: parseDailyRows(row),
+    cafe24Top10: [],
+    insights: {
+      good: good.length ? good : [`${row.label} 주요 채널 확인 매출 ${fmt(totalRevenue)}원`],
+      check: check.length ? check : ['시트 입력값 기준 자동 반영']
+    },
+    status: status.length ? status : [{ type: 'confirmed', text: `${weeklyInputPath} 입력값 기준 자동 반영` }],
+    nextWeek: {
+      products: row.next_products || '',
+      issues: splitCell(row.next_issues)
+    }
+  };
+}
+
+function upsertWeeklyReport(report) {
+  const existingIndex = weeklyReports.findIndex(w => w.id === report.id);
+  if (existingIndex >= 0) {
+    weeklyReports[existingIndex] = { ...weeklyReports[existingIndex], ...report };
+  } else {
+    weeklyReports.push(report);
+  }
+  weeklyReports.sort((a, b) => a.id.localeCompare(b.id));
+}
+
+async function loadWeeklyInputSheet() {
+  try {
+    const response = await fetch(`${weeklyInputPath}?v=${Date.now()}`, { cache: 'no-store' });
+    if (!response.ok) return;
+    const rows = parseCsv(await response.text());
+    rows
+      .filter(row => /^(true|y|yes|1)$/i.test(row.active || ''))
+      .forEach(row => {
+        if (row.id && row.label) upsertWeeklyReport(buildWeeklyReportFromSheet(row));
+      });
+  } catch (error) {
+    console.warn('weekly input sheet skipped', error);
+  }
+}
+
 function destroyCharts() {
   [currentChart1, currentChart2, currentChart3].forEach(c => { if (c) c.destroy(); });
   currentChart1 = currentChart2 = currentChart3 = null;
@@ -57,8 +213,10 @@ function destroyCharts() {
 // 탭 생성
 function initTabs() {
   const weeklyDiv = document.getElementById('weeklyTabs');
+  weeklyDiv.innerHTML = '';
   // 마감 탭
   const closingDiv = document.getElementById('closingTabs');
+  closingDiv.innerHTML = '';
   Object.keys(monthlyClosing).sort().reverse().forEach(key => {
     const btn = document.createElement('button');
     btn.className = 'tab-btn';
@@ -637,6 +795,11 @@ function showClosing(key) {
 }
 
 // 초기화
-initTabs();
-// 최신 주차 먼저 표시
-showWeekly(visibleWeeklyReports()[0].id);
+async function bootstrapDashboard() {
+  await loadWeeklyInputSheet();
+  initTabs();
+  const latestWeekly = visibleWeeklyReports().slice().sort((a, b) => b.id.localeCompare(a.id))[0];
+  if (latestWeekly) showWeekly(latestWeekly.id);
+}
+
+bootstrapDashboard();
