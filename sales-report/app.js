@@ -1,4 +1,5 @@
 const fmt = n => n == null ? '-' : n.toLocaleString('ko-KR');
+const fmtWon = n => n == null ? '-' : `${fmt(n)}원`;
 const fmtM = n => n == null ? '-' : (n / 10000).toFixed(0) + '만';
 const fmtPct = (cur, prev) => {
   if (!prev || prev === 0) return '-';
@@ -103,6 +104,53 @@ function splitCell(value) {
   return (value || '').split('|').map(v => v.trim()).filter(Boolean);
 }
 
+function buildMetaAdsFromSheet(row) {
+  const spend = parseNumber(row.meta_spend);
+  const purchases = parseNumber(row.meta_purchases);
+  const purchaseValue = parseNumber(row.meta_purchase_value);
+  const notes = splitCell(row.meta_notes);
+
+  if (!spend && !purchases && !purchaseValue && !row.meta_period && !notes.length) return null;
+
+  return {
+    period: row.meta_period || '',
+    spend,
+    purchases,
+    purchaseValue,
+    notes
+  };
+}
+
+function renderMetaAds(metaAds, totalRevenue) {
+  if (!metaAds) return '';
+
+  const roas = metaAds.spend && metaAds.purchaseValue
+    ? (metaAds.purchaseValue / metaAds.spend * 100).toFixed(1) + '%'
+    : '-';
+  const spendRatio = metaAds.spend && totalRevenue
+    ? (metaAds.spend / totalRevenue * 100).toFixed(1) + '%'
+    : '-';
+
+  return `
+    <div class="card">
+      <div class="card-header">Meta 광고비</div>
+      <div class="card-body">
+        <table>
+          <tr><th>기간</th><th>광고비</th><th>구매</th><th>구매 전환값</th><th>ROAS</th><th>매출 대비 광고비</th></tr>
+          <tr>
+            <td>${metaAds.period || '-'}</td>
+            <td class="num">${fmtWon(metaAds.spend)}</td>
+            <td class="num">${metaAds.purchases == null ? '-' : fmt(metaAds.purchases) + '건'}</td>
+            <td class="num">${fmtWon(metaAds.purchaseValue)}</td>
+            <td class="center">${roas}</td>
+            <td class="center">${spendRatio}</td>
+          </tr>
+        </table>
+        ${metaAds.notes?.length ? `<ul class="insight-list">${metaAds.notes.map(note => `<li class="check">${note}</li>`).join('')}</ul>` : ''}
+      </div>
+    </div>`;
+}
+
 function parseDailyRows(row) {
   const dates = splitCell(row.cafe24_daily_dates);
   const amounts = splitCell(row.cafe24_daily_revenues).map(parseNumber);
@@ -154,6 +202,7 @@ function buildWeeklyReportFromSheet(row) {
   const totalPrevYear = parseNumber(row.prev_year_total);
   const period = row.period || `${row.start_date} ~ ${row.end_date}`;
   const coupangAds = parseNumber(row.coupang_ads);
+  const metaAds = buildMetaAdsFromSheet(row);
   const good = splitCell(row.insight_good);
   const check = splitCell(row.insight_check);
   const status = splitCell(row.status_confirmed).map(text => ({ type: 'confirmed', text }));
@@ -166,6 +215,7 @@ function buildWeeklyReportFromSheet(row) {
     channels,
     total: { revenue: totalRevenue, prevWeek: totalPrevWeek, prevYear: totalPrevYear },
     coupangGmv: coupangAds ? { revenue: coupangAds, fee: 35 } : null,
+    metaAds,
     cafe24Daily: parseDailyRows(row),
     cafe24Top10: [],
     insights: {
@@ -273,6 +323,8 @@ function showWeekly(id) {
         </div>`;
       }).join('')}
     </div>
+
+    ${renderMetaAds(w.metaAds, w.total.revenue)}
 
     <div class="two-col">
       <div class="card">
